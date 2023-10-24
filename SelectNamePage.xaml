@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Prototypes.SelectNamePage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dream_role.png"
+                SemanticProperties.Description="Dream roles logo"
+                HeightRequest="100"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="hello!"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="60"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="Please select your name from the drop-down below"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description=""
+                FontSize="18"
+                HorizontalOptions="CenterAndExpand"  
+                HorizontalTextAlignment = "Center"/>
+
+            <Picker x:Name="chooseName" Title="Select Name">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Adam Anderson</x:String>
+                        <x:String>Brianna Bauer</x:String>
+                        <x:String>Candance Crosby</x:String>
+                        <x:String>Drew Davis</x:String>
+                        <x:String>Ella Evans</x:String>
+                        <x:String>Faith Franco</x:String>
+                        <x:String>Geoffrey Gibbons</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Button
+                x:Name="NextBtn"
+                BackgroundColor="Beige"
+                Text="NEXT"
+				TextColor="black"
+                SemanticProperties.Hint="Navigates to next page"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

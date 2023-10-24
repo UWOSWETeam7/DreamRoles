@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Prototypes.SongsPage"
+             Title="SongsPage"
+             BackgroundColor="#E1D6C9">
+
+    <Grid
+        RowSpacing="6"
+        ColumnSpacing="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="600" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <BoxView 
+                 Grid.Row="0" 
+                 Grid.ColumnSpan="3"
+                 Color="#866B53"
+                 CornerRadius="10, 10, 10, 10"
+                 WidthRequest="400"
+                 HeightRequest="50"/>
+        <Label 
+               Grid.Row="0"
+               Grid.ColumnSpan="3" 
+               Text="Songs:"
+               FontAttributes="Bold"
+               FontSize="20"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+        
+        <SearchBar
+                BackgroundColor="White"
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                Placeholder="Enter Song Here"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+        ></SearchBar>
+        <Button Grid.Row="1"
+                Grid.Column="2"
+                BackgroundColor="Transparent"
+                ImageSource="menu.svg"
+        />
+        <Label
+            Grid.Row="2"
+            Grid.Column="1"
+            Text="Name:"
+            FontSize="15"/>
+        <Label
+            Grid.Row="2"
+            Grid.Column="1"
+            HorizontalOptions="End"
+            Text="Performers:"
+            FontSize="15"/>
+        <CollectionView
+               Grid.Row="3"
+               Grid.ColumnSpan="2"
+               HorizontalOptions="Center">
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Defying Gravity</x:String>
+                    <x:String>Ya Got Trouble</x:String>
+                    <x:String>A Little Priest</x:String>
+                    <x:String>Whatever Lola Wants</x:String>
+                    <x:String>Big Spender</x:String>
+                    <x:String>Send in the Clowns</x:String>
+                    <x:String>And I am Telling You I'm Not Going</x:String>
+                    <x:String>Cell Block Tango</x:String>
+                    <x:String>On my Own</x:String>
+                    <x:String>Losing My Mind</x:String>
+                    <x:String>I Dreamed a Dream</x:String>
+                    <x:String>Song 12</x:String>
+                    <x:String>Song 13</x:String>
+                    <x:String>Song 14</x:String>
+                    <x:String>Song 15</x:String>
+                    <x:String>Song 16</x:String>
+                    <x:String>Song 17</x:String>
+                    <x:String>Song 18</x:String>
+                    <x:String>Song 19</x:String>
+                    <x:String>Song 20</x:String>
+                </x:Array>
+            </CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <mct:Expander x:Name="MyExpander1" BackgroundColor="Tan" WidthRequest="400">
+                        <mct:Expander.Header>
+                            <Grid WidthRequest="300" HeightRequest="50" Background="#866B53">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column ="1" Text="{Binding}" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
+                                <Button 
+                                    Grid.Row="3" 
+                                    Grid.Column="2" 
+                                    BackgroundColor="White"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    ImageSource="people.png"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"
+                                    CornerRadius="90"/>
+                                <Image 
+                                    Grid.Column ="0" 
+                                    Source="arrow.png" 
+                                    HeightRequest="20" 
+                                    WidthRequest="20" 
+                                    HorizontalOptions="Start">
+                                    <Image.Triggers>
+                                        <DataTrigger 
+                                            TargetType="Image"
+                                            Binding="{Binding Source={x:Reference MyExpander1}, Path=IsExpanded}"
+                                            Value="True">
+                                            <Setter Property="Rotation" Value="180" />
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
+                            </Grid>
+                        </mct:Expander.Header>
+                        <mct:Expander.Content>
+                            <Frame BorderColor="black" BackgroundColor="Tan" Margin="3,0,3,0">
+                                <Grid WidthRequest="250" HeightRequest="100" Margin="0,-20,0,-20">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="0" Text="Time: "/>
+                                    <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" Text="9:00am - 11:00am" Margin="-25,0,0,0"/>
+                                    <Label Grid.Row="1" Grid.Column="0" Text="Location: "/>
+                                    <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" Text="Art &amp; Communication South - 112" LineBreakMode="WordWrap"/>
+                                </Grid>
+                            </Frame>
+                        </mct:Expander.Content>
+                    </mct:Expander>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

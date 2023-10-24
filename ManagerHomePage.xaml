@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Prototypes.ManagerHomePage"
+             Shell.BackgroundColor="#ac9884"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView BackgroundColor="#e1d6c9">
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="0,0"
+            VerticalOptions="Start">
+            <Border BackgroundColor="#ac9884" MinimumHeightRequest="50">
+                <Label Text="Stage Manager"  HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Border>
+            <HorizontalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="15" Margin="0, 10">
+                <SearchBar Placeholder="Enter Name Here" BackgroundColor="White"/>
+                <Image Source="menuicon.svg">
+                    <FlyoutBase.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="Go to docs repo"/>
+                            <MenuFlyoutItem Text="Go to engineering repo"/>
+                        </MenuFlyout>
+                    </FlyoutBase.ContextFlyout>
+                </Image>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="100" HorizontalOptions="Center">
+                <Label Text="Name:" FontSize="Medium"/>
+                <Label Text="Check-In:" FontSize="Medium"/>
+            </HorizontalStackLayout>
+            <Border Padding="20" BackgroundColor="#e1d6c9">
+                <Grid RowDefinitions="50,50,50,50,50,50,50,50,50,50,50" ColumnDefinitions="2*, *" BackgroundColor="#c8b8a8" Padding="5">
+                    <Border Grid.Row="0" Grid.Column="0" BackgroundColor="#c8b8a8" Stroke="Black">
+                        <Label Text="Ava Wilson" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="0" Grid.Column="1" BackgroundColor="#c8b8a8" Stroke="Black">
+                        <Image Source="checkmark.svg" Scale="0.6"/>
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="0" BackgroundColor="#c8b8a8" Stroke="Black">
+                        <Label Text="Benjamin Martinez" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="1" BackgroundColor="#c8b8a8" Stroke="Black">
+                        <Image Source="xmark.svg" Scale="0.6"/>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="0" BackgroundColor="#c8b8a8" Stroke="Black">
+                        <Label Text="Chris Cringle" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="1" BackgroundColor="#c8b8a8" Stroke="Black">
+                        <Image Source="checkmark.svg" Scale="0.6"/>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="0" BackgroundColor="#c8b8a8" Stroke="Black">
+                        <Label Text="Dave Davidson" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="1" BackgroundColor="#c8b8a8" Stroke="Black">
+                        <Image Source="checkmark.svg" Scale="0.6"/>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="0" BackgroundColor="#c8b8a8" Stroke="Black">
+                        <Label Text="Emily Johnson" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="1" BackgroundColor="#c8b8a8" Stroke="Black">
+                        <Image Source="xmark.svg" Scale="0.6"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+
+    
