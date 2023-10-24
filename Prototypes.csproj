@@ -75,55 +75,55 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="ManagerAlertPage.xaml.cs">
+	  <Compile Update="UI\ManagerAlertPage.xaml.cs">
 	    <DependentUpon>ManagerAlertPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="PerformerHomePage.xaml.cs">
+	  <Compile Update="UI\PerformerHomePage.xaml.cs">
 	    <DependentUpon>PerformerHomePage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="PerformersOfSongPage.xaml.cs">
+	  <Compile Update="UI\PerformersOfSongPage.xaml.cs">
 	    <DependentUpon>PerformersOfSongPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="CheckedInPage.xaml">
+	  <MauiXaml Update="UI\CheckedInPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="ChoreoHomePage.xaml">
+	  <MauiXaml Update="UI\ChoreoHomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="ChoreoNotCheckedInPage.xaml">
+	  <MauiXaml Update="UI\ChoreoNotCheckedInPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="ManagerHomePage.xaml">
+	  <MauiXaml Update="UI\ManagerHomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="ManagerNotCheckedInPage.xaml">
+	  <MauiXaml Update="UI\ManagerNotCheckedInPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="ManagerAlertPage.xaml">
+	  <MauiXaml Update="UI\ManagerAlertPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="ManagerPerformerInfoPage.xaml">
+	  <MauiXaml Update="UI\ManagerPerformerInfoPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="PerformerHomePage.xaml">
+	  <MauiXaml Update="UI\PerformerHomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="PerformersOfSongPage.xaml">
+	  <MauiXaml Update="UI\PerformersOfSongPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="SelectNamePage.xaml">
+	  <MauiXaml Update="UI\SelectNamePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="SongSelectPage.xaml">
+	  <MauiXaml Update="UI\SongSelectPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="SongsPage.xaml">
+	  <MauiXaml Update="UI\SongsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="WelcomePage.xaml">
+	  <MauiXaml Update="UI\WelcomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

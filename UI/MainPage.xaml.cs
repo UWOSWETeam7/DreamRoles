@@ -1,4 +1,4 @@
-﻿namespace Prototypes
+﻿namespace Prototypes.UI
 {
     public partial class MainPage : ContentPage
     {
