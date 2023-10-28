@@ -24,7 +24,7 @@ namespace Prototypes.Database
             connStringBuilder.Port = 26257;
             connStringBuilder.SslMode = SslMode.VerifyFull;
             connStringBuilder.Username = "keenan_marco";
-            connStringBuilder.Password = FetchPassword();
+            connStringBuilder.Password = "6tRK2gvZOx62cwwPBe8znA";
             connStringBuilder.Database = "defaultdb";
             connStringBuilder.ApplicationName = "whatever";
             connStringBuilder.IncludeErrorDetail = true;
@@ -33,6 +33,7 @@ namespace Prototypes.Database
             return connStringBuilder.ConnectionString;
         }
 
+        /*
         /// <summary>
         /// Will get a password from the secret.json file
         /// </summary>
@@ -42,6 +43,7 @@ namespace Prototypes.Database
             IConfiguration config = new ConfigurationBuilder().AddUserSecrets<StageManagerDB>().Build();
             return config["CockroachDBPassword"] ?? "6tRK2gvZOx62cwwPBe8znA"; // this works in VS, not VSC
         }
+        */
 
 
         /// <summary>
@@ -69,7 +71,8 @@ namespace Prototypes.Database
                 //Creates a new performer object and adds it to the ObservableCollection
                 String id = reader.GetString(0);
                 String name = reader.GetString(1);
-                ObservableCollection<String> songs = reader.GetString(2);
+                ObservableCollection<String> songs = new ObservableCollection<String>();
+                songs.Add(reader.GetString(2));
                 String email = reader.GetString(3);
                 String phoneNumber = reader.GetString(4);
                 Performer performerToAdd = new(id, name, songs, email, phoneNumber );
@@ -195,7 +198,7 @@ namespace Prototypes.Database
         /// </summary>
         /// <param name="performer">the updated versoin of the performer</param>
         /// <returns>true if it found and updated the performer. False if it could not find the performer in the database</returns>
-        public Boolean UpdatePerform(Performer performer)
+        public Boolean UpdatePerformer(Performer performer)
         {
             try
             {

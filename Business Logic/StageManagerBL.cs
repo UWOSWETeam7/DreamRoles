@@ -1,14 +1,11 @@
-﻿using Prototypes.StageManagerDB;
-using Prototype.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Prototype.Model;
+using Prototypes.Business_Logic.IBusinessLogic;
+using Prototypes.Database;
+using System.Collections.ObjectModel;
 
 namespace Prototypes.Business_Logic
 {
-    class StageManegerBL : IStageManegerBL
+    class StageManegerBL : IStageManagerBL
     {
 
         //A interface of StageManagerDB
@@ -50,7 +47,7 @@ namespace Prototypes.Business_Logic
             //Creates a new performer object
             Performer performer = new Performer(id, name, songs, email, phoneNumber);
             //Sends it to the StageManagerDB and gets a true or false depending if it can add it to the StageManagerDB
-            return StageManagerDB.Insertperformer(performer);
+            return StageManagerDB.InsertPerformer(performer);
         }
 
         /// <summary>
@@ -61,7 +58,7 @@ namespace Prototypes.Business_Logic
         public Boolean DeletePerformer(String id)
         {
            //Sends it to the StageManagerDB
-           return StageManagerDB.Deleteperformer(id);
+           return StageManagerDB.DeletePerformer(id);
         }
 
         /// <summary>
@@ -85,10 +82,10 @@ namespace Prototypes.Business_Logic
         /// </summary>
         /// <param name="id">the id of the performer that is suppose to be found</param>
         /// <returns>the performer if it is found null if it is not found or invalid param</returns>
-        public performer FindPerformer(String id)
+        public Performer FindPerformer(String id)
         {
             //Sends it to StageManagerDB
-            return StageManagerDB.Selectperformer(id);
+            return StageManagerDB.SelectPerformer(id);
         }
 
         /// <summary>

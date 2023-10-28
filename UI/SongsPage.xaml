@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="Prototypes.SongsPage"
+             x:Class="Prototypes.UI.SongsPage"
              Title="SongsPage"
              BackgroundColor="#E1D6C9">
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Prototypes.Database
 {
-    internal class ISongDB
+    internal class SongDB
     {
     }
 }

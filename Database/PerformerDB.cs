@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Prototypes.Database
 {
-    internal class IPerformerDB
+    internal class PerformerDB
     {
     }
 }
