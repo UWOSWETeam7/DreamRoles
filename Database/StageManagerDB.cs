@@ -25,7 +25,7 @@ namespace Prototypes.Database
             connStringBuilder.SslMode = SslMode.VerifyFull;
             connStringBuilder.Username = "keenan_marco";
             connStringBuilder.Password = "6tRK2gvZOx62cwwPBe8znA";
-            connStringBuilder.Database = "defaultdb";
+            connStringBuilder.Database = "dreamroles";
             connStringBuilder.ApplicationName = "whatever";
             connStringBuilder.IncludeErrorDetail = true;
 
@@ -45,7 +45,7 @@ namespace Prototypes.Database
         }
         */
 
-
+        //FIX ME YOU NEED TO GRAP FROM THE USERS AND PERFORMERS
         /// <summary>
         /// Gets all the performers from the database
         /// </summary>
@@ -70,12 +70,13 @@ namespace Prototypes.Database
             {
                 //Creates a new performer object and adds it to the ObservableCollection
                 String id = reader.GetString(0);
-                String name = reader.GetString(1);
+                String firstName = reader.GetString(1);
+                String lastName = reader.GetString(2);
                 ObservableCollection<String> songs = new ObservableCollection<String>();
-                songs.Add(reader.GetString(2));
+                songs.Add(reader.GetString(3));
                 String email = reader.GetString(3);
                 String phoneNumber = reader.GetString(4);
-                Performer performerToAdd = new(id, name, songs, email, phoneNumber );
+                Performer performerToAdd = new(id, firstName, lastName, songs, email, phoneNumber );
                 performers.Add(performerToAdd);
                 Console.WriteLine(performerToAdd);
             }
@@ -97,13 +98,13 @@ namespace Prototypes.Database
         /// </summary>
         /// <param name="id">the id of the performer that the user is trying to find</param>
         /// <returns>the performer if it is in the ObservableCollection. Returns null if the performer is not found</returns>
-        public Performer SelectPerformer(String name)
+        public Performer SelectPerformer(String id)
         {
             //Loop through all the aiports in the ObservableCollection
             foreach (Performer performer in performers)
             {
                 //If it is found return it
-                if (performer.Name == name)
+                if (performer.Id == id)
                 {
                     return performer;
                 }
@@ -128,12 +129,15 @@ namespace Prototypes.Database
                 //Commands to insert a new performer into the database
                 var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO performers VALUES (@id, @name, @songs, @email, @phoneNumber);";
+                cmd.CommandText = "INSERT INTO dreamroleuser Values (@id, @first_name @last_name @title);";
                 cmd.Parameters.AddWithValue("id", performer.Id);
-                cmd.Parameters.AddWithValue("name", performer.Name);
-                cmd.Parameters.AddWithValue("songs", performer.Songs);
+                cmd.Parameters.AddWithValue("first_name", performer.FirstName);
+                cmd.Parameters.AddWithValue("last_name", performer.LastName);
+                cmd.Parameters.AddWithValue("title", "Performer");
+                cmd.CommandText = "INSERT INTO performer VALUES (@id, @phone_number @email);";
+                cmd.Parameters.AddWithValue("id", performer.Id);
+                cmd.Parameters.AddWithValue("phone_number", performer.PhoneNumber);
                 cmd.Parameters.AddWithValue("email", performer.Email);
-                cmd.Parameters.AddWithValue("phoneNumber", performer.PhoneNumber);
                 cmd.ExecuteNonQuery();
 
                 //Repopulates the performers
@@ -177,6 +181,8 @@ namespace Prototypes.Database
                 //Commands to delete the performer from the database
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
+                cmd.CommandText = "DELETE FROM dreamroleuser WHERE id = @id";
+                cmd.Parameters.AddWithValue("id", performerToDel.Id);
                 cmd.CommandText = "DELETE FROM performers WHERE id = @id";
                 cmd.Parameters.AddWithValue("id", performerToDel.Id);
                 int numDeleted = cmd.ExecuteNonQuery();
@@ -209,13 +215,13 @@ namespace Prototypes.Database
                 //Commands to grab the performer with the given id and then update them
                 var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "UPDATE performers SET name = @name, songs = @songs, email = @email, phoneNumber = @phoneNumber WHERE id = @id;";
-                cmd.CommandText = "INSERT INTO performers VALUES (@id, @name, @songs, @email, @phoneNumber);";
+                cmd.CommandText = "UPDATE dreamroleuser SET first_name = @first_name, last_name = @last_name WHERE id = @id;";
                 cmd.Parameters.AddWithValue("id", performer.Id);
-                cmd.Parameters.AddWithValue("name", performer.Name);
-                cmd.Parameters.AddWithValue("songs", performer.Songs);
+                cmd.Parameters.AddWithValue("first_name", performer.FirstName);
+                cmd.Parameters.AddWithValue("last_name", performer.LastName);
+                cmd.CommandText = "UPDATE performers SET  phone_number = @phoneNumber, email = @email WHERE id = @id;";
+                cmd.Parameters.AddWithValue("phone_number", performer.PhoneNumber);
                 cmd.Parameters.AddWithValue("email", performer.Email);
-                cmd.Parameters.AddWithValue("phoneNumber", performer.PhoneNumber);
                 var numAffected = cmd.ExecuteNonQuery();
 
                 //Repopulates performers so now the updated performer is in it

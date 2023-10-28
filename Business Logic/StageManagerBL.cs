@@ -42,10 +42,10 @@ namespace Prototypes.Business_Logic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if not</returns>
-        public Boolean AddPerformer(String id, String name, ObservableCollection<String> songs, String email, String phoneNumber)
+        public Boolean AddPerformer(String id, String firstName, String lastName, ObservableCollection<String> songs, String email, String phoneNumber)
         {
             //Creates a new performer object
-            Performer performer = new Performer(id, name, songs, email, phoneNumber);
+            Performer performer = new Performer(id, firstName, lastName, songs, email, phoneNumber);
             //Sends it to the StageManagerDB and gets a true or false depending if it can add it to the StageManagerDB
             return StageManagerDB.InsertPerformer(performer);
         }
@@ -69,10 +69,10 @@ namespace Prototypes.Business_Logic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if the StageManagerDB could not find the performer to edit or the params are invalid</returns>
-        public Boolean EditPerformer(String id, String name, ObservableCollection<String> songs, String email, String phoneNumber)
+        public Boolean EditPerformer(String id, String firstName, String lastName, ObservableCollection<String> songs, String email, String phoneNumber)
         {
             //Creates a new performer object
-            Performer performer = new Performer(id, name, songs, email, phoneNumber);
+            Performer performer = new Performer(id, firstName, lastName, songs, email, phoneNumber);
             //Sends it to the StageManagerDB
             return StageManagerDB.UpdatePerformer(performer);
         }

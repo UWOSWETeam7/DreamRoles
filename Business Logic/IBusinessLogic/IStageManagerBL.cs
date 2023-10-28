@@ -18,7 +18,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if not</returns>
-        public Boolean AddPerformer(String id, String name, ObservableCollection<String> songs, String email, String phoneNumber);
+        public Boolean AddPerformer(String id, String firstName, String lastName, ObservableCollection<String> songs, String email, String phoneNumber);
 
         /// <summary>
         /// Checks if the id is valid then asks the Database to delete the performer with that id
@@ -35,7 +35,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if the Database could not find the performer to edit or the params are invalid</returns>
-        public Boolean EditPerformer(String id, String name, ObservableCollection<String> songs, String email, String phoneNumber);
+        public Boolean EditPerformer(String id, String firstName, String lastName, ObservableCollection<String> songs, String email, String phoneNumber);
 
         /// <summary>
         /// Find the performer object with the given id
