@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Prototypes.UI.EditContactInfoPopup"
+             Title="EditContactInfoPopup">
+    <VerticalStackLayout>
+        <Grid RowDefinitions="*,*" ColumnDefinitions="*,2.5*">
+            <Label Grid.Row="0" Grid.Column="0" Text="Phone Number:"/>
+            <Entry x:Name="phoneNumberEntry" Grid.Row="0" Grid.Column="1" Placeholder="Enter the Phone Number"/>
+            <Label Grid.Row="1" Grid.Column="0" Text="Email:"/>
+            <Entry x:Name="emailEntry" Grid.Row="1" Grid.Column="1" Placeholder="Enter the Email" Margin="-50,0,0,0"/>
+        </Grid>
+        <Button Text="Edit" Clicked="EditContactInfo"/>
+    </VerticalStackLayout>
+</ContentPage>

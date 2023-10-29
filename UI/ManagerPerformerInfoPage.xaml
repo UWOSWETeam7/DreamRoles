@@ -5,7 +5,7 @@
              x:Class="Prototypes.UI.ManagerPerformerInfoPage"
              Shell.BackgroundColor="#ac9884"
              Shell.NavBarIsVisible="False">
-
+    
     <ScrollView BackgroundColor="#e1d6c9">
         <VerticalStackLayout Spacing="20" VerticalOptions="Start">
             <Border BackgroundColor="#ac9884">
@@ -24,17 +24,23 @@
                         <Border BackgroundColor="#c8b8a8" Stroke="Black" ClassId="ContactInfoLabel">
                             <Grid ColumnDefinitions="*,*">
                                 <Label Text="Contact Info" BackgroundColor="#c8b8a8" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.Column="0" FontSize="Medium" FontAttributes="Bold"/>
-                                <Image Source="edit.svg" Grid.Row="0" Grid.Column="1" Scale="1"/>
+                                <Image Source="edit.svg" Grid.Row="0" Grid.Column="1" Scale="1">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Tapped="ShowEditContactInfoPopup"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
                             </Grid>
                         </Border>
+                        
                         <Grid RowDefinitions="*,*" ColumnDefinitions="*,3*" Grid.Row="1" Padding="0">
-                            <Image Source="phone.svg" Grid.Row="0" Grid.Column="0" Scale=".7"/>
+                            <Image Source="phone.svg" Grid.Row="0" Grid.Column="0" WidthRequest="30" Scale="1"/>
                             <Label Text="Phone" BackgroundColor="#c8b8a8" Grid.Row="0" Grid.Column="1" FontSize="Medium" FontAttributes="Bold"/>
                             <Label Text="(920) 867-5309" Grid.Row="1" Grid.Column="1"/>
                         </Grid>
                         <Line X1="20" Y1="20" X2="300" Y2="20" Stroke="Gray" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center"/>
                         <Grid RowDefinitions="*,*" ColumnDefinitions="*,3*" Grid.Row="3" Padding="10">
-                            <Image Source="envelope.svg" Scale=".7"/>
+                            <Image Source="envelope.svg" WidthRequest="30" Scale="1"/>
                             <Label Text="Email" Grid.Row="0" Grid.Column="1" FontSize="Medium" FontAttributes="Bold"/>
                             <Label Text="wilsonava@gmail.com" Grid.Row="1" Grid.Column="1"/>
                         </Grid>
@@ -81,7 +87,12 @@
                                     </VerticalStackLayout>
                                 </Border>
                                 <Border BackgroundColor="#a79a8d" Stroke="Black" StrokeThickness="1.7" Padding="0">
-                                    <Image Source="add.svg" HorizontalOptions="Start" Margin="5"/>
+                                    <Image Source="add.svg" HorizontalOptions="Start" Margin="5">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                                 Tapped="ShowAddSongForPerformerPopUp"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
                                 </Border>
                             </StackLayout>
                         </mct:Expander.Content>
