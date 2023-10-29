@@ -16,7 +16,7 @@ namespace Prototypes.Database
         /// </summary>
         /// <param name="id">the id of the performer that the user is trying to find</param>
         /// <returns>the performer if it is in the ObservableCollection. Returns null if the performer is not found</returns>
-        public Performer SelectPerformer(String id);
+        public Performer SelectPerformer(int id);
 
         /// <summary>
         /// Adds a new performer object into the ObservableCollection and the file
@@ -30,7 +30,7 @@ namespace Prototypes.Database
         /// </summary>
         /// <param name="id">the id of the performer that wll be deleted</param>
         /// <returns>true if the aiport is found in the file and delted. False if the performer is not in the file</returns>
-        public Boolean DeletePerformer(String id);
+        public Boolean DeletePerformer(int id);
 
         /// <summary>
         /// Will update a performer after checking that the performer is already in the file
