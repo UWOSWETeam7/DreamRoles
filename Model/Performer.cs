@@ -9,7 +9,7 @@ public class Performer
     private String _lastName;
 	private ObservableCollection<String> _songs;
 	private String _email;
-	private String _phoneNumber;
+	private int _phoneNumber;
 
     /// <summary>
     /// Creates a performer
@@ -20,7 +20,7 @@ public class Performer
     /// <param name="songs">The songs the Performer is in</param>
     /// <param name="email">The Performer's email that can be used to contact them</param>
     /// <param name="phoneNumber">The Performer's phone number that can be used to contact them</param>
-    public Performer(int id, String firstName, String lastName, ObservableCollection<String> songs, String email, String phoneNumber)
+    public Performer(int id, String firstName, String lastName, ObservableCollection<String> songs, String email, int phoneNumber)
 	{
 		Id = id;
 		FirstName = firstName;
@@ -55,7 +55,7 @@ public class Performer
         get { return _email; }
         set { _email = value; }
     }
-    public String PhoneNumber
+    public int PhoneNumber
 	{
         get { return _phoneNumber; }
         set { _phoneNumber = value; }
