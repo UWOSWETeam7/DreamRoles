@@ -10,12 +10,6 @@ namespace Prototypes.Business_Logic
 
         //A interface of StageManagerDB
         private IStageManagerDB StageManagerDB = new StageManagerDB();
-        const int ID_MAX_LENGTH = 4;
-        const int ID_MIN_LENGTH = 3;
-        const int CITY_MAX_LENGTH = 25;
-        const int CITY_MIN_LENGTH = 1;
-        const int RATING_MAX_LENGTH = 5;
-        const int RATING_MIN_LENGTH = 0;
 
 
         /// <summary>
@@ -24,6 +18,17 @@ namespace Prototypes.Business_Logic
         public ObservableCollection<Performer> Performers
         {
             get { return StageManagerDB.SelectAllPerformers(); }
+        }
+
+        public Boolean AddSongForPerformer(int userId, String songName, String artistName, String duration)
+        {
+            return StageManagerDB.InsertSongForPerformer(userId, songName, artistName, duration);
+        }
+
+        public Boolean EditPerformerContact(int userId, int phoneNumber, String email)
+        {
+            //Sends it to the StageManagerDB
+            return StageManagerDB.UpdatePerformerContact(userId, phoneNumber, email);
         }
 
         /// <summary>
@@ -42,10 +47,10 @@ namespace Prototypes.Business_Logic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if not</returns>
-        public Boolean AddPerformer(int id, String firstName, String lastName, ObservableCollection<String> songs, String email, String phoneNumber)
+        public Boolean AddPerformer(int userId, String firstName, String lastName, ObservableCollection<String> songs, String email, int phoneNumber)
         {
             //Creates a new performer object
-            Performer performer = new Performer(id, firstName, lastName, songs, email, phoneNumber);
+            Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber);
             //Sends it to the StageManagerDB and gets a true or false depending if it can add it to the StageManagerDB
             return StageManagerDB.InsertPerformer(performer);
         }
@@ -55,10 +60,10 @@ namespace Prototypes.Business_Logic
         /// </summary>
         /// <param name="id">the id of the performer that is supposed to be deleted</param>
         /// <returns>true if the StageManagerDB can delete the performer. False if the param is invalid or the performer could not be found in the StageManagerDB</returns>
-        public Boolean DeletePerformer(int id)
+        public Boolean DeletePerformer(int userId)
         {
            //Sends it to the StageManagerDB
-           return StageManagerDB.DeletePerformer(id);
+           return StageManagerDB.DeletePerformer(userId);
         }
 
         /// <summary>
@@ -69,10 +74,10 @@ namespace Prototypes.Business_Logic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if the StageManagerDB could not find the performer to edit or the params are invalid</returns>
-        public Boolean EditPerformer(int id, String firstName, String lastName, ObservableCollection<String> songs, String email, String phoneNumber)
+        public Boolean EditPerformer(int userId, String firstName, String lastName, ObservableCollection<String> songs, String email, int phoneNumber)
         {
             //Creates a new performer object
-            Performer performer = new Performer(id, firstName, lastName, songs, email, phoneNumber);
+            Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber);
             //Sends it to the StageManagerDB
             return StageManagerDB.UpdatePerformer(performer);
         }
@@ -82,10 +87,10 @@ namespace Prototypes.Business_Logic
         /// </summary>
         /// <param name="id">the id of the performer that is suppose to be found</param>
         /// <returns>the performer if it is found null if it is not found or invalid param</returns>
-        public Performer FindPerformer(int id)
+        public Performer FindPerformer(int userId)
         {
             //Sends it to StageManagerDB
-            return StageManagerDB.SelectPerformer(id);
+            return StageManagerDB.SelectPerformer(userId);
         }
 
         /// <summary>

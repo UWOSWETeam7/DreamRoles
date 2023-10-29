@@ -10,6 +10,9 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         /// </summary>
         public ObservableCollection<Performer> Performers { get; }
 
+        public Boolean AddSongForPerformer(int userId, String songName, String artistName, String duration);
+        public Boolean EditPerformerContact(int userId, int phoneNumber, String email);
+
         /// <summary>
         /// Creates a performer object and send it to the Database
         /// </summary>
@@ -18,14 +21,14 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if not</returns>
-        public Boolean AddPerformer(int id, String firstName, String lastName, ObservableCollection<String> songs, String email, String phoneNumber);
+        public Boolean AddPerformer(int userId, String firstName, String lastName, ObservableCollection<String> songs, String email, int phoneNumber);
 
         /// <summary>
         /// Checks if the id is valid then asks the Database to delete the performer with that id
         /// </summary>
         /// <param name="id">the id of the performer that is supposed to be deleted</param>
         /// <returns>true if the Database can delete the performer. False if the param is invalid or the performer could not be found in the Database</returns>
-        public Boolean DeletePerformer(int id);
+        public Boolean DeletePerformer(int userId);
 
         /// <summary>
         /// Creates a performer object to replace another performer object and send it to the Database
@@ -35,14 +38,14 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if the Database could not find the performer to edit or the params are invalid</returns>
-        public Boolean EditPerformer(int id, String firstName, String lastName, ObservableCollection<String> songs, String email, String phoneNumber);
+        public Boolean EditPerformer(int userId, String firstName, String lastName, ObservableCollection<String> songs, String email, int phoneNumber);
 
         /// <summary>
         /// Find the performer object with the given id
         /// </summary>
         /// <param name="id">the id of the performer that is suppose to be found</param>
         /// <returns>the performer if it is found null if it is not found or invalid param</returns>
-        public Performer FindPerformer(int id);
+        public Performer FindPerformer(int userId);
 
 
         /// <summary>
