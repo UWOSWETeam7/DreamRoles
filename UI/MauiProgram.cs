@@ -1,15 +1,18 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
+using Prototypes.Business_Logic.IBusinessLogic;
+using Prototypes.Business_Logic;
 
 namespace Prototypes.UI
 {
     public static class MauiProgram
     {
+        public static IStageManagerBL StageManagerBL = new StageManegerBL();
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            builder
+            builder    
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
                 .UseMauiCommunityToolkitCore()
