@@ -22,9 +22,9 @@ namespace Prototypes.Database
         /// </summary>
         public StageManagerDB()
         {
+            _connString = GetConnectionString();
             _performers = SelectAllPerformers();
             _songs = SelectAllSongs();
-            _connString = GetConnectionString();
         }
 
         /// <summary>
@@ -87,6 +87,48 @@ namespace Prototypes.Database
             return songs;
         }
 
+        /// <summary>
+        /// Gets all the performers from the database
+        /// </summary>
+        /// <returns>ObservableCollection of performer objects</returns>
+        public ObservableCollection<Performer> SelectAllPerformers()
+        {
+            // Create a new ObservableCollection to store performers
+            ObservableCollection<Performer> performers = new ObservableCollection<Performer>();
+
+            // Connects and opens a connection to the database
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            // Commands to get all the performers in the database
+            using var cmd = new NpgsqlCommand(
+                 "SELECT *\r\nFROM performer\r\nINNER JOIN dreamrolesuser\r\nUSING (user_id);", conn);
+            using var reader = cmd.ExecuteReader();
+
+            // Create a Performer object for each row returned from query
+            while (reader.Read())
+            {
+                int userId = reader.GetInt16(0);
+                String phoneNumber = reader.IsDBNull(1) ? "" : reader.GetInt64(1) + "";
+                String email = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                int absences = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
+                String firstName = reader.GetString(4);
+                String lastName = reader.GetString(5);
+                ObservableCollection<ISongDB> setList = new();
+
+                // Create the Performer object and add it to the ObservableCollection
+                Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber, absences);
+                performers.Add(performerToAdd);
+            }
+
+            foreach (var performer in performers)
+            {
+                performer.Songs = SelectPerfomerSongs(performer.Id);
+            }
+
+            return performers;
+        }
+
         public Boolean DeleteSong(String songTitle, String artistName)
         {
             //Connects and opens a connection to the database
@@ -104,7 +146,7 @@ namespace Prototypes.Database
             //Check that it deleted something
             if (numDeleted > 0)
             {
-                SelectAllPerformers();
+                SelectAllSongs();
             }
             return numDeleted > 0;
         }
@@ -163,49 +205,6 @@ namespace Prototypes.Database
                     return false;
                 }
                 return true;
-        }
-
-
-        /// <summary>
-        /// Gets all the performers from the database
-        /// </summary>
-        /// <returns>ObservableCollection of performer objects</returns>
-        public ObservableCollection<Performer> SelectAllPerformers()
-        {
-            // Create a new ObservableCollection to store performers
-            ObservableCollection<Performer> performers = new ObservableCollection<Performer>();
-
-            // Connects and opens a connection to the database
-            using var conn = new NpgsqlConnection(_connString);
-            conn.Open();
-
-            // Commands to get all the performers in the database
-            using var cmd = new NpgsqlCommand(
-                 "SELECT *\r\nFROM performer\r\nINNER JOIN dreamrolesuser\r\nUSING (user_id);", conn);
-            using var reader = cmd.ExecuteReader();
-
-            // Create a Performer object for each row returned from query
-            while (reader.Read())
-            {
-                int userId = reader.GetInt16(0);
-                String phoneNumber = reader.IsDBNull(1) ? "" : reader.GetInt64(1) + "";
-                String email = reader.IsDBNull(2) ? "" : reader.GetString(2);
-                int absences = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
-                String firstName = reader.GetString(4);
-                String lastName = reader.GetString(5);
-                ObservableCollection<ISongDB> setList = new();
-
-                // Create the Performer object and add it to the ObservableCollection
-                Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber, absences);
-                performers.Add(performerToAdd);
-            }
-
-            foreach (var performer in performers)
-            {
-                performer.Songs = SelectPerfomerSongs(performer.Id);
-            }
-
-            return performers;
         }
 
         public ObservableCollection<ISongDB> SelectPerfomerSongs(int user_id)
