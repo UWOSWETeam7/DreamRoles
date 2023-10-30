@@ -51,7 +51,7 @@ namespace Prototypes.Business_Logic
         public Boolean AddPerformer(int userId, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
         {
             //Creates a new performer object
-            Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber);
+            Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber, 0);
             //Sends it to the StageManagerDB and gets a true or false depending if it can add it to the StageManagerDB
             return StageManagerDB.InsertPerformer(performer);
         }
@@ -78,7 +78,7 @@ namespace Prototypes.Business_Logic
         public Boolean EditPerformer(int userId, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
         {
             //Creates a new performer object
-            Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber);
+            Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber, 0);
             //Sends it to the StageManagerDB
             return StageManagerDB.UpdatePerformer(performer);
         }
