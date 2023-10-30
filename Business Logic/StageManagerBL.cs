@@ -1,6 +1,7 @@
 ﻿using Prototype.Model;
 using Prototypes.Business_Logic.IBusinessLogic;
 using Prototypes.Database;
+using Prototypes.Model;
 using Prototypes.Model.Interfaces;
 using System.Collections.ObjectModel;
 
@@ -19,6 +20,15 @@ namespace Prototypes.Business_Logic
         public ObservableCollection<Performer> Performers
         {
             get { return StageManagerDB.SelectAllPerformers(); }
+        }
+        public ObservableCollection<Song> Songs
+        {
+            get { return StageManagerDB.SelectAllSongs(); }
+        }
+
+        public Boolean DeleteSong(String songTitle, String artistName)
+        {
+            return StageManagerDB.DeleteSong(songTitle, artistName);
         }
 
         public Boolean AddSongForPerformer(int userId, String songName, String artistName, String duration)

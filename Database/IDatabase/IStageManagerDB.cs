@@ -1,10 +1,13 @@
 ﻿using Prototype.Model;
+using Prototypes.Model;
 using System.Collections.ObjectModel;
 
 namespace Prototypes.Database
 {
     public interface IStageManagerDB
     {
+        public ObservableCollection<Song> SelectAllSongs();
+        public Boolean DeleteSong(String songTitle, String artistName);
         public Boolean InsertSongForPerformer(int userId, String songName, String artistName, String duration);
         public Boolean UpdatePerformerContact(int userId, String phoneNumbner, String email);
 

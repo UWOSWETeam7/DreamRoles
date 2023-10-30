@@ -1,6 +1,7 @@
 ﻿using Prototype.Model;
 using System.Collections.ObjectModel;
 using Prototypes.Model.Interfaces;
+using Prototypes.Model;
 
 namespace Prototypes.Business_Logic.IBusinessLogic
 {
@@ -10,6 +11,8 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         /// A ObservableCollection of performer objects that contians all the performer the user has inputed
         /// </summary>
         public ObservableCollection<Performer> Performers { get; }
+        public ObservableCollection<Song> Songs { get; }
+        public Boolean DeleteSong(String songTitle, String artistName);
 
         public Boolean AddSongForPerformer(int userId, String songName, String artistName, String duration);
         public Boolean EditPerformerContact(int userId, String phoneNumber, String email);

@@ -6,4 +6,16 @@ public partial class SongsPage : ContentPage
     {
         InitializeComponent();
     }
+
+    private async void DeleteSong(object sender, EventArgs e)
+    {
+        Boolean userResponse = await DisplayAlert("Confirmation", "Are you sure you want to delete this song?", "Yes", "Cancel");
+        
+        if (userResponse)
+        {
+            String song = "";
+            String artist = "";
+            MauiProgram.StageManagerBL.DeleteSong(song, artist);
+        }
+    }
 }

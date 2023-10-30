@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Business_Logic;
 using Prototypes.Model.Interfaces;
+using Prototypes.Model;
 
 namespace Prototypes.Database
 {
@@ -11,6 +12,7 @@ namespace Prototypes.Database
     {
         //A ObservableCollection of Aiport objects
         private ObservableCollection<Performer> _performers;
+        private ObservableCollection<Song> _songs;
         //The string to connect to the database
         private String _connString;
 
@@ -20,9 +22,9 @@ namespace Prototypes.Database
         /// </summary>
         public StageManagerDB()
         {
-            _performers = new ObservableCollection<Performer>();
+            _performers = SelectAllPerformers();
+            _songs = SelectAllSongs();
             _connString = GetConnectionString();
-            SelectAllPerformers();
         }
 
         /// <summary>
@@ -56,6 +58,56 @@ namespace Prototypes.Database
             return config["CockroachDBPassword"] ?? "6tRK2gvZOx62cwwPBe8znA"; // this works in VS, not VSC
         }
         */
+
+        public ObservableCollection<Song> SelectAllSongs()
+        {
+            // Create a new ObservableCollection to store songs
+            ObservableCollection<Song> songs = new ObservableCollection<Song>();
+
+            // Connects and opens a connection to the database
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            // Commands to get all the songs in the database
+            using var cmd = new NpgsqlCommand("SELECT *" +
+                                              "FROM songs;");
+            using var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                String songTitle = reader.GetString(0);
+                String artist = reader.GetString(1);
+                int duration = (int)reader.GetInt64(2);
+
+                // Create the Performer object and add it to the ObservableCollection
+                Song song = new Song(songTitle, artist, duration);
+                songs.Add(song);
+            }
+
+            return songs;
+        }
+
+        public Boolean DeleteSong(String songTitle, String artistName)
+        {
+            //Connects and opens a connection to the database
+            var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            //Commands to delete the performer from the database
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "DELETE FROM songs " +
+                              "WHERE title = @title, artist = @artist";
+            cmd.Parameters.AddWithValue("title", songTitle);
+            cmd.Parameters.AddWithValue("artist", artistName);
+            int numDeleted = cmd.ExecuteNonQuery();
+            //Check that it deleted something
+            if (numDeleted > 0)
+            {
+                SelectAllPerformers();
+            }
+            return numDeleted > 0;
+        }
 
         public Boolean InsertSongForPerformer(int userId, String songName, String artistName, String duration)
         {
@@ -243,27 +295,31 @@ namespace Prototypes.Database
             //Was found
             if (performerToDel != null)
             {
-                //Connects and opens a connection to the database
-                var conn = new NpgsqlConnection(_connString);
+                using var conn = new NpgsqlConnection(_connString);
                 conn.Open();
 
-                //Commands to delete the performer from the database
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
+
+                //First, delete from the "dreamroleuser" table
                 cmd.CommandText = "DELETE FROM dreamroleuser " +
                                   "WHERE user_id = @user_id";
                 cmd.Parameters.AddWithValue("user_id", performerToDel.Id);
+                int numDeleted1 = cmd.ExecuteNonQuery();
+
+                //Then, delete from the "performers" table
                 cmd.CommandText = "DELETE FROM performers " +
                                   "WHERE user_id = @user_id";
-                cmd.Parameters.AddWithValue("user_id", performerToDel.Id);
-                int numDeleted = cmd.ExecuteNonQuery();
+                int numDeleted2 = cmd.ExecuteNonQuery();
 
-                //Check that it deleted something
-                if (numDeleted > 0)
+                //Check if any rows were deleted from both tables
+                if (numDeleted1 > 0 && numDeleted2 > 0)
                 {
+                    //SelectAllPerformers() retrieves the updated list of performers
                     SelectAllPerformers();
                 }
-                return numDeleted > 0;
+
+                return (numDeleted1 > 0 && numDeleted2 > 0);
             }
 
             return false;
