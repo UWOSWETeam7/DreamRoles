@@ -11,7 +11,7 @@ public partial class EditContactInfoPopup : ContentPage
     private void EditContactInfo(object sender, EventArgs e)
     {
         int userId = 1223;
-        int phoneNumber = Int32.Parse(phoneNumberEntry.Text);
+        String phoneNumber = phoneNumberEntry.Text;
         string email = emailEntry.Text;
         MauiProgram.StageManagerBL.EditPerformerContact(userId, phoneNumber, email);
     }
