@@ -3,6 +3,7 @@ using Prototype.Model;
 using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Business_Logic;
+using Prototypes.Model.Interfaces;
 
 namespace Prototypes.Database
 {
@@ -85,7 +86,7 @@ namespace Prototypes.Database
             return true;
         }
 
-        public Boolean UpdatePerformerContact(int userId, int phoneNumbner, String email)
+        public Boolean UpdatePerformerContact(int userId, String phoneNumbner, String email)
             {
                 try
                 {
@@ -127,48 +128,22 @@ namespace Prototypes.Database
             conn.Open();
 
             // Commands to get all the performers in the database
-            using var cmd = new NpgsqlCommand("SELECT user_id, phone_number, email " +
-                                              "FROM performer;", conn);
+            using var cmd = new NpgsqlCommand(
+                 "SELECT *\r\nFROM performer\r\nINNER JOIN dreamrolesuser\r\nUSING (user_id);", conn);
             using var reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
                 int userId = reader.GetInt16(0);
-                int phoneNumber = reader.GetInt16(1);
-                String email = reader.GetString(2);
-                
+                String phoneNumber = reader.IsDBNull(1) ? "" : reader.GetInt64(1) + "";
+                String email = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                String firstName = reader.GetString(4);
+                String lastName = reader.GetString(5);
+                ObservableCollection<ISongDB> setList = new();
 
-                // Fetch first_name and last_name using a separate query
-                using var nameCmd = new NpgsqlCommand("SELECT first_name, last_name " +
-                                                      "FROM user_info " +
-                                                      "WHERE user_id = @user_id;", conn);
-                nameCmd.Parameters.AddWithValue("user_id", userId);
-                using var nameReader = nameCmd.ExecuteReader();
-
-                if (nameReader.Read())
-                {
-                    string firstName = nameReader.GetString(0);
-                    string lastName = nameReader.GetString(1);
-
-                    // Fetch songs for the performer using a separate query
-                    using var songsCmd = new NpgsqlCommand("SELECT song_name " +
-                                                           "FROM songs " +
-                                                           "WHERE user_id = @user_id;", conn);
-                    songsCmd.Parameters.AddWithValue("user_id", userId);
-                    using var songsReader = songsCmd.ExecuteReader();
-
-                    ObservableCollection<string> songs = new ObservableCollection<string>();
-
-                    while (songsReader.Read())
-                    {
-                        string songName = songsReader.GetString(0);
-                        songs.Add(songName);
-                    }
-
-                    // Create the Performer object and add it to the ObservableCollection
-                    Performer performerToAdd = new Performer(userId, firstName, lastName, songs, email, phoneNumber);
-                    performers.Add(performerToAdd);
-                }
+                // Create the Performer object and add it to the ObservableCollection
+                Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber);
+                performers.Add(performerToAdd);
             }
 
             return performers;

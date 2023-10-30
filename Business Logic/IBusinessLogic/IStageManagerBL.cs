@@ -1,5 +1,6 @@
 ﻿using Prototype.Model;
 using System.Collections.ObjectModel;
+using Prototypes.Model.Interfaces;
 
 namespace Prototypes.Business_Logic.IBusinessLogic
 {
@@ -11,7 +12,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         public ObservableCollection<Performer> Performers { get; }
 
         public Boolean AddSongForPerformer(int userId, String songName, String artistName, String duration);
-        public Boolean EditPerformerContact(int userId, int phoneNumber, String email);
+        public Boolean EditPerformerContact(int userId, String phoneNumber, String email);
 
         /// <summary>
         /// Creates a performer object and send it to the Database
@@ -21,7 +22,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if not</returns>
-        public Boolean AddPerformer(int userId, String firstName, String lastName, ObservableCollection<String> songs, String email, int phoneNumber);
+        public Boolean AddPerformer(int userId, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber);
 
         /// <summary>
         /// Checks if the id is valid then asks the Database to delete the performer with that id
@@ -38,7 +39,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if the Database could not find the performer to edit or the params are invalid</returns>
-        public Boolean EditPerformer(int userId, String firstName, String lastName, ObservableCollection<String> songs, String email, int phoneNumber);
+        public Boolean EditPerformer(int userId, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber);
 
         /// <summary>
         /// Find the performer object with the given id

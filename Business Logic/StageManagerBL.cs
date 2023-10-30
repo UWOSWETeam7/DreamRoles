@@ -1,6 +1,7 @@
 ﻿using Prototype.Model;
 using Prototypes.Business_Logic.IBusinessLogic;
 using Prototypes.Database;
+using Prototypes.Model.Interfaces;
 using System.Collections.ObjectModel;
 
 namespace Prototypes.Business_Logic
@@ -25,7 +26,7 @@ namespace Prototypes.Business_Logic
             return StageManagerDB.InsertSongForPerformer(userId, songName, artistName, duration);
         }
 
-        public Boolean EditPerformerContact(int userId, int phoneNumber, String email)
+        public Boolean EditPerformerContact(int userId, String phoneNumber, String email)
         {
             //Sends it to the StageManagerDB
             return StageManagerDB.UpdatePerformerContact(userId, phoneNumber, email);
@@ -47,7 +48,7 @@ namespace Prototypes.Business_Logic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if not</returns>
-        public Boolean AddPerformer(int userId, String firstName, String lastName, ObservableCollection<String> songs, String email, int phoneNumber)
+        public Boolean AddPerformer(int userId, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
         {
             //Creates a new performer object
             Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber);
@@ -74,7 +75,7 @@ namespace Prototypes.Business_Logic
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
         /// <returns>true if all the params are valid, false if the StageManagerDB could not find the performer to edit or the params are invalid</returns>
-        public Boolean EditPerformer(int userId, String firstName, String lastName, ObservableCollection<String> songs, String email, int phoneNumber)
+        public Boolean EditPerformer(int userId, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
         {
             //Creates a new performer object
             Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber);

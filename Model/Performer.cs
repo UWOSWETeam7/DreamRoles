@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Prototypes.Model.Interfaces;
+using System.Collections.ObjectModel;
 
 namespace Prototype.Model;
 
@@ -7,9 +8,9 @@ public class Performer
 	private int _id;
 	private String _firstName;
     private String _lastName;
-	private ObservableCollection<String> _songs;
-	private String _email;
-	private int _phoneNumber;
+    private String _email;
+	private String? _phoneNumber;
+    private ObservableCollection<ISongDB> _songs;
 
     /// <summary>
     /// Creates a performer
@@ -20,7 +21,7 @@ public class Performer
     /// <param name="songs">The songs the Performer is in</param>
     /// <param name="email">The Performer's email that can be used to contact them</param>
     /// <param name="phoneNumber">The Performer's phone number that can be used to contact them</param>
-    public Performer(int id, String firstName, String lastName, ObservableCollection<String> songs, String email, int phoneNumber)
+    public Performer(int id, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
 	{
 		Id = id;
 		FirstName = firstName;
@@ -45,8 +46,8 @@ public class Performer
         get { return _lastName; }
         set { _lastName = value; }
     }
-    public ObservableCollection<String> Songs 
-	{
+    public ObservableCollection<ISongDB> Songs 
+    {
         get { return _songs; }
         set { _songs = value; }
     }
@@ -55,7 +56,7 @@ public class Performer
         get { return _email; }
         set { _email = value; }
     }
-    public int PhoneNumber
+    public String? PhoneNumber
 	{
         get { return _phoneNumber; }
         set { _phoneNumber = value; }

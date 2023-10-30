@@ -6,7 +6,7 @@ namespace Prototypes.Database
     public interface IStageManagerDB
     {
         public Boolean InsertSongForPerformer(int userId, String songName, String artistName, String duration);
-        public Boolean UpdatePerformerContact(int userId, int phoneNumbner, String email);
+        public Boolean UpdatePerformerContact(int userId, String phoneNumbner, String email);
 
         /// <summary>
         /// Creates a file if needed and reads it and puts performer objects into a ObservableCollection

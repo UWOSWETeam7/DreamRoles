@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Prototypes.Business_Logic
 {
-    internal class ISongBL
+    interface ISongBL
     {
+        String Title { get; set; }
+        String Artist { get; set; }
+        int Duration { get; set; }
     }
 }
