@@ -184,21 +184,61 @@ namespace Prototypes.Database
                  "SELECT *\r\nFROM performer\r\nINNER JOIN dreamrolesuser\r\nUSING (user_id);", conn);
             using var reader = cmd.ExecuteReader();
 
+            // Create a Performer object for each row returned from query
             while (reader.Read())
             {
                 int userId = reader.GetInt16(0);
                 String phoneNumber = reader.IsDBNull(1) ? "" : reader.GetInt64(1) + "";
                 String email = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                int absences = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
                 String firstName = reader.GetString(4);
                 String lastName = reader.GetString(5);
                 ObservableCollection<ISongDB> setList = new();
 
                 // Create the Performer object and add it to the ObservableCollection
-                Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber);
+                Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber, absences);
                 performers.Add(performerToAdd);
             }
 
+            foreach (var performer in performers)
+            {
+                performer.Songs = SelectPerfomerSongs(performer.Id);
+            }
+
             return performers;
+        }
+
+        public ObservableCollection<ISongDB> SelectPerfomerSongs(int user_id)
+        {
+            // Create a new ObservableCollection to store songs
+            ObservableCollection<ISongDB> songs = new();
+
+            // Connects and opens a connection to the database
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            // Commands to get all the songs from a performer in the database
+            using var cmd = new NpgsqlCommand(
+                 "SELECT title, artist, duration\r\n" +
+                 "FROM setlists\r\nINNER JOIN songs\r\n" +
+                 "ON setlists.setlist_id = songs.setlist_id\r\n" +
+                 "WHERE user_id = @user_id;", conn);
+            cmd.Parameters.AddWithValue("user_id", user_id);
+            using var reader = cmd.ExecuteReader();
+
+            // Make a new song object for every song belonging to the performer
+            while (reader.Read())
+            {
+                String title = reader.GetString(0);
+                String artist = reader.GetString(1);
+                int duration = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
+
+                ISongDB song = new SongDB(title, artist, duration);
+
+                songs.Add(song);
+            }
+
+            return songs;
         }
 
         /// <summary>
