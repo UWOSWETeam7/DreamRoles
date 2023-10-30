@@ -36,7 +36,7 @@
                FontSize="20"
                HorizontalOptions="Center"
                VerticalOptions="Center"/>
-        
+
         <SearchBar
                 BackgroundColor="White"
                 Grid.Row="1"
@@ -54,18 +54,19 @@
         <Label
             Grid.Row="2"
             Grid.Column="1"
-            Text="Name:"
+            Text="              Song Title:"
             FontSize="15"/>
         <Label
             Grid.Row="2"
-            Grid.Column="1"
-            HorizontalOptions="End"
+            Grid.Column="2"
+            HorizontalOptions="Center"
             Text="Performers:"
             FontSize="15"/>
         <CollectionView
                Grid.Row="3"
-               Grid.ColumnSpan="2"
-               HorizontalOptions="Center">
+               Grid.Column="0"
+               Grid.ColumnSpan="3"
+               HorizontalOptions="Start">
             <CollectionView.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Defying Gravity</x:String>
@@ -94,12 +95,7 @@
                 <DataTemplate>
                     <mct:Expander x:Name="MyExpander1" BackgroundColor="Tan" WidthRequest="400">
                         <mct:Expander.Header>
-                            <Grid WidthRequest="300" HeightRequest="50" Background="#866B53">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="150"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
+                            <Grid ColumnDefinitions="*,*,*,*" Grid.ColumnSpan="4" HeightRequest="50" Background="#866B53" Margin="0,0" Padding="30,15">
 
                                 <Label Grid.Column ="1" Text="{Binding}" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
                                 <Button 
@@ -112,6 +108,10 @@
                                     HorizontalOptions="End"
                                     VerticalOptions="Center"
                                     CornerRadius="90"/>
+                                <Image
+                                    Grid.Row="3"
+                                    Grid.Column="4"
+                                    Source="trash.png"/>
                                 <Image 
                                     Grid.Column ="0" 
                                     Source="arrow.png" 
@@ -144,6 +144,7 @@
                                     <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" Text="9:00am - 11:00am" Margin="-25,0,0,0"/>
                                     <Label Grid.Row="1" Grid.Column="0" Text="Location: "/>
                                     <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" Text="Art &amp; Communication South - 112" LineBreakMode="WordWrap"/>
+
                                 </Grid>
                             </Frame>
                         </mct:Expander.Content>
