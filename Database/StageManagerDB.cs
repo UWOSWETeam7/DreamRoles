@@ -57,7 +57,7 @@ namespace Prototypes.Database
             IConfiguration config = new ConfigurationBuilder().AddUserSecrets<StageManagerDB>().Build();
             return config["CockroachDBPassword"] ?? "6tRK2gvZOx62cwwPBe8znA"; // this works in VS, not VSC
         }
-        */
+        */   
 
         public ObservableCollection<Song> SelectAllSongs()
         {
@@ -70,14 +70,14 @@ namespace Prototypes.Database
 
             // Commands to get all the songs in the database
             using var cmd = new NpgsqlCommand("SELECT *" +
-                                              "FROM songs;");
+                                              "FROM songs;", conn);
             using var reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
-                String songTitle = reader.GetString(0);
-                String artist = reader.GetString(1);
-                int duration = (int)reader.GetInt64(2);
+                String songTitle = reader.GetString(1);
+                String artist = reader.GetString(2);
+                int duration = reader.IsDBNull(3) ? 0 : reader.GetInt16(3);
 
                 // Create the Performer object and add it to the ObservableCollection
                 Song song = new Song(songTitle, artist, duration);
@@ -129,6 +129,38 @@ namespace Prototypes.Database
             return performers;
         }
 
+        public Boolean InsertSong(int setlistId, String title, String artist, int duration)
+        {
+            try
+            {
+                // Connect and open a connection to the database
+                using var conn = new NpgsqlConnection(_connString);
+                conn.Open();
+
+                // Command to insert a new performer into the 'dreamrolesuser' table
+                using var cmd = new NpgsqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "INSERT INTO songs(setlist_id, title, artist, duration)" +
+                                  "VALUES(@setlistId, @title, @artist, @duration);";
+                cmd.Parameters.AddWithValue("setlistId", setlistId);
+                cmd.Parameters.AddWithValue("title", title);
+                cmd.Parameters.AddWithValue("artist", artist);
+                cmd.Parameters.AddWithValue("duration", duration);
+                cmd.ExecuteNonQuery();
+
+
+
+                //Repopulates the performers
+                SelectAllSongs();
+
+            }
+            catch (Npgsql.PostgresException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
+        }
         public Boolean DeleteSong(String songTitle, String artistName)
         {
             //Connects and opens a connection to the database

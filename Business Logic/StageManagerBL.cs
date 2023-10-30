@@ -13,7 +13,10 @@ namespace Prototypes.Business_Logic
         //A interface of StageManagerDB
         private IStageManagerDB StageManagerDB = new StageManagerDB();
 
-
+        public Boolean AddSong(int setlistId, String title, String artist, int duration)
+        {
+            return StageManagerDB.InsertSong(setlistId, title, artist, duration);
+        }
         /// <summary>
         /// Gets the ObservableCollection performers
         /// </summary>

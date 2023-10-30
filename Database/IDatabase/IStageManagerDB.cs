@@ -6,6 +6,7 @@ namespace Prototypes.Database
 {
     public interface IStageManagerDB
     {
+        public Boolean InsertSong(int setlistId, String title, String artist, int duration);
         public ObservableCollection<Song> SelectAllSongs();
         public Boolean DeleteSong(String songTitle, String artistName);
         public Boolean InsertSongForPerformer(int userId, String songName, String artistName, String duration);

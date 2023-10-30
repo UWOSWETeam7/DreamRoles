@@ -18,4 +18,9 @@ public partial class SongsPage : ContentPage
             MauiProgram.StageManagerBL.DeleteSong(song, artist);
         }
     }
+
+    private void ShowAddSongPopUp(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new AddSongPopup());
+    }
 }

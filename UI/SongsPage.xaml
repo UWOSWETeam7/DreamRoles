@@ -13,8 +13,10 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="50"/>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="600" />
+            <RowDefinition Height="550" />
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="200"/>
@@ -160,6 +162,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Button Grid.Row="6" Text="Add Song"/>
+        <Button CornerRadius="0" Grid.Row="4" Grid.ColumnSpan="4" Text="Add Song" Clicked="ShowAddSongPopUp" Padding="0" Margin="0, 0,0,0"/>
     </Grid>
 </ContentPage>

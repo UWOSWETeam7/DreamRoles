@@ -7,6 +7,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
 {
     public interface IStageManagerBL
     {
+        public Boolean AddSong(int setlistId, String title, String artist, int duration);
         /// <summary>
         /// A ObservableCollection of performer objects that contians all the performer the user has inputed
         /// </summary>
