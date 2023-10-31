@@ -5,7 +5,6 @@
              xmlns:model_1="clr-namespace:Prototypes.Business_Logic" 
              xmlns:model_2="clr-namespace:Prototypes.Model" 
              x:DataType="model_1:StageManagerBL" 
-             x:DataType="model_2:Performer"
              Title="ManagerNotCheckedInPage"
              BackgroundColor="#E1D6C9">
     <Grid
