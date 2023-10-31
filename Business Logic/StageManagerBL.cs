@@ -1,13 +1,12 @@
-﻿using Prototype.Model;
+﻿using Prototypes.Model;
 using Prototypes.Business_Logic.IBusinessLogic;
 using Prototypes.Database;
-using Prototypes.Model;
 using Prototypes.Model.Interfaces;
 using System.Collections.ObjectModel;
 
 namespace Prototypes.Business_Logic
 {
-    class StageManegerBL : IStageManagerBL
+    class StageManagerBL : IStageManagerBL
     {
 
         //A interface of StageManagerDB
@@ -48,7 +47,7 @@ namespace Prototypes.Business_Logic
         /// <summary>
         /// Initializes a StageManagerDB when the program starts 
         /// </summary>
-        public StageManegerBL()
+        public StageManagerBL()
         {
             StageManagerDB = new StageManagerDB();
         }
@@ -114,6 +113,14 @@ namespace Prototypes.Business_Logic
         public ObservableCollection<Performer> GetPerformers()
         {
             return Performers;
+        }
+        /// <summary>
+        /// Gets all the not checked in performers from the StageManagarDB
+        /// </summary>
+        /// <returns> an observableCollection of performer objects that are not checked in</returns>
+        public ObservableCollection<Performer> NotCheckedInPerformers
+        {
+            get { return StageManagerDB.NotCheckedInPerformers(); }
         }
     }
 

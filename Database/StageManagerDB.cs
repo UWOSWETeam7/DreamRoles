@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Prototype.Model;
+using Prototypes.Model;
 using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Business_Logic;
@@ -434,6 +434,46 @@ namespace Prototypes.Database
                 return false;
             }
             return true;
+        }
+        public ObservableCollection<Performer> NotCheckedInPerformers()
+        {
+            
+            // Create a new ObservableCollection to store not checked in performers
+            ObservableCollection<Performer> performers = new ObservableCollection<Performer>();
+
+            // Connects and opens a connection to the database
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            // Commands to get all the not checked in performers in the database
+            using var cmd = new NpgsqlCommand(
+                 "SELECT *\r\nFROM performer\r\nLEFT JOIN dreamrolesuser\r\n" +
+                 "ON performer.user_id = dreamrole.user_id\r\nWHERE NOT EXISTS\r\n" +
+                 "(SELECT *\r\n FROM checked_in_performers\r\n WHERE checked_in_performers.user_id = performer.user_id);", conn);
+            using var reader = cmd.ExecuteReader();
+
+            // Create a Performer object for each row returned from query
+            while (reader.Read())
+            {
+                int userId = reader.GetInt16(0);
+                String phoneNumber = reader.IsDBNull(1) ? "" : reader.GetInt64(1) + "";
+                String email = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                int absences = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
+                String firstName = reader.GetString(4);
+                String lastName = reader.GetString(5);
+                ObservableCollection<ISongDB> setList = new();
+
+                // Create the Performer object and add it to the ObservableCollection
+                Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber, absences);
+                performers.Add(performerToAdd);
+            }
+
+            foreach (var performer in performers)
+            {
+                performer.Songs = SelectPerfomerSongs(performer.Id);
+            }
+
+            return performers;
         }
     }
 }

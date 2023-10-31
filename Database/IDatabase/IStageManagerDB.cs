@@ -1,5 +1,4 @@
-﻿using Prototype.Model;
-using Prototypes.Model;
+﻿using Prototypes.Model;
 using System.Collections.ObjectModel;
 
 namespace Prototypes.Database
@@ -11,6 +10,7 @@ namespace Prototypes.Database
         public Boolean DeleteSong(String songTitle, String artistName);
         public Boolean InsertSongForPerformer(int userId, String songName, String artistName, String duration);
         public Boolean UpdatePerformerContact(int userId, String phoneNumbner, String email);
+        public ObservableCollection<Performer> NotCheckedInPerformers();
 
         /// <summary>
         /// Creates a file if needed and reads it and puts performer objects into a ObservableCollection
@@ -45,5 +45,6 @@ namespace Prototypes.Database
         /// <param name="performer">the updated versoin of the performer</param>
         /// <returns>true if it found and updated the performer. False if it could not find the performer in the file</returns>
         public Boolean UpdatePerformer(Performer performer);
+
     }
 }

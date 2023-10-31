@@ -8,7 +8,7 @@ namespace Prototypes.UI
 {
     public static class MauiProgram
     {
-        public static IStageManagerBL StageManagerBL = new StageManegerBL();
+        public static IStageManagerBL StageManagerBL = new StageManagerBL();
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();

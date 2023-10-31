@@ -5,5 +5,6 @@ public partial class ManagerNotCheckedInPage : ContentPage
     public ManagerNotCheckedInPage()
     {
         InitializeComponent();
+        BindingContext = MauiProgram.StageManagerBL;
     }
 }
