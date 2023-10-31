@@ -4,7 +4,6 @@
              xmlns:modelBL="clr-namespace:Prototypes.Business_Logic"
              x:DataType="modelBL:StageManegerBL"
              xmlns:model="clr-namespace:Prototypes.Model"
-             x:DataType="model:Performer"
              x:Class="Prototypes.UI.CheckedInPage"
              Title="CheckedInPage"
              BackgroundColor="#E1D6C9">

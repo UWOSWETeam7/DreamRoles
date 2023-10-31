@@ -15,10 +15,10 @@ public partial class EditSongPopup : ContentPage
         string songName = songNameEntry.Text;
         string artistName = artistNameEntry.Text;
         int duration = Int32.Parse(durationEntry.Text);
-        int setlistId = _song.
+        int setlistId = _song.SetlistId;
         string oldSongName = _song.Title;
         string oldArtist = _song.Artist;
-        MauiProgram.StageManagerBL.EditSong(oldSongName, oldArtist, setlistId, songName, artistName, duration);
+        MauiProgram.StageManagerBL.EditSong(setlistId, oldSongName, oldArtist, songName, artistName, duration);
         Navigation.PopAsync();
     }
 }
