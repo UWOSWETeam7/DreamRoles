@@ -46,6 +46,5 @@ namespace Prototypes.Database
         /// <returns>true if it found and updated the performer. False if it could not find the performer in the file</returns>
         public Boolean UpdatePerformer(Performer performer);
 
-        public ObservableCollection<Performer> SelectCheckedInPerformers();
     }
 }
