@@ -72,32 +72,29 @@
          />
 
         <CollectionView
+            x:Name="CV" 
+            ItemsSource="{Binding CheckedInPerformers}" 
+            SelectionMode="Single"
             Grid.Row="3"
             Grid.ColumnSpan="2"
             HorizontalOptions="Center">
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Ava Wilson</x:String>
-                    <x:String>Chris Cringle</x:String>
-                    <x:String>Dave Davidson</x:String>
-                    <x:String>Ethan Davis</x:String>
-                    <x:String>Samuel Anderson</x:String>
-                    <x:String>Sophia Smith</x:String>
-                    <x:String>Zachary Garrison</x:String>
-                    <x:String>Zoey Smoey</x:String>
-                    <x:String>Zara Larson</x:String>
-                    <x:String>Zane Eddison</x:String>
-                    <x:String>Zelda Smelda</x:String>
-                    <x:String>Zeke Watson</x:String>
-                    <x:String>Zephyr Harington</x:String>
-                    <x:String>Ziva Erickson</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <VerticalStackLayout Background="#866B53" Padding="10" Margin="7">
-                        <Label Text="{Binding}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </VerticalStackLayout>
+                <DataTemplate x:DataType="model:Performer">
+                    <Grid ColumnDefinitions="*,*,*,*">
+                        <Label Grid.Column="0" Text="{Binding FirstName}"/>
+                        <Label Grid.Column="1" Text="{Binding LastName}"/>
+                        <Image Grid.Column="2" Source="checkmark.svg"/>
+                        <Image Grid.Column="3" Source="trash.png"
+                 VerticalOptions="Center"
+                 HorizontalOptions="End"
+                 WidthRequest="50"
+                 HeightRequest="40">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="DeletePerformer"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
