@@ -78,12 +78,13 @@ class StageManagerDB : IStageManagerDB
 
         while (reader.Read())
         {
+            int setListId = reader.GetInt32(0);
             String songTitle = reader.GetString(1);
             String artist = reader.GetString(2);
             int duration = reader.IsDBNull(3) ? 0 : reader.GetInt16(3);
 
             // Create the Performer object and add it to the ObservableCollection
-            Song song = new Song(songTitle, artist, duration);
+            Song song = new Song(setListId, songTitle, artist, duration);
             _songs.Add(song);
         }
         return _songs;
@@ -128,6 +129,13 @@ class StageManagerDB : IStageManagerDB
             performer.Songs = SelectPerformerSongs(performer.Id);
         }
         return _performers;
+    }
+
+    public Boolean UpdateSong(int setlistId, String oldSongName, String oldArtist, String songName, String artist, int duration)
+    {
+        DeleteSong(oldSongName, oldArtist);
+        return InsertSong(setlistId, songName, artist, duration);
+       
     }
 
     public Boolean InsertSong(int setlistId, String title, String artist, int duration)
