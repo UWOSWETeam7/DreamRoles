@@ -2,6 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 xmlns:modelBL="clr-namespace:Prototypes.Business_Logic"
+             x:DataType="modelBL:StageManegerBL"
+             xmlns:model="clr-namespace:Prototypes.Model"
+            
              x:Class="Prototypes.UI.SongsPage"
              Title="SongsPage"
              BackgroundColor="#E1D6C9">
@@ -56,50 +60,29 @@
         <Label
             Grid.Row="2"
             Grid.Column="1"
-            Text="    Song Title:"
+            Margin="-10,0,0,0"
+            Text="Song Title:"
             FontSize="15"/>
         <Label
             Grid.Row="2"
             Grid.Column="2"
-            HorizontalOptions="Center"
+            HorizontalOptions="Start"
+            Margin="-55,0,0,0"
             Text="Performers:"
             FontSize="15"/>
         <CollectionView
                Grid.Row="3"
                Grid.Column="0"
                Grid.ColumnSpan="3"
-               HorizontalOptions="Start">
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Defying Gravity</x:String>
-                    <x:String>Ya Got Trouble</x:String>
-                    <x:String>A Little Priest</x:String>
-                    <x:String>Whatever Lola Wants</x:String>
-                    <x:String>Big Spender</x:String>
-                    <x:String>Send in the Clowns</x:String>
-                    <x:String>And I am Telling You I'm Not Going</x:String>
-                    <x:String>Cell Block Tango</x:String>
-                    <x:String>On my Own</x:String>
-                    <x:String>Losing My Mind</x:String>
-                    <x:String>I Dreamed a Dream</x:String>
-                    <x:String>Song 12</x:String>
-                    <x:String>Song 13</x:String>
-                    <x:String>Song 14</x:String>
-                    <x:String>Song 15</x:String>
-                    <x:String>Song 16</x:String>
-                    <x:String>Song 17</x:String>
-                    <x:String>Song 18</x:String>
-                    <x:String>Song 19</x:String>
-                    <x:String>Song 20</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
+               HorizontalOptions="Start"
+               x:Name="CVSongs" ItemsSource="{Binding Songs}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="model:Song">
                     <mct:Expander x:Name="MyExpander1" BackgroundColor="Tan" WidthRequest="400">
                         <mct:Expander.Header>
                             <Grid ColumnDefinitions="*,150,*,*" Grid.ColumnSpan="4" HeightRequest="50" Background="#866B53" Margin="0,0" Padding="30,15">
 
-                                <Label Grid.Column ="1" Text="{Binding}" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
+                                <Label Grid.Column ="1" Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap"/>
                                 <Button 
                                     Grid.Row="3" 
                                     Grid.Column="2" 

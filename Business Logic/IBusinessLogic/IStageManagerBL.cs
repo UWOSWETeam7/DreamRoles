@@ -1,7 +1,6 @@
-﻿using Prototype.Model;
+﻿using Prototypes.Model;
 using System.Collections.ObjectModel;
 using Prototypes.Model.Interfaces;
-using Prototypes.Model;
 
 namespace Prototypes.Business_Logic.IBusinessLogic
 {
