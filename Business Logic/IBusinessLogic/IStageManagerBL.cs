@@ -13,6 +13,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         /// </summary>
         public ObservableCollection<Performer> Performers { get; }
         public ObservableCollection<Song> Songs { get; }
+        public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers { get; }
         public Boolean DeleteSong(String songTitle, String artistName);
 
         public Boolean AddSongForPerformer(int userId, String songName, String artistName, String duration);
@@ -58,5 +59,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         /// </summary>
         /// <returns>a bservableCollection of performers objects the user has visted</returns>
         public ObservableCollection<Performer> GetPerformers();
+
+        
     }
 }

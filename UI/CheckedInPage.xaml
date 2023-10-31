@@ -84,10 +84,10 @@
                         <Label Grid.Column="1" Text="{Binding LastName}"/>
                         <Image Grid.Column="2" Source="checkmark.svg"/>
                         <Image Grid.Column="3" Source="trash.png"
-                 VerticalOptions="Center"
-                 HorizontalOptions="End"
-                 WidthRequest="50"
-                 HeightRequest="40">
+                               VerticalOptions="Center"
+                               HorizontalOptions="End"
+                               WidthRequest="50"
+                               HeightRequest="40">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="DeletePerformer"/>
                             </Image.GestureRecognizers>

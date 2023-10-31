@@ -12,6 +12,8 @@ namespace Prototypes.Business_Logic
         //A interface of StageManagerDB
         private IStageManagerDB StageManagerDB = new StageManagerDB();
 
+        
+
         public Boolean EditSong(int setlistId, String oldSongName, String oldArtist, String songName, String artist, int duration)
         {
             return StageManagerDB.UpdateSong(setlistId, oldSongName, oldArtist, songName, artist, duration);
@@ -32,7 +34,10 @@ namespace Prototypes.Business_Logic
         {
             get { return StageManagerDB.SelectAllSongs(); }
         }
-
+        public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers
+        {
+            get { return StageManagerDB.GetCheckedInPerformers(); }
+        }
         public Boolean DeleteSong(String songTitle, String artistName)
         {
             return StageManagerDB.DeleteSong(songTitle, artistName);
