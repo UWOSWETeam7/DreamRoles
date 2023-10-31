@@ -6,7 +6,7 @@
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new SongsPage());
+            MainPage = new NavigationPage(new ManagerHomePage());
             ;
         }
     }

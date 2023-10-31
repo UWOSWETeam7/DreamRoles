@@ -370,20 +370,27 @@ namespace Prototypes.Database
 
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
-
-                //First, delete from the "dreamroleuser" table
-                cmd.CommandText = "DELETE FROM dreamroleuser " +
+                cmd.CommandText = "DELETE FROM setlists " +
                                   "WHERE user_id = @user_id";
-                cmd.Parameters.AddWithValue("user_id", performerToDel.Id);
-                int numDeleted1 = cmd.ExecuteNonQuery();
+                cmd.Parameters.AddWithValue("user_id", userId);
+                int numDeleted3 = cmd.ExecuteNonQuery();
 
                 //Then, delete from the "performers" table
-                cmd.CommandText = "DELETE FROM performers " +
+                cmd.CommandText = "DELETE FROM performer " +
                                   "WHERE user_id = @user_id";
+                cmd.Parameters.AddWithValue("user_id", userId);
                 int numDeleted2 = cmd.ExecuteNonQuery();
 
+                //First, delete from the "dreamroleuser" table
+                cmd.CommandText = "DELETE FROM dreamrolesuser " +
+                                  "WHERE user_id = @user_id";
+                cmd.Parameters.AddWithValue("user_id", userId);
+                int numDeleted1 = cmd.ExecuteNonQuery();
+
+                
+
                 //Check if any rows were deleted from both tables
-                if (numDeleted1 > 0 && numDeleted2 > 0)
+                if (numDeleted1 > 0 && numDeleted2 > 0 && numDeleted3 > 0)
                 {
                     //SelectAllPerformers() retrieves the updated list of performers
                     SelectAllPerformers();
