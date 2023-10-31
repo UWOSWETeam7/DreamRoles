@@ -80,15 +80,17 @@
             ItemsSource="{Binding NotCheckedInPerformers}"
             SelectionMode="Single"
             Grid.Row="3"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="3"
             HorizontalOptions="Center"> 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model_2:Performer">
-                    <Grid RowDefinitions="*" ColumnDefinitions="4*,8*, 10*">
-                        <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center"/>
-                        <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center"/>
+                    <VerticalStackLayout Background="#866B53" Padding="10" Margin="1">
+                        <Grid RowDefinitions="*" ColumnDefinitions="6*,6*, 3*">
+                        <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                         <Button Grid.Column="2" BackgroundColor="Transparent" Clicked="ShowAlert_Clicked"  ImageSource="alert.png" />
                     </Grid>
+                    </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
