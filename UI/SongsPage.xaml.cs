@@ -27,4 +27,11 @@ public partial class SongsPage : ContentPage
     {
         Navigation.PushAsync(new AddSongPopup());
     }
+
+    private void ShowEditSongPopup(object sender, EventArgs e)
+    {
+        var label = (Label)sender;
+        var song = (Song)label.BindingContext;
+        Navigation.PushAsync(new EditSongPopup(song));
+    }
 }
