@@ -120,6 +120,11 @@ namespace Prototypes.Business_Logic
         {
             return Performers;
         }
+
+        public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers()
+        {
+            return StageManagerDB.GetCheckedInPerformers();
+        }
     }
 
 }

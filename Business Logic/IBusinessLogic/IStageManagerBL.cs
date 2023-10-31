@@ -58,5 +58,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         /// </summary>
         /// <returns>a bservableCollection of performers objects the user has visted</returns>
         public ObservableCollection<Performer> GetPerformers();
+
+        public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers();
     }
 }
