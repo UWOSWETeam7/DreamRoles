@@ -9,14 +9,22 @@ namespace Prototypes.Model
 {
     public class Song
     {
+        private int _setlistId;
         private String _title;
         private String _artist;
         private int _duration;
-        public Song(String title, String artist, int duration)
+        public Song(int setlistId, String title, String artist, int duration)
         {
+            SetlistId = setlistId;
             Title = title;
             Artist = artist;
             Duration = duration;
+        }
+
+        public int SetlistId
+        {
+            get { return _setlistId; }
+            set { _setlistId = value; }
         }
 
         public String Title
