@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Business_Logic;
 using Prototypes.Model.Interfaces;
-using Prototypes.Model;
 namespace Prototypes.Database;
 
 class StageManagerDB : IStageManagerDB
@@ -253,7 +252,7 @@ class StageManagerDB : IStageManagerDB
     /// </summary>
     /// <param name="user_id"> the user's Id</param>
     /// <returns>a list of the user's songs</returns>
-    public ObservableCollection<ISongDB> SelectPerfomerSongs(int user_id)
+    public ObservableCollection<ISongDB> SelectPerformerSongs(int user_id)
     {
         // Create a new ObservableCollection to store songs
         ObservableCollection<ISongDB> songs = new();
@@ -493,10 +492,33 @@ class StageManagerDB : IStageManagerDB
 
         foreach (var performer in performers)
         {
-            performer.Songs = SelectPerfomerSongs(performer.Id);
+            performer.Songs = SelectPerformerSongs(performer.Id);
         }
 
         return performers;
     }
+    public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers()
+    {
+        _checkedInPerformers.Clear();
+        // Connects and opens a connection to the database
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+
+        // Commands to get all the checked in performers in the database
+        using var cmd = new NpgsqlCommand(
+             "SELECT * FROM checked_in_performers;", conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            int userId = reader.GetInt32(0);
+            DateTime? checkInTime = reader.IsDBNull(1) ? null : reader.GetDateTime(1);
+
+            _checkedInPerformers.Add((_performers.First(performer => performer.Id == userId), checkInTime));
+        }
+
+        return _checkedInPerformers;
+    }
+
 }
 

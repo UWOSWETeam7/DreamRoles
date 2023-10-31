@@ -127,6 +127,8 @@ namespace Prototypes.Business_Logic
         {
             get { return StageManagerDB.NotCheckedInPerformers(); }
         }
+
+        
     }
 
 }
