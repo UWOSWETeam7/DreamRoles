@@ -14,5 +14,6 @@ public partial class AddSongPopup : ContentPage
         string artistName = artistNameEntry.Text;
         int duration = Int32.Parse(durationEntry.Text);
         MauiProgram.StageManagerBL.AddSong(setlistId, songName, artistName, duration);
+        Navigation.PopAsync();
     }
 }

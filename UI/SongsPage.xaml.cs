@@ -1,3 +1,5 @@
+using Prototypes.Model;
+
 namespace Prototypes.UI;
 //@author: Kaia Thern
 public partial class SongsPage : ContentPage
@@ -5,17 +7,19 @@ public partial class SongsPage : ContentPage
     public SongsPage()
     {
         InitializeComponent();
+        BindingContext = MauiProgram.StageManagerBL;
     }
 
     private async void DeleteSong(object sender, EventArgs e)
     {
+        var image = (Image)sender;
+        var song = (Song)image.BindingContext;
+
         Boolean userResponse = await DisplayAlert("Confirmation", "Are you sure you want to delete this song?", "Yes", "Cancel");
         
         if (userResponse)
         {
-            String song = "";
-            String artist = "";
-            MauiProgram.StageManagerBL.DeleteSong(song, artist);
+            MauiProgram.StageManagerBL.DeleteSong(song.Title, song.Artist);
         }
     }
 

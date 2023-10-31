@@ -14,6 +14,6 @@
             <Label Grid.Row="3" Grid.Column="0" Text="Song Duration:" VerticalOptions="Center"/>
             <Entry x:Name="durationEntry" Grid.Row="3" Grid.Column="1" Placeholder="Enter Song Duration" Margin="0,0,0,0"/>
         </Grid>
-        <Button Text="Add Song" />
+        <Button Text="Add Song" Clicked="AddSong"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -1,7 +1,7 @@
 ﻿using Prototypes.Model.Interfaces;
 using System.Collections.ObjectModel;
 
-namespace Prototype.Model;
+namespace Prototypes.Model;
 
 public class Performer
 {

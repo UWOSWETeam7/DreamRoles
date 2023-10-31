@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Prototype.Model;
 using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Business_Logic;
@@ -22,9 +21,11 @@ namespace Prototypes.Database
         /// </summary>
         public StageManagerDB()
         {
+            _performers = new ObservableCollection<Performer>();
+            _songs = new ObservableCollection<Song>();
             _connString = GetConnectionString();
-            _performers = SelectAllPerformers();
-            _songs = SelectAllSongs();
+            SelectAllPerformers();
+            SelectAllSongs();
         }
 
         /// <summary>
@@ -62,8 +63,7 @@ namespace Prototypes.Database
         public ObservableCollection<Song> SelectAllSongs()
         {
             // Create a new ObservableCollection to store songs
-            ObservableCollection<Song> songs = new ObservableCollection<Song>();
-
+            _songs.Clear();
             // Connects and opens a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
@@ -81,10 +81,9 @@ namespace Prototypes.Database
 
                 // Create the Performer object and add it to the ObservableCollection
                 Song song = new Song(songTitle, artist, duration);
-                songs.Add(song);
+                _songs.Add(song);
             }
-
-            return songs;
+            return _songs;
         }
 
         /// <summary>
@@ -94,8 +93,8 @@ namespace Prototypes.Database
         public ObservableCollection<Performer> SelectAllPerformers()
         {
             // Create a new ObservableCollection to store performers
-            ObservableCollection<Performer> performers = new ObservableCollection<Performer>();
 
+            _performers.Clear();
             // Connects and opens a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
@@ -118,15 +117,15 @@ namespace Prototypes.Database
 
                 // Create the Performer object and add it to the ObservableCollection
                 Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber, absences);
-                performers.Add(performerToAdd);
+                _performers.Add(performerToAdd);
             }
 
-            foreach (var performer in performers)
+            foreach (var performer in _performers)
             {
                 performer.Songs = SelectPerfomerSongs(performer.Id);
             }
 
-            return performers;
+            return _performers;
         }
 
         public Boolean InsertSong(int setlistId, String title, String artist, int duration)
@@ -171,7 +170,7 @@ namespace Prototypes.Database
             using var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = "DELETE FROM songs " +
-                              "WHERE title = @title, artist = @artist";
+                              "WHERE title = @title AND artist = @artist;";
             cmd.Parameters.AddWithValue("title", songTitle);
             cmd.Parameters.AddWithValue("artist", artistName);
             int numDeleted = cmd.ExecuteNonQuery();
