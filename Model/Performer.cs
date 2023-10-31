@@ -1,6 +1,5 @@
 ﻿using Prototypes.Model.Interfaces;
 using System.Collections.ObjectModel;
-
 namespace Prototypes.Model;
 
 public class Performer
