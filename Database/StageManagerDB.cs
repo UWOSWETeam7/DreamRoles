@@ -456,7 +456,7 @@ class StageManagerDB : IStageManagerDB
         using var conn = new NpgsqlConnection(_connString);
         conn.Open();
 
-        // Commands to get all the performers in the database
+        // Commands to get all the checked in performers in the database
         using var cmd = new NpgsqlCommand(
              "SELECT * FROM checked_in_performers;", conn);
         using var reader = cmd.ExecuteReader();
