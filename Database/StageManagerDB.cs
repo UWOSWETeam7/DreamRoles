@@ -442,33 +442,7 @@ namespace Prototypes.Database
             return true;
         }
 
-        public ObservableCollection<Performer> SelectCheckedInPerformers()
-        {
-            ObservableCollection<Performer> checkedInPerformers = new ObservableCollection<Performer>();
-            ObservableCollection<Performer> allPerformers = SelectAllPerformers();
-            //use table checked_in_performers
-            using var conn = new NpgsqlConnection(_connString);
-            conn.Open();
-
-            // Commands to get all the performers in the database
-            using var cmd = new NpgsqlCommand("SELECT * " +
-                                                "FROM performer" +
-                                                "LEFT JOIN dreamroleuser" +
-                                                "ON performer.user_id = dreamroleuser.user_id" +
-                                                "WHERE EXISTS" +
-                                                "SELCT *" +
-                                                "FROM checked_in_performers" +
-                                                "WHERE checked_in_performers_user_id = performer_user_id);", conn)
-            using var reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                 
-                    
-            }
-            return checkedInPerformers;
-
-            }
-        }
+       }
 
     
 }
