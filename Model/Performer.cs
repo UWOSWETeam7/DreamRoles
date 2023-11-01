@@ -29,6 +29,7 @@ public class Performer
         Songs = songs;
 		Email = email;
 		PhoneNumber = phoneNumber;
+        Absences = absences;
 	}
 
     public int Id

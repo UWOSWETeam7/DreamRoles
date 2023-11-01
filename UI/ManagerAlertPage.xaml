@@ -8,8 +8,8 @@
     <StackLayout>
         <Frame BackgroundColor="Tan" CornerRadius="20" Padding="5" Margin="0,0,0,15">
             <Grid RowDefinitions="*,*" HorizontalOptions="CenterAndExpand">
-                <Label Grid.Row="0" Text="Benjamin Martinez" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
-                <Label Grid.Row="1" Text="Performer" FontSize="Small" HorizontalOptions="CenterAndExpand"/>
+                <Label x:Name="lblPerformerName" Grid.Row="0" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
+                <Label x:Name="lblTitle" Grid.Row="1" FontSize="Small" HorizontalOptions="CenterAndExpand"/>
             </Grid>
         </Frame>
 
@@ -26,7 +26,7 @@
                 <Frame Grid.Row="1" BackgroundColor="Tan" BorderColor="Black" CornerRadius="0" >
                     <Grid  ColumnDefinitions="*,*" HorizontalOptions="CenterAndExpand" WidthRequest="300" Margin="0,-10">
                         <Label Grid.Column="0" Text="Absences: " FontSize="Medium" HorizontalOptions="CenterAndExpand" Margin="0,0,-125,0"/>
-                        <Label Grid.Column="1" Text="2" FontSize="Medium" HorizontalOptions="CenterAndExpand" Margin="-75,0,0,0" />
+                        <Label x:Name="lblAbsences" Grid.Column="1" FontSize="Medium" HorizontalOptions="CenterAndExpand" Margin="-75,0,0,0" />
                     </Grid>
                 </Frame>
 
