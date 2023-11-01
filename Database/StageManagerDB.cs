@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Business_Logic;
 using Prototypes.Model.Interfaces;
+using Microsoft.Maui.ApplicationModel.Communication;
+
 namespace Prototypes.Database;
 
 class StageManagerDB : IStageManagerDB
@@ -132,6 +134,37 @@ class StageManagerDB : IStageManagerDB
         return _performers;
     }
 
+    public Boolean UpdatePerformerName(int userId, String firstName, String lastName)
+    {
+         try
+        {
+            // Connect and open a connection to the database
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            // Command to insert a new performer into the 'dreamrolesuser' table
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "UPDATE dreamrolesuser " +
+                              "SET first_name = @first_name, last_name = @last_name " +
+                              "WHERE user_id = @user_id;";
+            cmd.Parameters.AddWithValue("user_id", userId);
+            cmd.Parameters.AddWithValue("first_name", firstName);
+            cmd.Parameters.AddWithValue("last_name", lastName);
+            cmd.ExecuteNonQuery();
+
+            //Repopulates the performers
+            SelectAllPerformers();
+
+        }
+        catch (Npgsql.PostgresException e)
+        {
+            Console.WriteLine(e.Message);
+            return false;
+        }
+        return true;
+    }
+
     public Boolean UpdateSong(int setlistId, String oldSongName, String oldArtist, String songName, String artist, int duration)
     {
         DeleteSong(oldSongName, oldArtist);
@@ -222,7 +255,7 @@ class StageManagerDB : IStageManagerDB
         return true;
     }
 
-    public Boolean UpdatePerformerContact(int userId, String phoneNumbner, String email)
+    public Boolean UpdatePerformerContact(int userId, String phoneNumber, String email)
     {
         try
         {
@@ -233,11 +266,13 @@ class StageManagerDB : IStageManagerDB
             //Commands to grab the performer with the given id and then update them
             var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "UPDATE performers " +
-                              "SET  phone_number = @phoneNumber, email = @email " +
+            cmd.CommandText = "UPDATE performer " +
+                              "SET  phone_number = @phone_number, email = @email " +
                               "WHERE user_id = @user_id;";
-            cmd.Parameters.AddWithValue("phone_number", phoneNumbner);
+            cmd.Parameters.AddWithValue("user_id", userId);
+            cmd.Parameters.AddWithValue("phone_number", phoneNumber);
             cmd.Parameters.AddWithValue("email", email);
+            cmd.ExecuteNonQuery();
 
             //Repopulates performers so now the updated performer is in it
             SelectAllPerformers();

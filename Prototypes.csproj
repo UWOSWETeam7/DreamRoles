@@ -109,6 +109,9 @@
 	  <MauiXaml Update="UI\EditContactInfoPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="UI\EditPerformerNamePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="UI\EditSongPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

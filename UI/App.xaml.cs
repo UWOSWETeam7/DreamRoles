@@ -6,7 +6,7 @@
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new ManagerNotCheckedInPage());
+            MainPage = new NavigationPage(new ManagerHomePage());
             ;
         }
     }

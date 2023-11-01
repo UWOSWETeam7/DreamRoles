@@ -6,7 +6,9 @@
              xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.ManagerHomePage"
              Shell.BackgroundColor="#ac9884">
-    <Grid
+    <RefreshView>
+        <RefreshView.Content>
+            <Grid
     RowSpacing="7"
     ColumnSpacing="5">
         <Grid.RowDefinitions>
@@ -75,8 +77,17 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
                     <Grid ColumnDefinitions="*,*,*,*">
-                        <Label Grid.Column="0" Text="{Binding FirstName}"/>
-                        <Label Grid.Column="1" Text="{Binding LastName}"/>
+                        <Label Grid.Column="0" Text="{Binding FirstName}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ShowManagerPerformerInfoPage"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                                <Label Grid.Column="1" Text="{Binding LastName}">
+                                    <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="ShowManagerPerformerInfoPage"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                
                         <Image Grid.Column="2" Source="checkmark.svg"/>
                         <Image Grid.Column="3" Source="trash.png"
                             VerticalOptions="Center"
@@ -94,6 +105,8 @@
         </CollectionView>
         <Button CornerRadius="0" Grid.Row="4" Grid.ColumnSpan="4" Text="Add Performer" Clicked="ShowAddPerformerPopup" Padding="0" Margin="0, 0,0,0"/>
     </Grid>
+    </RefreshView.Content>
+    </RefreshView>
 </ContentPage>
 
     

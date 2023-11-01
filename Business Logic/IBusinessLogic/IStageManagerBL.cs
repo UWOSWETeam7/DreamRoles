@@ -6,6 +6,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
 {
     public interface IStageManagerBL
     {
+        public Boolean EditPerformerName(int userId, String firstName, String lastName);
         public Boolean EditSong(int setlistId, String oldSongName, String oldArtist,  String songName, String artist, int duration);
         public Boolean AddSong(int setlistId, String title, String artist, int duration);
         /// <summary>

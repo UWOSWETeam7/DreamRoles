@@ -4,10 +4,12 @@ namespace Prototypes.UI;
 //@author: Keith Thoong
 public partial class ManagerHomePage : ContentPage
 {
+    private RefreshView _refreshView = new RefreshView();
     public ManagerHomePage()
     {
         InitializeComponent();
         BindingContext = MauiProgram.StageManagerBL;
+        _refreshView.Refreshing += ShowManagerPerformerInfoPage;
     }
     private void ShowAddPerformerPopup(object sender, EventArgs e)
     {
@@ -25,5 +27,13 @@ public partial class ManagerHomePage : ContentPage
         {
             MauiProgram.StageManagerBL.DeletePerformer(performer.Id);
         }
+    }
+
+    private void ShowManagerPerformerInfoPage(object sender, EventArgs e)
+    {
+        var label = (Label)sender;
+        var performer = (Performer) label.BindingContext;
+        Navigation.PushAsync(new ManagerPerformerInfoPage(performer));
+        //_refreshView.IsRefreshing = true;
     }
 }

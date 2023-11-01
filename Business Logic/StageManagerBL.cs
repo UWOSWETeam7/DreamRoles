@@ -12,8 +12,11 @@ namespace Prototypes.Business_Logic
         //A interface of StageManagerDB
         private IStageManagerDB StageManagerDB = new StageManagerDB();
 
-        
 
+        public Boolean EditPerformerName(int userId, String firstName, String lastName)
+        {
+            return StageManagerDB.UpdatePerformerName(userId, firstName, lastName);
+        }
         public Boolean EditSong(int setlistId, String oldSongName, String oldArtist, String songName, String artist, int duration)
         {
             return StageManagerDB.UpdateSong(setlistId, oldSongName, oldArtist, songName, artist, duration);

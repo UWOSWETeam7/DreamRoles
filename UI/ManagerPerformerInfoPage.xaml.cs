@@ -1,14 +1,22 @@
+using Prototypes.Model;
+
 namespace Prototypes.UI;
 //@author: Keith Thoong
 public partial class ManagerPerformerInfoPage : ContentPage
 {
-    public ManagerPerformerInfoPage()
+    private Performer _performer; 
+    private RefreshView _refreshView = new RefreshView();
+    public ManagerPerformerInfoPage(Performer performer)
     {
+        _performer = performer;
+        BindingContext = MauiProgram.StageManagerBL.FindPerformer(_performer.Id);
         InitializeComponent();
+
+        _refreshView.Refreshing += ShowEditPerformerNamePopup;
     }
     private void ShowEditContactInfoPopup(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new EditContactInfoPopup());
+        Navigation.PushAsync(new EditContactInfoPopup(_performer));
     }
 
     private void ShowAddSongForPerformerPopUp(object sender, EventArgs e)
@@ -16,5 +24,9 @@ public partial class ManagerPerformerInfoPage : ContentPage
         Navigation.PushAsync(new AddSongForPerformerPopUp());
     }
 
-
+    private void ShowEditPerformerNamePopup(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new EditPerformerNamePopup(_performer));
+        //_refreshView.IsRefreshing = true;
+    }
 }

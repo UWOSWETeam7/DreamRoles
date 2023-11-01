@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Prototypes.UI.EditPerformerNamePopup"
+             Title="EditPerformerNamePopup">
+    <VerticalStackLayout>
+        <Grid RowDefinitions="*,*" ColumnDefinitions="*,2.5*">
+            <Label Grid.Row="0" Grid.Column="0" Text="First Name:"/>
+            <Entry x:Name="firstNameEntry" Grid.Row="0" Grid.Column="1" Placeholder="Enter First Name"/>
+            <Label Grid.Row="1" Grid.Column="0" Text="Last Name:"/>
+            <Entry x:Name="lastNameEntry" Grid.Row="1" Grid.Column="1" Placeholder="Enter Last Name" />
+        </Grid>
+        <Button Text="Edit" Clicked="EditPerformerName"/>
+    </VerticalStackLayout>
+</ContentPage>
