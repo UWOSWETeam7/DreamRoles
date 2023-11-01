@@ -6,6 +6,9 @@ Sprint 1: UI Design of Pages
 Sprint 2: 
         -Added a NotCheckedInPerformers method to return ObservableCollection of not checked in performers to ManagerNotCheckedInPage.xaml 😀 
         -Added navigation from ManagerNotCheckedInPage to ManagerAlertPage through alert button's ShowAlert_Clicked pushing page on Navigation Stack Layout 😀 
-        -Added label names called lblPerformerNames and lblAbsences to pull data from the necessary fields of a Performer object. lblPerformerNames concantinates first & last name of performer and lblAbsences gets the performer's numberof absences. 
+        -Added label names called lblPerformerNames and lblAbsences to pull data from the necessary fields of a Performer object. lblPerformerNames concantinates first & last name of performer and lblAbsences gets           the performer's numberof absences. 
+        -Added different popups and methods that allow the stage manager to add and edit songs.
+        -Added different popups that allow the stage manager to add performers and to edit their names, contact information.
+        -Added methods and images to delete songs or performers.
 PROJECT TEAM MEMBERS: Kaia Thern, Keenan Marco, Keith Thoong, Keerthana Ambati
 PROJECT DATE: September-December 2023
