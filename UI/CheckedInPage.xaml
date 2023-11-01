@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:modelBL="clr-namespace:Prototypes.Business_Logic"
-             x:DataType="modelBL:StageManagerBL"
+             x:DataType="modelBL:StageManegerBL"
              xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.CheckedInPage"
              Title="CheckedInPage"
@@ -80,8 +80,8 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
                     <Grid ColumnDefinitions="*,*,*,*">
-                        <Label Grid.Column="0" Text="{Binding FirstName}"/>
-                        <Label Grid.Column="1" Text="{Binding LastName}"/>
+                        <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                         <Image Grid.Column="2" Source="checkmark.svg"/>
                         <Image Grid.Column="3" Source="trash.png"
                                VerticalOptions="Center"
