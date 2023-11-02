@@ -12,5 +12,10 @@ Sprint 2:
         -Added methods and images to delete songs or performers.
         -Added method to get the checked in performers 
         -Adjusted UI to show checked in performers from the database 😀 
+        -Added dynamically populated song list for a performer on ManagerSeePerformerInfo page
+        -Added dreamroles_user, checked_in_performers, missed_songs, performer, setlists, and songs tables to the database and an E/R Diagram in Figma
+        -Added navigation from ManagerHomepage to SongsList page
+        -Added navigation from ManagerHomepage to ManagerSeePerformerInfo page
+
 PROJECT TEAM MEMBERS: Kaia Thern, Keenan Marco, Keith Thoong, Keerthana Ambati
 PROJECT DATE: September-December 2023
