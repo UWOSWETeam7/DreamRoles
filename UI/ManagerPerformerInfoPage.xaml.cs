@@ -17,13 +17,15 @@ public partial class ManagerPerformerInfoPage : ContentPage
     private void ShowEditContactInfoPopup(object sender, EventArgs e)
     {
         Navigation.PushAsync(new EditContactInfoPopup(_performer));
+        _performer = MauiProgram.StageManagerBL.FindPerformer(_performer.Id);
+        BindingContext = _performer;
     }
 
     private void ShowAddSongForPerformerPopUp(object sender, EventArgs e)
     {
         Navigation.PushAsync(new AddSongForPerformerPopUp());
-    }
 
+    }
     private void ShowEditPerformerNamePopup(object sender, EventArgs e)
     {
         Navigation.PushAsync(new EditPerformerNamePopup(_performer));
