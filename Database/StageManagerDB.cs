@@ -226,7 +226,7 @@ class StageManagerDB : IStageManagerDB
         return numDeleted > 0;
     }
 
-    public Boolean InsertSongForPerformer(int userId, String songName, String artistName, String duration)
+    public Boolean InsertSongForPerformer(int userId, String songName, String artistName, int duration)
     {
         try
         {
@@ -244,7 +244,6 @@ class StageManagerDB : IStageManagerDB
             cmd.Parameters.AddWithValue("artist", artistName);
             cmd.Parameters.AddWithValue("duration", duration);
             cmd.ExecuteNonQuery();
-
             //Repopulates performers so now the updated performer is in it
             SelectAllPerformers();
         }
@@ -300,7 +299,7 @@ class StageManagerDB : IStageManagerDB
 
         // Commands to get all the songs from a performer in the database
         using var cmd = new NpgsqlCommand(
-             "SELECT title, artist, duration\r\n" +
+             "SELECT setlists.setlist_id, title, artist, duration\r\n" +
              "FROM setlists\r\nINNER JOIN songs\r\n" +
              "ON setlists.setlist_id = songs.setlist_id\r\n" +
              "WHERE user_id = @user_id;", conn);
@@ -310,11 +309,12 @@ class StageManagerDB : IStageManagerDB
         // Make a new song object for every song belonging to the performer
         while (reader.Read())
         {
-            String title = reader.GetString(0);
-            String artist = reader.GetString(1);
-            int duration = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
+            int setlistId = reader.GetInt32(0);
+            String title = reader.GetString(1);
+            String artist = reader.GetString(2);
+            int duration = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
 
-            ISongDB song = new SongDB(title, artist, duration);
+            ISongDB song = new Song(setlistId, title, artist, duration);
 
             songs.Add(song);
         }

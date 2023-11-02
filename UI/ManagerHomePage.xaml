@@ -54,7 +54,9 @@
             Grid.Column="2"
             BackgroundColor="Transparent"
             ImageSource="menu.svg"
-    />
+            Scale="0.7"
+            Clicked="ShowSongListPage"
+        />
         <Label
         Grid.Row="2"
         Grid.Column="1"
@@ -76,24 +78,24 @@
            x:Name="CVSongs" ItemsSource="{Binding Performers}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
-                    <Grid ColumnDefinitions="*,*,*,*">
-                        <Label Grid.Column="0" Text="{Binding FirstName}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="ShowManagerPerformerInfoPage"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                                <Label Grid.Column="1" Text="{Binding LastName}">
-                                    <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="ShowManagerPerformerInfoPage"/>
-                                    </Label.GestureRecognizers>
-                                </Label>
-                                
-                        <Image Grid.Column="2" Source="checkmark.svg"/>
+                    <Grid ColumnDefinitions="2*,*,*,*">
+                                <HorizontalStackLayout Padding="30, 0" Spacing="10">
+                                    <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="ShowManagerPerformerInfoPage"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="ShowManagerPerformerInfoPage"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </HorizontalStackLayout>
+                                <Image Grid.Column="2" Source="checkmark.svg" Scale="0.5" VerticalOptions="Center"/>
                         <Image Grid.Column="3" Source="trash.png"
                             VerticalOptions="Center"
                             HorizontalOptions="End"
-                            WidthRequest="50"
-                            HeightRequest="40">
+                               Scale="0.4">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="DeletePerformer"/>
                             </Image.GestureRecognizers>

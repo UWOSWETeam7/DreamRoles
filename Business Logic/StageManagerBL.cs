@@ -33,6 +33,10 @@ namespace Prototypes.Business_Logic
         {
             get { return StageManagerDB.SelectAllPerformers(); }
         }
+        public ObservableCollection<(Performer performer, DateTime? timeCheckedIn)> CheckedInPerformers
+        {
+            get { return StageManagerDB.GetCheckedInPerformers(); }
+        }
         public ObservableCollection<Song> Songs
         {
             get { return StageManagerDB.SelectAllSongs(); }
@@ -46,7 +50,7 @@ namespace Prototypes.Business_Logic
             return StageManagerDB.DeleteSong(songTitle, artistName);
         }
 
-        public Boolean AddSongForPerformer(int userId, String songName, String artistName, String duration)
+        public Boolean AddSongForPerformer(int userId, String songName, String artistName, int duration)
         {
             return StageManagerDB.InsertSongForPerformer(userId, songName, artistName, duration);
         }

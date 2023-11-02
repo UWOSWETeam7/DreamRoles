@@ -10,7 +10,7 @@ namespace Prototypes.Database
         public Boolean InsertSong(int setlistId, String title, String artist, int duration);
         public ObservableCollection<Song> SelectAllSongs();
         public Boolean DeleteSong(String songTitle, String artistName);
-        public Boolean InsertSongForPerformer(int userId, String songName, String artistName, String duration);
+        public Boolean InsertSongForPerformer(int userId, String songName, String artistName, int duration);
         public Boolean UpdatePerformerContact(int userId, String phoneNumber, String email);
         public ObservableCollection<Performer> NotCheckedInPerformers();
 
