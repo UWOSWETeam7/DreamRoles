@@ -29,4 +29,11 @@ public partial class ManagerPerformerInfoPage : ContentPage
         Navigation.PushAsync(new EditPerformerNamePopup(_performer));
         //_refreshView.IsRefreshing = true;
     }
+
+    private void ShowEditPerformerSongPopup(object sender, EventArgs e)
+    {
+        var label = (Image)sender;
+        var song = label.BindingContext;
+        Navigation.PushAsync(new EditSongPopup((Song)song));
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using Prototypes.Model.Interfaces;
 using System.Collections.ObjectModel;
 namespace Prototypes.Model;
+using System.ComponentModel;
 
 public class Performer
 {
@@ -35,7 +36,7 @@ public class Performer
     public int Id
     {
         get { return _id; }
-        set { _id = value; }
+        set { _id = value;}
     }
     public String FirstName 
 	{

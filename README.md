@@ -7,5 +7,15 @@ Sprint 2:
         -Added a NotCheckedInPerformers method to return ObservableCollection of not checked in performers to ManagerNotCheckedInPage.xaml 😀 
         -Added navigation from ManagerNotCheckedInPage to ManagerAlertPage through alert button's ShowAlert_Clicked pushing page on Navigation Stack Layout 😀 
         -Added label names called lblPerformerNames and lblAbsences to pull data from the necessary fields of a Performer object. lblPerformerNames concantinates first & last name of performer and lblAbsences gets the performer's numberof absences. 
+        -Added different popups and methods that allow the stage manager to add and edit songs.
+        -Added different popups that allow the stage manager to add performers and to edit their names, contact information.
+        -Added methods and images to delete songs or performers.
+        -Added method to get the checked in performers 
+        -Adjusted UI to show checked in performers from the database 😀 
+        -Added dynamically populated song list for a performer on ManagerSeePerformerInfo page
+        -Added dreamroles_user, checked_in_performers, missed_songs, performer, setlists, and songs tables to the database and an E/R Diagram in Figma 😀
+        -Added navigation from ManagerHomepage to SongsList page
+        -Added navigation from ManagerHomepage to ManagerSeePerformerInfo page
+
 PROJECT TEAM MEMBERS: Kaia Thern, Keenan Marco, Keith Thoong, Keerthana Ambati
 PROJECT DATE: September-December 2023

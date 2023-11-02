@@ -9,10 +9,10 @@ public partial class AddSongForPerformerPopUp : ContentPage
 
     private void AddSong(object sender, EventArgs e)
     {
-        int userId = 1223;
+        int userId = 1;
         string songName = songNameEntry.Text;
         string artistName = artistNameEntry.Text;
-        string duration = durationEntry.Text;
+        int duration = int.Parse(durationEntry.Text);
         MauiProgram.StageManagerBL.AddSongForPerformer(userId, songName, artistName, duration);
     }
 }

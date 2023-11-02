@@ -72,7 +72,7 @@
 
         <CollectionView
             x:Name="CV" 
-            ItemsSource="{Binding GetCheckedInPerformers}" 
+            ItemsSource="{Binding CheckedInPerformers}" 
             SelectionMode="Single"
             Grid.Row="3"
             Grid.ColumnSpan="2"

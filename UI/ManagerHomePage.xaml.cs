@@ -36,4 +36,9 @@ public partial class ManagerHomePage : ContentPage
         Navigation.PushAsync(new ManagerPerformerInfoPage(performer));
         //_refreshView.IsRefreshing = true;
     }
+
+    private void ShowSongListPage(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new SongsPage());
+    }
 }

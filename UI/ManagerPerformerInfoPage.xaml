@@ -80,24 +80,53 @@
                                     </Image>
                                 </Grid>
                             </mct:Expander.Header>
-                            <mct:Expander.Content>
-                                <StackLayout Padding="0">
-                                    <Border BackgroundColor="#b6a390" Stroke="Black" StrokeThickness="1.7" Padding="0">
+                                <mct:Expander.Content>
+                                    <StackLayout Padding="0">
+                                        <CollectionView
+                                            x:Name="CVSongs" ItemsSource="{Binding Songs}" SelectionMode="Single" >
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate x:DataType="model:Song">
+                                                    <Border BackgroundColor="#b6a390" Stroke="Black" StrokeThickness="1.7" Padding="5,2" WidthRequest="350">
+                                                        <VerticalStackLayout>
+                                                            <HorizontalStackLayout>
+                                                                <Image Source="music.svg" Margin="10, 0" HorizontalOptions="Start"/>
+                                                                <Label Grid.Column ="1" Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap"/>
+                                                                <HorizontalStackLayout HorizontalOptions="End">
+                                                                    <Image Source="stopwatch.svg" Margin="20, 0"/>
+                                                                    <Label Text="{Binding DurationMinutes}"/>
+                                                                    <Label Text=" : "/>
+                                                                    <Label Text="{Binding DurationSeconds, StringFormat='{0:D2}'}"/>
+                                                                </HorizontalStackLayout>
+                                                                <Image Source="edit.svg" HorizontalOptions="End" Margin="10,0">
+                                                                    <Image.GestureRecognizers>
+                                                                        <TapGestureRecognizer Tapped="ShowEditPerformerSongPopup"/>
+                                                                    </Image.GestureRecognizers>
+                                                                </Image>
+                                                            </HorizontalStackLayout>
+                                                        </VerticalStackLayout>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                        <!--<Border BackgroundColor="#b6a390" Stroke="Black" StrokeThickness="1.7" Padding="0">
                                         <VerticalStackLayout>
                                             <HorizontalStackLayout>
                                                 <Image Source="calendar.svg" Scale="1" Margin="10, 0"/>
                                                 <Label Text="1/15/2023 @12:00 PM"/>
-                                                <Image Source="edit.svg" Scale="1" Margin="100, 0"/>
+                                                <Image Source="edit.svg" Scale="1" Margin="100, 0">
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="ShowEditPerformerSongPopup"/>
+                                                    </Image.GestureRecognizers>
+                                                </Image>
                                             </HorizontalStackLayout>
                                             <Line X2="400" Y2="1" Stroke="Black" Grid.Row="1"/>
                                             <HorizontalStackLayout>
                                                 <Image Source="music.svg" Margin="10, 0"/>
                                                 <Label Text="Don't Stop Believing"/>
                                                 <Image Source="stopwatch.svg" Margin="40, 0"/>
-                                                <Label Text="4:11"/>
                                             </HorizontalStackLayout>
                                         </VerticalStackLayout>
-                                    </Border>
+                                    </Border>-->
                                     <Border BackgroundColor="#a79a8d" Stroke="Black" StrokeThickness="1.7" Padding="0">
                                         <Image Source="add.svg" HorizontalOptions="Start" Margin="5">
                                             <Image.GestureRecognizers>
