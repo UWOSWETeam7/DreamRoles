@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Android.Telecom;
+﻿using System.ComponentModel;
 using Prototypes.Model.Interfaces;
 namespace Prototypes.Model
 {
