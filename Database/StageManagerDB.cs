@@ -230,6 +230,7 @@ class StageManagerDB : IStageManagerDB
     {
         try
         {
+            InsertSongForSetlist(userId);
             // Connect and open a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
@@ -243,6 +244,33 @@ class StageManagerDB : IStageManagerDB
             cmd.Parameters.AddWithValue("title", songName);
             cmd.Parameters.AddWithValue("artist", artistName);
             cmd.Parameters.AddWithValue("duration", duration);
+            cmd.ExecuteNonQuery();
+            //Repopulates performers so now the updated performer is in it
+            //SelectAllPerformers();
+
+        }
+        catch (Npgsql.PostgresException pe)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean InsertSongForSetlist(int userId)
+    {
+        try
+        {
+            // Connect and open a connection to the database
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            // Command to insert a song into the 'songs' table
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "INSERT INTO setlists (setlist_id, user_id) " +
+                              "VALUES (@setlist_id, @user_id);";
+            cmd.Parameters.AddWithValue("setlist_id", userId);
+            cmd.Parameters.AddWithValue("user_id", userId);
             cmd.ExecuteNonQuery();
             //Repopulates performers so now the updated performer is in it
             SelectAllPerformers();

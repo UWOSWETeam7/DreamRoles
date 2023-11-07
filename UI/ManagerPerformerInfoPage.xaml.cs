@@ -23,8 +23,7 @@ public partial class ManagerPerformerInfoPage : ContentPage
 
     private void ShowAddSongForPerformerPopUp(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new AddSongForPerformerPopUp());
-
+        Navigation.PushAsync(new AddSongForPerformerPopUp(_performer));
     }
     private void ShowEditPerformerNamePopup(object sender, EventArgs e)
     {
