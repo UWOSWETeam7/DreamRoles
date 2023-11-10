@@ -28,8 +28,8 @@
                 FontSize="18"
                 HorizontalOptions="CenterAndExpand"  
                 HorizontalTextAlignment = "Center"/>
-
-            <Picker x:Name="chooseName" ItemsSource="{Binding SelectAllPerfomers}" Title="Select Name"/>
+            
+            <Picker x:Name="chooseName" ItemsSource="{Binding ShowNames}" Title="Select Name"/>
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Adam Anderson</x:String>

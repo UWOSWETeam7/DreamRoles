@@ -10,17 +10,6 @@ namespace Prototypes.Business_Logic
     {
         private IPerformerDB PerformerDB = new PerformerDB();
 
-        int performerAccessCode = 001122;
-        public Boolean IsPerformer(int accessCode)
-        {
-            Boolean isPerformer = false;
-            if (accessCode == performerAccessCode)
-            {
-                isPerformer = true;
-            }
-            return isPerformer;
-        }
-
         public PerformerBL()
         {
             PerformerDB = new PerformerDB();
