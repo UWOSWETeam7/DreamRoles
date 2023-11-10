@@ -29,19 +29,19 @@
                 HorizontalOptions="CenterAndExpand"  
                 HorizontalTextAlignment = "Center"/>
 
-            <Picker x:Name="chooseName" Title="Select Name">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Adam Anderson</x:String>
-                        <x:String>Brianna Bauer</x:String>
-                        <x:String>Candance Crosby</x:String>
-                        <x:String>Drew Davis</x:String>
-                        <x:String>Ella Evans</x:String>
-                        <x:String>Faith Franco</x:String>
-                        <x:String>Geoffrey Gibbons</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+            <Picker x:Name="chooseName" ItemsSource="{Binding SelectAllPerfomers}" Title="Select Name"/>
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Adam Anderson</x:String>
+                    <x:String>Brianna Bauer</x:String>
+                    <x:String>Candance Crosby</x:String>
+                    <x:String>Drew Davis</x:String>
+                    <x:String>Ella Evans</x:String>
+                    <x:String>Faith Franco</x:String>
+                    <x:String>Geoffrey Gibbons</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+
 
             <Button
                 x:Name="NextBtn"

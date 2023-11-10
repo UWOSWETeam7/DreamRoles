@@ -30,7 +30,9 @@
 
             <Entry
 				Placeholder="Access Code"
-				x:Name="access" />
+				x:Name="access" 
+                TextChanged="OnEntryTextChanged"
+                Completed="OnEntryCompleted" />
 
             <Button
                 x:Name="EnterBtn"
