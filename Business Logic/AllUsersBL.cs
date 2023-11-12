@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prototypes.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,9 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         int performerAccessCode = 1122333;
         int stageManagerAccessCode = 4455666;
         int choreographerAccessCode = 7788999;
+        PerformerDB PerformerDB = new PerformerDB();
+        StageManagerDB StageManagerDB = new StageManagerDB();
+        ChoreographerDB ChoreographerDB = new ChoreographerDB();
 
         void OnEntryTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -22,6 +26,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
             if (accessCode == performerAccessCode)
             {
                 //display performers
+                ShowPerformerNames(true);
 
             } else if (accessCode ==  stageManagerAccessCode)
             {
@@ -36,6 +41,21 @@ namespace Prototypes.Business_Logic.IBusinessLogic
                 throw new Exception();
             }
             
+        }
+
+        public void ShowPerformerNames(Boolean show)
+        {
+            StageManagerDB.SelectAllPerformers();
+        }
+
+        public void ShowStageManagerNames(Boolean show)
+        {
+            StageManagerDB.SelectAllStageManagers();
+        }
+
+        public void ShowChoreographerNames(Boolean show)
+        {
+
         }
     }
 }
