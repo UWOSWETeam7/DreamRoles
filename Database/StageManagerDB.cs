@@ -10,10 +10,11 @@ namespace Prototypes.Database;
 
 class StageManagerDB : IStageManagerDB
 {
-    //A ObservableCollection of Aiport objects
+    //A ObservableCollections
     private ObservableCollection<Performer> _performers;
     private ObservableCollection<(Performer performer, DateTime? checkInTime)> _checkedInPerformers;
     private ObservableCollection<Song> _songs;
+
     //The string to connect to the database
     private String _connString;
 

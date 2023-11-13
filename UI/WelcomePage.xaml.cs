@@ -6,4 +6,13 @@ public partial class WelcomePage : ContentPage
     {
         InitializeComponent();
     }
+    private void OnEntryTextChanged(object sender, EventArgs e)
+    {
+        
+    }
+
+    private void OnEntryCompleted(object sender, EventArgs e)
+    {
+
+    }
 }
