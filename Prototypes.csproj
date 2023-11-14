@@ -79,6 +79,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="UI\ManagerCheckedInPage.xaml.cs">
+	    <DependentUpon>ManagerCheckedInPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="UI\ManagerAlertPage.xaml.cs">
 	    <DependentUpon>ManagerAlertPage.xaml</DependentUpon>
 	  </Compile>
@@ -91,6 +94,9 @@
 	  <Compile Update="UI\PerformersOfSongPage.xaml.cs">
 	    <DependentUpon>PerformersOfSongPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="UI\ManagerSongsPage.xaml.cs">
+	    <DependentUpon>ManagerSongsPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -100,13 +106,19 @@
 	  <MauiXaml Update="UI\AddSongPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="UI\CheckedInPage.xaml">
+	  <MauiXaml Update="UI\ChoreoCheckedInPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ManagerCheckedInPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\ChoreoHomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\ChoreoNotCheckedInPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ChoreoSongsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\EditContactInfoPopup.xaml">
@@ -145,7 +157,7 @@
 	  <MauiXaml Update="UI\SongSelectPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="UI\SongsPage.xaml">
+	  <MauiXaml Update="UI\ManagerSongsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\WelcomePage.xaml">

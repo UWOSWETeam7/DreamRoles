@@ -42,6 +42,6 @@ public partial class ManagerHomePage : ContentPage
 
     private void ShowSongListPage(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new SongsPage());
+        Navigation.PushAsync(new ManagerSongsPage());
     }
 }

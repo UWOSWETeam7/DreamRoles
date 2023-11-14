@@ -2,9 +2,9 @@ using Prototypes.Model;
 
 namespace Prototypes.UI;
 //@author: Kaia Thern
-public partial class SongsPage : ContentPage
+public partial class ManagerSongsPage : ContentPage
 {
-    public SongsPage()
+    public ManagerSongsPage()
     {
         InitializeComponent();
         BindingContext = new SearchBarSongViewModel();

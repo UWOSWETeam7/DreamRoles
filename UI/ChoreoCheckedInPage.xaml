@@ -4,8 +4,8 @@
              xmlns:modelBL="clr-namespace:Prototypes.Business_Logic"
              x:DataType="model:SearchBarCheckedInPerformerViewModel"
              xmlns:model="clr-namespace:Prototypes.Model"
-             x:Class="Prototypes.UI.CheckedInPage"
-             Title="CheckedInPage"
+             x:Class="Prototypes.UI.ChoreoCheckedInPage"
+             Title="ChoreoCheckedInPage"
              BackgroundColor="#E1D6C9">
     <Grid
          RowSpacing="6"
@@ -83,15 +83,6 @@
                         <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                         <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                         <Image Grid.Column="2" Source="checkmark.svg"/>
-                        <Image Grid.Column="3" Source="trash.png"
-                               VerticalOptions="Center"
-                               HorizontalOptions="End"
-                               WidthRequest="50"
-                               HeightRequest="40">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="DeletePerformer"/>
-                            </Image.GestureRecognizers>
-                        </Image>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
