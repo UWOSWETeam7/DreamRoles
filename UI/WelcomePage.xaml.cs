@@ -36,12 +36,12 @@ public partial class WelcomePage : ContentPage
 
     public void ShowPerformerNames(Boolean show)
     {
-        StageManagerDB.SelectAllPerformers();
+       //StageManagerDB.SelectAllPerformers();
     }
 
     public void ShowStageManagerNames(Boolean show)
     {
-        StageManagerDB.SelectAllStageManagers();
+        //StageManagerDB.SelectAllStageManagers();
     }
 
     public void ShowChoreographerNames(Boolean show)

@@ -1,9 +1,9 @@
 using Prototypes.Model;
 namespace Prototypes.UI;
 //@author: Keerthana Ambati
-public partial class CheckedInPage : ContentPage
+public partial class ManagerCheckedInPage : ContentPage
 {
-    public CheckedInPage()
+    public ManagerCheckedInPage()
     {
         InitializeComponent();
         BindingContext = new SearchBarCheckedInPerformerViewModel();
