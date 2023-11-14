@@ -8,7 +8,7 @@ public partial class SongSelectPage : ContentPage
     public SongSelectPage(Performer performer)
     {
         InitializeComponent();
-        BindingContext = MauiProgram.StageManagerBL;
+        BindingContext = MauiProgram.BusinessLogic;
         _performer = performer;
     }
 }

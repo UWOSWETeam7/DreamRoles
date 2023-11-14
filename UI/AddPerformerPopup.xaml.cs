@@ -14,7 +14,7 @@ public partial class AddPerformerPopup : ContentPage
         string phoneNumber = phoneNumberEntry.Text;
         string email = emailEntry.Text;
 
-        MauiProgram.StageManagerBL.AddPerformer(userId, firstName, lastName, null, email, phoneNumber);
+        MauiProgram.BusinessLogic.AddPerformer(userId, firstName, lastName, null, email, phoneNumber);
         Navigation.PopAsync();
     }
 }

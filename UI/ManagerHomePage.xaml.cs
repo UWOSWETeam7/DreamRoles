@@ -29,7 +29,7 @@ public partial class ManagerHomePage : ContentPage
 
         if (userResponse)
         {
-            MauiProgram.StageManagerBL.DeletePerformer(performer.Id);
+            MauiProgram.BusinessLogic.DeletePerformer(performer.Id);
         }
     }
 

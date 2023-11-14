@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Prototypes.UI.SongSelectPage"
              xmlns:modelBL="clr-namespace:Prototypes.Business_Logic"
-             x:DataType="modelBL:StageManagerBL"
+             x:DataType="modelBL:BusinessLogic"
              xmlns:model="clr-namespace:Prototypes.Model"
              BackgroundColor="LightGray">
     

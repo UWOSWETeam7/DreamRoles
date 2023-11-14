@@ -18,7 +18,7 @@ public partial class ManagerCheckedInPage : ContentPage
 
         if (userResponse)
         {
-            MauiProgram.StageManagerBL.DeletePerformer(performer.Id);
+            MauiProgram.BusinessLogic.DeletePerformer(performer.Id);
         }
     }
 }
