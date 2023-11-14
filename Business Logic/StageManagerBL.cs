@@ -45,6 +45,11 @@ namespace Prototypes.Business_Logic
         {
             get { return StageManagerDB.GetCheckedInPerformers(); }
         }
+
+        public ObservableCollection<Performer> GetNotCheckedInPerformers
+        {
+            get { return StageManagerDB.NotCheckedInPerformers(); }
+        }
         public Boolean DeleteSong(String songTitle, String artistName)
         {
             return StageManagerDB.DeleteSong(songTitle, artistName);
@@ -135,12 +140,7 @@ namespace Prototypes.Business_Logic
         /// Gets all the not checked in performers from the StageManagarDB
         /// </summary>
         /// <returns> an observableCollection of performer objects that are not checked in</returns>
-        public ObservableCollection<Performer> NotCheckedInPerformers
-        {
-            get { return StageManagerDB.NotCheckedInPerformers(); }
-        }
-
-        
+       
     }
 
 }

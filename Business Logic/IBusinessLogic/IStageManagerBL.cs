@@ -15,6 +15,7 @@ namespace Prototypes.Business_Logic.IBusinessLogic
         public ObservableCollection<Performer> Performers { get; }
         public ObservableCollection<Song> Songs { get; }
         public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers { get; }
+        public ObservableCollection<Performer> GetNotCheckedInPerformers { get; }
         public Boolean DeleteSong(String songTitle, String artistName);
 
         public Boolean AddSongForPerformer(int userId, String songName, String artistName, int duration);
