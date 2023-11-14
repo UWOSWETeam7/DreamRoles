@@ -1,9 +1,9 @@
 ﻿using Prototypes.Model;
 using System.Collections.ObjectModel;
 
-namespace Prototypes.Database
+namespace Prototypes.Databases.Interface
 {
-    public interface IStageManagerDB
+    public interface IDatabase
     {
         public Boolean UpdatePerformerName(int userId, String firstName, String lastName);
         public Boolean UpdateSong(int setlistId, String oldSongName, String oldArtist, String songName, String artist, int duration);

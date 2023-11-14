@@ -34,7 +34,7 @@ public class SearchBarSongViewModel : ObservableObject
 
     public SearchBarSongViewModel()
     {
-        Songs = MauiProgram.StageManagerBL.Songs;
+        Songs = MauiProgram.BusinessLogic.Songs;
         FilteredSongs = Songs;
     }
 

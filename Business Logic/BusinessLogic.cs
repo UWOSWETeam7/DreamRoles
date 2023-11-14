@@ -1,81 +1,82 @@
 ﻿using Prototypes.Model;
-using Prototypes.Business_Logic.IBusinessLogic;
-using Prototypes.Database;
+using Prototypes.Business_Logic.Interface;
+using Prototypes.Databases.Interface;
+using Prototypes.Databases;
 using Prototypes.Model.Interfaces;
 using System.Collections.ObjectModel;
 
 namespace Prototypes.Business_Logic
 {
-    class StageManagerBL : IStageManagerBL
+    class BusinessLogic : IBusinessLogic
     {
 
-        //A interface of StageManagerDB
-        private IStageManagerDB StageManagerDB = new StageManagerDB();
+        //A interface of Database
+        private IDatabase Database = new Database();
 
 
         public Boolean EditPerformerName(int userId, String firstName, String lastName)
         {
-            return StageManagerDB.UpdatePerformerName(userId, firstName, lastName);
+            return Database.UpdatePerformerName(userId, firstName, lastName);
         }
         public Boolean EditSong(int setlistId, String oldSongName, String oldArtist, String songName, String artist, int duration)
         {
-            return StageManagerDB.UpdateSong(setlistId, oldSongName, oldArtist, songName, artist, duration);
+            return Database.UpdateSong(setlistId, oldSongName, oldArtist, songName, artist, duration);
         }
 
         public Boolean AddSong(int setlistId, String title, String artist, int duration)
         {
-            return StageManagerDB.InsertSong(setlistId, title, artist, duration);
+            return Database.InsertSong(setlistId, title, artist, duration);
         }
         /// <summary>
         /// Gets the ObservableCollection performers
         /// </summary>
         public ObservableCollection<Performer> Performers
         {
-            get { return StageManagerDB.SelectAllPerformers(); }
+            get { return Database.SelectAllPerformers(); }
         }
         public ObservableCollection<(Performer performer, DateTime? timeCheckedIn)> CheckedInPerformers
         {
-            get { return StageManagerDB.GetCheckedInPerformers(); }
+            get { return Database.GetCheckedInPerformers(); }
         }
         public ObservableCollection<Song> Songs
         {
-            get { return StageManagerDB.SelectAllSongs(); }
+            get { return Database.SelectAllSongs(); }
         }
         public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers
         {
-            get { return StageManagerDB.GetCheckedInPerformers(); }
+            get { return Database.GetCheckedInPerformers(); }
         }
 
         public ObservableCollection<Performer> GetNotCheckedInPerformers
         {
-            get { return StageManagerDB.NotCheckedInPerformers(); }
+            get { return Database.NotCheckedInPerformers(); }
         }
         public Boolean DeleteSong(String songTitle, String artistName)
         {
-            return StageManagerDB.DeleteSong(songTitle, artistName);
+            return Database.DeleteSong(songTitle, artistName);
         }
 
         public Boolean AddSongForPerformer(int userId, String songName, String artistName, int duration)
         {
-            return StageManagerDB.InsertSongForPerformer(userId, songName, artistName, duration);
+            return Database.InsertSongForPerformer(userId, songName, artistName, duration);
         }
 
         public Boolean EditPerformerContact(int userId, String phoneNumber, String email)
         {
-            //Sends it to the StageManagerDB
-            return StageManagerDB.UpdatePerformerContact(userId, phoneNumber, email);
+            //Sends it to the Database
+            return Database.UpdatePerformerContact(userId, phoneNumber, email);
         }
 
         /// <summary>
-        /// Initializes a StageManagerDB when the program starts 
+        /// Initializes a Database when the program starts 
         /// </summary>
-        public StageManagerBL()
+        public BusinessLogic()
         {
-            StageManagerDB = new StageManagerDB();
+            Database = new Database();
         }
 
         /// <summary>
-        /// Creates a Performer object and send it to the StageManagerDB
+        /// Creates a Performer object and send it to the Database
         /// </summary>
         /// <param name="id">the id of the performer</param>
         /// <param name="city">the city the performer is in</param>
@@ -86,35 +87,35 @@ namespace Prototypes.Business_Logic
         {
             //Creates a new performer object
             Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber, 0);
-            //Sends it to the StageManagerDB and gets a true or false depending if it can add it to the StageManagerDB
-            return StageManagerDB.InsertPerformer(performer);
+            //Sends it to the Database and gets a true or false depending if it can add it to the Database
+            return Database.InsertPerformer(performer);
         }
 
         /// <summary>
-        /// Checks if the id is valid then asks the StageManagerDB to delete the performer with that id
+        /// Checks if the id is valid then asks the Database to delete the performer with that id
         /// </summary>
         /// <param name="id">the id of the performer that is supposed to be deleted</param>
-        /// <returns>true if the StageManagerDB can delete the performer. False if the param is invalid or the performer could not be found in the StageManagerDB</returns>
+        /// <returns>true if the Database can delete the performer. False if the param is invalid or the performer could not be found in the Database</returns>
         public Boolean DeletePerformer(int userId)
         {
-           //Sends it to the StageManagerDB
-           return StageManagerDB.DeletePerformer(userId);
+           //Sends it to the Database
+           return Database.DeletePerformer(userId);
         }
 
         /// <summary>
-        /// Creates a performer object to replace another performer object and send it to the StageManagerDB
+        /// Creates a performer object to replace another performer object and send it to the Database
         /// </summary>
         /// <param name="id">the id of the performer</param>
         /// <param name="city">the city the performer is in</param>
         /// <param name="dateVisted">the date the user visited the performer</param>
         /// <param name="rating">the rating the gave to the performer</param>
-        /// <returns>true if all the params are valid, false if the StageManagerDB could not find the performer to edit or the params are invalid</returns>
+        /// <returns>true if all the params are valid, false if the Database could not find the performer to edit or the params are invalid</returns>
         public Boolean EditPerformer(int userId, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
         {
             //Creates a new performer object
             Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber, 0);
-            //Sends it to the StageManagerDB
-            return StageManagerDB.UpdatePerformer(performer);
+            //Sends it to the Database
+            return Database.UpdatePerformer(performer);
         }
 
         /// <summary>
@@ -124,12 +125,12 @@ namespace Prototypes.Business_Logic
         /// <returns>the performer if it is found null if it is not found or invalid param</returns>
         public Performer FindPerformer(int userId)
         {
-            //Sends it to StageManagerDB
-            return StageManagerDB.SelectPerformer(userId);
+            //Sends it to Database
+            return Database.SelectPerformer(userId);
         }
 
         /// <summary>
-        /// Gets all the performers from the StageManagerDB
+        /// Gets all the performers from the Database
         /// </summary>
         /// <returns>a observableCollection of performers objects the user has visted</returns>
         public ObservableCollection<Performer> GetPerformers()

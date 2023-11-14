@@ -34,7 +34,7 @@ namespace Prototypes.Model;
 
     public SearchBarCheckedInPerformerViewModel()
     {
-        CheckedInPerformers = MauiProgram.StageManagerBL.GetCheckedInPerformers;
+        CheckedInPerformers = MauiProgram.BusinessLogic.GetCheckedInPerformers;
         FilteredCheckedInPerformers = CheckedInPerformers;
     }
 

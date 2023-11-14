@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using Prototypes.Model.Interfaces;
 
-namespace Prototypes.Business_Logic.IBusinessLogic
+namespace Prototypes.Business_Logic.Interface
 {
-    public interface IStageManagerBL
+    public interface IBusinessLogic
     {
         public Boolean EditPerformerName(int userId, String firstName, String lastName);
         public Boolean EditSong(int setlistId, String oldSongName, String oldArtist,  String songName, String artist, int duration);

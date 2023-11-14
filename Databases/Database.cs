@@ -1,12 +1,13 @@
 ﻿using Prototypes.Model;
+using Prototypes.Databases.Interface;
 using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Model.Interfaces;
 using System.Linq;
 
-namespace Prototypes.Database;
+namespace Prototypes.Databases;
 
-class StageManagerDB : IStageManagerDB
+class Database : IDatabase
 {
     //A ObservableCollections
     private ObservableCollection<Performer> _performers;
@@ -21,7 +22,7 @@ class StageManagerDB : IStageManagerDB
     /// <summary>
     /// A Constructor and initializes performers and connString and populates performers
     /// </summary>
-    public StageManagerDB()
+    public Database()
     {
         _performers = new ObservableCollection<Performer>();
         _checkedInPerformers = new ObservableCollection<(Performer performer, DateTime? timeCheckedIn)>();
@@ -70,7 +71,7 @@ class StageManagerDB : IStageManagerDB
     /// <returns>a password</returns>
     static String FetchPassword()
     {
-        IConfiguration config = new ConfigurationBuilder().AddUserSecrets<StageManagerDB>().Build();
+        IConfiguration config = new ConfigurationBuilder().AddUserSecrets<Database>().Build();
         return config["CockroachDBPassword"] ?? "6tRK2gvZOx62cwwPBe8znA"; // this works in VS, not VSC
     }
     */

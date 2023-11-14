@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Prototypes.Model.Interfaces;
 
-namespace Prototypes.Database;
+namespace Prototypes.Databases;
 
 internal class SongDB : ISongDB
 {

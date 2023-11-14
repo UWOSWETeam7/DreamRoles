@@ -34,7 +34,7 @@ public class SearchBarPerformerViewModel : ObservableObject
 
     public SearchBarPerformerViewModel()
     {
-        Performers = MauiProgram.StageManagerBL.Performers;
+        Performers = MauiProgram.BusinessLogic.Performers;
         FilteredPerformers = Performers;
     }
 
