@@ -2,9 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Prototypes.UI.ManagerNotCheckedInPage"
-             xmlns:model_1="clr-namespace:Prototypes.Business_Logic" 
              xmlns:model_2="clr-namespace:Prototypes.Model" 
-             x:DataType="model_1:StageManagerBL" 
+             x:DataType="model_2:SearchBarNotCheckedInPerformerViewModel" 
              Title="ManagerNotCheckedInPage"
              BackgroundColor="#E1D6C9">
     <Grid
@@ -56,6 +55,7 @@
          Placeholder="Enter Name Here"
          HorizontalTextAlignment="Center"
          VerticalTextAlignment="Center"
+         Text="{Binding SearchText}"
         ></SearchBar>
 
         <Button 
@@ -77,7 +77,7 @@
 
         <CollectionView
             x:Name="CV" 
-            ItemsSource="{Binding NotCheckedInPerformers}"
+            ItemsSource="{Binding FilteredNotCheckedInPerformers}"
             SelectionMode="Single"
             Grid.Row="3"
             Grid.ColumnSpan="3"
@@ -88,7 +88,7 @@
                         <Grid RowDefinitions="*" ColumnDefinitions="6*,6*, 3*">
                         <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                         <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                        <Button Grid.Column="2" BackgroundColor="Transparent" Clicked="ShowAlert_Clicked"  ImageSource="alert.png" />
+                        <Button Grid.Column="2" BackgroundColor="Transparent"  ImageSource="alert.png" />
                     </Grid>
                     </VerticalStackLayout>
                 </DataTemplate>

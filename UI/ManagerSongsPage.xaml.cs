@@ -2,12 +2,12 @@ using Prototypes.Model;
 
 namespace Prototypes.UI;
 //@author: Kaia Thern
-public partial class SongsPage : ContentPage
+public partial class ManagerSongsPage : ContentPage
 {
-    public SongsPage()
+    public ManagerSongsPage()
     {
         InitializeComponent();
-        BindingContext = MauiProgram.StageManagerBL;
+        BindingContext = new SearchBarSongViewModel();
     }
 
     private async void DeleteSong(object sender, EventArgs e)
@@ -19,7 +19,7 @@ public partial class SongsPage : ContentPage
         
         if (userResponse)
         {
-            MauiProgram.StageManagerBL.DeleteSong(song.Title, song.Artist);
+            MauiProgram.BusinessLogic.DeleteSong(song.Title, song.Artist);
         }
     }
 

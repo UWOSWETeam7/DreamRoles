@@ -18,7 +18,7 @@ public partial class EditPerformerNamePopup : ContentPage
         int userId = _performer.Id;
         String firstName = firstNameEntry.Text;
         String lastName = lastNameEntry.Text;
-        MauiProgram.StageManagerBL.EditPerformerName(userId, firstName, lastName);
+        MauiProgram.BusinessLogic.EditPerformerName(userId, firstName, lastName);
         Navigation.PopAsync();
 
     }

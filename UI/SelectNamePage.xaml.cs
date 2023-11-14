@@ -1,3 +1,4 @@
+using Prototypes.Model;
 using System.Collections.ObjectModel;
 
 namespace Prototypes.UI;

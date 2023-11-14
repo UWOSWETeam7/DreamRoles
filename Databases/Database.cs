@@ -1,19 +1,20 @@
-﻿using Microsoft.Extensions.Configuration;
-using Prototypes.Model;
+﻿using Prototypes.Model;
+using Prototypes.Databases.Interface;
 using System.Collections.ObjectModel;
 using Npgsql;
-using Prototypes.Business_Logic;
 using Prototypes.Model.Interfaces;
-using Microsoft.Maui.ApplicationModel.Communication;
+using System.Linq;
 
-namespace Prototypes.Database;
+namespace Prototypes.Databases;
 
-class StageManagerDB : IStageManagerDB
+class Database : IDatabase
 {
-    //A ObservableCollection of Aiport objects
+    //A ObservableCollections
     private ObservableCollection<Performer> _performers;
     private ObservableCollection<(Performer performer, DateTime? checkInTime)> _checkedInPerformers;
+    private ObservableCollection<Performer> _notCheckedInPerformers;
     private ObservableCollection<Song> _songs;
+
     //The string to connect to the database
     private String _connString;
 
@@ -21,21 +22,32 @@ class StageManagerDB : IStageManagerDB
     /// <summary>
     /// A Constructor and initializes performers and connString and populates performers
     /// </summary>
-    public StageManagerDB()
+    public Database()
     {
         _performers = new ObservableCollection<Performer>();
         _checkedInPerformers = new ObservableCollection<(Performer performer, DateTime? timeCheckedIn)>();
+        _notCheckedInPerformers = new ObservableCollection<Performer>();
         _songs = new ObservableCollection<Song>();
         _connString = GetConnectionString();
         SelectAllPerformers();
         SelectAllSongs();
         GetCheckedInPerformers();
+        GetNotCheckedInPerformers();
     }
 
     /// <summary>
     /// The string needed to connect to the database
     /// </summary>
     /// <returns>A String that has the infomration to connect to the database</returns>
+    /// 
+    void GetNotCheckedInPerformers(){
+        _notCheckedInPerformers = new ObservableCollection<Performer>(_performers);
+
+        foreach (Performer performer in _checkedInPerformers.Select(item => item.performer).ToList())
+        {
+            _notCheckedInPerformers.Remove(performer);
+        }
+    }
     static String GetConnectionString()
     {
         var connStringBuilder = new NpgsqlConnectionStringBuilder();
@@ -59,7 +71,7 @@ class StageManagerDB : IStageManagerDB
     /// <returns>a password</returns>
     static String FetchPassword()
     {
-        IConfiguration config = new ConfigurationBuilder().AddUserSecrets<StageManagerDB>().Build();
+        IConfiguration config = new ConfigurationBuilder().AddUserSecrets<Database>().Build();
         return config["CockroachDBPassword"] ?? "6tRK2gvZOx62cwwPBe8znA"; // this works in VS, not VSC
     }
     */

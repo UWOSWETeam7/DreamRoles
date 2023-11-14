@@ -2,14 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-			 xmlns:modelBL="clr-namespace:Prototypes.Business_Logic"
-             x:DataType="modelBL:StageManagerBL"
+             x:DataType="model:SearchBarSongViewModel"
              xmlns:model="clr-namespace:Prototypes.Model"
-            
-             x:Class="Prototypes.UI.SongsPage"
-             Title="SongsPage"
+             x:Class="Prototypes.UI.ChoreoSongsPage"
+             Title="ChoreoSongsPage"
              BackgroundColor="#E1D6C9">
-
     <Grid
         RowSpacing="7"
         ColumnSpacing="5">
@@ -51,6 +48,7 @@
                 Placeholder="Enter Song Here"
                 HorizontalTextAlignment="Center"
                 VerticalTextAlignment="Center"
+                Text="{Binding SearchText}"
         ></SearchBar>
         <Button Grid.Row="1"
                 Grid.Column="2"
@@ -60,14 +58,14 @@
         <Label
             Grid.Row="2"
             Grid.Column="1"
-            Margin="-10,0,0,0"
+            Margin="25,0,0,0"
             Text="Song Title:"
             FontSize="15"/>
         <Label
             Grid.Row="2"
             Grid.Column="2"
             HorizontalOptions="Start"
-            Margin="-55,0,0,0"
+            Margin="0,0,0,0"
             Text="Performers:"
             FontSize="15"/>
         <CollectionView
@@ -75,18 +73,14 @@
                Grid.Column="0"
                Grid.ColumnSpan="3"
                HorizontalOptions="Start"
-               x:Name="CVSongs" ItemsSource="{Binding Songs}" SelectionMode="Single">
+               x:Name="CVSongs" ItemsSource="{Binding FilteredSongs}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Song">
                     <mct:Expander x:Name="MyExpander1" BackgroundColor="Tan" WidthRequest="400">
                         <mct:Expander.Header>
-                            <Grid ColumnDefinitions="*,150,*,*" Grid.ColumnSpan="4" HeightRequest="50" Background="#866B53" Margin="0,0" Padding="30,15">
+                            <Grid ColumnDefinitions="*,150,*" Grid.ColumnSpan="4" HeightRequest="50" Background="#866B53" Margin="0,0" Padding="30,15">
 
-                                <Label Grid.Column ="1" Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap">
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="ShowEditSongPopup"/>
-                                    </Label.GestureRecognizers>
-                                </Label>
+                                <Label Grid.Column ="1" Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap"/>
                                 <Button 
                                     Grid.Row="3" 
                                     Grid.Column="2" 
@@ -97,18 +91,6 @@
                                     HorizontalOptions="End"
                                     VerticalOptions="Center"
                                     CornerRadius="90"/>
-                                <Image
-                                    Grid.Row="3"
-                                    Grid.Column="4"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="End"
-                                    WidthRequest="50"
-                                    HeightRequest="40"                                   
-                                    Source="trash.png">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="DeleteSong"/>
-                                    </Image.GestureRecognizers>
-                                </Image>
                                 <Image 
                                     Grid.Column ="0" 
                                     Source="arrow.png" 
@@ -149,6 +131,5 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Button CornerRadius="0" Grid.Row="4" Grid.ColumnSpan="4" Text="Add Song" Clicked="ShowAddSongPopUp" Padding="0" Margin="0, 0,0,0"/>
     </Grid>
 </ContentPage>

@@ -1,9 +1,9 @@
 ﻿using Prototypes.Model;
 using System.Collections.ObjectModel;
 
-namespace Prototypes.Database
+namespace Prototypes.Databases.Interface
 {
-    public interface IStageManagerDB
+    public interface IDatabase
     {
         public Boolean UpdatePerformerName(int userId, String firstName, String lastName);
         public Boolean UpdateSong(int setlistId, String oldSongName, String oldArtist, String songName, String artist, int duration);
@@ -13,6 +13,7 @@ namespace Prototypes.Database
         public Boolean InsertSongForPerformer(int userId, String songName, String artistName, int duration);
         public Boolean UpdatePerformerContact(int userId, String phoneNumber, String email);
         public ObservableCollection<Performer> NotCheckedInPerformers();
+        public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers();
 
         /// <summary>
         /// Creates a file if needed and reads it and puts performer objects into a ObservableCollection
@@ -48,6 +49,6 @@ namespace Prototypes.Database
         /// <returns>true if it found and updated the performer. False if it could not find the performer in the file</returns>
         public Boolean UpdatePerformer(Performer performer);
 
-        public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers();
+
     }
 }

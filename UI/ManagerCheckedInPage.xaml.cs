@@ -1,12 +1,12 @@
 using Prototypes.Model;
 namespace Prototypes.UI;
 //@author: Keerthana Ambati
-public partial class CheckedInPage : ContentPage
+public partial class ManagerCheckedInPage : ContentPage
 {
-    public CheckedInPage()
+    public ManagerCheckedInPage()
     {
         InitializeComponent();
-        BindingContext = MauiProgram.StageManagerBL;
+        BindingContext = new SearchBarCheckedInPerformerViewModel();
     }
 
     private async void DeletePerformer(object sender, EventArgs e)
@@ -18,7 +18,7 @@ public partial class CheckedInPage : ContentPage
 
         if (userResponse)
         {
-            MauiProgram.StageManagerBL.DeletePerformer(performer.Id);
+            MauiProgram.BusinessLogic.DeletePerformer(performer.Id);
         }
     }
 }

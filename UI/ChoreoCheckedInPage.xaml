@@ -2,10 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:modelBL="clr-namespace:Prototypes.Business_Logic"
-             x:DataType="modelBL:StageManagerBL"
+             x:DataType="model:SearchBarCheckedInPerformerViewModel"
              xmlns:model="clr-namespace:Prototypes.Model"
-             x:Class="Prototypes.UI.CheckedInPage"
-             Title="CheckedInPage"
+             x:Class="Prototypes.UI.ChoreoCheckedInPage"
+             Title="ChoreoCheckedInPage"
              BackgroundColor="#E1D6C9">
     <Grid
          RowSpacing="6"
@@ -56,7 +56,7 @@
              Placeholder="Enter Name Here"
              HorizontalTextAlignment="Center"
              VerticalTextAlignment="Center"
-             ></SearchBar>
+             Text="{Binding SearchText}"></SearchBar>
 
         <Button 
              Grid.Row="1"
@@ -72,7 +72,7 @@
 
         <CollectionView
             x:Name="CV" 
-            ItemsSource="{Binding CheckedInPerformers}" 
+            ItemsSource="{Binding FilteredCheckedInPerformers}" 
             SelectionMode="Single"
             Grid.Row="3"
             Grid.ColumnSpan="2"
@@ -83,17 +83,7 @@
                         <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                         <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                         <Image Grid.Column="2" Source="checkmark.svg"/>
-                        <Image Grid.Column="3" Source="trash.png"
-                               VerticalOptions="Center"
-                               HorizontalOptions="End"
-                               WidthRequest="50"
-                               HeightRequest="40">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="DeletePerformer"/>
-                            </Image.GestureRecognizers>
-                        </Image>
                     </Grid>
-
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -21,7 +21,7 @@ public partial class EditSongPopup : ContentPage
         
         string oldSongName = _song.Title;
         string oldArtist = _song.Artist;
-        MauiProgram.StageManagerBL.EditSong(setlistId, oldSongName, oldArtist, songName, artistName, duration);
+        MauiProgram.BusinessLogic.EditSong(setlistId, oldSongName, oldArtist, songName, artistName, duration);
         Navigation.PopAsync();
     }
 }

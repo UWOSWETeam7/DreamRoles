@@ -1,16 +1,20 @@
 using Prototypes.Model;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Prototypes.UI;
 //@author: Keith Thoong
 public partial class ManagerHomePage : ContentPage
 {
-    private RefreshView _refreshView = new RefreshView();
+
+
     public ManagerHomePage()
     {
         InitializeComponent();
-        BindingContext = MauiProgram.StageManagerBL;
-        _refreshView.Refreshing += ShowManagerPerformerInfoPage;
+        BindingContext = new SearchBarPerformerViewModel();
     }
+
+
     private void ShowAddPerformerPopup(object sender, EventArgs e)
     {
         Navigation.PushAsync(new AddPerformerPopup());
@@ -25,7 +29,7 @@ public partial class ManagerHomePage : ContentPage
 
         if (userResponse)
         {
-            MauiProgram.StageManagerBL.DeletePerformer(performer.Id);
+            MauiProgram.BusinessLogic.DeletePerformer(performer.Id);
         }
     }
 
@@ -34,11 +38,10 @@ public partial class ManagerHomePage : ContentPage
         var label = (Label)sender;
         var performer = (Performer) label.BindingContext;
         Navigation.PushAsync(new ManagerPerformerInfoPage(performer));
-        //_refreshView.IsRefreshing = true;
     }
 
     private void ShowSongListPage(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new SongsPage());
+        Navigation.PushAsync(new ManagerSongsPage());
     }
 }

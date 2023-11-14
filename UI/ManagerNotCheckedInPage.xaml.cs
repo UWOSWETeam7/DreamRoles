@@ -10,7 +10,7 @@ public partial class ManagerNotCheckedInPage : ContentPage
         InitializeComponent();
         try
         {
-            BindingContext = MauiProgram.StageManagerBL;
+            BindingContext = new SearchBarNotCheckedInPerformerViewModel();
         } catch (TargetInvocationException tie)
         {
             throw; 

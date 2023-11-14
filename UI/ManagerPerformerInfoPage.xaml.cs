@@ -9,7 +9,7 @@ public partial class ManagerPerformerInfoPage : ContentPage
     public ManagerPerformerInfoPage(Performer performer)
     {
         _performer = performer;
-        BindingContext = MauiProgram.StageManagerBL.FindPerformer(_performer.Id);
+        BindingContext = MauiProgram.BusinessLogic.FindPerformer(_performer.Id);
         InitializeComponent();
 
         _refreshView.Refreshing += ShowEditPerformerNamePopup;
@@ -17,7 +17,7 @@ public partial class ManagerPerformerInfoPage : ContentPage
     private void ShowEditContactInfoPopup(object sender, EventArgs e)
     {
         Navigation.PushAsync(new EditContactInfoPopup(_performer));
-        _performer = MauiProgram.StageManagerBL.FindPerformer(_performer.Id);
+        _performer = MauiProgram.BusinessLogic.FindPerformer(_performer.Id);
         BindingContext = _performer;
     }
 
