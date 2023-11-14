@@ -77,7 +77,6 @@
 			BackgroundColor="Transparent"
 			ImageSource="menu.svg"
 			Scale="0.7"
-			Clicked="ShowSongListPage"
 		/>
         <Label
 		Grid.Row="2"

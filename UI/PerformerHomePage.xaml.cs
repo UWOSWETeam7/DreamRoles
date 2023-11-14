@@ -8,6 +8,7 @@ public partial class PerformerHomePage : ContentPage
     public PerformerHomePage(Performer performer)
     {
         InitializeComponent();
+        BindingContext = new SearchBarPerformersSongsViewModel(performer);
         _performer = performer;
     }
 }
