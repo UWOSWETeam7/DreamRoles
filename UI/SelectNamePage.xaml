@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Prototypes.UI.SelectNamePage">
+             x:Class="Prototypes.UI.SelectNamePage"
+             xmlns:model_1="clr-namespace:Prototypes.Business_Logic" 
+             xmlns:model_2="clr-namespace:Prototypes.Model" 
+             x:DataType="model_1:StageManagerBL" >
 
     <ScrollView>
         <VerticalStackLayout
@@ -29,16 +32,10 @@
                 HorizontalOptions="CenterAndExpand"  
                 HorizontalTextAlignment = "Center"/>
             
-            <Picker x:Name="chooseName" ItemsSource="{Binding ShowNames}" Title="Select Name"/>
+            <Picker x:Name="chooseName" ItemsSource="{Binding SelectAllPerformers}" Title="Select Name"/>
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
-                    <x:String>Adam Anderson</x:String>
-                    <x:String>Brianna Bauer</x:String>
-                    <x:String>Candance Crosby</x:String>
-                    <x:String>Drew Davis</x:String>
-                    <x:String>Ella Evans</x:String>
-                    <x:String>Faith Franco</x:String>
-                    <x:String>Geoffrey Gibbons</x:String>
+                    
                 </x:Array>
             </Picker.ItemsSource>
 

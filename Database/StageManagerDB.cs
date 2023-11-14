@@ -96,7 +96,7 @@ class StageManagerDB : IStageManagerDB
     /// Gets all the performers from the database
     /// </summary>
     /// <returns>ObservableCollection of performer objects</returns>
-    public ObservableCollection<Performer> SelectAllPerformers()
+    public ObservableCollection<Performer> SelectAllPerformers(int year)
     {
         // Create a new ObservableCollection to store performers
         
@@ -107,7 +107,7 @@ class StageManagerDB : IStageManagerDB
 
             // Commands to get all the performers in the database
             using var cmd = new NpgsqlCommand(
-                 "SELECT *\r\nFROM performer\r\nINNER JOIN dreamrolesuser\r\nUSING (user_id);", conn);
+                 $"SELECT *\r\nFROM performer\r\nINNER JOIN dreamrolesuser\r\nUSING (user_id) WHERE dreamrolesuser.production_year = {year};", conn);
             using var reader = cmd.ExecuteReader();
 
             // Create a Performer object for each row returned from query
