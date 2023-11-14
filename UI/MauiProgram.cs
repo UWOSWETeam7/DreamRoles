@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
-using Prototypes.Business_Logic.IBusinessLogic;
+using Prototypes.Business_Logic.Interface;
 using Prototypes.Business_Logic;
 
 namespace Prototypes.UI

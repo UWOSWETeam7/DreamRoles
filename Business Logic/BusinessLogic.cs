@@ -32,7 +32,7 @@ namespace Prototypes.Business_Logic
         /// </summary>
         public ObservableCollection<Performer> Performers
         {
-            get { return Database.SelectAllPerformers(); }
+            get { return Database.SelectAllPerformers(2023); }
         }
         public ObservableCollection<(Performer performer, DateTime? timeCheckedIn)> CheckedInPerformers
         {
