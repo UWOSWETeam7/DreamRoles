@@ -1,19 +1,19 @@
-﻿using Microsoft.Extensions.Configuration;
-using Prototypes.Model;
+﻿using Prototypes.Model;
 using System.Collections.ObjectModel;
 using Npgsql;
-using Prototypes.Business_Logic;
 using Prototypes.Model.Interfaces;
-using Microsoft.Maui.ApplicationModel.Communication;
+using System.Linq;
 
 namespace Prototypes.Database;
 
 class StageManagerDB : IStageManagerDB
 {
-    //A ObservableCollection of Aiport objects
+    //A ObservableCollections
     private ObservableCollection<Performer> _performers;
     private ObservableCollection<(Performer performer, DateTime? checkInTime)> _checkedInPerformers;
+    private ObservableCollection<Performer> _notCheckedInPerformers;
     private ObservableCollection<Song> _songs;
+
     //The string to connect to the database
     private String _connString;
 
@@ -25,17 +25,28 @@ class StageManagerDB : IStageManagerDB
     {
         _performers = new ObservableCollection<Performer>();
         _checkedInPerformers = new ObservableCollection<(Performer performer, DateTime? timeCheckedIn)>();
+        _notCheckedInPerformers = new ObservableCollection<Performer>();
         _songs = new ObservableCollection<Song>();
         _connString = GetConnectionString();
         SelectAllPerformers();
         SelectAllSongs();
         GetCheckedInPerformers();
+        GetNotCheckedInPerformers();
     }
 
     /// <summary>
     /// The string needed to connect to the database
     /// </summary>
     /// <returns>A String that has the infomration to connect to the database</returns>
+    /// 
+    void GetNotCheckedInPerformers(){
+        _notCheckedInPerformers = new ObservableCollection<Performer>(_performers);
+
+        foreach (Performer performer in _checkedInPerformers.Select(item => item.performer).ToList())
+        {
+            _notCheckedInPerformers.Remove(performer);
+        }
+    }
     static String GetConnectionString()
     {
         var connStringBuilder = new NpgsqlConnectionStringBuilder();
@@ -230,6 +241,7 @@ class StageManagerDB : IStageManagerDB
     {
         try
         {
+            InsertSongForSetlist(userId);
             // Connect and open a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
@@ -243,6 +255,33 @@ class StageManagerDB : IStageManagerDB
             cmd.Parameters.AddWithValue("title", songName);
             cmd.Parameters.AddWithValue("artist", artistName);
             cmd.Parameters.AddWithValue("duration", duration);
+            cmd.ExecuteNonQuery();
+            //Repopulates performers so now the updated performer is in it
+            //SelectAllPerformers();
+
+        }
+        catch (Npgsql.PostgresException pe)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean InsertSongForSetlist(int userId)
+    {
+        try
+        {
+            // Connect and open a connection to the database
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            // Command to insert a song into the 'songs' table
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "INSERT INTO setlists (setlist_id, user_id) " +
+                              "VALUES (@setlist_id, @user_id);";
+            cmd.Parameters.AddWithValue("setlist_id", userId);
+            cmd.Parameters.AddWithValue("user_id", userId);
             cmd.ExecuteNonQuery();
             //Repopulates performers so now the updated performer is in it
             SelectAllPerformers();

@@ -22,6 +22,7 @@
                 HorizontalOptions="Center" />
 
             <Label
+                x:Name="Access"
                 Text="Please enter the access code specific to your role"
                 SemanticProperties.HeadingLevel="Level2"
                 FontSize="18"
@@ -29,14 +30,18 @@
                 HorizontalTextAlignment="Center"/>
 
             <Entry
+                x:Name="access" 
 				Placeholder="Access Code"
-				x:Name="access" />
+                HorizontalTextAlignment="Center"
+                Keyboard="Numeric"
+                WidthRequest="200"/>
 
             <Button
                 x:Name="EnterBtn"
                 Text="Enter"
 				TextColor="Beige"
                 SemanticProperties.Hint="Navigates to the next page"
+                Clicked="OnEnterClicked"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>

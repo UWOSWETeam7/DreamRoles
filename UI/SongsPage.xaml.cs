@@ -7,7 +7,7 @@ public partial class SongsPage : ContentPage
     public SongsPage()
     {
         InitializeComponent();
-        BindingContext = MauiProgram.StageManagerBL;
+        BindingContext = new SearchBarSongViewModel();
     }
 
     private async void DeleteSong(object sender, EventArgs e)

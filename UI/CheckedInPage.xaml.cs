@@ -6,7 +6,7 @@ public partial class CheckedInPage : ContentPage
     public CheckedInPage()
     {
         InitializeComponent();
-        BindingContext = MauiProgram.StageManagerBL;
+        BindingContext = new SearchBarCheckedInPerformerViewModel();
     }
 
     private async void DeletePerformer(object sender, EventArgs e)
