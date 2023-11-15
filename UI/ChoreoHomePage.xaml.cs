@@ -13,4 +13,9 @@ public partial class ChoreoHomePage : ContentPage
     {
         Navigation.PushAsync(new ManagerSongsPage());
     }
+
+    public async void OnChoreoMenu_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ChoreoMenuPage());
+    }
 }

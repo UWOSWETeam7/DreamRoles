@@ -77,7 +77,7 @@
 			BackgroundColor="Transparent"
 			ImageSource="menu.svg"
 			Scale="0.7"
-			Clicked="ShowSongListPage"
+			Clicked="OnChoreoMenu_Clicked"
 		/>
         <Label
 		Grid.Row="2"
