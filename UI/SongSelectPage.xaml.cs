@@ -18,7 +18,7 @@ public partial class SongSelectPage : ContentPage
     {
         if (userType == "performer")
         {
-            await Navigation.PushAsync(new PerformerHomePage());
+            //await Navigation.PushAsync(new PerformerHomePage());
         }
         else if (userType == "choreographer")
         {
