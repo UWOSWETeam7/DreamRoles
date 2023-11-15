@@ -24,13 +24,13 @@ public partial class WelcomePage : ContentPage
         var enteredCode = int.Parse(access.Text);
         if (enteredCode == performerAccessCode )
         {
-            await Navigation.PushAsync(new SelectNamePage("performer"));
+            await Navigation.PushAsync(new SelectNamePage());
         } else if (enteredCode == stageManagerAccessCode )
         {
-            await Navigation.PushAsync(new SelectNamePage("stagemanager"));
+            await Navigation.PushAsync(new SelectNamePage());
         } else if (enteredCode == choreographerAccessCode )
         {
-            await Navigation.PushAsync(new SelectNamePage("choreographer"));
+            await Navigation.PushAsync(new SelectNamePage());
         } else 
         {
             //Todo: Some sort invalid message
