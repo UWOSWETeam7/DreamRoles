@@ -44,4 +44,9 @@ public partial class ManagerHomePage : ContentPage
     {
         Navigation.PushAsync(new ManagerSongsPage());
     }
+
+    public async void OnManagerMenu_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ManagerMenuPage()); 
+    }
 }

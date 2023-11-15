@@ -141,9 +141,15 @@ namespace Prototypes.Business_Logic
             return Performers;
         }
         /// <summary>
-        /// Gets all the not checked in performers from the StageManagarDB
+        /// Adds a performer into the checked in list
         /// </summary>
-        /// <returns> an observableCollection of performer objects that are not checked in</returns>
+        /// <param name="performer"></param>
+        /// <param name="status"></param>
+        /// <returns>if the add was successful, success or error message</returns>
+        public (bool success, string message) CheckInPerformer(Performer performer, String status)
+        {
+            return Database.CheckInPerformer(performer, status);
+        }
        
     }
 

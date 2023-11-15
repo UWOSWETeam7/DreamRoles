@@ -1,32 +1,32 @@
 using Prototypes.Model;
+using Prototypes.Databases;
 using System.Collections.ObjectModel;
 
 namespace Prototypes.UI;
 //@author: Keerthana Ambati
 public partial class SelectNamePage : ContentPage
 {
-    public ObservableCollection<Performer> Performers { get; set; }
-    String userType;
-    Performer performer; 
-    public SelectNamePage(string userType)
+    Performer performer;
+    Database db = new Database();
+    public SelectNamePage()
     {
         InitializeComponent();
-        this.userType = userType; 
+        BindingContext = new SearchBarPerformerViewModel();
+
+        //show performer names in the dropdown
+        //once user selects their name, navigate to PerformerHomePage.xaml for that specific performer
     }
-    public async void OnNext_Clicked(object sender, EventArgs e)
+
+    private void OnNameSelected(object sender, EventArgs e)
     {
-        if (userType == "performer")
-        {
-            await Navigation.PushAsync(new SongSelectPage(userType, performer));
-        }
-        else if (userType == "stagemanager")
-        {
-            await Navigation.PushAsync(new ManagerHomePage());
-        }
-        else if (userType == "choreographer")
-        {
-            await Navigation.PushAsync(new SongSelectPage(userType, performer)); 
-        }
+        var label = (Label)sender;
+        performer = (Performer)label.BindingContext;
+    }
+    private void OnNextClicked(object sender, EventArgs e)
+    {
+        db.CheckInPerformer(performer, "checked in");
+        Navigation.PushAsync(new PerformerHomePage(performer));
+        //change checked in status of this performer
     }
 
 
