@@ -4,7 +4,7 @@
              xmlns:model="clr-namespace:Prototypes.Model"
              x:DataType="model:SearchBarPerformerViewModel"
              x:Class="Prototypes.UI.SelectNamePage"
-             Title="SelectNamePage"
+             Title="Select Name"
              BackgroundColor="#E1D6C9">
     <Grid
 	RowSpacing="7"
@@ -32,9 +32,9 @@
              <Label 
 		       Grid.Row="0"
 		       Grid.ColumnSpan="3" 
-		       Text="Homepage:"
+		       Text="Select your name from the list below:"
 		       FontAttributes="Bold"
-		       FontSize="20"
+		       FontSize="18"
 		       HorizontalOptions="Center"
 		       VerticalOptions="Center"/>
 

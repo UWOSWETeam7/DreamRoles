@@ -68,13 +68,7 @@
             Grid.Column="1"
             Text="Name:"
             FontSize="15"/>
-        <Label
-            Grid.Row="2"
-            Grid.Column="2"
-            HorizontalOptions="Start"
-            Text="Alert:"
-            FontSize="15"/>
-
+        
         <CollectionView
             x:Name="CV" 
             ItemsSource="{Binding FilteredNotCheckedInPerformers}"
