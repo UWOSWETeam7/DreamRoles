@@ -18,15 +18,15 @@ namespace Prototypes.Model;
     }
 
 
-    private ObservableCollection<(Performer Performer, DateTime? CheckInTime)> _checkedInPerformers;
-    public ObservableCollection<(Performer Performer, DateTime? CheckInTime)> CheckedInPerformers
+    private ObservableCollection<Performer> _checkedInPerformers;
+    public ObservableCollection<Performer> CheckedInPerformers
     {
         get { return _checkedInPerformers; }
         set { SetProperty(ref _checkedInPerformers, value); }
     }
 
-    private ObservableCollection<(Performer Performer, DateTime? CheckInTime)> _filteredCheckedInPerformers;
-    public ObservableCollection<(Performer Performer, DateTime? CheckInTime)> FilteredCheckedInPerformers
+    private ObservableCollection<Performer> _filteredCheckedInPerformers;
+    public ObservableCollection<Performer> FilteredCheckedInPerformers
     {
         get { return _filteredCheckedInPerformers; }
         set { SetProperty(ref _filteredCheckedInPerformers, value); }
@@ -48,11 +48,11 @@ namespace Prototypes.Model;
         {
             var searchWords = SearchText.Trim().Split(' ');
 
-            FilteredCheckedInPerformers = new ObservableCollection<(Performer Performer, DateTime? CheckInTime)>(
+            FilteredCheckedInPerformers = new ObservableCollection<Performer>(
              CheckedInPerformers.Where(performer =>
                  searchWords.All(word =>
-                     performer.Performer.FirstName.ToLower().Contains(word.ToLower()) ||
-                     performer.Performer.LastName.ToLower().Contains(word.ToLower())
+                     performer.FirstName.ToLower().Contains(word.ToLower()) ||
+                     performer.LastName.ToLower().Contains(word.ToLower())
                  )
              )
          );

@@ -15,7 +15,7 @@ namespace Prototypes.Business_Logic.Interface
         /// </summary>
         public ObservableCollection<Performer> Performers { get; }
         public ObservableCollection<Song> Songs { get; }
-        public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers { get; }
+        public ObservableCollection<Performer> GetCheckedInPerformers { get; }
         public ObservableCollection<Performer> GetNotCheckedInPerformers { get; }
         public Boolean DeleteSong(String songTitle, String artistName);
 
