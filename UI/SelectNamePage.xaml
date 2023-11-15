@@ -13,8 +13,8 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="50"/>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="550" />
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="525" />
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -76,12 +76,16 @@
         </CollectionView>
 
         <Button
+            Grid.Row="4"
+            Grid.Column="1"
              x:Name="EnterBtn"
              Text="Enter"
+            WidthRequest="350"
 		     TextColor="Beige"
              SemanticProperties.Hint="Navigates to the next page"
              Clicked="OnNextClicked"
-             HorizontalOptions="Center" />
+             HorizontalOptions="Center"
+            VerticalOptions="Center"/>
         
         <Label
 		Grid.Row="2"
