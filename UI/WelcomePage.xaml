@@ -41,7 +41,7 @@
                 Text="Enter"
 				TextColor="Beige"
                 SemanticProperties.Hint="Navigates to the next page"
-                Clicked="OnEnterClicked"
+                Clicked="OnEnter_Clicked"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>

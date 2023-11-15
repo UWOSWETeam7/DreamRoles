@@ -6,9 +6,26 @@ namespace Prototypes.UI;
 public partial class SelectNamePage : ContentPage
 {
     public ObservableCollection<Performer> Performers { get; set; }
-    public SelectNamePage()
+    String userType;
+    Performer performer; 
+    public SelectNamePage(string userType)
     {
         InitializeComponent();
-        Performers = new ObservableCollection<Performer>();
+        this.userType = userType; 
+    }
+    public async void OnNext_Clicked(object sender, EventArgs e)
+    {
+        if (userType == "performer")
+        {
+            await Navigation.PushAsync(new SongSelectPage(userType, performer));
+        }
+        else if (userType == "stagemanager")
+        {
+            await Navigation.PushAsync(new ManagerHomePage());
+        }
+        else if (userType == "choreographer")
+        {
+            await Navigation.PushAsync(new SongSelectPage(userType, performer)); 
+        }
     }
 }

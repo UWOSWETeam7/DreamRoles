@@ -9,4 +9,8 @@ public partial class ChoreoHomePage : ContentPage
         InitializeComponent();
         BindingContext = new SearchBarPerformerViewModel();
     }
+    private void ShowSongListPage(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new ManagerSongsPage());
+    }
 }

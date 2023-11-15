@@ -29,19 +29,20 @@
                 HorizontalOptions="CenterAndExpand"  
                 HorizontalTextAlignment = "Center"/>
             
-            <Picker x:Name="chooseName" ItemsSource="{Binding ShowNames}" Title="Select Name"/>
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Adam Anderson</x:String>
-                    <x:String>Brianna Bauer</x:String>
-                    <x:String>Candance Crosby</x:String>
-                    <x:String>Drew Davis</x:String>
-                    <x:String>Ella Evans</x:String>
-                    <x:String>Faith Franco</x:String>
-                    <x:String>Geoffrey Gibbons</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-
+            <!-- Picker x:Name="chooseName" ItemsSource="{Binding ShowNames}" Title="Select Name"/> -->
+            <Picker>
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Adam Anderson</x:String>
+                        <x:String>Brianna Bauer</x:String>
+                        <x:String>Candance Crosby</x:String>
+                        <x:String>Drew Davis</x:String>
+                        <x:String>Ella Evans</x:String>
+                        <x:String>Faith Franco</x:String>
+                        <x:String>Geoffrey Gibbons</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
 
             <Button
                 x:Name="NextBtn"
@@ -49,7 +50,8 @@
                 Text="NEXT"
 				TextColor="black"
                 SemanticProperties.Hint="Navigates to next page"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" 
+                Clicked="OnNext_Clicked"/>
 
         </VerticalStackLayout>
     </ScrollView>

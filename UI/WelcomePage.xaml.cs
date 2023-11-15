@@ -1,5 +1,5 @@
 using CommunityToolkit.Maui.Core.Views;
-using Prototypes.Database;
+using Prototypes.Databases;
 
 namespace Prototypes.UI;
 //@author: Keerthana Ambati
@@ -15,21 +15,21 @@ public partial class WelcomePage : ContentPage
         Access.Text = accessCode.ToString();
     }
 
-    private void OnEnterClicked(object sender, EventArgs e)
+    private async void OnEnter_Clicked(object sender, EventArgs e)
     {
         var enteredCode = int.Parse(access.Text);
         if (enteredCode == performerAccessCode )
         {
-
+            await Navigation.PushAsync(new SelectNamePage("performer"));
         } else if (enteredCode == stageManagerAccessCode )
         {
-
+            await Navigation.PushAsync(new SelectNamePage("stagemanager"));
         } else if (enteredCode == choreographerAccessCode )
         {
-
-        } else
+            await Navigation.PushAsync(new SelectNamePage("choreographer"));
+        } else 
         {
-            
+            //Todo: Some sort invalid message
         }
         Access.Text = accessCode.ToString();
     }
