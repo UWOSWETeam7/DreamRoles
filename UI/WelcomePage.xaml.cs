@@ -27,10 +27,10 @@ public partial class WelcomePage : ContentPage
             await Navigation.PushAsync(new SelectNamePage());
         } else if (enteredCode == stageManagerAccessCode )
         {
-            await Navigation.PushAsync(new SelectNamePage());
+            await Navigation.PushAsync(new ManagerHomePage());
         } else if (enteredCode == choreographerAccessCode )
         {
-            await Navigation.PushAsync(new SelectNamePage());
+            await Navigation.PushAsync(new ChoreoHomePage());
         } else 
         {
             //Todo: Some sort invalid message
