@@ -61,12 +61,12 @@
                         <HorizontalStackLayout Padding="30, 0" Spacing="10">
                             <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnNameClicked"/>
+                                    <TapGestureRecognizer Tapped="OnNameSelected"/>
                                 </Label.GestureRecognizers>
                             </Label>
                             <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnNameClicked"/>
+                                    <TapGestureRecognizer Tapped="OnNameSelected"/>
                                 </Label.GestureRecognizers>
                             </Label>
                         </HorizontalStackLayout>
@@ -76,13 +76,14 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Grid.Row="1"
-			Grid.Column="2"
-			BackgroundColor="Transparent"
-			ImageSource="menu.svg"
-			Scale="0.7"
-			Clicked="ShowSongListPage"
-		/>
+        <Button
+             x:Name="EnterBtn"
+             Text="Enter"
+		     TextColor="Beige"
+             SemanticProperties.Hint="Navigates to the next page"
+             Clicked="OnNextClicked"
+             HorizontalOptions="Center" />
+        
         <Label
 		Grid.Row="2"
 		Grid.Column="1"
