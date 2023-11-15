@@ -10,8 +10,8 @@ namespace Prototypes.UI
         {
             InitializeComponent();
             ObservableCollection<ISongDB> song = new ObservableCollection<ISongDB>();
-            Performer p = new Performer(122, "Keenan", "Marco", song, "Email", "Phone", 0);
-            MainPage = new NavigationPage(new PerformerHomePage(p));
+           // Performer performer = new Performer(1, "Wilson", "Ava", song,"avaWilson98@gmail.com", "9202347612", 0);
+            MainPage = new NavigationPage(new WelcomePage());
             ;
         }
     }

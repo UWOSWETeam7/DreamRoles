@@ -5,20 +5,28 @@ namespace Prototypes.UI;
 //@author: Keerthana Ambati
 public partial class SelectNamePage : ContentPage
 {
-    public SelectNamePage()
+    public ObservableCollection<Performer> Performers { get; set; }
+    String userType;
+    Performer performer; 
+    public SelectNamePage(string userType)
     {
         InitializeComponent();
-        BindingContext = new SearchBarPerformerViewModel();
-
-        //show performer names in the dropdown
-        //once user selects their name, navigate to PerformerHomePage.xaml
+        this.userType = userType; 
     }
-
-    private void OnNameSelected(object sender, EventArgs e)
+    public async void OnNext_Clicked(object sender, EventArgs e)
     {
-        var label = (Label)sender;
-        var performer = (Performer)label.BindingContext;
-        Navigation.PushAsync(new PerformerHomePage(performer));
+        if (userType == "performer")
+        {
+            await Navigation.PushAsync(new SongSelectPage(userType, performer));
+        }
+        else if (userType == "stagemanager")
+        {
+            await Navigation.PushAsync(new ManagerHomePage());
+        }
+        else if (userType == "choreographer")
+        {
+            await Navigation.PushAsync(new SongSelectPage(userType, performer)); 
+        }
     }
 
 
