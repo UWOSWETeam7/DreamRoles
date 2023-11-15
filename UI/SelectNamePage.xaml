@@ -1,25 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Prototypes.UI.SelectNamePage">
+             xmlns:model="clr-namespace:Prototypes.Model"
+             x:DataType="model:SearchBarPerformerViewModel"
+             x:Class="Prototypes.UI.SelectNamePage"
+             Title="SelectNamePage"
+             BackgroundColor="#E1D6C9">
+    <Grid
+	RowSpacing="7"
+	ColumnSpacing="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="550" />
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
-            <Image
-                Source="dream_role.png"
-                SemanticProperties.Description="Dream roles logo"
-                HeightRequest="100"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="hello!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="60"
-                HorizontalOptions="Center" />
+        <BoxView 
+			 Grid.Row="0" 
+			 Grid.ColumnSpan="3"
+			 Color="#866B53"
+			 CornerRadius="10, 10, 10, 10"
+			 WidthRequest="400"
+			 HeightRequest="50"/>
+        <Label 
+		   Grid.Row="0"
+		   Grid.ColumnSpan="3" 
+		   Text="Homepage:"
+		   FontAttributes="Bold"
+		   FontSize="20"
+		   HorizontalOptions="Center"
+		   VerticalOptions="Center"/>
 
             <Label
                 Text="Please select your name from the drop-down below"
@@ -56,4 +74,25 @@
         </VerticalStackLayout>
     </ScrollView>
 
+        <Button Grid.Row="1"
+			Grid.Column="2"
+			BackgroundColor="Transparent"
+			ImageSource="menu.svg"
+			Scale="0.7"
+			Clicked="ShowSongListPage"
+		/>
+        <Label
+		Grid.Row="2"
+		Grid.Column="1"
+		Margin="-10,0,0,0"
+		Text="Name:"
+		FontSize="15"/>
+        <Label
+		Grid.Row="2"
+		Grid.Column="2"
+		HorizontalOptions="Start"
+		Margin="-55,0,0,0"
+		Text="Check-In:"
+		FontSize="15"/>
+    </Grid>
 </ContentPage>

@@ -29,7 +29,7 @@ class Database : IDatabase
         _notCheckedInPerformers = new ObservableCollection<Performer>();
         _songs = new ObservableCollection<Song>();
         _connString = GetConnectionString();
-        SelectAllPerformers();
+        SelectAllPerformers(2023);
         SelectAllSongs();
         GetCheckedInPerformers();
         GetNotCheckedInPerformers();
@@ -108,7 +108,7 @@ class Database : IDatabase
     /// Gets all the performers from the database
     /// </summary>
     /// <returns>ObservableCollection of performer objects</returns>
-    public ObservableCollection<Performer> SelectAllPerformers()
+    public ObservableCollection<Performer> SelectAllPerformers(int year)
     {
         // Create a new ObservableCollection to store performers
         
@@ -119,7 +119,7 @@ class Database : IDatabase
 
             // Commands to get all the performers in the database
             using var cmd = new NpgsqlCommand(
-                 "SELECT *\r\nFROM performer\r\nINNER JOIN dreamrolesuser\r\nUSING (user_id);", conn);
+                 $"SELECT *\r\nFROM performer\r\nINNER JOIN dreamrolesuser\r\nUSING (user_id) WHERE dreamrolesuser.production_year = {year};", conn);
             using var reader = cmd.ExecuteReader();
 
             // Create a Performer object for each row returned from query
@@ -166,7 +166,7 @@ class Database : IDatabase
             cmd.ExecuteNonQuery();
 
             //Repopulates the performers
-            SelectAllPerformers();
+            SelectAllPerformers(2023);
 
         }
         catch (Npgsql.PostgresException e)
@@ -285,7 +285,7 @@ class Database : IDatabase
             cmd.Parameters.AddWithValue("user_id", userId);
             cmd.ExecuteNonQuery();
             //Repopulates performers so now the updated performer is in it
-            SelectAllPerformers();
+            SelectAllPerformers(2023);
         }
         catch (Npgsql.PostgresException pe)
         {
@@ -314,7 +314,7 @@ class Database : IDatabase
             cmd.ExecuteNonQuery();
 
             //Repopulates performers so now the updated performer is in it
-            SelectAllPerformers();
+            SelectAllPerformers(2023);
         }
         catch (Npgsql.PostgresException pe)
         {
@@ -423,7 +423,7 @@ class Database : IDatabase
             cmd.ExecuteNonQuery();
 
             //Repopulates the performers
-            SelectAllPerformers();
+            SelectAllPerformers(2023);
 
         }
         catch (Npgsql.PostgresException e)
@@ -484,7 +484,7 @@ class Database : IDatabase
             if (numDeleted1 > 0 && numDeleted2 > 0 && numDeleted3 > 0)
             {
                 //SelectAllPerformers() retrieves the updated list of performers
-                SelectAllPerformers();
+                SelectAllPerformers(2023);
             }
 
             return (numDeleted1 > 0 && numDeleted2 > 0);
@@ -524,7 +524,7 @@ class Database : IDatabase
             var numAffected = cmd.ExecuteNonQuery();
 
             //Repopulates performers so now the updated performer is in it
-            SelectAllPerformers();
+            SelectAllPerformers(2023);
         }
         catch (Npgsql.PostgresException pe)
         {

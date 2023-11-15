@@ -28,4 +28,6 @@ public partial class SelectNamePage : ContentPage
             await Navigation.PushAsync(new SongSelectPage(userType, performer)); 
         }
     }
+
+
 }
