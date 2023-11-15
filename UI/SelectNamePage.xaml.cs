@@ -1,4 +1,5 @@
 using Prototypes.Model;
+using Prototypes.Databases;
 using System.Collections.ObjectModel;
 
 namespace Prototypes.UI;
@@ -6,6 +7,7 @@ namespace Prototypes.UI;
 public partial class SelectNamePage : ContentPage
 {
     Performer performer;
+    Database db = new Database();
     public SelectNamePage()
     {
         InitializeComponent();
@@ -22,6 +24,7 @@ public partial class SelectNamePage : ContentPage
     }
     private void OnNextClicked(object sender, EventArgs e)
     {
+        db.CheckInPerformer(performer, "checked in");
         Navigation.PushAsync(new PerformerHomePage(performer));
         //change checked in status of this performer
     }
