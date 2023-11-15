@@ -23,6 +23,7 @@ public partial class SelectNamePage : ContentPage
     private void OnNextClicked(object sender, EventArgs e)
     {
         Navigation.PushAsync(new PerformerHomePage(performer));
+        //change checked in status of this performer
     }
 
 
