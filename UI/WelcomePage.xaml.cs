@@ -15,7 +15,7 @@ public partial class WelcomePage : ContentPage
         Access.Text = accessCode.ToString();
     }
 
-    private void OnEnterClicked(object sender, EventArgs e)
+    private async void OnEnter_Clicked(object sender, EventArgs e)
     {
         //if the performer access code is entered, go to select name page and show names in dropdown- SelectNamePage.xaml
         //if stage manager access code is entered, go to stage manager home page- ManagerHomePage.xaml
@@ -24,19 +24,16 @@ public partial class WelcomePage : ContentPage
         var enteredCode = int.Parse(access.Text);
         if (enteredCode == performerAccessCode )
         {
-            Navigation.PushAsync(new SelectNamePage());
-
+            await Navigation.PushAsync(new SelectNamePage("performer"));
         } else if (enteredCode == stageManagerAccessCode )
         {
-            Navigation.PushAsync(new ManagerHomePage());
-
+            await Navigation.PushAsync(new SelectNamePage("stagemanager"));
         } else if (enteredCode == choreographerAccessCode )
         {
-            Navigation.PushAsync(new ChoreoHomePage());
-
-        } else
+            await Navigation.PushAsync(new SelectNamePage("choreographer"));
+        } else 
         {
-            
+            //Todo: Some sort invalid message
         }
         Access.Text = accessCode.ToString();
     }

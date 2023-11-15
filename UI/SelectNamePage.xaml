@@ -22,7 +22,6 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-
         <BoxView 
 			 Grid.Row="0" 
 			 Grid.ColumnSpan="3"
@@ -30,14 +29,14 @@
 			 CornerRadius="10, 10, 10, 10"
 			 WidthRequest="400"
 			 HeightRequest="50"/>
-        <Label 
-		   Grid.Row="0"
-		   Grid.ColumnSpan="3" 
-		   Text="Homepage:"
-		   FontAttributes="Bold"
-		   FontSize="20"
-		   HorizontalOptions="Center"
-		   VerticalOptions="Center"/>
+             <Label 
+		       Grid.Row="0"
+		       Grid.ColumnSpan="3" 
+		       Text="Homepage:"
+		       FontAttributes="Bold"
+		       FontSize="20"
+		       HorizontalOptions="Center"
+		       VerticalOptions="Center"/>
 
         <SearchBar
 					BackgroundColor="White"

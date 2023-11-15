@@ -3,7 +3,8 @@ using Prototypes.Databases.Interface;
 using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Model.Interfaces;
-using System.Linq;
+
+
 
 namespace Prototypes.Databases;
 
@@ -33,6 +34,37 @@ class Database : IDatabase
         SelectAllSongs();
         GetCheckedInPerformers();
         GetNotCheckedInPerformers();
+    }
+
+    public ObservableCollection<Performer> GetPerformersOfASong(Song song)
+    {
+        ObservableCollection<Performer> performersOfASong = new ObservableCollection<Performer>();
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+
+        using var cmd = new NpgsqlCommand("SELECT dru.first_name, dru.last_name, dru.title " +
+                                  "FROM dreamrolesuser dru " +
+                                  "INNER JOIN setlists sl " +
+                                  "ON dru.user_id = sl.user_id " +
+                                  "INNER JOIN songs s " +
+                                  "ON sl.setlist_id = s.setlist_id " +
+                                  "WHERE s.title = @songTitle;", conn);
+        cmd.Parameters.AddWithValue("songTitle", song.Title);
+
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            string firstName = reader["first_name"] as string;
+            string lastName = reader["last_name"] as string;
+            string title = reader["title"] as string;
+
+            Performer performer = new Performer(0, firstName, lastName, null, "", "", 0);
+            // Create the Performer object and add it to the ObservableCollection
+            performersOfASong.Add(performer);
+        }
+
+        return performersOfASong;
     }
 
     /// <summary>

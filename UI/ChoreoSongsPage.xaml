@@ -90,7 +90,8 @@
                                     ImageSource="people.png"
                                     HorizontalOptions="End"
                                     VerticalOptions="Center"
-                                    CornerRadius="90"/>
+                                    CornerRadius="90"
+                                    Clicked="ShowPerformersOfSongPage"/>
                                 <Image 
                                     Grid.Column ="0" 
                                     Source="arrow.png" 
