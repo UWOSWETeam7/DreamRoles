@@ -13,7 +13,10 @@ namespace Prototypes.Business_Logic
         //A interface of Database
         private IDatabase Database = new Database();
 
-
+        public ObservableCollection<Performer> GetPerformersOfASong(Song song)
+        {
+            return Database.GetPerformersOfASong(song);
+        }
         public Boolean EditPerformerName(int userId, String firstName, String lastName)
         {
             return Database.UpdatePerformerName(userId, firstName, lastName);
