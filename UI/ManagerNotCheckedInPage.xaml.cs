@@ -11,9 +11,10 @@ public partial class ManagerNotCheckedInPage : ContentPage
         try
         {
             BindingContext = new SearchBarNotCheckedInPerformerViewModel();
-        } catch (TargetInvocationException tie)
+        }
+        catch (TargetInvocationException tie)
         {
-            throw; 
+            throw;
         }
     }
     /// <summary>
@@ -21,9 +22,10 @@ public partial class ManagerNotCheckedInPage : ContentPage
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    async void ShowAlert_Clicked(System.Object sender, System.EventArgs e)
+    void ShowAlert_Clicked(System.Object sender, System.EventArgs e)
     {
-        Performer currentPerformer = CV.SelectedItem as Performer;
-        await Navigation.PushModalAsync(new ManagerAlertPage(currentPerformer)); 
+        var button = (Button)sender;
+        var performer = (Performer)button.BindingContext;
+        Navigation.PushAsync(new ManagerAlertPage(performer));
     }
 }

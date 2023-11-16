@@ -12,7 +12,7 @@ public partial class WelcomePage : ContentPage
     public WelcomePage()
     {
         InitializeComponent();
-        //Access.Text = accessCode.ToString();
+      //  Access.Text = accessCode.ToString();
     }
 
     private async void OnEnter_Clicked(object sender, EventArgs e)
