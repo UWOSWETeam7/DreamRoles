@@ -632,30 +632,37 @@ class Database : IDatabase
 
     public (bool success, string message) CheckInPerformer(Performer performer, String status)
     {
-        // Connects and opens a connection to the database
-        using var conn = new NpgsqlConnection(_connString);
-        conn.Open();
-
-        DateTime checkedInTime = DateTime.Now;
-        // Command to insert a performer into the 'ched_in_performers' table
-        using var cmd = new NpgsqlCommand();
-        cmd.Connection = conn;
-        cmd.CommandText = "INSERT INTO checked_in_performers (user_id, time_checked_in, status) " +
-                          "VALUES (@user_id, @time, @status);";
-        cmd.Parameters.AddWithValue("user_id", performer.Id);
-        cmd.Parameters.AddWithValue("time", checkedInTime);
-        cmd.Parameters.AddWithValue("status", status);
-        var success = cmd.ExecuteNonQuery();
-
-        // Adds performer to local chekced in collection
-        _checkedInPerformers.Add((performer));
-
-        if (success > -1)
+        try
         {
-            return (true, "success");
-        }
+            // Connects and opens a connection to the database
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
 
-        return (false, "No rows were affected");
+            DateTime checkedInTime = DateTime.Now;
+            // Command to insert a performer into the 'ched_in_performers' table
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "INSERT INTO checked_in_performers (user_id, time_checked_in, status) " +
+                              "VALUES (@user_id, @time, @status);";
+            cmd.Parameters.AddWithValue("user_id", performer.Id);
+            cmd.Parameters.AddWithValue("time", checkedInTime);
+            cmd.Parameters.AddWithValue("status", status);
+            var success = cmd.ExecuteNonQuery();
+
+            // Adds performer to local chekced in collection
+            _checkedInPerformers.Add((performer, checkedInTime));
+
+            if (success > -1)
+            {
+                return (true, "success");
+            }
+
+            return (false, "No rows were affected");
+        }
+        catch (Exception ex)
+        {
+            return (false, ex.Message);
+        }
 
     }
 

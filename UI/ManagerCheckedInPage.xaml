@@ -72,27 +72,22 @@
 
         <CollectionView
             x:Name="CV" 
-            ItemsSource="{Binding FilteredCheckedInPerformers}" 
+            ItemsSource="{Binding FilteredCheckedInPerformers}"
             SelectionMode="Single"
             Grid.Row="3"
-            Grid.ColumnSpan="2"
-            HorizontalOptions="Center">
+            Grid.ColumnSpan="3"
+            HorizontalOptions="Center"
+            Scale="0.8"
+            >
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
-                    <Grid ColumnDefinitions="*,*,*,*">
-                        <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                        <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                        <Image Grid.Column="2" Source="checkmark.svg"/>
-                        <Image Grid.Column="3" Source="trash.png"
-                               VerticalOptions="Center"
-                               HorizontalOptions="End"
-                               WidthRequest="50"
-                               HeightRequest="40">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="DeletePerformer"/>
-                            </Image.GestureRecognizers>
-                        </Image>
-                    </Grid>
+                    <VerticalStackLayout Padding="10" Margin="1">
+                        <Grid RowDefinitions="*" ColumnDefinitions="6*,6*, 3*">
+                            <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                            <Button Grid.Column="2" BackgroundColor="Transparent"  ImageSource="alert.png" />
+                        </Grid>
+                    </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
