@@ -14,7 +14,7 @@ namespace Prototypes.Databases.Interface
         public Boolean InsertSongForPerformer(int userId, String songName, String artistName, int duration);
         public Boolean UpdatePerformerContact(int userId, String phoneNumber, String email);
         public ObservableCollection<Performer> NotCheckedInPerformers();
-        public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers();
+        public ObservableCollection<Performer> GetCheckedInPerformers();
 
         /// <summary>
         /// Creates a file if needed and reads it and puts performer objects into a ObservableCollection

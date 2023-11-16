@@ -6,6 +6,8 @@ Sprint 3:
     - Finished the navigation between all pages for the app  😀😀😀 
     - Made the sign in with access code functional- navigates to different pages based on code entered 😀😀
     - Finished select name page- allows for performer to search for their name and check themselves in 😀
+    - Added check in functionality to check in a performer on the database when selecting their name
+    - Added table to save time, location, song, and performer to a performance
     - 
 Sprint 2: 
     -Added a NotCheckedInPerformers method to return ObservableCollection of not checked in performers to ManagerNotCheckedInPage.xaml 😀 

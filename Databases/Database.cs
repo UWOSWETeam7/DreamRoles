@@ -12,7 +12,7 @@ class Database : IDatabase
 {
     //A ObservableCollections
     private ObservableCollection<Performer> _performers;
-    private ObservableCollection<(Performer performer, DateTime? checkInTime)> _checkedInPerformers;
+    private ObservableCollection<Performer> _checkedInPerformers;
     private ObservableCollection<Performer> _notCheckedInPerformers;
     private ObservableCollection<Song> _songs;
 
@@ -26,7 +26,7 @@ class Database : IDatabase
     public Database()
     {
         _performers = new ObservableCollection<Performer>();
-        _checkedInPerformers = new ObservableCollection<(Performer performer, DateTime? timeCheckedIn)>();
+        _checkedInPerformers = new ObservableCollection<Performer>();
         _notCheckedInPerformers = new ObservableCollection<Performer>();
         _songs = new ObservableCollection<Song>();
         _connString = GetConnectionString();
@@ -75,7 +75,7 @@ class Database : IDatabase
     void GetNotCheckedInPerformers(){
         _notCheckedInPerformers = new ObservableCollection<Performer>(_performers);
 
-        foreach (Performer performer in _checkedInPerformers.Select(item => item.performer).ToList())
+        foreach (Performer performer in _checkedInPerformers.Select(item => item).ToList())
         {
             _notCheckedInPerformers.Remove(performer);
         }
@@ -606,7 +606,7 @@ class Database : IDatabase
 
         return performers;
     }
-    public ObservableCollection<(Performer, DateTime?)> GetCheckedInPerformers()
+    public ObservableCollection<Performer> GetCheckedInPerformers()
     {
         
             _checkedInPerformers.Clear();
@@ -622,9 +622,8 @@ class Database : IDatabase
             while (reader.Read())
             {
                 int userId = reader.GetInt32(0);
-                DateTime? checkInTime = reader.IsDBNull(1) ? null : reader.GetDateTime(1);
-
-                _checkedInPerformers.Add((_performers.First(performer => performer.Id == userId), checkInTime));
+                
+                _checkedInPerformers.Add(_performers.First(performer => performer.Id == userId));
             }
 
 
@@ -649,7 +648,7 @@ class Database : IDatabase
         var success = cmd.ExecuteNonQuery();
 
         // Adds performer to local chekced in collection
-        _checkedInPerformers.Add((performer, checkedInTime));
+        _checkedInPerformers.Add((performer));
 
         if (success > -1)
         {
