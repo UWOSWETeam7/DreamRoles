@@ -75,7 +75,7 @@ class Database : IDatabase
     void GetNotCheckedInPerformers(){
         _notCheckedInPerformers = new ObservableCollection<Performer>(_performers);
 
-        foreach (Performer performer in _checkedInPerformers.Select(item => item.performer).ToList())
+        foreach (Performer performer in _checkedInPerformers)
         {
             _notCheckedInPerformers.Remove(performer);
         }
