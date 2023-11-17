@@ -421,8 +421,10 @@ class Database : IDatabase
     /// <returns>True if it was inserted into the database, false otherwise</returns>
     public Boolean InsertPerformer(Performer performer)
     {
+
         try
         {
+
             // Connect and open a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
@@ -430,12 +432,13 @@ class Database : IDatabase
             // Command to insert a new performer into the 'dreamrolesuser' table
             using var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "INSERT INTO dreamrolesuser (user_id, first_name, last_name, title) " +
-                              "VALUES (@user_id, @first_name, @last_name, @title);";
+            cmd.CommandText = "INSERT INTO dreamrolesuser (user_id, first_name, last_name, title, production_year) " +
+                              "VALUES (@user_id, @first_name, @last_name, @title, @production_year);";
             cmd.Parameters.AddWithValue("user_id", performer.Id);
             cmd.Parameters.AddWithValue("first_name", performer.FirstName);
             cmd.Parameters.AddWithValue("last_name", performer.LastName);
             cmd.Parameters.AddWithValue("title", "Performer");
+            cmd.Parameters.AddWithValue("production_year", 2023);
             cmd.ExecuteNonQuery();
 
             // Command to insert performer details into the 'performer' table
@@ -650,7 +653,7 @@ class Database : IDatabase
             var success = cmd.ExecuteNonQuery();
 
             // Adds performer to local chekced in collection
-            _checkedInPerformers.Add((performer, checkedInTime));
+            _checkedInPerformers.Add(performer);
 
             if (success > -1)
             {

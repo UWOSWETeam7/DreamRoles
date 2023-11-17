@@ -17,7 +17,7 @@ public class SearchBarPerformerViewModel : ObservableObject
         }
     }
 
-
+   
     private ObservableCollection<Performer> _performers;
     public ObservableCollection<Performer> Performers
     {
