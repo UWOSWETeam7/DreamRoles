@@ -5,7 +5,6 @@ namespace Prototypes.UI;
 //@author: Keerthana Ambati
 public partial class WelcomePage : ContentPage
 {
-    int accessCode = 0;
     int performerAccessCode = 1122333;
     int stageManagerAccessCode = 4455666;
     int choreographerAccessCode = 7788999;
@@ -35,7 +34,7 @@ public partial class WelcomePage : ContentPage
         {
             //Todo: Some sort invalid message
         }
-        Access.Text = accessCode.ToString();
+        //Access.Text = accessCode.ToString();
     }
 
   
