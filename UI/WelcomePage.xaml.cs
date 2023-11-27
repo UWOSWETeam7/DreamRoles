@@ -5,9 +5,7 @@ namespace Prototypes.UI;
 //@author: Keerthana Ambati
 public partial class WelcomePage : ContentPage
 {
-    int performerAccessCode = 1122333;
-    int stageManagerAccessCode = 4455666;
-    int choreographerAccessCode = 7788999;
+   
     public WelcomePage()
     {
         InitializeComponent();
@@ -16,6 +14,9 @@ public partial class WelcomePage : ContentPage
 
     private async void OnEnter_Clicked(object sender, EventArgs e)
     {
+        int performerAccessCode = Int32.Parse(MauiProgram.BusinessLogic.GetPerformerAccessCode());
+        int stageManagerAccessCode = Int32.Parse(MauiProgram.BusinessLogic.GetManagerAccessCode());
+        int choreographerAccessCode = Int32.Parse(MauiProgram.BusinessLogic.GetChoreoAccessCode());
         //if the performer access code is entered, go to select name page and show names in dropdown- SelectNamePage.xaml
         //if stage manager access code is entered, go to stage manager home page- ManagerHomePage.xaml
         //if choreographer access code is entered, go to choreographer home page- ChoreoHomePage.xaml
@@ -24,15 +25,20 @@ public partial class WelcomePage : ContentPage
         if (enteredCode == performerAccessCode )
         {
             await Navigation.PushAsync(new SelectNamePage());
+            Navigation.RemovePage(this);
         } else if (enteredCode == stageManagerAccessCode )
         {
             await Navigation.PushAsync(new ManagerHomePage());
-        } else if (enteredCode == choreographerAccessCode )
+            Navigation.RemovePage(this);
+        }
+        else if (enteredCode == choreographerAccessCode )
         {
             await Navigation.PushAsync(new ChoreoHomePage());
-        } else 
+            Navigation.RemovePage(this);
+        }
+        else 
         {
-            //Todo: Some sort invalid message
+            
         }
         //Access.Text = accessCode.ToString();
     }
