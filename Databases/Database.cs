@@ -650,7 +650,7 @@ class Database : IDatabase
             var success = cmd.ExecuteNonQuery();
 
             // Adds performer to local chekced in collection
-            _checkedInPerformers.Add((performer, checkedInTime));
+            _checkedInPerformers.Add(performer);
 
             if (success > -1)
             {

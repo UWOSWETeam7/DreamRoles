@@ -79,7 +79,7 @@
             HorizontalOptions="Center">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
-                    <Grid ColumnDefinitions="*,*,*,*">
+                    <Grid ColumnDefinitions="*,*,*" HorizontalOptions="FillAndExpand">
                         <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                         <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                         <Image Grid.Column="2" Source="checkmark.svg"/>
