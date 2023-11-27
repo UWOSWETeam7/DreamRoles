@@ -708,8 +708,8 @@ class Database : IDatabase
             var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = "UPDATE production " +
-                              "SET  performer_access_code = @performer_access_code " +
-                              "WHERE performance_year = 2023;";
+                              "SET performer_access_code = @performer_access_code " +
+                              "WHERE production_year = 2023;";
             cmd.Parameters.AddWithValue("performer_access_code", newAccessCode);
             cmd.ExecuteNonQuery();
 
@@ -720,6 +720,98 @@ class Database : IDatabase
         }
         return true;
 
+    }
+
+    public String GetPerformerAccessCode()
+    {
+        String performerAccessCode = null;
+        try
+        {
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "SELECT performer_access_code " +
+                              "FROM public.production " +
+                              "WHERE production_year = 2023;";
+
+            // Execute the query and read the result
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                // Assuming performer_access_code is a string; adjust if it's a different data type
+                 performerAccessCode = reader["performer_access_code"].ToString();
+            }
+        }
+        catch (Npgsql.PostgresException pe)
+        {
+            // Handle the exception, log it, or perform other error handling as needed
+            return performerAccessCode;
+        }
+
+        return performerAccessCode;
+    }
+
+    public String GetManagerAccessCode()
+    {
+        String managerAccessCode = null;
+        try
+        {
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "SELECT stagemanager_access_code " +
+                              "FROM public.production " +
+                              "WHERE production_year=2023;";
+
+            // Execute the query and read the result
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                // Assuming performer_access_code is a string; adjust if it's a different data type
+                managerAccessCode = reader["stagemanager_access_code"].ToString();
+            }
+        }
+        catch (Npgsql.PostgresException pe)
+        {
+            // Handle the exception, log it, or perform other error handling as needed
+            return managerAccessCode;
+        }
+
+        return managerAccessCode;
+    }
+    public String GetChoreoAccessCode()
+    {
+        String choreoAccessCode = null;
+        try
+        {
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "SELECT choreographer_access_code " +
+                              "FROM public.production " +
+                              "WHERE production_year=2023;";
+
+            // Execute the query and read the result
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                // Assuming performer_access_code is a string; adjust if it's a different data type
+                choreoAccessCode = reader["choreographer_access_code"].ToString();
+            }
+        }
+        catch (Npgsql.PostgresException pe)
+        {
+            // Handle the exception, log it, or perform other error handling as needed
+            return choreoAccessCode;
+        }
+
+        return choreoAccessCode;
     }
 }
 

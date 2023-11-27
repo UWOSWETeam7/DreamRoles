@@ -6,6 +6,9 @@ namespace Prototypes.Business_Logic.Interface
 {
     public interface IBusinessLogic
     {
+        public String GetManagerAccessCode();
+        public String GetChoreoAccessCode();
+        public String GetPerformerAccessCode();
         public ObservableCollection<Performer> GetPerformersOfASong(Song song);
         public Boolean EditPerformerName(int userId, String firstName, String lastName);
         public Boolean EditSong(int setlistId, String oldSongName, String oldArtist,  String songName, String artist, int duration);
@@ -63,6 +66,6 @@ namespace Prototypes.Business_Logic.Interface
         /// <returns>a bservableCollection of performers objects the user has visted</returns>
         public ObservableCollection<Performer> GetPerformers();
 
-        
+        public void GenerateNewAccessCode();
     }
 }

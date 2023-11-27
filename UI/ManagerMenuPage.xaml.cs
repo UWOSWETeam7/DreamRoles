@@ -19,4 +19,9 @@ public partial class ManagerMenuPage : ContentPage
     {
 		await Navigation.PushAsync(new ManagerCheckedInPage()); 
     }
+
+    public async void OnAccessCodes_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ManagerAccesssCodePage());
+    }
 }

@@ -12,7 +12,19 @@ namespace Prototypes.Business_Logic
 
         //A interface of Database
         private IDatabase Database = new Database();
+        public String GetManagerAccessCode()
+        {
+            return Database.GetManagerAccessCode();
+        }
+        public String GetChoreoAccessCode()
+        {
+            return Database.GetChoreoAccessCode();
+        }
 
+        public String GetPerformerAccessCode()
+        {
+            return Database.GetPerformerAccessCode();
+        }
         public ObservableCollection<Performer> GetPerformersOfASong(Song song)
         {
             return Database.GetPerformersOfASong(song);

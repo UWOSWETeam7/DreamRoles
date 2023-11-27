@@ -25,6 +25,13 @@
             Background="White"
             TextColor="Black"
         />
+        <Button
+          Text="Access Codes"
+          HorizontalOptions="Start"
+          Clicked="OnAccessCodes_Clicked"
+          Background="White"
+          TextColor="Black"
+        />
 
 
 

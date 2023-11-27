@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Prototypes.UI.ManagerAccesssCodePage"
+             Title="Manager Accesss Code Page">
+    <VerticalStackLayout>
+        <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
+            <Label  Grid.Row="0" Grid.Column="0"  Text="Performer Access Code: "/>
+            <Label x:Name="performerAccessCode" Grid.Row="0" Grid.Column="1" Text="0000000"/>
+            <Button Grid.Row="0" Grid.Column="2" Text="Generate New Access Code" Clicked="GenerateNewAccessCode"/>
+
+            <Label Grid.Row="1" Grid.Column="0"  Text="Choreographer Access Code: "/>
+            <Label x:Name="choreoAccessCode" Grid.Row="1" Grid.Column="1" Text="0000000"/>
+            
+            <Label Grid.Row="2" Grid.Column="0"  Text="Manager Access Code: "/>
+            <Label x:Name="managerAccessCode" Grid.Row="2" Grid.Column="1" Text="0000000"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

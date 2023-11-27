@@ -5,6 +5,9 @@ namespace Prototypes.Databases.Interface
 {
     public interface IDatabase
     {
+        public String GetManagerAccessCode();
+        public String GetChoreoAccessCode();
+        public String GetPerformerAccessCode();
         public ObservableCollection<Performer> GetPerformersOfASong(Song song);
         public Boolean UpdatePerformerName(int userId, String firstName, String lastName);
         public Boolean UpdateSong(int setlistId, String oldSongName, String oldArtist, String songName, String artist, int duration);
