@@ -112,9 +112,6 @@
 	  <MauiXaml Update="UI\ChoreoMenuPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="UI\ManagerAccesssCodePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="UI\ManagerCheckedInPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
