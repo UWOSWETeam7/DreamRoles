@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Prototypes.ChoreoNotCheckedInPage"
+             xmlns:model_2="clr-namespace:Prototypes.Model" 
+             x:DataType="model_2:SearchBarNotCheckedInPerformerViewModel"
+             x:Class="Prototypes.UI.ChoreoNotCheckedInPage"
              Title="ChoreoNotCheckedInPage"
              BackgroundColor="#E1D6C9">
     <Grid
      RowSpacing="6"
      ColumnSpacing="5">
-
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="50"/>
@@ -21,88 +22,70 @@
         </Grid.ColumnDefinitions>
 
         <BoxView 
-             Grid.Row="0" 
-             Grid.ColumnSpan="3"
-             Color="#866B53"
-             CornerRadius="10, 10, 10, 10"
-             WidthRequest="400"
-             HeightRequest="50"/>
+         Grid.Row="0" 
+         Grid.ColumnSpan="3"
+         Color="#866B53"
+         CornerRadius="10, 10, 10, 10"
+         WidthRequest="400"
+         HeightRequest="50"/>
 
         <Label 
-             Grid.Row="0"
-             Grid.ColumnSpan="3" 
-             Text="Not Checked In:"
-             FontAttributes="Bold"
-             FontSize="20"
-             HorizontalOptions="Center"
-             VerticalOptions="Center"/>
+         Grid.Row="0"
+         Grid.ColumnSpan="3" 
+         Text="Not Checked In:"
+         FontAttributes="Bold"
+         FontSize="20"
+         HorizontalOptions="Center"
+         VerticalOptions="Center"/>
 
         <Image 
-            Grid.Row="0"
-            Grid.Column="3"
-            HorizontalOptions="Start"
-            VerticalOptions="Center"
-            WidthRequest="50"
-            HeightRequest="50"
-            Source="xmark.svg"/>
-        
+        Grid.Row="0"
+        Grid.Column="3"
+        HorizontalOptions="Start"
+        VerticalOptions="Center"
+        WidthRequest="50"
+        HeightRequest="50"
+        Source="xmark.svg"/>
+
         <SearchBar
-             BackgroundColor="White"
-             Grid.Row="1"
-             Grid.Column="1"
-             HorizontalOptions="Center"
-             Placeholder="Enter Name Here"
-             HorizontalTextAlignment="Center"
-             VerticalTextAlignment="Center"
+         BackgroundColor="White"
+         Grid.Row="1"
+         Grid.Column="1"
+         HorizontalOptions="Center"
+         Placeholder="Enter Name Here"
+         HorizontalTextAlignment="Center"
+         VerticalTextAlignment="Center"
+         Text="{Binding SearchText}"
         ></SearchBar>
 
         <Button 
-         Grid.Row="1"
-         Grid.Column="2"
-         BackgroundColor="Transparent"
-         ImageSource="menu.svg"/>
-
+             Grid.Row="1"
+             Grid.Column="2"
+             BackgroundColor="Transparent"
+             ImageSource="menu.svg"/>
         <Label
             Grid.Row="2"
             Grid.Column="1"
             Text="Name:"
-            FontSize="15"
-        />
-
+            FontSize="15"/>
+        
         <CollectionView
+            x:Name="CV" 
+            ItemsSource="{Binding FilteredNotCheckedInPerformers}"
+            SelectionMode="Single"
             Grid.Row="3"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="3"
             HorizontalOptions="Center">
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Ava Wilson</x:String>
-                    <x:String>Benjamin Martinez</x:String>
-                    <x:String>Chris Cringle</x:String>
-                    <x:String>Dave Davidson</x:String>
-                    <x:String>Emily Johnson</x:String>
-                    <x:String>Ethan Davis</x:String>
-                    <x:String>Lindsey Lamborghini</x:String>
-                    <x:String>Olivia Taylor</x:String>
-                    <x:String>Samuel Anderson</x:String>
-                    <x:String>Sophia Smith</x:String>
-                    <x:String>Zachary Garrison</x:String>
-                    <x:String>Zoey Smoey</x:String>
-                    <x:String>Zara Larson</x:String>
-                    <x:String>Zane Eddison</x:String>
-                    <x:String>Zelda Smelda</x:String>
-                    <x:String>Zeke Watson</x:String>
-                    <x:String>Zephyr Harington</x:String>
-                    <x:String>Ziva Erickson</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <VerticalStackLayout Background="#866B53" Padding="10" Margin="7">
-                        <Label Text="{Binding}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <DataTemplate x:DataType="model_2:Performer">
+                    <VerticalStackLayout Background="#866B53" Padding="10" Margin="1">
+                        <Grid RowDefinitions="*" ColumnDefinitions="6*,6*, 3*">
+                            <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                        </Grid>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
     </Grid>
-
 </ContentPage>

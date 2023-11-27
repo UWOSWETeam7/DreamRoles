@@ -2,17 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="Prototypes.ManagerPerformerInfoPage"
-             Shell.BackgroundColor="#ac9884"
-             Shell.NavBarIsVisible="False">
-
+             xmlns:model="clr-namespace:Prototypes.Model"
+             x:DataType="model:Performer" 
+             x:Class="Prototypes.UI.ManagerPerformerInfoPage"
+             Title="ManagerPerformerInfoPage"
+             BackgroundColor="#E1D6C9">
     <ScrollView BackgroundColor="#e1d6c9">
         <VerticalStackLayout Spacing="20" VerticalOptions="Start">
             <Border BackgroundColor="#ac9884">
                 <HorizontalStackLayout Spacing="100">
-                    <Image Source="previousalt.svg" />
-                    <Grid RowDefinitions="*,*" ColumnDefinitions="*">
-                        <Label Text="Ava Wilson"  HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                    <Image Source="edit.svg" Margin="90,0,-90,0">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ShowEditPerformerNamePopup"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Grid RowDefinitions="*,*" ColumnDefinitions="*" >
+                        <Grid ColumnDefinitions="*,*,*" Grid.Column="0" VerticalOptions="Center">
+                            <Label Grid.Column="0" Text="{Binding FirstName}"  HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                            <Label Grid.Column="1" Text=" "  HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                            <Label Grid.Column="2" Text="{Binding LastName}"  HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                        </Grid>
+
                         <Label Text="Performer" HorizontalTextAlignment="Center" FontSize="Medium" Grid.Row="1"/>
                     </Grid>
                     <Image Source="circleok.png" />
@@ -24,19 +34,25 @@
                         <Border BackgroundColor="#c8b8a8" Stroke="Black" ClassId="ContactInfoLabel">
                             <Grid ColumnDefinitions="*,*">
                                 <Label Text="Contact Info" BackgroundColor="#c8b8a8" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.Column="0" FontSize="Medium" FontAttributes="Bold"/>
-                                <Image Source="edit.svg" Grid.Row="0" Grid.Column="1" Scale="1"/>
+                                <Image Source="edit.svg" Grid.Row="0" Grid.Column="1" Scale="1">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                Tapped="ShowEditContactInfoPopup"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
                             </Grid>
                         </Border>
+
                         <Grid RowDefinitions="*,*" ColumnDefinitions="*,3*" Grid.Row="1" Padding="0">
-                            <Image Source="phone.svg" Grid.Row="0" Grid.Column="0" Scale=".7"/>
+                            <Image Source="phone.svg" Grid.Row="0" Grid.Column="0" WidthRequest="30" Scale="1"/>
                             <Label Text="Phone" BackgroundColor="#c8b8a8" Grid.Row="0" Grid.Column="1" FontSize="Medium" FontAttributes="Bold"/>
-                            <Label Text="(920) 867-5309" Grid.Row="1" Grid.Column="1"/>
+                            <Label Text="{Binding PhoneNumber}" Grid.Row="1" Grid.Column="1"/>
                         </Grid>
                         <Line X1="20" Y1="20" X2="300" Y2="20" Stroke="Gray" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center"/>
                         <Grid RowDefinitions="*,*" ColumnDefinitions="*,3*" Grid.Row="3" Padding="10">
-                            <Image Source="envelope.svg" Scale=".7"/>
+                            <Image Source="envelope.svg" WidthRequest="30" Scale="1"/>
                             <Label Text="Email" Grid.Row="0" Grid.Column="1" FontSize="Medium" FontAttributes="Bold"/>
-                            <Label Text="wilsonava@gmail.com" Grid.Row="1" Grid.Column="1"/>
+                            <Label Text="{Binding Email}" Grid.Row="1" Grid.Column="1"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -53,10 +69,10 @@
                                 <Image Grid.Column="1" x:Name="HeaderImage" HeightRequest="30" WidthRequest="30"  Source="arrow.png">
                                     <Image.Triggers>
                                         <DataTrigger TargetType="Image"
-                                         Binding="{Binding Source={x:Reference SongExpander}, Path=IsExpanded}"
-                                         Value="True">
+                             Binding="{Binding Source={x:Reference SongExpander}, Path=IsExpanded}"
+                             Value="True">
                                             <Setter Property="Rotation"
-                                        Value="180" />
+                            Value="180" />
                                         </DataTrigger>
                                     </Image.Triggers>
                                 </Image>
@@ -64,24 +80,58 @@
                         </mct:Expander.Header>
                         <mct:Expander.Content>
                             <StackLayout Padding="0">
-                                <Border BackgroundColor="#b6a390" Stroke="Black" StrokeThickness="1.7" Padding="0">
-                                    <VerticalStackLayout>
-                                        <HorizontalStackLayout>
-                                            <Image Source="calendar.svg" Scale="1" Margin="10, 0"/>
-                                            <Label Text="1/15/2023 @12:00 PM"/>
-                                            <Image Source="edit.svg" Scale="1" Margin="100, 0"/>
-                                        </HorizontalStackLayout>
-                                        <Line X2="400" Y2="1" Stroke="Black" Grid.Row="1"/>
-                                        <HorizontalStackLayout>
-                                            <Image Source="music.svg" Margin="10, 0"/>
-                                            <Label Text="Don't Stop Believing"/>
-                                            <Image Source="stopwatch.svg" Margin="40, 0"/>
-                                            <Label Text="4:11"/>
-                                        </HorizontalStackLayout>
-                                    </VerticalStackLayout>
-                                </Border>
+                                <CollectionView
+                                    x:Name="CVSongs" ItemsSource="{Binding Songs}" SelectionMode="Single" >
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="model:Song">
+                                            <Border BackgroundColor="#b6a390" Stroke="Black" StrokeThickness="1.7" Padding="5,2" WidthRequest="350">
+                                                <VerticalStackLayout>
+                                                    <HorizontalStackLayout>
+                                                        <Image Source="music.svg" Margin="10, 0" HorizontalOptions="Start"/>
+                                                        <Label Grid.Column ="1" Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap"/>
+                                                        <HorizontalStackLayout HorizontalOptions="End">
+                                                            <Image Source="stopwatch.svg" Margin="20, 0"/>
+                                                            <Label Text="{Binding DurationMinutes}"/>
+                                                            <Label Text=" : "/>
+                                                            <Label Text="{Binding DurationSeconds, StringFormat='{0:D2}'}"/>
+                                                        </HorizontalStackLayout>
+                                                        <Image Source="edit.svg" HorizontalOptions="End" Margin="10,0">
+                                                            <Image.GestureRecognizers>
+                                                                <TapGestureRecognizer Tapped="ShowEditPerformerSongPopup"/>
+                                                            </Image.GestureRecognizers>
+                                                        </Image>
+                                                    </HorizontalStackLayout>
+                                                </VerticalStackLayout>
+                                            </Border>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                                <!--<Border BackgroundColor="#b6a390" Stroke="Black" StrokeThickness="1.7" Padding="0">
+                                <VerticalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Image Source="calendar.svg" Scale="1" Margin="10, 0"/>
+                                        <Label Text="1/15/2023 @12:00 PM"/>
+                                        <Image Source="edit.svg" Scale="1" Margin="100, 0">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="ShowEditPerformerSongPopup"/>
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </HorizontalStackLayout>
+                                    <Line X2="400" Y2="1" Stroke="Black" Grid.Row="1"/>
+                                    <HorizontalStackLayout>
+                                        <Image Source="music.svg" Margin="10, 0"/>
+                                        <Label Text="Don't Stop Believing"/>
+                                        <Image Source="stopwatch.svg" Margin="40, 0"/>
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Border>-->
                                 <Border BackgroundColor="#a79a8d" Stroke="Black" StrokeThickness="1.7" Padding="0">
-                                    <Image Source="add.svg" HorizontalOptions="Start" Margin="5"/>
+                                    <Image Source="add.svg" HorizontalOptions="Start" Margin="5">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                     Tapped="ShowAddSongForPerformerPopUp"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
                                 </Border>
                             </StackLayout>
                         </mct:Expander.Content>
@@ -90,7 +140,11 @@
 
                 <VerticalStackLayout>
                     <Border BackgroundColor="#c8b8a8" Stroke="Black" StrokeThickness="1.7" Padding="5">
-                        <Label Text="Absences: 1" BackgroundColor="#c8b8a8" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.Column="0" FontSize="Medium" FontAttributes="Bold"/>
+                        <Grid ColumnDefinitions="*,*" Grid.Column="0">
+                            <Label Grid.Column="0" Text="Absences: " BackgroundColor="#c8b8a8" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0"  FontSize="Medium" FontAttributes="Bold"/>
+                            <Label Grid.Column="1" Text="{Binding Absences}" BackgroundColor="#c8b8a8" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0"  FontSize="Medium" FontAttributes="Bold"/>
+                        </Grid>
+
                     </Border>
                     <Border BackgroundColor="#c8b8a8" Stroke="Black" StrokeThickness="1.7" Padding="5" Margin="0, -3">
                         <HorizontalStackLayout Spacing="120">
@@ -102,5 +156,4 @@
             </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

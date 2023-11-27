@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Prototypes.WelcomePage">
+             x:Class="Prototypes.UI.WelcomePage">
 
     <ScrollView>
         <VerticalStackLayout
@@ -22,6 +22,7 @@
                 HorizontalOptions="Center" />
 
             <Label
+                x:Name="Access"
                 Text="Please enter the access code specific to your role"
                 SemanticProperties.HeadingLevel="Level2"
                 FontSize="18"
@@ -29,14 +30,18 @@
                 HorizontalTextAlignment="Center"/>
 
             <Entry
+                x:Name="access" 
 				Placeholder="Access Code"
-				x:Name="access" />
+                HorizontalTextAlignment="Center"
+                Keyboard="Numeric"
+                WidthRequest="200"/>
 
             <Button
                 x:Name="EnterBtn"
                 Text="Enter"
 				TextColor="Beige"
                 SemanticProperties.Hint="Navigates to the next page"
+                Clicked="OnEnter_Clicked"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>

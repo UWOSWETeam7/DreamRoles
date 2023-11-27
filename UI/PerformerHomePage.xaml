@@ -2,231 +2,98 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="Prototypes.PerformerHomePage"            
+             x:DataType="model:SearchBarSongViewModel"
+             xmlns:model="clr-namespace:Prototypes.Model"
+             x:Class="Prototypes.UI.PerformerHomePage"    
+             Title="Performer Home Page"
              BackgroundColor="LightGray">
-    <Grid RowDefinitions="1*,8*, 1*">
-        <StackLayout Grid.Row="0">
-            <Frame BackgroundColor="Tan" CornerRadius="20" Padding="5" Margin="0,0,0,15">
-                <Grid RowDefinitions="*,*" HorizontalOptions="CenterAndExpand">
-                    <Label Grid.Row="0" Text="Benjamin Martinez" FontSize="Large" HorizontalOptions="CenterAndExpand"/>
-                    <Label Grid.Row="1" Text="Performer" FontSize="Small" HorizontalOptions="CenterAndExpand"/>
-                </Grid>
-            </Frame>
+    <Grid
+        RowSpacing="7"
+        ColumnSpacing="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="550" />
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
 
-        </StackLayout>
-        <ScrollView Grid.Row="1">
-            <StackLayout Spacing="10" Padding="20,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
+        <BoxView 
+                 Grid.Row="0" 
+                 Grid.ColumnSpan="3"
+                 Color="#866B53"
+                 CornerRadius="10, 10, 10, 10"
+                 WidthRequest="400"
+                 HeightRequest="50"/>
 
-                <mct:Expander x:Name="MyExpander1" BackgroundColor="Tan" WidthRequest="400">
-                    <mct:Expander.Header>
-                        <Grid ColumnDefinitions="*, 5*" WidthRequest="400">
-                            <Image Grid.Column="0" Source="arrow.png" HeightRequest="20" WidthRequest="20">
-                                <Image.Triggers>
-                                    <DataTrigger TargetType="Image"
-                                         Binding="{Binding Source={x:Reference MyExpander1}, Path=IsExpanded}"
-                                           Value="True">
-                                        <Setter Property="Rotation" Value="180" />
-                                    </DataTrigger>
-                                </Image.Triggers>
-                            </Image>
-                            <Label Grid.Column="1" Text="Defying Gravity" FontSize="Large" LineBreakMode="WordWrap"/>
-                        </Grid>
-                    </mct:Expander.Header>
-                    <mct:Expander.Content>
-                        <Frame CornerRadius="0" BorderColor="black" BackgroundColor="Tan" Margin="3,0,3,0">
-                            <Grid RowDefinitions="*,*,*" ColumnDefinitions="1*,3*" WidthRequest="265" Margin="0,-20,0,-20">
-                                <Label Grid.Row="0" Grid.Column="0" Text="Role: "/>
-                                <Label Grid.Row="0" Grid.Column="1" Text="Singer" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="1" Grid.Column="0" Text="Time: "/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="9:00am - 11:00am" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="2" Grid.Column="0" Text="Location: "/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="Art &amp; Communication South - 112" LineBreakMode="WordWrap"/>
+        <SearchBar
+                BackgroundColor="White"
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                Placeholder="Enter Song Here"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                Text="{Binding SearchText}"
+        ></SearchBar>
+        <CollectionView
+               Grid.Row="3"
+               Grid.Column="0"
+               Grid.ColumnSpan="3"
+               HorizontalOptions="Start"
+               x:Name="CVSongs" ItemsSource="{Binding FilteredSongs}" SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Song">
+                    <mct:Expander x:Name="MyExpander1" BackgroundColor="Tan" WidthRequest="400">
+                        <mct:Expander.Header>
+                            <Grid ColumnDefinitions="*,150,*" Grid.ColumnSpan="4" HeightRequest="50" Background="#866B53" Margin="0,0" Padding="30,15">
+
+                                <Label Grid.Column ="1" Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap"/>
+                                <Image 
+                                    Grid.Column ="0" 
+                                    Source="arrow.png" 
+                                    HeightRequest="20" 
+                                    WidthRequest="20" 
+                                    HorizontalOptions="Start">
+                                    <Image.Triggers>
+                                        <DataTrigger 
+                                            TargetType="Image"
+                                            Binding="{Binding Source={x:Reference MyExpander1}, Path=IsExpanded}"
+                                            Value="True">
+                                            <Setter Property="Rotation" Value="180" />
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
                             </Grid>
-                        </Frame>
-                    </mct:Expander.Content>
-                </mct:Expander>
+                        </mct:Expander.Header>
+                        <mct:Expander.Content>
+                            <Frame BorderColor="black" BackgroundColor="Tan" Margin="3,0,3,0">
+                                <Grid WidthRequest="250" HeightRequest="100" Margin="0,-20,0,-20">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="0" Text="Time: "/>
+                                    <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" Text="9:00am - 11:00am" Margin="-25,0,0,0"/>
+                                    <Label Grid.Row="1" Grid.Column="0" Text="Location: "/>
+                                    <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" Text="Art &amp; Communication South - 112" LineBreakMode="WordWrap"/>
 
-                <mct:Expander x:Name="MyExpander2" BackgroundColor="Tan" WidthRequest="400">
-                    <mct:Expander.Header>
-                        <Grid ColumnDefinitions="*, 5*" WidthRequest="400">
-                            <Image Grid.Column="0" Source="arrow.png" HeightRequest="20" WidthRequest="20">
-                                <Image.Triggers>
-                                    <DataTrigger TargetType="Image"
-                                        Binding="{Binding Source={x:Reference MyExpander2}, Path=IsExpanded}"
-                                         Value="True">
-                                        <Setter Property="Rotation" Value="180" />
-                                    </DataTrigger>
-                                </Image.Triggers>
-                            </Image>
-                            <Label Grid.Column="1" Text="Ya Got Trouble" FontSize="Large" LineBreakMode="WordWrap"/>
-                        </Grid>
-                    </mct:Expander.Header>
-                    <mct:Expander.Content>
-                        <Frame CornerRadius="0" BorderColor="black" BackgroundColor="Tan" Margin="3,0,3,0">
-                            <Grid RowDefinitions="*,*,*" ColumnDefinitions="1*,3*" WidthRequest="265" Margin="0,-20,0,-20">
-                                <Label Grid.Row="0" Grid.Column="0" Text="Role: "/>
-                                <Label Grid.Row="0" Grid.Column="1" Text="Dancer" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="1" Grid.Column="0" Text="Time: "/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="10:00am - 12:00pm" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="2" Grid.Column="0" Text="Location: "/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="Art &amp; Communication South - 212" LineBreakMode="WordWrap"/>
-                            </Grid>
-                        </Frame>
-                    </mct:Expander.Content>
-                </mct:Expander>
-
-                <mct:Expander x:Name="MyExpander3" BackgroundColor="Tan" WidthRequest="400">
-                    <mct:Expander.Header>
-                        <Grid ColumnDefinitions="*, 5*" WidthRequest="400">
-                            <Image Grid.Column="0" Source="arrow.png" HeightRequest="20" WidthRequest="20">
-                                <Image.Triggers>
-                                    <DataTrigger TargetType="Image"
-                                         Binding="{Binding Source={x:Reference MyExpander3}, Path=IsExpanded}"
-                                         Value="True">
-                                        <Setter Property="Rotation" Value="180" />
-                                    </DataTrigger>
-                                </Image.Triggers>
-                            </Image>
-                            <Label Grid.Column="1" Text="A Little Priest" FontSize="Large" LineBreakMode="WordWrap"/>
-                        </Grid>
-                    </mct:Expander.Header>
-                    <mct:Expander.Content>
-                        <Frame CornerRadius="0" BorderColor="black" BackgroundColor="Tan" Margin="3,0,3,0">
-                            <Grid RowDefinitions="*,*,*" ColumnDefinitions="1*,3*" WidthRequest="265" Margin="0,-20,0,-20">
-                                <Label Grid.Row="0" Grid.Column="0" Text="Role: "/>
-                                <Label Grid.Row="0" Grid.Column="1" Text="Singer, Dancer" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="1" Grid.Column="0" Text="Time: "/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="12:30pm - 2:30pm" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="2" Grid.Column="0" Text="Location: "/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="Art &amp; Communication South - 112" LineBreakMode="WordWrap"/>
-                            </Grid>
-                        </Frame>
-                    </mct:Expander.Content>
-                </mct:Expander>
-
-
-                <mct:Expander x:Name="MyExpander4" BackgroundColor="Tan" WidthRequest="400">
-                    <mct:Expander.Header>
-                        <Grid ColumnDefinitions="*, 5*" WidthRequest="400">
-                            <Image Grid.Column="0" Source="arrow.png" HeightRequest="20" WidthRequest="20">
-                                <Image.Triggers>
-                                    <DataTrigger TargetType="Image"
-            Binding="{Binding Source={x:Reference MyExpander4}, Path=IsExpanded}"
-              Value="True">
-                                        <Setter Property="Rotation" Value="180" />
-                                    </DataTrigger>
-                                </Image.Triggers>
-                            </Image>
-                            <Label Grid.Column="1" Text="Whatever Lola Wants" FontSize="Large" LineBreakMode="WordWrap"/>
-                        </Grid>
-                    </mct:Expander.Header>
-                    <mct:Expander.Content>
-                        <Frame CornerRadius="0" BorderColor="black" BackgroundColor="Tan" Margin="3,0,3,0">
-                            <Grid RowDefinitions="*,*,*" ColumnDefinitions="1*,3*" WidthRequest="265" Margin="0,-20,0,-20">
-                                <Label Grid.Row="0" Grid.Column="0" Text="Role: "/>
-                                <Label Grid.Row="0" Grid.Column="1" Text="Singer" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="1" Grid.Column="0" Text="Time: "/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="5:30pm - 7:30pm" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="2" Grid.Column="0" Text="Location: "/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="Art &amp; Communication South - 112" LineBreakMode="WordWrap"/>
-                            </Grid>
-                        </Frame>
-                    </mct:Expander.Content>
-                </mct:Expander>
-
-                <mct:Expander x:Name="MyExpander5" BackgroundColor="Tan" WidthRequest="400">
-                    <mct:Expander.Header>
-                        <Grid ColumnDefinitions="*, 5*" WidthRequest="400">
-                            <Image Grid.Column="0" Source="arrow.png" HeightRequest="20" WidthRequest="20">
-                                <Image.Triggers>
-                                    <DataTrigger TargetType="Image"
-            Binding="{Binding Source={x:Reference MyExpander5}, Path=IsExpanded}"
-              Value="True">
-                                        <Setter Property="Rotation" Value="180" />
-                                    </DataTrigger>
-                                </Image.Triggers>
-                            </Image>
-                            <Label Grid.Column="1" Text="Big Spender" FontSize="Large" LineBreakMode="WordWrap"/>
-                        </Grid>
-                    </mct:Expander.Header>
-                    <mct:Expander.Content>
-                        <Frame CornerRadius="0" BorderColor="black" BackgroundColor="Tan" Margin="3,0,3,0">
-                            <Grid RowDefinitions="*,*,*" ColumnDefinitions="1*,3*" WidthRequest="265" Margin="0,-20,0,-20">
-                                <Label Grid.Row="0" Grid.Column="0" Text="Role: "/>
-                                <Label Grid.Row="0" Grid.Column="1" Text="Singer" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="1" Grid.Column="0" Text="Time: "/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="9:00am - 11:00am" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="2" Grid.Column="0" Text="Location: "/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="Art &amp; Communication South - 112" LineBreakMode="WordWrap"/>
-                            </Grid>
-                        </Frame>
-                    </mct:Expander.Content>
-                </mct:Expander>
-
-                <mct:Expander x:Name="MyExpander6" BackgroundColor="Tan" WidthRequest="400">
-                    <mct:Expander.Header>
-                        <Grid ColumnDefinitions="*, 5*" WidthRequest="400">
-                            <Image Grid.Column="0" Source="arrow.png" HeightRequest="20" WidthRequest="20">
-                                <Image.Triggers>
-                                    <DataTrigger TargetType="Image"
-                                         Binding="{Binding Source={x:Reference MyExpander6}, Path=IsExpanded}"
-                                         Value="True">
-                                        <Setter Property="Rotation" Value="180" />
-                                    </DataTrigger>
-                                </Image.Triggers>
-                            </Image>
-                            <Label Grid.Column="1" Text="Send in the Clowns" FontSize="Large" LineBreakMode="WordWrap"/>
-                        </Grid>
-                    </mct:Expander.Header>
-                    <mct:Expander.Content>
-                        <Frame CornerRadius="0" BorderColor="black" BackgroundColor="Tan" Margin="3,0,3,0">
-                            <Grid RowDefinitions="*,*,*" ColumnDefinitions="1*,3*" WidthRequest="265" Margin="0,-20,0,-20">
-                                <Label Grid.Row="0" Grid.Column="0" Text="Role: "/>
-                                <Label Grid.Row="0" Grid.Column="1" Text="Singer" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="1" Grid.Column="0" Text="Time: "/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="1:00pm - 3:00pm" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="2" Grid.Column="0" Text="Location: "/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="Art &amp; Communication South - 112" LineBreakMode="WordWrap"/>
-                            </Grid>
-                        </Frame>
-                    </mct:Expander.Content>
-                </mct:Expander>
-
-                <mct:Expander x:Name="MyExpander7" BackgroundColor="Tan" WidthRequest="400">
-                    <mct:Expander.Header>
-                        <Grid ColumnDefinitions="*, 5*" WidthRequest="400">
-                            <Image Grid.Column="0" Source="arrow.png" HeightRequest="20" WidthRequest="20">
-                                <Image.Triggers>
-                                    <DataTrigger TargetType="Image"
-                         Binding="{Binding Source={x:Reference MyExpander7}, Path=IsExpanded}"
-                         Value="True">
-                                        <Setter Property="Rotation" Value="180" />
-                                    </DataTrigger>
-                                </Image.Triggers>
-                            </Image>
-                            <Label Grid.Column="1" Text="And I am Telling You I'm Not Going" FontSize="Large" LineBreakMode="WordWrap"/>
-                        </Grid>
-                    </mct:Expander.Header>
-                    <mct:Expander.Content>
-                        <Frame CornerRadius="0" BorderColor="black" BackgroundColor="Tan" Margin="3,0,3,0">
-                            <Grid RowDefinitions="*,*,*" ColumnDefinitions="1*,3*" WidthRequest="265" Margin="0,-20,0,-20">
-                                <Label Grid.Row="0" Grid.Column="0" Text="Role: "/>
-                                <Label Grid.Row="0" Grid.Column="1" Text="Dancer" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="1" Grid.Column="0" Text="Time: "/>
-                                <Label Grid.Row="1" Grid.Column="1" Text="9:00am - 11:00am" Margin="-25,0,0,0"/>
-                                <Label Grid.Row="2" Grid.Column="0" Text="Location: "/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="Art &amp; Communication South - 112" LineBreakMode="WordWrap"/>
-                            </Grid>
-                        </Frame>
-                    </mct:Expander.Content>
-                </mct:Expander>
-
-            </StackLayout>
-        </ScrollView>
-        <StackLayout Grid.Row="2">
-            <Button  Text="Exit" Margin="0,10" FontSize="Medium"/>
-        </StackLayout>
-
+                                </Grid>
+                            </Frame>
+                        </mct:Expander.Content>
+                    </mct:Expander>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
 </ContentPage>

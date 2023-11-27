@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Prototypes.ManagerNotCheckedInPage"
+             x:Class="Prototypes.UI.ManagerNotCheckedInPage"
+             xmlns:model_2="clr-namespace:Prototypes.Model" 
+             x:DataType="model_2:SearchBarNotCheckedInPerformerViewModel" 
              Title="ManagerNotCheckedInPage"
              BackgroundColor="#E1D6C9">
     <Grid
@@ -53,6 +55,7 @@
          Placeholder="Enter Name Here"
          HorizontalTextAlignment="Center"
          VerticalTextAlignment="Center"
+         Text="{Binding SearchText}"
         ></SearchBar>
 
         <Button 
@@ -70,45 +73,23 @@
             Grid.Column="2"
             HorizontalOptions="Start"
             Text="Alert:"
-            FontSize="15"/> 
+            FontSize="15"/>
 
         <CollectionView
+            x:Name="CV" 
+            ItemsSource="{Binding FilteredNotCheckedInPerformers}"
+            SelectionMode="Single"
             Grid.Row="3"
-            Grid.ColumnSpan="2"
-            HorizontalOptions="Center"> 
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Ava Wilson</x:String>
-                    <x:String>Benjamin Martinez</x:String>
-                    <x:String>Chris Cringle</x:String>
-                    <x:String>Dave Davidson</x:String>
-                    <x:String>Emily Johnson</x:String>
-                    <x:String>Ethan Davis</x:String>
-                    <x:String>Lindsey Lamborghini</x:String>
-                    <x:String>Olivia Taylor</x:String>
-                    <x:String>Samuel Anderson</x:String>
-                    <x:String>Sophia Smith</x:String>
-                    <x:String>Zachary Garrison</x:String>
-                    <x:String>Zoey Smoey</x:String>
-                    <x:String>Zara Larson</x:String>
-                    <x:String>Zane Eddison</x:String>
-                    <x:String>Zelda Smelda</x:String>
-                    <x:String>Zeke Watson</x:String>
-                    <x:String>Zephyr Harington</x:String>
-                    <x:String>Ziva Erickson</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
+            Grid.ColumnSpan="3"
+            HorizontalOptions="Center">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <VerticalStackLayout Background="#866B53" Padding="10" Margin="7">
-                        <Label Text="{Binding}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                        <Image Grid.Row="3"
-                            Grid.Column="2"
-                            HorizontalOptions="End"
-                            VerticalOptions="Center"
-                            WidthRequest="50"
-                            HeightRequest="50"
-                            Source="alert.png"/>    
+                <DataTemplate x:DataType="model_2:Performer">
+                    <VerticalStackLayout Background="#866B53" Padding="10" Margin="1">
+                        <Grid RowDefinitions="*" ColumnDefinitions="6*,6*, 3*">
+                            <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                            <Button Grid.Column="2" BackgroundColor="Transparent"  ImageSource="alert.png" Clicked="ShowAlert_Clicked"/>
+                        </Grid>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

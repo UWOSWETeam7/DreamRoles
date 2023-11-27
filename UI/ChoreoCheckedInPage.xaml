@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:modelBL="clr-namespace:Prototypes.Business_Logic"
+             x:DataType="model:SearchBarCheckedInPerformerViewModel"
+             xmlns:model="clr-namespace:Prototypes.Model"
+             x:Class="Prototypes.UI.ChoreoCheckedInPage"
+             Title="ChoreoCheckedInPage"
+             BackgroundColor="#E1D6C9">
+    <Grid
+         RowSpacing="6"
+         ColumnSpacing="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="600" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <BoxView 
+             Grid.Row="0" 
+             Grid.ColumnSpan="3"
+             Color="#866B53"
+             CornerRadius="10, 10, 10, 10"
+             WidthRequest="400"
+             HeightRequest="50"/>
+
+        <Label 
+             Grid.Row="0"
+             Grid.ColumnSpan="3" 
+             Text="Checked In:"
+             FontAttributes="Bold"
+             FontSize="20"
+             HorizontalOptions="Center"
+             VerticalOptions="Center"/>
+
+        <Image 
+            Grid.Row="0"
+            Grid.Column="3"
+            HorizontalOptions="Start"
+            VerticalOptions="Center"
+            WidthRequest="50"
+            HeightRequest="50"
+            Source="checkmark.svg"/>
+
+        <SearchBar
+             BackgroundColor="White"
+             Grid.Row="1"
+             Grid.Column="1"
+             HorizontalOptions="Center"
+             Placeholder="Enter Name Here"
+             HorizontalTextAlignment="Center"
+             VerticalTextAlignment="Center"
+             Text="{Binding SearchText}"></SearchBar>
+
+        <Button 
+             Grid.Row="1"
+             Grid.Column="2"
+             BackgroundColor="Transparent"
+             ImageSource="menu.svg"/>
+        <Label
+            Grid.Row="2"
+            Grid.Column="1"
+            Text="Name:"
+            FontSize="15"
+         />
+
+        <CollectionView
+            x:Name="CV" 
+            ItemsSource="{Binding FilteredCheckedInPerformers}" 
+            SelectionMode="Single"
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="Center">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Performer">
+                    <Grid ColumnDefinitions="*,*,*" HorizontalOptions="FillAndExpand">
+                        <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                        <Image Grid.Column="2" Source="checkmark.svg"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

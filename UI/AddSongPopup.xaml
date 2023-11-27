@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Prototypes" 
+             x:Class="Prototypes.UI.AddSongPopup"
+             Title="AddSongPopup">
+    <VerticalStackLayout>
+        <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,2.5*">
+            <Label Grid.Row="0" Grid.Column="0" Text="Setlist Id:" VerticalOptions="Center"/>
+            <Entry x:Name="setlistIdEntry" Grid.Row="0" Grid.Column="1" Placeholder="Enter Setlist Id" Margin="-50,0,0,0"/>
+            <Label Grid.Row="1" Grid.Column="0" Text="Song Name:" VerticalOptions="Center"/>
+            <Entry x:Name="songNameEntry" Grid.Row="1" Grid.Column="1" Placeholder="Enter Song Title" Margin="-30,0,0,0"/>
+            <Label Grid.Row="2" Grid.Column="0" Text="Song Artist Title:" VerticalOptions="Center"/>
+            <Entry x:Name="artistNameEntry" Grid.Row="2" Grid.Column="1" Placeholder="Enter Artist Name" Margin="0,0,0,0"/>
+            <Label Grid.Row="3" Grid.Column="0" Text="Song Duration:" VerticalOptions="Center"/>
+            <Entry x:Name="durationEntry" Grid.Row="3" Grid.Column="1" Placeholder="Enter Song Duration" Margin="0,0,0,0"/>
+        </Grid>
+        <Button Text="Add Song" Clicked="AddSong"/>
+    </VerticalStackLayout>
+</ContentPage>
