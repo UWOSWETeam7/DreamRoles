@@ -3,9 +3,6 @@ using Prototypes.Databases.Interface;
 using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Model.Interfaces;
-
-
-
 namespace Prototypes.Databases;
 
 class Database : IDatabase
@@ -421,8 +418,10 @@ class Database : IDatabase
     /// <returns>True if it was inserted into the database, false otherwise</returns>
     public Boolean InsertPerformer(Performer performer)
     {
+
         try
         {
+
             // Connect and open a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
@@ -430,12 +429,13 @@ class Database : IDatabase
             // Command to insert a new performer into the 'dreamrolesuser' table
             using var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "INSERT INTO dreamrolesuser (user_id, first_name, last_name, title) " +
-                              "VALUES (@user_id, @first_name, @last_name, @title);";
+            cmd.CommandText = "INSERT INTO dreamrolesuser (user_id, first_name, last_name, title, production_year) " +
+                              "VALUES (@user_id, @first_name, @last_name, @title, @production_year);";
             cmd.Parameters.AddWithValue("user_id", performer.Id);
             cmd.Parameters.AddWithValue("first_name", performer.FirstName);
             cmd.Parameters.AddWithValue("last_name", performer.LastName);
             cmd.Parameters.AddWithValue("title", "Performer");
+            cmd.Parameters.AddWithValue("production_year", 2023);
             cmd.ExecuteNonQuery();
 
             // Command to insert performer details into the 'performer' table
@@ -666,5 +666,42 @@ class Database : IDatabase
 
     }
 
+    public DateTime GetRehearsalDateTime()
+    {
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+        using var cmd = new NpgsqlCommand(
+                "SELECT performance_time FROM performance;", conn);
+        using var reader = cmd.ExecuteReader();
+        DateTime rehearsalTime = reader.GetDateTime(0);
+        return rehearsalTime;
+    }
+
+
+    public Boolean UpdatePerformerAccessCode(int newAccessCode)
+    {
+        try
+        {
+            //Connects and opens a connection to the database
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            //command to update the production table with the new access code
+            var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "UPDATE production " +
+                              "SET  performer_access_code = @performer_access_code " +
+                              "WHERE performance_year = 2023;";
+            cmd.Parameters.AddWithValue("performer_access_code", newAccessCode);
+            cmd.ExecuteNonQuery();
+
+        }
+        catch (Npgsql.PostgresException pe)
+        {
+            return false;
+        }
+        return true;
+
+    }
 }
 

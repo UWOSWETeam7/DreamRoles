@@ -150,6 +150,13 @@ namespace Prototypes.Business_Logic
         {
             return Database.CheckInPerformer(performer, status);
         }
+
+        public void GenerateNewAccessCode()
+        {
+            Random rand = new Random();
+            int newCode = rand.Next(10000000);
+            Database.UpdatePerformerAccessCode(newCode);
+        }
        
     }
 

@@ -57,6 +57,8 @@ namespace Prototypes.Databases.Interface
         /// <returns>if the add was successful, a success or error message</returns>
         public (bool success, string message) CheckInPerformer(Performer performer, String status);
 
+        public Boolean UpdatePerformerAccessCode(int newAccessCode);
+
 
     }
 }
