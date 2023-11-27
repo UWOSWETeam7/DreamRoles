@@ -11,6 +11,8 @@ public class Performer
     private String _email;
 	private String? _phoneNumber;
     private int? _absences;
+    private String _checkedInStatus;
+    private String _checkedInImage;
     private ObservableCollection<ISongDB> _songs;
 
     /// <summary>
@@ -22,7 +24,7 @@ public class Performer
     /// <param name="songs">The songs the Performer is in</param>
     /// <param name="email">The Performer's email that can be used to contact them</param>
     /// <param name="phoneNumber">The Performer's phone number that can be used to contact them</param>
-    public Performer(int id, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber, int absences)
+    public Performer(int id, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber, int absences, String isCheckedIn = "not checked in")
 	{
 		Id = id;
 		FirstName = firstName;
@@ -31,6 +33,20 @@ public class Performer
 		Email = email;
 		PhoneNumber = phoneNumber;
         Absences = absences;
+        CheckedInStatus = isCheckedIn;
+
+        if (_checkedInStatus == "checked in" )
+        {
+            _checkedInImage = "checkmark.svg";
+        }
+        else if (_checkedInStatus == "excused")
+        {
+            _checkedInImage = "alert.png";
+        }
+        else
+        {
+            _checkedInImage = "xmark.svg";
+        }
 	}
 
     public int Id
@@ -68,5 +84,33 @@ public class Performer
     {
         get { return _absences; }
         set { _absences = value; }
+    }
+
+    public String CheckedInStatus
+    {
+        get { return _checkedInStatus; }
+        set
+        {
+            if (_checkedInStatus == "checked in")
+            {
+                _checkedInImage = "checkmark.svg";
+            }
+            else if (_checkedInStatus == "excused")
+            {
+                _checkedInImage = "alert.png";
+            }
+            else
+            {
+                _checkedInImage = "xmark.svg";
+            }
+
+            _checkedInStatus = value;
+        }
+    }
+
+    public String CheckedInImage
+    {
+        get { return _checkedInImage;}
+        set { _checkedInImage = value; }
     }
 }

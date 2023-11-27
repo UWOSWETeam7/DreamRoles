@@ -158,12 +158,13 @@ class Database : IDatabase
                 String phoneNumber = reader.IsDBNull(1) ? "" : reader.GetInt64(1) + "";
                 String email = reader.IsDBNull(2) ? "" : reader.GetString(2);
                 int absences = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
-                String firstName = reader.GetString(4);
-                String lastName = reader.GetString(5);
+                String checkedInStatus = reader.GetString(4);
+                String firstName = reader.GetString(5);
+                String lastName = reader.GetString(6);
                 ObservableCollection<ISongDB> setList = new();
 
                 // Create the Performer object and add it to the ObservableCollection
-                Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber, absences);
+                Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber, absences, checkedInStatus);
                 _performers.Add(performerToAdd);
             }
 
@@ -171,6 +172,8 @@ class Database : IDatabase
             {
                 performer.Songs = SelectPerformerSongs(performer.Id);
             }
+
+        GetCheckedInPerformers();
         
         return _performers;
     }
@@ -623,7 +626,8 @@ class Database : IDatabase
             {
                 int userId = reader.GetInt32(0);
 
-                _checkedInPerformers.Add(_performers.First(performer => performer.Id == userId));
+                Performer performerToCheckIn = _performers.First(performer => performer.Id == userId);
+                _checkedInPerformers.Add(performerToCheckIn);
             }
 
 
@@ -634,6 +638,13 @@ class Database : IDatabase
     {
         try
         {
+
+            performer.CheckedInStatus = status;
+
+            // Adds performer to local chekced in collection
+            _checkedInPerformers.Add(performer);
+
+
             // Connects and opens a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
@@ -649,8 +660,15 @@ class Database : IDatabase
             cmd.Parameters.AddWithValue("status", status);
             var success = cmd.ExecuteNonQuery();
 
-            // Adds performer to local chekced in collection
-            _checkedInPerformers.Add(performer);
+            // Update performer table 
+            using var cmd2 = new NpgsqlCommand();
+            cmd2.Connection = conn;
+            cmd2.CommandText = "UPDATE performer\r\n" +
+                "SET checked_in_status = @status\r\n" +
+                "WHERE user_id = @user_id;";
+            cmd2.Parameters.AddWithValue("user_id", performer.Id);
+            cmd2.Parameters.AddWithValue("status", status);
+            success = cmd2.ExecuteNonQuery();
 
             if (success > -1)
             {
