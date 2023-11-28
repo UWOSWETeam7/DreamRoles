@@ -64,7 +64,7 @@ namespace Prototypes.Business_Logic
 
         public ObservableCollection<Performer> GetNotCheckedInPerformers
         {
-            get { return Database.NotCheckedInPerformers(); }
+            get { return Database.GetNotCheckedInPerformers(); }
         }
         public Boolean DeleteSong(String songTitle, String artistName)
         {

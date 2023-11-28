@@ -42,7 +42,7 @@ public class Performer : INotifyPropertyChanged
         }
         else if (_checkedInStatus == "excused")
         {
-            _checkedInImage = "alert.png";
+            _checkedInImage = "yellow_checkmark.png";
         }
         else
         {
@@ -99,7 +99,7 @@ public class Performer : INotifyPropertyChanged
             }
             else if (_checkedInStatus == "excused")
             {
-                CheckedInImage = "alert.png";
+                CheckedInImage = "yellow_checkmark.png";
             }
             else
             {
