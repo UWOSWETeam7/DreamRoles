@@ -53,6 +53,13 @@ namespace Prototypes.Databases.Interface
         /// <returns>true if it found and updated the performer. False if it could not find the performer in the file</returns>
         public Boolean UpdatePerformer(Performer performer);
         /// <summary>
+        /// Updates the checked in status of a performer
+        /// </summary>
+        /// <param name="performer"></param>
+        /// <param name="status"></param>
+        /// <returns>if the update was successful and a success/error message</returns>
+        public (bool success, string message) UpdatePerformerStatus(Performer performer, String status);
+        /// <summary>
         /// Adds a peformer to the checked_in_performer database
         /// </summary>
         /// <param name="performer"></param>

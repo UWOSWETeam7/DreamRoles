@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 namespace Prototypes.Model;
 using System.ComponentModel;
 
-public class Performer
+public class Performer : INotifyPropertyChanged
 {
 	private int _id;
 	private String _firstName;
@@ -14,6 +14,7 @@ public class Performer
     private String _checkedInStatus;
     private String _checkedInImage;
     private ObservableCollection<ISongDB> _songs;
+    public event PropertyChangedEventHandler PropertyChanged;
 
     /// <summary>
     /// Creates a performer
@@ -57,12 +58,12 @@ public class Performer
     public String FirstName 
 	{
 		get { return _firstName; } 
-		set { _firstName = value; }
+		set { _firstName = value; OnPropertyChanged(nameof(FirstName));}
 	}
     public String LastName
     {
         get { return _lastName; }
-        set { _lastName = value; }
+        set { _lastName = value; OnPropertyChanged(nameof(LastName));}
     }
     public ObservableCollection<ISongDB> Songs 
     {
@@ -72,18 +73,18 @@ public class Performer
     public String Email
 	{
         get { return _email; }
-        set { _email = value; }
+        set { _email = value; OnPropertyChanged(nameof(Email)); }
     }
     public String? PhoneNumber
 	{
         get { return _phoneNumber; }
-        set { _phoneNumber = value; }
+        set { _phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber)); }
     }
 
     public int? Absences
     {
         get { return _absences; }
-        set { _absences = value; }
+        set { _absences = value; OnPropertyChanged(nameof(Absences)); }
     }
 
     public String CheckedInStatus
@@ -91,26 +92,32 @@ public class Performer
         get { return _checkedInStatus; }
         set
         {
+            _checkedInStatus = value;
             if (_checkedInStatus == "checked in")
             {
-                _checkedInImage = "checkmark.svg";
+                CheckedInImage = "checkmark.svg";
             }
             else if (_checkedInStatus == "excused")
             {
-                _checkedInImage = "alert.png";
+                CheckedInImage = "alert.png";
             }
             else
             {
-                _checkedInImage = "xmark.svg";
+                CheckedInImage = "xmark.svg";
             }
 
-            _checkedInStatus = value;
+            OnPropertyChanged(nameof(CheckedInStatus));
         }
     }
 
     public String CheckedInImage
     {
         get { return _checkedInImage;}
-        set { _checkedInImage = value; }
+        set { _checkedInImage = value; OnPropertyChanged(nameof(CheckedInImage)); }
+    }
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

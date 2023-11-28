@@ -663,15 +663,7 @@ class Database : IDatabase
             var success = cmd.ExecuteNonQuery();
 
             // Update performer table 
-            using var cmd2 = new NpgsqlCommand();
-            cmd2.Connection = conn;
-            cmd2.CommandText = "UPDATE performer\r\n" +
-                "SET checked_in_status = @status\r\n" +
-                "WHERE user_id = @user_id;";
-            cmd2.Parameters.AddWithValue("user_id", performer.Id);
-            cmd2.Parameters.AddWithValue("status", status);
-            success = cmd2.ExecuteNonQuery();
-
+            UpdatePerformerStatus(performer, status);
             if (success > -1)
             {
                 return (true, "success");
@@ -685,6 +677,37 @@ class Database : IDatabase
         }
 
     }
+
+    public (bool success, string message) UpdatePerformerStatus(Performer performer, String status)
+    {
+        try
+        {
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "UPDATE performer\r\n" +
+                "SET checked_in_status = @status\r\n" +
+                "WHERE user_id = @user_id;";
+            cmd.Parameters.AddWithValue("user_id", performer.Id);
+            cmd.Parameters.AddWithValue("status", status);
+            var success = cmd.ExecuteNonQuery();
+
+            if (success > -1)
+            {
+                performer.CheckedInStatus = status;
+                return (true, "success");
+            }
+
+            return (false, "No rows were affected");
+        }
+        catch (Exception ex)
+        {
+            return (false, ex.Message);
+        }
+    }
+
 
     public DateTime GetRehearsalDateTime()
     {
