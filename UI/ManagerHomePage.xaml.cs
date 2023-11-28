@@ -35,8 +35,8 @@ public partial class ManagerHomePage : ContentPage
 
     private void ShowManagerPerformerInfoPage(object sender, EventArgs e)
     {
-        var label = (Label)sender;
-        var performer = (Performer) label.BindingContext;
+        var boxView = (BoxView)sender;
+        var performer = (Performer) boxView.BindingContext;
         Navigation.PushAsync(new ManagerPerformerInfoPage(performer));
     }
 
@@ -48,5 +48,21 @@ public partial class ManagerHomePage : ContentPage
     public async void OnManagerMenu_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new ManagerMenuPage()); 
+    }
+
+    private async void ChangeCheckInStatus(object sender, EventArgs e)
+    {
+        var label = (Image) sender;
+        var performer = (Performer)  label.BindingContext;
+        string status = await DisplayActionSheet("Change performer check-in status to:",null, null, "checked in", "excused", "not checked in");
+
+        MauiProgram.BusinessLogic.UpdatePerformerStatus(performer, status);
+
+
+    }
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+
     }
 }

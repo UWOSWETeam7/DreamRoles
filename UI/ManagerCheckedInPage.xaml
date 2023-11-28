@@ -86,7 +86,7 @@
                         <Grid RowDefinitions="*" ColumnDefinitions="6*,6*, 3*">
                             <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                             <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                            <Button Grid.Column="2" BackgroundColor="Transparent"  ImageSource="checkmark.png" HeightRequest="100" WidthRequest="100" Scale="0.1"/>
+                            <Button Grid.Column="2" BackgroundColor="Transparent"  ImageSource="{Binding CheckedInImage}" HeightRequest="100" WidthRequest="100" />
                         </Grid>
                     </VerticalStackLayout>
                 </DataTemplate>

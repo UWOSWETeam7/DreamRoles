@@ -9,6 +9,4 @@ namespace Prototypes.Model.Interfaces;
 public interface ISongDB
 {
     string Title { get; set; }
-    string Artist { get; set; }
-    int Duration { get; set; }
 }

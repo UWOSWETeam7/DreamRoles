@@ -33,14 +33,14 @@ namespace Prototypes.Business_Logic
         {
             return Database.UpdatePerformerName(userId, firstName, lastName);
         }
-        public Boolean EditSong(int setlistId, String oldSongName, String oldArtist, String songName, String artist, int duration)
+        public Boolean EditSong(String oldSongName, String newSongName)
         {
-            return Database.UpdateSong(setlistId, oldSongName, oldArtist, songName, artist, duration);
+            return Database.UpdateSong(oldSongName, newSongName);
         }
 
-        public Boolean AddSong(int setlistId, String title, String artist, int duration)
+        public Boolean AddSong(String title)
         {
-            return Database.InsertSong(setlistId, title, artist, duration);
+            return Database.InsertSong(title);
         }
         /// <summary>
         /// Gets the ObservableCollection performers
@@ -64,16 +64,16 @@ namespace Prototypes.Business_Logic
 
         public ObservableCollection<Performer> GetNotCheckedInPerformers
         {
-            get { return Database.NotCheckedInPerformers(); }
+            get { return Database.GetNotCheckedInPerformers(); }
         }
-        public Boolean DeleteSong(String songTitle, String artistName)
+        public Boolean DeleteSong(String songTitle)
         {
-            return Database.DeleteSong(songTitle, artistName);
+            return Database.DeleteSong(songTitle);
         }
 
-        public Boolean AddSongForPerformer(int userId, String songName, String artistName, int duration)
+        public Boolean AddSongForPerformer(int userId, String songName)
         {
-            return Database.InsertSongForPerformer(userId, songName, artistName, duration);
+            return Database.InsertSongForPerformer(userId, songName);
         }
 
         public Boolean EditPerformerContact(int userId, String phoneNumber, String email)
@@ -91,19 +91,33 @@ namespace Prototypes.Business_Logic
         }
 
         /// <summary>
-        /// Creates a Performer object and send it to the Database
+        /// This asks the database to insert a performer. It also checks the length of the input.
         /// </summary>
-        /// <param name="id">the id of the performer</param>
-        /// <param name="city">the city the performer is in</param>
-        /// <param name="dateVisted">the date the user visited the performer</param>
-        /// <param name="rating">the rating the gave to the performer</param>
-        /// <returns>true if all the params are valid, false if not</returns>
-        public Boolean AddPerformer(int userId, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
+        /// <param name="firstName">The first name of the performer</param>
+        /// <param name="lastName">The last name of the performer</param>
+        /// <param name="songs">This is always going to by null</param>
+        /// <param name="email">The email of the performer</param>
+        /// <param name="phoneNumber">The phone number of the perfoormer</param>
+        /// <returns>A String that is null if everything worked if not it will return a error message.</returns>
+        public String AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
         {
-            //Creates a new performer object
-            Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber, 0);
-            //Sends it to the Database and gets a true or false depending if it can add it to the Database
-            return Database.InsertPerformer(performer);
+            //This checks the lengths of the input
+            if(firstName.Length <= 255 || lastName.Length <= 255 || email.Length <= 255 || phoneNumber.Length <= 9)
+            {
+                //True if it did add it to the datebase false if it didn't
+                bool answer = Database.InsertPerformer(firstName, lastName, songs, email, phoneNumber, 0);
+                if (answer)
+                {
+                    return null;
+                }
+                else
+                {
+                    return "Could not add performer to database.";
+                }
+               
+            }
+
+            return "Invalid length of input.";
         }
 
         /// <summary>
@@ -161,6 +175,11 @@ namespace Prototypes.Business_Logic
         public (bool success, string message) CheckInPerformer(Performer performer, String status)
         {
             return Database.CheckInPerformer(performer, status);
+        }
+
+        public (bool success, string message) UpdatePerformerStatus(Performer performer, String status)
+        {
+            return Database.UpdatePerformerStatus(performer, status);
         }
 
         public void GenerateNewAccessCode()
