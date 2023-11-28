@@ -66,6 +66,8 @@ namespace Prototypes.Business_Logic.Interface
         /// <returns>a bservableCollection of performers objects the user has visted</returns>
         public ObservableCollection<Performer> GetPerformers();
 
+        public (bool success, string message) UpdatePerformerStatus(Performer performer, String status);
+
         public void GenerateNewAccessCode();
     }
 }

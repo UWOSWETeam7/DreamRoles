@@ -64,7 +64,7 @@ namespace Prototypes.Business_Logic
 
         public ObservableCollection<Performer> GetNotCheckedInPerformers
         {
-            get { return Database.NotCheckedInPerformers(); }
+            get { return Database.GetNotCheckedInPerformers(); }
         }
         public Boolean DeleteSong(String songTitle, String artistName)
         {
@@ -161,6 +161,11 @@ namespace Prototypes.Business_Logic
         public (bool success, string message) CheckInPerformer(Performer performer, String status)
         {
             return Database.CheckInPerformer(performer, status);
+        }
+
+        public (bool success, string message) UpdatePerformerStatus(Performer performer, String status)
+        {
+            return Database.UpdatePerformerStatus(performer, status);
         }
 
         public void GenerateNewAccessCode()

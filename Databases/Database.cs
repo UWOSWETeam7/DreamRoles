@@ -64,19 +64,6 @@ class Database : IDatabase
         return performersOfASong;
     }
 
-    /// <summary>
-    /// The string needed to connect to the database
-    /// </summary>
-    /// <returns>A String that has the infomration to connect to the database</returns>
-    /// 
-    void GetNotCheckedInPerformers(){
-        _notCheckedInPerformers = new ObservableCollection<Performer>(_performers);
-
-        foreach (Performer performer in _checkedInPerformers)
-        {
-            _notCheckedInPerformers.Remove(performer);
-        }
-    }
     static String GetConnectionString()
     {
         var connStringBuilder = new NpgsqlConnectionStringBuilder();
@@ -569,46 +556,6 @@ class Database : IDatabase
 
     }
 
-    public ObservableCollection<Performer> NotCheckedInPerformers()
-    {
-
-        // Create a new ObservableCollection to store not checked in performers
-        ObservableCollection<Performer> performers = new ObservableCollection<Performer>();
-
-        // Connects and opens a connection to the database
-        using var conn = new NpgsqlConnection(_connString);
-        conn.Open();
-
-        // Commands to get all the not checked in performers in the database
-        using var cmd = new NpgsqlCommand(
-             "SELECT *\r\nFROM performer\r\nLEFT JOIN dreamrolesuser\r\nON performer.user_id = dreamrolesuser.user_id\r\nWHERE NOT EXISTS\r\n(SELECT *\r\nFROM checked_in_performers\r\nWHERE checked_in_performers.user_id = performer.user_id);", conn);
-        using var reader = cmd.ExecuteReader();
-
-        // Create a Performer object for each row returned from query
-        while (reader.Read())
-        {
-            int userId = reader.GetInt16(0);
-            String phoneNumber = reader.IsDBNull(1) ? "" : reader.GetInt64(1) + "";
-            String email = reader.IsDBNull(2) ? "" : reader.GetString(2);
-            int absences = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
-            int userId_2 = reader.GetInt16(4);
-            String firstName = reader.GetString(5);
-            String lastName = reader.GetString(6);
-            String title = reader.GetString(7);
-            ObservableCollection<ISongDB> setList = new();
-
-            // Create the Performer object and add it to the ObservableCollection
-            Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber, absences);
-            performers.Add(performerToAdd);
-        }
-
-        foreach (var performer in performers)
-        {
-            performer.Songs = SelectPerformerSongs(performer.Id);
-        }
-
-        return performers;
-    }
     public ObservableCollection<Performer> GetCheckedInPerformers()
     {
         
@@ -619,7 +566,7 @@ class Database : IDatabase
 
             // Commands to get all the checked in performers in the database
             using var cmd = new NpgsqlCommand(
-                 "SELECT * FROM checked_in_performers;", conn);
+                 "SELECT * FROM performer \r\nWHERE checked_in_status = 'checked in' OR checked_in_status = 'excused';", conn);
             using var reader = cmd.ExecuteReader();
 
             while (reader.Read())
@@ -632,6 +579,38 @@ class Database : IDatabase
 
 
         return _checkedInPerformers;
+    }
+
+    /// <summary>
+    /// The string needed to connect to the database
+    /// </summary>
+    /// <returns>A String that has the infomration to connect to the database</returns>
+    /// 
+    public ObservableCollection<Performer> GetNotCheckedInPerformers()
+    {
+        _notCheckedInPerformers.Clear();
+        // Connects and opens a connection to the database
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+
+        // Commands to get all the checked in performers in the database
+        using var cmd = new NpgsqlCommand(
+             "SELECT * FROM performer \r\nWHERE checked_in_status = 'not checked in';", conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            int userId = reader.GetInt32(0);
+
+            Performer? performerToCheckIn = _performers.FirstOrDefault(performer => performer.Id == userId);
+            if (performerToCheckIn != null)
+            {
+               _notCheckedInPerformers.Add(performerToCheckIn);
+            }
+        }
+
+
+        return _notCheckedInPerformers;
     }
 
     public (bool success, string message) CheckInPerformer(Performer performer, String status)
@@ -661,15 +640,7 @@ class Database : IDatabase
             var success = cmd.ExecuteNonQuery();
 
             // Update performer table 
-            using var cmd2 = new NpgsqlCommand();
-            cmd2.Connection = conn;
-            cmd2.CommandText = "UPDATE performer\r\n" +
-                "SET checked_in_status = @status\r\n" +
-                "WHERE user_id = @user_id;";
-            cmd2.Parameters.AddWithValue("user_id", performer.Id);
-            cmd2.Parameters.AddWithValue("status", status);
-            success = cmd2.ExecuteNonQuery();
-
+            UpdatePerformerStatus(performer, status);
             if (success > -1)
             {
                 return (true, "success");
@@ -683,6 +654,37 @@ class Database : IDatabase
         }
 
     }
+
+    public (bool success, string message) UpdatePerformerStatus(Performer performer, String status)
+    {
+        try
+        {
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "UPDATE performer\r\n" +
+                "SET checked_in_status = @status\r\n" +
+                "WHERE user_id = @user_id;";
+            cmd.Parameters.AddWithValue("user_id", performer.Id);
+            cmd.Parameters.AddWithValue("status", status);
+            var success = cmd.ExecuteNonQuery();
+
+            if (success > -1)
+            {
+                performer.CheckedInStatus = status;
+                return (true, "success");
+            }
+
+            return (false, "No rows were affected");
+        }
+        catch (Exception ex)
+        {
+            return (false, ex.Message);
+        }
+    }
+
 
     public DateTime GetRehearsalDateTime()
     {
