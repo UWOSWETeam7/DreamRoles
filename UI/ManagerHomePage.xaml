@@ -69,7 +69,7 @@
                                 </Label.GestureRecognizers>
                             </Label>
                         </HorizontalStackLayout>
-                        <Image Grid.Column="2" Source="{Binding CheckedInImage}" Scale="0.5" VerticalOptions="Center">
+                        <Image Grid.Column="2" Source="{Binding CheckedInImage}" Scale="0.5" VerticalOptions="Center" >
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="ChangeCheckInStatus"/>
                             </Image.GestureRecognizers>
