@@ -591,10 +591,12 @@ class Database : IDatabase
             String phoneNumber = reader.IsDBNull(1) ? "" : reader.GetInt64(1) + "";
             String email = reader.IsDBNull(2) ? "" : reader.GetString(2);
             int absences = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
-            int userId_2 = reader.GetInt16(4);
-            String firstName = reader.GetString(5);
-            String lastName = reader.GetString(6);
-            String title = reader.GetString(7);
+            String checked_In_Status = reader.IsDBNull(4) ? "" : reader.GetString(4);
+            int userId_2 = reader.GetInt16(5);
+            String firstName = reader.GetString(6);
+            String lastName = reader.GetString(7);
+            String title = reader.GetString(8);
+            int production_Year = reader.IsDBNull(9) ? 0 : reader.GetInt32(9);
             ObservableCollection<ISongDB> setList = new();
 
             // Create the Performer object and add it to the ObservableCollection
