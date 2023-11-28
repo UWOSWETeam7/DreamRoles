@@ -11,6 +11,7 @@ public partial class ManagerNotCheckedInPage : ContentPage
         try
         {
             BindingContext = new SearchBarNotCheckedInPerformerViewModel();
+           
         }
         catch (TargetInvocationException tie)
         {

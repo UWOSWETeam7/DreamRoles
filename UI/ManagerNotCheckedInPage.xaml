@@ -88,7 +88,18 @@
                         <Grid RowDefinitions="*" ColumnDefinitions="6*,6*, 3*">
                             <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                             <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                            <Button Grid.Column="2" BackgroundColor="Transparent"  ImageSource="alert.png" Clicked="ShowAlert_Clicked"/>
+                            <Button Grid.Column="2" BackgroundColor="Transparent" ImageSource="alert.png" Clicked="ShowAlert_Clicked">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding Absences}" Value="0">
+                                        <Setter Property="ImageSource" Value="null">
+                                        </Setter>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Button" Binding="{Binding Absences}" Value="1">
+                                        <Setter Property="ImageSource" Value="null">
+                                        </Setter>
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
                         </Grid>
                     </VerticalStackLayout>
                 </DataTemplate>
