@@ -349,33 +349,42 @@ class Database : IDatabase
     /// <returns>a list of the user's songs</returns>
     public ObservableCollection<ISongDB> SelectPerformerSongs(int user_id)
     {
-        // Create a new ObservableCollection to store songs
-        ObservableCollection<ISongDB> songs = new();
+        ObservableCollection<ISongDB> songs = new ObservableCollection<ISongDB>();
 
-        // Connects and opens a connection to the database
-        using var conn = new NpgsqlConnection(_connString);
-        conn.Open();
-
-        // Commands to get all the songs from a performer in the database
-        using var cmd = new NpgsqlCommand(
-             "SELECT setlists.setlist_id, title, artist, duration\r\n" +
-             "FROM setlists\r\nINNER JOIN songs\r\n" +
-             "ON setlists.setlist_id = songs.setlist_id\r\n" +
-             "WHERE user_id = @user_id;", conn);
-        cmd.Parameters.AddWithValue("user_id", user_id);
-        using var reader = cmd.ExecuteReader();
-
-        // Make a new song object for every song belonging to the performer
-        while (reader.Read())
+        try
         {
-            int setlistId = reader.GetInt32(0);
-            String title = reader.GetString(1);
-            String artist = reader.GetString(2);
-            int duration = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
+            using (var conn = new NpgsqlConnection(_connString))
+            {
+                conn.Open();
 
-            ISongDB song = new Song(setlistId, title, artist, duration);
+                using (var cmd = new NpgsqlCommand(
+                    "SELECT setlists.setlist_id, title, artist, duration " +
+                    "FROM setlists " +
+                    "INNER JOIN songs ON setlists.setlist_id = songs.setlist_id " +
+                    "WHERE user_id = @user_id;", conn))
+                {
+                    cmd.Parameters.AddWithValue("user_id", user_id);
 
-            songs.Add(song);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int setlistId = reader.GetInt32(0);
+                            string title = reader.GetString(1);
+                            string artist = reader.GetString(2);
+                            int duration = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
+
+                            ISongDB song = new Song(setlistId, title, artist, duration);
+
+                            songs.Add(song);
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            return null;
         }
 
         return songs;
@@ -406,12 +415,11 @@ class Database : IDatabase
     /// </summary>
     /// <param name="performer">the performer that the user wants to put into the file</param>
     /// <returns>True if it was inserted into the database, false otherwise</returns>
-    public Boolean InsertPerformer(Performer performer)
+    public Boolean InsertPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber, int absences)
     {
 
         try
         {
-
             // Connect and open a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
@@ -419,29 +427,29 @@ class Database : IDatabase
             // Command to insert a new performer into the 'dreamrolesuser' table
             using var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "INSERT INTO dreamrolesuser (user_id, first_name, last_name, title, production_year) " +
-                              "VALUES (@user_id, @first_name, @last_name, @title, @production_year);";
-            cmd.Parameters.AddWithValue("user_id", performer.Id);
-            cmd.Parameters.AddWithValue("first_name", performer.FirstName);
-            cmd.Parameters.AddWithValue("last_name", performer.LastName);
+            cmd.CommandText = "INSERT INTO dreamrolesuser (first_name, last_name, title, production_year) " +
+                              "VALUES (@first_name, @last_name, @title, @production_year)" +
+                              "RETURNING user_id;";
+            cmd.Parameters.AddWithValue("first_name", firstName);
+            cmd.Parameters.AddWithValue("last_name", lastName);
             cmd.Parameters.AddWithValue("title", "Performer");
             cmd.Parameters.AddWithValue("production_year", 2023);
-            cmd.ExecuteNonQuery();
-
+            int id = (int)cmd.ExecuteScalar();
+           
             // Command to insert performer details into the 'performer' table
             cmd.CommandText = "INSERT INTO performer (user_id, phone_number, email) " +
                               "VALUES (@user_id, @phone_number, @email);";
             cmd.Parameters.Clear(); // Clear parameters from the previous command
-            cmd.Parameters.AddWithValue("user_id", performer.Id);
-            cmd.Parameters.AddWithValue("phone_number", performer.PhoneNumber);
-            cmd.Parameters.AddWithValue("email", performer.Email);
+            cmd.Parameters.AddWithValue("user_id", id);
+            cmd.Parameters.AddWithValue("phone_number", phoneNumber);
+            cmd.Parameters.AddWithValue("email", email);
             cmd.ExecuteNonQuery();
 
             // Command to insert into 'setlists' table
             cmd.CommandText = "INSERT INTO setlists (user_id) " +
                               "VALUES (@user_id);";
             cmd.Parameters.Clear(); // Clear parameters from the previous command
-            cmd.Parameters.AddWithValue("user_id", performer.Id);
+            cmd.Parameters.AddWithValue("user_id", id);
             cmd.ExecuteNonQuery();
 
             //Repopulates the performers
@@ -450,7 +458,6 @@ class Database : IDatabase
         }
         catch (Npgsql.PostgresException e)
         {
-            Console.WriteLine(e.Message);
             return false;
         }
         return true;

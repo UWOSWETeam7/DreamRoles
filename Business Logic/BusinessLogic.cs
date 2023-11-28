@@ -91,19 +91,33 @@ namespace Prototypes.Business_Logic
         }
 
         /// <summary>
-        /// Creates a Performer object and send it to the Database
+        /// This asks the database to insert a performer. It also checks the length of the input.
         /// </summary>
-        /// <param name="id">the id of the performer</param>
-        /// <param name="city">the city the performer is in</param>
-        /// <param name="dateVisted">the date the user visited the performer</param>
-        /// <param name="rating">the rating the gave to the performer</param>
-        /// <returns>true if all the params are valid, false if not</returns>
-        public Boolean AddPerformer(int userId, String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
+        /// <param name="firstName">The first name of the performer</param>
+        /// <param name="lastName">The last name of the performer</param>
+        /// <param name="songs">This is always going to by null</param>
+        /// <param name="email">The email of the performer</param>
+        /// <param name="phoneNumber">The phone number of the perfoormer</param>
+        /// <returns>A String that is null if everything worked if not it will return a error message.</returns>
+        public String AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
         {
-            //Creates a new performer object
-            Performer performer = new Performer(userId, firstName, lastName, songs, email, phoneNumber, 0);
-            //Sends it to the Database and gets a true or false depending if it can add it to the Database
-            return Database.InsertPerformer(performer);
+            //This checks the lengths of the input
+            if(firstName.Length <= 255 || lastName.Length <= 255 || email.Length <= 255 || phoneNumber.Length <= 9)
+            {
+                //True if it did add it to the datebase false if it didn't
+                bool answer = Database.InsertPerformer(firstName, lastName, songs, email, phoneNumber, 0);
+                if (answer)
+                {
+                    return null;
+                }
+                else
+                {
+                    return "Could not add performer to database.";
+                }
+               
+            }
+
+            return "Invalid length of input.";
         }
 
         /// <summary>

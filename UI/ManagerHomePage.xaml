@@ -57,6 +57,11 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
                     <Grid ColumnDefinitions="2*,*,*,*">
+                        <BoxView Color="Black">
+                            <BoxView.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ShowManagerPerformerInfoPage"/>
+                            </BoxView.GestureRecognizers> 
+                        </BoxView>
                         <HorizontalStackLayout Padding="30, 0" Spacing="10">
                             <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
                                 <Label.GestureRecognizers>
@@ -75,9 +80,9 @@
                             </Image.GestureRecognizers>
                         </Image>
                         <Image Grid.Column="3" Source="trash.png"
-									 VerticalOptions="Center"
-									 HorizontalOptions="End"
-									 Scale="0.4">
+						 VerticalOptions="Center"
+						 HorizontalOptions="End"
+						 Scale="0.4">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="DeletePerformer"/>
                             </Image.GestureRecognizers>
