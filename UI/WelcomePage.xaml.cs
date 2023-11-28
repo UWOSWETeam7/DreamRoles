@@ -38,7 +38,7 @@ public partial class WelcomePage : ContentPage
         }
         else 
         {
-            
+            await DisplayAlert("Invalid Access Code", "This is a invalid access code. Please try a different code.", "Ok");
         }
         //Access.Text = accessCode.ToString();
     }
