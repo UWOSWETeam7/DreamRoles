@@ -382,7 +382,7 @@ class Database : IDatabase
     /// </summary>
     /// <param name="performer">the performer that the user wants to put into the file</param>
     /// <returns>True if it was inserted into the database, false otherwise</returns>
-    public Boolean InsertPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber, int absences)
+    public Boolean InsertPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, int phoneNumber, int absences)
     {
 
         try
@@ -395,28 +395,23 @@ class Database : IDatabase
             using var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = "INSERT INTO dreamrolesuser (first_name, last_name, title, production_year) " +
-                              "VALUES (@first_name, @last_name, @title, @production_year)" +
+                              "VALUES (@first_name, @last_name, @title, @production_year) " +
                               "RETURNING user_id;";
             cmd.Parameters.AddWithValue("first_name", firstName);
             cmd.Parameters.AddWithValue("last_name", lastName);
             cmd.Parameters.AddWithValue("title", "Performer");
             cmd.Parameters.AddWithValue("production_year", 2023);
-            int id = (int)cmd.ExecuteScalar();
-           
+            long id = (long)cmd.ExecuteScalar();
+
             // Command to insert performer details into the 'performer' table
-            cmd.CommandText = "INSERT INTO performer (user_id, phone_number, email) " +
-                              "VALUES (@user_id, @phone_number, @email);";
+            cmd.CommandText = "INSERT INTO performer (user_id, phone_number, email, absences, checked_in_status) " +
+                              "VALUES (@user_id, @phone_number, @email, @absences, @checked_in_status);";
             cmd.Parameters.Clear(); // Clear parameters from the previous command
             cmd.Parameters.AddWithValue("user_id", id);
             cmd.Parameters.AddWithValue("phone_number", phoneNumber);
             cmd.Parameters.AddWithValue("email", email);
-            cmd.ExecuteNonQuery();
-
-            // Command to insert into 'setlists' table
-            cmd.CommandText = "INSERT INTO setlists (user_id) " +
-                              "VALUES (@user_id);";
-            cmd.Parameters.Clear(); // Clear parameters from the previous command
-            cmd.Parameters.AddWithValue("user_id", id);
+            cmd.Parameters.AddWithValue("absences", 0);
+            cmd.Parameters.AddWithValue("checked_in_status", "not checked in");
             cmd.ExecuteNonQuery();
 
             //Repopulates the performers

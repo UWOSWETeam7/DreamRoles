@@ -28,7 +28,7 @@ namespace Prototypes.Business_Logic.Interface
         /// <summary>
         /// This asks the database to insert a performer. It also checks the length of the input.
         /// </summary>
-        public String AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber);
+        public String AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, int phoneNumber);
 
         /// <summary>
         /// Checks if the id is valid then asks the Database to delete the performer with that id
