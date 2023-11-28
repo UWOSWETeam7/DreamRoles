@@ -90,10 +90,6 @@
                                                         <Image Source="music.svg" Margin="10, 0" HorizontalOptions="Start"/>
                                                         <Label Grid.Column ="1" Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap"/>
                                                         <HorizontalStackLayout HorizontalOptions="End">
-                                                            <Image Source="stopwatch.svg" Margin="20, 0"/>
-                                                            <Label Text="{Binding DurationMinutes}"/>
-                                                            <Label Text=" : "/>
-                                                            <Label Text="{Binding DurationSeconds, StringFormat='{0:D2}'}"/>
                                                         </HorizontalStackLayout>
                                                         <Image Source="edit.svg" HorizontalOptions="End" Margin="10,0">
                                                             <Image.GestureRecognizers>

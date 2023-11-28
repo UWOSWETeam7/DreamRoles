@@ -19,7 +19,7 @@ public partial class ManagerSongsPage : ContentPage
         
         if (userResponse)
         {
-            MauiProgram.BusinessLogic.DeleteSong(song.Title, song.Artist);
+            MauiProgram.BusinessLogic.DeleteSong(song.Title);
         }
     }
 

@@ -11,11 +11,11 @@ namespace Prototypes.Databases.Interface
         public String GetPerformerAccessCode();
         public ObservableCollection<Performer> GetPerformersOfASong(Song song);
         public Boolean UpdatePerformerName(int userId, String firstName, String lastName);
-        public Boolean UpdateSong(int setlistId, String oldSongName, String oldArtist, String songName, String artist, int duration);
-        public Boolean InsertSong(int setlistId, String title, String artist, int duration);
+        public Boolean UpdateSong(String oldSongName, String newSongName);
+        public Boolean InsertSong(String title);
         public ObservableCollection<Song> SelectAllSongs();
-        public Boolean DeleteSong(String songTitle, String artistName);
-        public Boolean InsertSongForPerformer(int userId, String songName, String artistName, int duration);
+        public Boolean DeleteSong(String songTitle);
+        public Boolean InsertSongForPerformer(int userId, String songName);
         public Boolean UpdatePerformerContact(int userId, String phoneNumber, String email);
         public ObservableCollection<Performer> GetCheckedInPerformers();
         public ObservableCollection<Performer> GetNotCheckedInPerformers();

@@ -13,7 +13,7 @@ public partial class AddSongPopup : ContentPage
         string songName = songNameEntry.Text;
         string artistName = artistNameEntry.Text;
         int duration = Int32.Parse(durationEntry.Text);
-        MauiProgram.BusinessLogic.AddSong(setlistId, songName, artistName, duration);
+        MauiProgram.BusinessLogic.AddSong(songName);
         Navigation.PopAsync();
     }
 }

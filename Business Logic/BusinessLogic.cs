@@ -33,14 +33,14 @@ namespace Prototypes.Business_Logic
         {
             return Database.UpdatePerformerName(userId, firstName, lastName);
         }
-        public Boolean EditSong(int setlistId, String oldSongName, String oldArtist, String songName, String artist, int duration)
+        public Boolean EditSong(String oldSongName, String newSongName)
         {
-            return Database.UpdateSong(setlistId, oldSongName, oldArtist, songName, artist, duration);
+            return Database.UpdateSong(oldSongName, newSongName);
         }
 
-        public Boolean AddSong(int setlistId, String title, String artist, int duration)
+        public Boolean AddSong(String title)
         {
-            return Database.InsertSong(setlistId, title, artist, duration);
+            return Database.InsertSong(title);
         }
         /// <summary>
         /// Gets the ObservableCollection performers
@@ -66,14 +66,14 @@ namespace Prototypes.Business_Logic
         {
             get { return Database.GetNotCheckedInPerformers(); }
         }
-        public Boolean DeleteSong(String songTitle, String artistName)
+        public Boolean DeleteSong(String songTitle)
         {
-            return Database.DeleteSong(songTitle, artistName);
+            return Database.DeleteSong(songTitle);
         }
 
-        public Boolean AddSongForPerformer(int userId, String songName, String artistName, int duration)
+        public Boolean AddSongForPerformer(int userId, String songName)
         {
-            return Database.InsertSongForPerformer(userId, songName, artistName, duration);
+            return Database.InsertSongForPerformer(userId, songName);
         }
 
         public Boolean EditPerformerContact(int userId, String phoneNumber, String email)

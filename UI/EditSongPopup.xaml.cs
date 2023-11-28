@@ -13,15 +13,10 @@ public partial class EditSongPopup : ContentPage
     }
     private void EditSong(object sender, EventArgs e)
     {
-        string songName = songNameEntry.Text;
-        string artistName = artistNameEntry.Text;
-        int duration = Int32.Parse(durationEntry.Text);
-        int setlistId = 0;
-            setlistId = _song.SetlistId;
-        
+        string newSongName = songNameEntry.Text;
         string oldSongName = _song.Title;
-        string oldArtist = _song.Artist;
-        MauiProgram.BusinessLogic.EditSong(setlistId, oldSongName, oldArtist, songName, artistName, duration);
+
+        MauiProgram.BusinessLogic.EditSong(oldSongName, newSongName);
         Navigation.PopAsync();
     }
 }

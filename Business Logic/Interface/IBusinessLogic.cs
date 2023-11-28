@@ -11,8 +11,8 @@ namespace Prototypes.Business_Logic.Interface
         public String GetPerformerAccessCode();
         public ObservableCollection<Performer> GetPerformersOfASong(Song song);
         public Boolean EditPerformerName(int userId, String firstName, String lastName);
-        public Boolean EditSong(int setlistId, String oldSongName, String oldArtist,  String songName, String artist, int duration);
-        public Boolean AddSong(int setlistId, String title, String artist, int duration);
+        public Boolean EditSong(String oldSongName,String newSongName);
+        public Boolean AddSong(String title);
         /// <summary>
         /// A ObservableCollection of performer objects that contians all the performer the user has inputed
         /// </summary>
@@ -20,9 +20,9 @@ namespace Prototypes.Business_Logic.Interface
         public ObservableCollection<Song> Songs { get; }
         public ObservableCollection<Performer> GetCheckedInPerformers { get; }
         public ObservableCollection<Performer> GetNotCheckedInPerformers { get; }
-        public Boolean DeleteSong(String songTitle, String artistName);
+        public Boolean DeleteSong(String songTitle);
 
-        public Boolean AddSongForPerformer(int userId, String songName, String artistName, int duration);
+        public Boolean AddSongForPerformer(int userId, String songName);
         public Boolean EditPerformerContact(int userId, String phoneNumber, String email);
 
         /// <summary>
