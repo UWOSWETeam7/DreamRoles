@@ -320,37 +320,40 @@ class Database : IDatabase
 
         try
         {
-            using (var conn = new NpgsqlConnection(_connString))
-            {
-                conn.Open();
+            // Using statement for connection to ensure proper resource disposal
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
 
-        // Commands to get all the songs from a performer in the database
-        using var cmd = new NpgsqlCommand(
-             "SELECT (song_title)\r\n" +
-             "FROM setlists, dreamrolesuser\r\n" +
-             "WHERE dreamrolesuser.user_id = @user_id AND dreamrolesuser.production_year = @year;", conn);
-        cmd.Parameters.AddWithValue("user_id", user_id);
-        cmd.Parameters.AddWithValue("year", 2023);
-        using var reader = cmd.ExecuteReader();
+            // Command to insert a new performer into the 'dreamrolesuser' table
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "SELECT song_title " +
+                               "FROM setlists " +
+                               "JOIN dreamrolesuser ON setlists.user_id = dreamrolesuser.user_id " +
+                               "WHERE dreamrolesuser.user_id = @user_id AND dreamrolesuser.production_year = @year;";
+            // Add parameters to the query to avoid SQL injection
+            cmd.Parameters.AddWithValue("user_id", user_id);
+            cmd.Parameters.AddWithValue("year", 2023);
 
-        // Make a new song object for every song belonging to the performer
-        while (reader.Read())
-        {
-            String title = reader.GetString(0);
+            // Execute the query and retrieve the results
+            using var reader = cmd.ExecuteReader();
 
-            ISongDB song = new Song(title);
+            while (reader.Read())
+            {              
+                // Retrieve the song title from the result set
+                string title = reader.GetString(0);
 
-                            songs.Add(song);
-                        }
-                    }
-                }
-            }
+                // Create a new Song object and add it to the collection
+                ISongDB song = new Song(title);
+                songs.Add(song);             
+            }    
         }
         catch (Exception ex)
         {
+            // Return null to indicate an error
             return null;
         }
-
+        // Return the collection of songs
         return songs;
     }
 
