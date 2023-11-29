@@ -146,10 +146,10 @@ class Database : IDatabase
             while (reader.Read())
             {
                 int userId = reader.GetInt16(0);
-                String phoneNumber = reader.IsDBNull(1) ? "" : reader.GetInt64(1) + "";
-                String email = reader.IsDBNull(2) ? "" : reader.GetString(2);
-                int absences = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
-                String checkedInStatus = reader.GetString(4);
+                String phoneNumber = reader.IsDBNull(4) ? "" : reader.GetString(4);
+                String email = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                int absences = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
+                String checkedInStatus = reader.GetString(3);
                 String firstName = reader.GetString(5);
                 String lastName = reader.GetString(6);
                 ObservableCollection<ISongDB> setList = new();
@@ -268,11 +268,10 @@ class Database : IDatabase
             cmd.Connection = conn;
             cmd.CommandText = "INSERT INTO setlists(user_id, song_title)\r\n" +
                 "VALUES(@userId, @songName);";
-            cmd.Parameters.AddWithValue("setlist_id", userId);
-            cmd.Parameters.AddWithValue("title", songName);
+            cmd.Parameters.AddWithValue("userId", userId);
+            cmd.Parameters.AddWithValue("songName", songName);
             cmd.ExecuteNonQuery();
-            //Repopulates performers so now the updated performer is in it
-            //SelectAllPerformers();
+;
 
             //Repopulates performers so now the updated performer is in it
             SelectAllPerformers(2023);
@@ -386,7 +385,7 @@ class Database : IDatabase
     /// </summary>
     /// <param name="performer">the performer that the user wants to put into the file</param>
     /// <returns>True if it was inserted into the database, false otherwise</returns>
-    public Boolean InsertPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, int phoneNumber, int absences)
+    public Boolean InsertPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber, int absences)
     {
 
         try
@@ -408,8 +407,8 @@ class Database : IDatabase
             long id = (long)cmd.ExecuteScalar();
 
             // Command to insert performer details into the 'performer' table
-            cmd.CommandText = "INSERT INTO performer (user_id, phone_number, email, absences, checked_in_status) " +
-                              "VALUES (@user_id, @phone_number, @email, @absences, @checked_in_status);";
+            cmd.CommandText = "INSERT INTO performer (user_id, email, absences, checked_in_status, phone_number) " +
+                              "VALUES (@user_id, @email, @absences, @checked_in_status, @phone_number);";
             cmd.Parameters.Clear(); // Clear parameters from the previous command
             cmd.Parameters.AddWithValue("user_id", id);
             cmd.Parameters.AddWithValue("phone_number", phoneNumber);
@@ -476,7 +475,7 @@ class Database : IDatabase
 
 
             //Check if any rows were deleted from both tables
-            if (numDeleted1 > 0 && numDeleted2 > 0 && numDeleted3 > 0)
+            if (numDeleted1 > 0 && numDeleted2 > 0)
             {
                 //SelectAllPerformers() retrieves the updated list of performers
                 SelectAllPerformers(2023);

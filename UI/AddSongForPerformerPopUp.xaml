@@ -1,17 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:DataType="model:SearchBarSongViewModel"
+             xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.AddSongForPerformerPopUp"
-             Title="AddSongForPerformerPopUp">
-    <VerticalStackLayout>
-        <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,2.5*">
-            <Label Grid.Row="0" Grid.Column="0" Text="Song Name:"/>
-            <Entry x:Name="songNameEntry" Grid.Row="0" Grid.Column="1" Placeholder="Enter Song Title"/>
-            <Label Grid.Row="1" Grid.Column="0" Text="Song Artist Title:"/>
-            <Entry x:Name="artistNameEntry" Grid.Row="1" Grid.Column="1" Placeholder="Enter Artist Name" Margin="-50,0,0,0"/>
-            <Label Grid.Row="2" Grid.Column="0" Text="Song Duration:"/>
-            <Entry x:Name="durationEntry" Grid.Row="2" Grid.Column="1" Placeholder="Enter Song Duration" Margin="-50,0,0,0"/>
-        </Grid>
-        <Button Text="Add Song" Clicked="AddSong"/>
-    </VerticalStackLayout>
+             Title="Add Song For A Performer">
+    <Grid
+    RowSpacing="7"
+    ColumnSpacing="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="550" />
+        </Grid.RowDefinitions>
+
+        <SearchBar
+            BackgroundColor="White"
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalOptions="Center"
+            Placeholder="Enter Song Here"
+            HorizontalTextAlignment="Center"
+            VerticalTextAlignment="Center"
+            Text="{Binding SearchText}"
+    ></SearchBar>
+        <CollectionView
+           Grid.Row="1"
+           HorizontalOptions="Start"
+           x:Name="CVSongs" ItemsSource="{Binding FilteredSongs}" SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Song">
+                    <Grid HeightRequest="50" Background="#866B53" Margin="0,0" Padding="30,15">
+                        <Label Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="AddSong"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

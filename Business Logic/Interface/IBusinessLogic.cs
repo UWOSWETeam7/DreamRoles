@@ -10,7 +10,7 @@ namespace Prototypes.Business_Logic.Interface
         public String GetChoreoAccessCode();
         public String GetPerformerAccessCode();
         public ObservableCollection<Performer> GetPerformersOfASong(Song song);
-        public Boolean EditPerformerName(int userId, String firstName, String lastName);
+        public String EditPerformerName(int userId, String firstName, String lastName);
         public Boolean EditSong(String oldSongName,String newSongName);
         public Boolean AddSong(String title);
         /// <summary>
@@ -23,13 +23,13 @@ namespace Prototypes.Business_Logic.Interface
         public ObservableCollection<Rehearsal> Rehearsals { get; }
         public Boolean DeleteSong(String songTitle);
 
-        public Boolean AddSongForPerformer(int userId, String songName);
-        public Boolean EditPerformerContact(int userId, String phoneNumber, String email);
+        public String AddSongForPerformer(int userId, String songName);
+        public String EditPerformerContact(int userId, String phoneNumber, String email);
 
         /// <summary>
         /// This asks the database to insert a performer. It also checks the length of the input.
         /// </summary>
-        public String AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, int phoneNumber);
+        public String AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber);
 
         /// <summary>
         /// Checks if the id is valid then asks the Database to delete the performer with that id

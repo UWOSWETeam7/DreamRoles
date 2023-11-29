@@ -35,8 +35,8 @@ public partial class ManagerHomePage : ContentPage
 
     private void ShowManagerPerformerInfoPage(object sender, EventArgs e)
     {
-        var boxView = (BoxView)sender;
-        var performer = (Performer) boxView.BindingContext;
+        var label = (Label)sender;
+        var performer = (Performer) label.BindingContext;
         Navigation.PushAsync(new ManagerPerformerInfoPage(performer));
     }
 
