@@ -32,6 +32,13 @@
           Background="White"
           TextColor="Black"
         />
+        <Button
+          Text="Rehearsals"
+          HorizontalOptions="Start"
+          Clicked="OnRehearsals_Clicked"
+          Background="White"
+          TextColor="Black"
+        />
 
 
 

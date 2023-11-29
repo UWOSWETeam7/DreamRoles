@@ -24,4 +24,8 @@ public partial class ManagerMenuPage : ContentPage
     {
         await Navigation.PushAsync(new ManagerAccesssCodePage());
     }
+    public async void OnRehearsals_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ManagerRehearsalsPage());
+    }
 }
