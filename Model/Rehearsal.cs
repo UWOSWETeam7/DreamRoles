@@ -19,5 +19,7 @@ namespace Prototypes.Model
 
         public DateTime Time { get { return _time; } set { _time = value; } }
         public Song Song { get { return _song; } set { _song = value; } }
+
+
     }
 }

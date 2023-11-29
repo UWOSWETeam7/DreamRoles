@@ -851,6 +851,7 @@ class Database : IDatabase
 
     public ObservableCollection<Rehearsal> GetAllRehearsals()
     {
+        _rehearsals.Clear();
         using var conn = new NpgsqlConnection(_connString);
         conn.Open();
         using var cmd = new NpgsqlCommand(

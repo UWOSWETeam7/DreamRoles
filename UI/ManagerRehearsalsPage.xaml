@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Prototypes.Model"
+             x:Class="Prototypes.UI.ManagerRehearsalsPage"
+             Title="ShowRehearsals">
+    <VerticalStackLayout>
+        <Frame>
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Frame HorizontalOptions="Center">
+                    <VerticalStackLayout>
+                        <Label Text="From" HorizontalOptions="Center"/>
+                        <VerticalStackLayout HorizontalOptions="Center">
+                            <HorizontalStackLayout>
+                                <Image Source="calendar.svg" />
+                                <DatePicker/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Image Source="stopwatch.svg"/>
+                                <TimePicker/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame HorizontalOptions="Center">
+                    <VerticalStackLayout>
+                        <Label Text="To" HorizontalOptions="Center"/>
+                        <VerticalStackLayout HorizontalOptions="Center">
+                            <HorizontalStackLayout>
+                                <Image Source="calendar.svg" />
+                                <DatePicker/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Image Source="stopwatch.svg"/>
+                                <TimePicker/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+            </HorizontalStackLayout>
+        </Frame>
+        <CollectionView
+						HorizontalOptions="Start"
+						x:Name="CVRehearsals"
+                        SelectionMode="Single"
+                        >
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Rehearsal">
+                    <VerticalStackLayout Padding="30, 0" Spacing="10">
+                        <HorizontalStackLayout>
+                            <Label Text="Song: " FontSize="Medium"/>
+                            <Label Text="{Binding Song.Title}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Time: " FontSize="Medium"/>
+                            <Label Grid.Column="1" Text="{Binding Time.Date}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>
+                        </HorizontalStackLayout>
+                        <Line X2="500" Stroke="Gray"></Line>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Text="Add a new Rehearsal"/>
+    </VerticalStackLayout>
+</ContentPage>
