@@ -5,7 +5,7 @@ We used .NET MAUI to design our project. We have about 14 different screens on o
 
 Sprint 4:
     - Create a popup or element on the screen that notifies the stage manager
-    - Update performer list with alert
+    - Update performer list with alert ✅
     - Create alert for missed rehearsal
     - Alert page functionality 
     - Implement hamburger menu
