@@ -4,6 +4,8 @@ using Prototypes.Databases.Interface;
 using Prototypes.Databases;
 using Prototypes.Model.Interfaces;
 using System.Collections.ObjectModel;
+using Microsoft.Maui.ApplicationModel.Communication;
+
 
 namespace Prototypes.Business_Logic
 {
@@ -29,9 +31,23 @@ namespace Prototypes.Business_Logic
         {
             return Database.GetPerformersOfASong(song);
         }
-        public Boolean EditPerformerName(int userId, String firstName, String lastName)
+        public String EditPerformerName(int userId, String firstName, String lastName)
         {
-            return Database.UpdatePerformerName(userId, firstName, lastName);
+            if (firstName.Length <= 255 || lastName.Length <= 255)
+            {
+                //True if it did add it to the datebase false if it didn't
+                bool answer = Database.UpdatePerformerName(userId, firstName, lastName); ;
+                if (answer)
+                {
+                    return null;
+                }
+                else
+                {
+                    return "Could not add performer to database.";
+                }
+
+            }
+            return "Invalid length of input.";
         }
         public Boolean EditSong(String oldSongName, String newSongName)
         {
@@ -75,15 +91,39 @@ namespace Prototypes.Business_Logic
             return Database.DeleteSong(songTitle);
         }
 
-        public Boolean AddSongForPerformer(int userId, String songName)
+        public String AddSongForPerformer(int userId, String songName)
         {
-            return Database.InsertSongForPerformer(userId, songName);
+            bool answer = Database.InsertSongForPerformer(userId, songName);
+            if (answer)
+            {
+                return null;
+            }
+            else
+            {
+                return "Could not add song to performer in the database.";
+            }
+            
         }
 
-        public Boolean EditPerformerContact(int userId, String phoneNumber, String email)
+        public String EditPerformerContact(int userId, String phoneNumber, String email)
         {
+            if (email.Length <= 255 || phoneNumber.Length <= 14)
+            {
+                //True if it did add it to the datebase false if it didn't
+                bool answer =  Database.UpdatePerformerContact(userId, phoneNumber, email); 
+                if (answer)
+                {
+                    return null;
+                }
+                else
+                {
+                    return "Could not edit performers contact info in the database.";
+                }
+
+            }
+            return "Invalid length of input.";
             //Sends it to the Database
-            return Database.UpdatePerformerContact(userId, phoneNumber, email);
+            
         }
 
         /// <summary>
@@ -103,44 +143,24 @@ namespace Prototypes.Business_Logic
         /// <param name="email">The email of the performer</param>
         /// <param name="phoneNumber">The phone number of the perfoormer</param>
         /// <returns>A String that is null if everything worked if not it will return a error message.</returns>
-        public String AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, int phoneNumber)
+        public String AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
         {
-            if (phoneNumber != 0)
-            {
-                if (firstName.Length <= 255 || lastName.Length <= 255 || email.Length <= 255)
-                {
-                    //True if it did add it to the datebase false if it didn't
-                    bool answer = Database.InsertPerformer(firstName, lastName, songs, email, phoneNumber, 0);
-                    if (answer)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        return "Could not add performer to database.";
-                    }
 
-                }
-                return "Invalid length of input.";
-            }
-            else
+            if (firstName.Length <= 255 || lastName.Length <= 255 || email.Length <= 255 || phoneNumber.Length <= 14)
             {
-                if (firstName.Length <= 255 || lastName.Length <= 255 || email.Length <= 255)
+                //True if it did add it to the datebase false if it didn't
+                bool answer = Database.InsertPerformer(firstName, lastName, songs, email, phoneNumber, 0);
+                if (answer)
                 {
-                    //True if it did add it to the datebase false if it didn't
-                    bool answer = Database.InsertPerformer(firstName, lastName, songs, email, phoneNumber, 0);
-                    if (answer)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        return "Could not add performer to database.";
-                    }
-
+                    return null;
                 }
-                return "Invalid length of input.";
+                else
+                {
+                    return "Could not add performer to database.";
+                }
+
             }
+            return "Invalid length of input.";
             
         }
 

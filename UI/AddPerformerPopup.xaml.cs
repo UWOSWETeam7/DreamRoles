@@ -12,14 +12,6 @@ public partial class AddPerformerPopup : ContentPage
         string lastName = lastNameEntry.Text;
         string phoneNumber = phoneNumberEntry.Text;
         string email = emailEntry.Text;
-        if(firstName == null)
-        {
-            firstName = "";
-        }
-        if (lastName == null)
-        {
-            lastName = "";
-        }
         if (email == null)
         {
             email = "";
@@ -27,21 +19,20 @@ public partial class AddPerformerPopup : ContentPage
         }
         if (phoneNumber == null)
         {
-            phoneNumber = "0";
+            phoneNumber = "";
         }
 
-        if (firstName == "")
+        if (firstName == null)
         {
             DisplayAlert("Error", "Please enter a fist name.", "Ok");
         }
-        else if (lastName == "")
+        else if (lastName == null)
         {
             DisplayAlert("Error", "Please enter a last name.", "Ok");
         }
         else
         {
-            int newPhoneNumber  = Int32.Parse(phoneNumber);
-            String answer = MauiProgram.BusinessLogic.AddPerformer(firstName, lastName, null, email, newPhoneNumber);
+            String answer = MauiProgram.BusinessLogic.AddPerformer(firstName, lastName, null, email, phoneNumber);
             if (answer == null)
             {
                 Navigation.PopAsync();

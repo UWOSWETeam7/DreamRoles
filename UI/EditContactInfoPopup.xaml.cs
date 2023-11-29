@@ -1,5 +1,5 @@
 using Prototypes.Model;
-using System.Numerics;
+
 
 namespace Prototypes.UI;
 
@@ -17,8 +17,23 @@ public partial class EditContactInfoPopup : ContentPage
         
         int userId = _performer.Id;
         String phoneNumber = phoneNumberEntry.Text;
-        string email = emailEntry.Text;
-        MauiProgram.BusinessLogic.EditPerformerContact(userId, phoneNumber, email);
-        Navigation.PopAsync();
+        String email = emailEntry.Text;
+        if(phoneNumber == null)
+        {
+            phoneNumber = _performer.PhoneNumber;
+        }
+        if(email == null)
+        {
+            email = _performer.Email;
+        }
+        String answer = MauiProgram.BusinessLogic.EditPerformerContact(userId, phoneNumber, email);
+        if (answer == null)
+        {
+            Navigation.PopAsync();
+        }
+        else
+        {
+            DisplayAlert("Error", answer, "Ok");
+        }
     }
 }
