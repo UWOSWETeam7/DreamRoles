@@ -89,13 +89,6 @@
                                                     <HorizontalStackLayout>
                                                         <Image Source="music.svg" Margin="10, 0" HorizontalOptions="Start"/>
                                                         <Label Grid.Column ="1" Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap"/>
-                                                        <HorizontalStackLayout HorizontalOptions="End">
-                                                        </HorizontalStackLayout>
-                                                        <Image Source="edit.svg" HorizontalOptions="End" Margin="10,0">
-                                                            <Image.GestureRecognizers>
-                                                                <TapGestureRecognizer Tapped="ShowEditPerformerSongPopup"/>
-                                                            </Image.GestureRecognizers>
-                                                        </Image>
                                                     </HorizontalStackLayout>
                                                 </VerticalStackLayout>
                                             </Border>

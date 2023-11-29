@@ -15,8 +15,22 @@ public partial class EditSongPopup : ContentPage
     {
         string newSongName = songNameEntry.Text;
         string oldSongName = _song.Title;
-
-        MauiProgram.BusinessLogic.EditSong(oldSongName, newSongName);
-        Navigation.PopAsync();
+        string songName = songNameEntry.Text;
+        if (newSongName == null)
+        {
+            DisplayAlert("Error", "Please enter a song title.", "Ok");
+        }
+        else
+        {
+            String answer = MauiProgram.BusinessLogic.EditSong(oldSongName, newSongName); ;
+            if (answer == null)
+            {
+                Navigation.PopAsync();
+            }
+            else
+            {
+                DisplayAlert("Error", answer, "Ok");
+            }
+        }
     }
 }

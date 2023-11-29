@@ -3,7 +3,6 @@ using Prototypes.Databases.Interface;
 using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Model.Interfaces;
-using System.Data;
 namespace Prototypes.Databases;
 
 class Database : IDatabase
@@ -200,11 +199,159 @@ class Database : IDatabase
         return true;
     }
 
-    public Boolean UpdateSong(String oldSongName,String songName)
+    public Boolean UpdateSong(String oldSongName, String songName)
     {
-        DeleteSong(oldSongName);
-        return InsertSong(songName);
-       
+        
+            InsertSong(songName);
+
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+
+            // Fetch user_id for the old song
+            cmd.CommandText = "SELECT user_id " +
+                              "FROM setlists " +
+                              "WHERE song_title = @oldSongTitle;";
+            cmd.Parameters.AddWithValue("oldSongTitle", oldSongName);
+
+            using var reader1 = cmd.ExecuteReader();
+            while (reader1.Read())
+            {
+                int userId = reader1.GetInt32(0);
+
+                // Insert the new song with the same user_id
+                InsertIntoSetlist(userId, songName);
+
+                // Delete the old song
+                DeleteFromSetlist(userId, oldSongName);
+            }
+            reader1.Close();
+            cmd.CommandText = "SELECT rehearsal_time " +
+                              "FROM  rehearsals " +
+                              "WHERE song_title = @oldSongTitle;";
+            cmd.Parameters.AddWithValue("oldSongTitle", oldSongName);
+
+            using var reader2 = cmd.ExecuteReader();
+            while (reader2.Read())
+            {
+                DateTime rehearsalTime = reader2.GetDateTime(0);
+
+                // Insert the new song with the same user_id
+                InsertIntoRehersal(rehearsalTime, songName);
+
+                // Delete the old song
+                DeleteFromRehersal(rehearsalTime, oldSongName);
+            }
+            reader2.Close();
+            cmd.CommandText = "SELECT user_id, rehearsal_time, checked_in " +
+                             "FROM  rehearsal_members " +
+                             "WHERE song_title = @oldSongTitle;";
+            cmd.Parameters.AddWithValue("oldSongTitle", oldSongName);
+
+            using var reader3 = cmd.ExecuteReader();
+            while (reader3.Read())
+            {
+                int userId = reader3.GetInt32(0);
+                DateTime rehearsalTime = reader3.GetDateTime(1);
+                bool checkedIn = reader3.GetBoolean(2);
+
+                // Insert the new song with the same user_id
+                InsertIntoRehersalMemeber(userId, rehearsalTime, checkedIn, songName);
+
+                // Delete the old song
+                DeleteFromRehersalMemeber(userId, rehearsalTime, checkedIn, oldSongName);
+            }
+            reader3.Close();
+            // Finally, delete the old song from the main song table
+            DeleteSong(oldSongName);
+        
+     
+        return true;
+    }
+
+    private void DeleteFromRehersalMemeber(int userId, DateTime rehearsalTime, bool checkedIn, string songName)
+    {
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+        using var cmd = new NpgsqlCommand();
+        cmd.Connection = conn;
+        cmd.CommandText = "DELETE FROM rehearsal_members " +
+                          "WHERE user_id = @user_id AND rehearsal_time = @rehearsal_time AND song_title = @song_title AND checked_in = @checked_in;";
+        cmd.Parameters.AddWithValue("user_id", userId);
+        cmd.Parameters.AddWithValue("rehearsal_time", rehearsalTime);
+        cmd.Parameters.AddWithValue("song_title", songName);
+        cmd.Parameters.AddWithValue("checked_in", checkedIn);
+        cmd.ExecuteNonQuery();
+    }
+
+    private void InsertIntoRehersalMemeber(int userId, DateTime rehearsalTime, bool checkedIn, string songName)
+    {
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+        using var cmd = new NpgsqlCommand();
+        cmd.Connection = conn;
+        cmd.CommandText = "INSERT INTO rehearsal_members(user_id, rehearsal_time, song_title, checked_in) " +
+                          "VALUES(@user_id, @rehearsal_time, @song_title, @checked_in);";
+        cmd.Parameters.AddWithValue("user_id", userId);
+        cmd.Parameters.AddWithValue("rehearsal_time", rehearsalTime);
+        cmd.Parameters.AddWithValue("song_title", songName);
+        cmd.Parameters.AddWithValue("checked_in", checkedIn);
+        cmd.ExecuteNonQuery();
+    }
+
+    private void DeleteFromRehersal(DateTime rehearsalTime, String songTitle)
+    {
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+        using var cmd = new NpgsqlCommand();
+        cmd.Connection = conn;
+        cmd.CommandText = "DELETE FROM rehearsals " +
+                          "WHERE rehearsal_time = @rehearsal_time AND song_title = @song_title;";
+        cmd.Parameters.AddWithValue("rehearsal_time", rehearsalTime);
+        cmd.Parameters.AddWithValue("song_title", songTitle);
+        cmd.ExecuteNonQuery();
+    }
+
+    private void InsertIntoRehersal(DateTime rehearsalTime, String songTitle)
+    {
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+        using var cmd = new NpgsqlCommand();
+        cmd.Connection = conn;
+        cmd.CommandText = "INSERT INTO rehearsals(rehearsal_time, song_title) " +
+                          "VALUES(@rehearsal_time, @song_title);";
+        cmd.Parameters.AddWithValue("song_title", songTitle);
+        cmd.Parameters.AddWithValue("rehearsal_time", rehearsalTime);
+        cmd.ExecuteNonQuery();
+    }
+
+    private void DeleteFromSetlist(int userId, String songTitle)
+    {
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+
+        using var cmd = new NpgsqlCommand();
+        cmd.Connection = conn;
+        cmd.CommandText = "DELETE FROM setlists " +
+                          "WHERE user_id = @user_id AND song_title = @song_title;";
+        cmd.Parameters.AddWithValue("user_id", userId);
+        cmd.Parameters.AddWithValue("song_title", songTitle);
+        cmd.ExecuteNonQuery();
+    }
+
+    private void InsertIntoSetlist(int userId, String songTitle)
+    {
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+        using var cmd = new NpgsqlCommand();
+        cmd.Connection = conn;
+        cmd.CommandText = "INSERT INTO setlists(user_id, song_title) " +
+                          "VALUES(@user_id, @song_title);";
+        cmd.Parameters.AddWithValue("song_title", songTitle);
+        cmd.Parameters.AddWithValue("user_id", userId);
+        cmd.ExecuteNonQuery();
     }
 
     public Boolean InsertSong(String title)

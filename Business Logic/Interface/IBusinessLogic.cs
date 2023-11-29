@@ -11,8 +11,8 @@ namespace Prototypes.Business_Logic.Interface
         public String GetPerformerAccessCode();
         public ObservableCollection<Performer> GetPerformersOfASong(Song song);
         public String EditPerformerName(int userId, String firstName, String lastName);
-        public Boolean EditSong(String oldSongName,String newSongName);
-        public Boolean AddSong(String title);
+        public String EditSong(String oldSongName,String newSongName);
+        public String AddSong(String title);
         /// <summary>
         /// A ObservableCollection of performer objects that contians all the performer the user has inputed
         /// </summary>

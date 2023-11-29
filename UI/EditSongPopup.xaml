@@ -4,14 +4,10 @@
              x:Class="Prototypes.UI.EditSongPopup"
              Title="EditSongPopup">
     <VerticalStackLayout>
-        <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,2.5*">
-            <Label Grid.Row="0" Grid.Column="0" Text="Song Name:" VerticalOptions="Center"/>
-            <Entry x:Name="songNameEntry" Grid.Row="0" Grid.Column="1" Placeholder="Enter Song Title" Margin="-30,0,0,0"/>
-            <Label Grid.Row="1" Grid.Column="0" Text="Song Artist Title:" VerticalOptions="Center"/>
-            <Entry x:Name="artistNameEntry" Grid.Row="1" Grid.Column="1" Placeholder="Enter Artist Name" Margin="0,0,0,0"/>
-            <Label Grid.Row="2" Grid.Column="0" Text="Song Duration:" VerticalOptions="Center"/>
-            <Entry x:Name="durationEntry" Grid.Row="2" Grid.Column="1" Placeholder="Enter Song Duration" Margin="0,0,0,0"/>
+        <Grid ColumnDefinitions="*,*">
+            <Label Grid.Column="0" Text="Song Title:" VerticalOptions="Center"/>
+            <Entry Grid.Column="1" x:Name="songNameEntry" Placeholder="Enter Song Title" Margin="-130,0,0,0"/>
         </Grid>
-        <Button Text="Edit Song" Clicked="EditSong"/>
+        <Button Text="Add Song" Clicked="EditSong"/>
     </VerticalStackLayout>
 </ContentPage>
