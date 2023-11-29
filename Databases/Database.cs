@@ -145,10 +145,10 @@ class Database : IDatabase
             while (reader.Read())
             {
                 int userId = reader.GetInt16(0);
-                String phoneNumber = reader.IsDBNull(4) ? "" : reader.GetString(4);
                 String email = reader.IsDBNull(1) ? "" : reader.GetString(1);
                 int absences = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
                 String checkedInStatus = reader.GetString(3);
+                String phoneNumber = reader.IsDBNull(4) ? "" : reader.GetString(4) + "";
                 String firstName = reader.GetString(5);
                 String lastName = reader.GetString(6);
                 ObservableCollection<ISongDB> setList = new();
