@@ -6,6 +6,7 @@ namespace Prototypes.Databases.Interface
 {
     public interface IDatabase
     {
+        public Boolean InsertIntoRehersal(DateTime rehearsalTime, String songTitle);
         public String GetManagerAccessCode();
         public String GetChoreoAccessCode();
         public String GetPerformerAccessCode();
