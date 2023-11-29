@@ -49,14 +49,38 @@ namespace Prototypes.Business_Logic
             }
             return "Invalid length of input.";
         }
-        public Boolean EditSong(String oldSongName, String newSongName)
+        public String EditSong(String oldSongName, String newSongName)
         {
-            return Database.UpdateSong(oldSongName, newSongName);
+            if (newSongName.Length <= 255)
+            {
+                bool answer = Database.UpdateSong(oldSongName, newSongName);
+                if (answer)
+                {
+                    return null;
+                }
+                else
+                {
+                    return "Song could not be edited in database";
+                }
+            }
+            return "Invalid length of input";
         }
 
-        public Boolean AddSong(String title)
+        public String AddSong(String title)
         {
-            return Database.InsertSong(title);
+            if(title.Length <= 255)
+            {
+                bool answer = Database.InsertSong(title);
+                if (answer)
+                {
+                    return null;
+                }
+                else
+                {
+                    return "Song could not be added to database";
+                }
+            }
+            return "Invalid length of input";
         }
         /// <summary>
         /// Gets the ObservableCollection performers

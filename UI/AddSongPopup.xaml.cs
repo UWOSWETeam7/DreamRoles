@@ -1,3 +1,4 @@
+
 namespace Prototypes.UI;
 
 public partial class AddSongPopup : ContentPage
@@ -9,11 +10,22 @@ public partial class AddSongPopup : ContentPage
 
     private void AddSong(object sender, EventArgs e)
     {
-        int setlistId = Int32.Parse(setlistIdEntry.Text);
         string songName = songNameEntry.Text;
-        string artistName = artistNameEntry.Text;
-        int duration = Int32.Parse(durationEntry.Text);
-        MauiProgram.BusinessLogic.AddSong(songName);
-        Navigation.PopAsync();
+        if(songName == null )
+        {
+            DisplayAlert("Error", "Please enter a song title.", "Ok");
+        }
+        else
+        {
+            String answer = MauiProgram.BusinessLogic.AddSong(songName);
+            if (answer == null)
+            {
+                Navigation.PopAsync();
+            }
+            else
+            {
+                DisplayAlert("Error", answer, "Ok");
+            }
+        }
     }
 }
