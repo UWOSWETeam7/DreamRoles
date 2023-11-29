@@ -24,7 +24,7 @@ public partial class SelectNamePage : ContentPage
     private void OnNextClicked(object sender, EventArgs e)
     {
         db.CheckInPerformer(performer, "checked in");
-        Navigation.PushAsync(new PerformerHomePage(performer));
+        Navigation.PushAsync(new PerformerCheckInTimesPage(performer));
         //change checked in status of this performer
     }
 

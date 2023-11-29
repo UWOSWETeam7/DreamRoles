@@ -66,6 +66,10 @@ namespace Prototypes.Business_Logic
         {
             get { return Database.GetNotCheckedInPerformers(); }
         }
+        public ObservableCollection<Rehearsal> Rehearsals
+        {
+            get { return Database.GetAllRehearsals(); }
+        }
         public Boolean DeleteSong(String songTitle)
         {
             return Database.DeleteSong(songTitle);
@@ -174,7 +178,21 @@ namespace Prototypes.Business_Logic
             int newCode = rand.Next(10000000);
             Database.UpdatePerformerAccessCode(newCode);
         }
-       
+
+        public ObservableCollection<Rehearsal> GetAllRehearsals()
+        {
+            return Database.GetAllRehearsals();
+        }
+
+        public ObservableCollection<Rehearsal> GetPerformerRehearsals(Performer performer)
+        {
+            return Database.GetPerformerRehearsals(performer);
+        }
+
+        public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, bool isCheckedIn)
+        {
+            return Database.UpdatePerformerRehearsalStatus(performer, rehearsal, isCheckedIn);
+        }
     }
 
 }

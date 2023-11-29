@@ -20,6 +20,7 @@ namespace Prototypes.Business_Logic.Interface
         public ObservableCollection<Song> Songs { get; }
         public ObservableCollection<Performer> GetCheckedInPerformers { get; }
         public ObservableCollection<Performer> GetNotCheckedInPerformers { get; }
+        public ObservableCollection<Rehearsal> Rehearsals { get; }
         public Boolean DeleteSong(String songTitle);
 
         public Boolean AddSongForPerformer(int userId, String songName);
@@ -67,7 +68,9 @@ namespace Prototypes.Business_Logic.Interface
         public ObservableCollection<Performer> GetPerformers();
 
         public (bool success, string message) UpdatePerformerStatus(Performer performer, String status);
-
+        public ObservableCollection<Rehearsal> GetAllRehearsals();
+        public ObservableCollection<Rehearsal> GetPerformerRehearsals(Performer performer);
+        public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, bool isCheckedIn);
         public void GenerateNewAccessCode();
     }
 }

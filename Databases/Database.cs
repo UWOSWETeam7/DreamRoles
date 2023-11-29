@@ -3,6 +3,7 @@ using Prototypes.Databases.Interface;
 using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Model.Interfaces;
+using System.Data;
 namespace Prototypes.Databases;
 
 class Database : IDatabase
@@ -12,6 +13,7 @@ class Database : IDatabase
     private ObservableCollection<Performer> _checkedInPerformers;
     private ObservableCollection<Performer> _notCheckedInPerformers;
     private ObservableCollection<Song> _songs;
+    private ObservableCollection<Rehearsal> _rehearsals;
 
     //The string to connect to the database
     private String _connString;
@@ -26,11 +28,13 @@ class Database : IDatabase
         _checkedInPerformers = new ObservableCollection<Performer>();
         _notCheckedInPerformers = new ObservableCollection<Performer>();
         _songs = new ObservableCollection<Song>();
+        _rehearsals = new ObservableCollection<Rehearsal>();
         _connString = GetConnectionString();
         SelectAllPerformers(2023);
         SelectAllSongs();
         GetCheckedInPerformers();
         GetNotCheckedInPerformers();
+        GetAllRehearsals();
     }
 
     public ObservableCollection<Performer> GetPerformersOfASong(Song song)
@@ -619,6 +623,48 @@ class Database : IDatabase
 
     }
 
+    public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, bool isCheckedIn)
+    {
+        try
+        {
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "UPDATE rehearsal_members\r\n" +
+                "SET checked_in = @isCheckedIn\r\n" +
+                "WHERE user_id = @userId AND rehearsal_time = @time AND song_title = @title;";
+
+            cmd.Parameters.AddWithValue("isCheckedIn", isCheckedIn);
+            cmd.Parameters.AddWithValue("userId", performer.Id);
+            cmd.Parameters.AddWithValue("time", rehearsal.Time);
+            cmd.Parameters.AddWithValue("title", rehearsal.Song.Title);
+
+            var success = cmd.ExecuteNonQuery();
+
+            if (success > -1)
+            {
+                if (isCheckedIn)
+                {
+                    performer.CheckedInStatus = "checked in";
+                }
+                else
+                {
+                    performer.CheckedInStatus = "not checked in";
+                }
+
+                return (true, "success");
+            }
+
+            return (false, "No rows were affected");
+
+        }
+        catch (Exception ex)
+        {
+            return (false, ex.Message);
+        }
+    }
     public (bool success, string message) UpdatePerformerStatus(Performer performer, String status)
     {
         try
@@ -659,6 +705,48 @@ class Database : IDatabase
         using var reader = cmd.ExecuteReader();
         DateTime rehearsalTime = reader.GetDateTime(0);
         return rehearsalTime;
+    }
+
+    public ObservableCollection<Rehearsal> GetAllRehearsals()
+    {
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+        using var cmd = new NpgsqlCommand(
+                "SELECT * FROM rehearsals WHERE rehearsal_time < CURRENT_TIMESTAMP;", conn);
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            DateTime time = reader.GetDateTime(0);
+            Song song = _songs.FirstOrDefault(song => song.Title.Equals(reader.GetString(1)));
+            _rehearsals.Add(new Rehearsal(time, song));
+        }
+
+        conn.Close();
+        return _rehearsals;
+    }
+    public ObservableCollection<Rehearsal> GetPerformerRehearsals(Performer performer)
+    {
+        using var conn = new NpgsqlConnection(_connString);
+        conn.Open();
+        using var cmd = new NpgsqlCommand(
+                "SELECT *\r\nFROM rehearsal_members\r\nWHERE user_id = @userId;", conn);
+        cmd.Parameters.AddWithValue("userId", performer.Id);
+        using var reader = cmd.ExecuteReader();
+
+        ObservableCollection<Rehearsal> performerRehearsals = new ObservableCollection<Rehearsal>();
+
+        while (reader.Read())
+        {
+            var time = reader.GetDateTime(1);
+            Song song = _songs.FirstOrDefault(song => song.Title == reader.GetString(2));
+            Rehearsal rehearsal = _rehearsals.FirstOrDefault(rehearsal => rehearsal.Time.Equals(time) && rehearsal.Song.Equals(song));
+
+           performerRehearsals.Add(rehearsal);
+        }
+
+        return performerRehearsals;
+
     }
 
 
