@@ -297,7 +297,7 @@ class Database : IDatabase
         cmd.ExecuteNonQuery();
     }
 
-    public Boolean InsertIntoRehersal(DateTime rehearsalTime, String songTitle)
+    public Boolean InsertIntoRehersals(DateTime rehearsalTime, String songTitle)
     {
         try { 
             using var conn = new NpgsqlConnection(_connString);
@@ -311,7 +311,7 @@ class Database : IDatabase
             cmd.ExecuteNonQuery();
 
             cmd.CommandText = "SELECT user_id " +
-                              "FROM setlsits " +
+                              "FROM setlists " +
                               "WHERE song_tile = @song_title;";
             cmd.Parameters.AddWithValue("song_title", songTitle);
             using var reader = cmd.ExecuteReader();
@@ -321,7 +321,6 @@ class Database : IDatabase
                 int userId = reader.GetInt32(0);
                 InsertIntoRehersalMembers(userId, rehearsalTime, false, songTitle);
             }
-            cmd.ExecuteNonQuery();
         }
         catch (Npgsql.PostgresException e)
         {

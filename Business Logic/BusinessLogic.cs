@@ -16,7 +16,7 @@ namespace Prototypes.Business_Logic
 
         public String AddRehersal(DateTime rehearsalTime, String songTitle)
         {
-            bool answer = Database.InsertIntoRehersal(rehearsalTime, songTitle);
+            bool answer = Database.InsertIntoRehersals(rehearsalTime, songTitle);
             if (answer)
             {
                 return null;
