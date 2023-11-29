@@ -4,7 +4,6 @@ using Prototypes.Databases.Interface;
 using Prototypes.Databases;
 using Prototypes.Model.Interfaces;
 using System.Collections.ObjectModel;
-using Microsoft.Maui.ApplicationModel.Communication;
 
 
 namespace Prototypes.Business_Logic
@@ -14,6 +13,19 @@ namespace Prototypes.Business_Logic
 
         //A interface of Database
         private IDatabase Database = new Database();
+
+        public String AddRehersal(DateTime rehearsalTime, String songTitle)
+        {
+            bool answer = Database.InsertIntoRehersals(rehearsalTime, songTitle);
+            if (answer)
+            {
+                return null;
+            }
+            else
+            {
+                return "Could not add performer to database.";
+            }
+        }
         public String GetManagerAccessCode()
         {
             return Database.GetManagerAccessCode();

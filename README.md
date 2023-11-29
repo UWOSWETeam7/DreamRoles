@@ -2,6 +2,19 @@ PROJECT TITLE: Dream Roles Theater Attendance App
 PROJECT DESCRIPTION: The main goal of this application is to allow stage managers to keep track of performers' attendance at rehearsals for the Dream Roles production. Our application also adds features for choreographers, by keeping track of attendance and performers, and for performers, by allowing them to keep track of their songs and rehearsal information. 
 Another functionality of the application is that stage managers will be able to send alerts to the performers about missing rehearsals. 
 We used .NET MAUI to design our project. We have about 14 different screens on our app, some available only to people with certain roles (ie. only stage managers can view the alert page). We have intuitive navigation between pages and multiple icons and labels for easy readability. 
+
+Sprint 4:
+    - Create a popup or element on the screen that notifies the stage manager
+    - Update performer list with alert
+    - Create alert for missed rehearsal
+    - Alert page functionality 
+    - Implement hamburger menu
+    - Create alert that displays rehearsal date and time
+    - UI for seeing access codes (Stage manager) + button to generate ✅
+    - Backend for generating a new access code for performer
+    - Get the data and time from the database and display it in the UI for the performer
+    - User proofing, testing, and editing ✅
+
 Sprint 3:
     - Finished the navigation between all pages for the app  😀😀😀 
     - Made the sign in with access code functional- navigates to different pages based on code entered 😀😀

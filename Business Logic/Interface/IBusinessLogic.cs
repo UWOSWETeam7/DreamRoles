@@ -6,6 +6,7 @@ namespace Prototypes.Business_Logic.Interface
 {
     public interface IBusinessLogic
     {
+        public String AddRehersal(DateTime rehearsalTime, String songTitle);
         public String GetManagerAccessCode();
         public String GetChoreoAccessCode();
         public String GetPerformerAccessCode();
