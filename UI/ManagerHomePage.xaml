@@ -75,9 +75,9 @@
                             </Image.GestureRecognizers>
                         </Image>
                         <Image Grid.Column="3" Source="trash.png"
-									 VerticalOptions="Center"
-									 HorizontalOptions="End"
-									 Scale="0.4">
+						 VerticalOptions="Center"
+						 HorizontalOptions="End"
+						 Scale="0.4">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="DeletePerformer"/>
                             </Image.GestureRecognizers>

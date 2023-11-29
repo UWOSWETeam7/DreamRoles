@@ -1,6 +1,5 @@
 ﻿using Foundation;
 using Prototypes.UI;
-
 namespace Prototypes
 {
     [Register("AppDelegate")]

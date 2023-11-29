@@ -35,8 +35,8 @@ public partial class ManagerHomePage : ContentPage
 
     private void ShowManagerPerformerInfoPage(object sender, EventArgs e)
     {
-        var label = (Label)sender;
-        var performer = (Performer) label.BindingContext;
+        var boxView = (BoxView)sender;
+        var performer = (Performer) boxView.BindingContext;
         Navigation.PushAsync(new ManagerPerformerInfoPage(performer));
     }
 
@@ -58,6 +58,11 @@ public partial class ManagerHomePage : ContentPage
 
         MauiProgram.BusinessLogic.UpdatePerformerStatus(performer, status);
 
+
+    }
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
 
     }
 }
