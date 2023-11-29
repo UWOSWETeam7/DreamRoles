@@ -14,6 +14,13 @@ namespace Prototypes.Business_Logic
         //A interface of Database
         private IDatabase Database = new Database();
 
+        /// <summary>
+        /// This method adds an entry into the rehearsal table, namely the time of the rehearsal and the song 
+        /// they are rehearsing
+        /// </summary>
+        /// <param name="rehearsalTime">The time at which the rehearsal is taking place</param>
+        /// <param name="songTitle">The title of the song to be rehearsed</param>
+        /// <returns>String- null if the addition was successful or an error message if not</returns>
         public String AddRehersal(DateTime rehearsalTime, String songTitle)
         {
             bool answer = Database.InsertIntoRehersals(rehearsalTime, songTitle);
@@ -23,26 +30,54 @@ namespace Prototypes.Business_Logic
             }
             else
             {
-                return "Could not add performer to database.";
+                return "Could not add rehearsal to database.";
             }
         }
+
+        /// <summary>
+        /// This method gets the stage manager's access code by calling the DB method by the same name
+        /// </summary>
+        /// <returns>String- the 7 digit access code</returns>
         public String GetManagerAccessCode()
         {
             return Database.GetManagerAccessCode();
         }
+
+        /// <summary>
+        /// This method gets the choreographers's access code by calling the DB method by the same name
+        /// </summary>
+        /// <returns>String- the 7 digit access code</returns>
         public String GetChoreoAccessCode()
         {
             return Database.GetChoreoAccessCode();
         }
 
+        /// <summary>
+        /// This method gets the performer's access code by calling the DB method by the same name
+        /// </summary>
+        /// <returns>String- the 7 digit access code</returns>
         public String GetPerformerAccessCode()
         {
             return Database.GetPerformerAccessCode();
         }
+
+        /// <summary>
+        /// This method gets the list of all the peformers of a certain song
+        /// </summary>
+        /// <param name="song">The song for which you want to know the performers</param>
+        /// <returns>Observable Collection of the performers for that song</returns>
         public ObservableCollection<Performer> GetPerformersOfASong(Song song)
         {
             return Database.GetPerformersOfASong(song);
         }
+
+        /// <summary>
+        /// This method updates a performer's name by identifying them with an id, and using the given first and last name
+        /// </summary>
+        /// <param name="userId">The int id to identify the performer</param>
+        /// <param name="firstName">The first name of the performer</param>
+        /// <param name="lastName">The last name of the performer</param>
+        /// <returns>String- null if update was successful or error message if not</returns>
         public String EditPerformerName(int userId, String firstName, String lastName)
         {
             if (firstName.Length <= 255 || lastName.Length <= 255)
@@ -55,7 +90,7 @@ namespace Prototypes.Business_Logic
                 }
                 else
                 {
-                    return "Could not add performer to database.";
+                    return "Could not edit performer in database.";
                 }
 
             }
@@ -283,6 +318,8 @@ namespace Prototypes.Business_Logic
         {
             return Database.UpdatePerformerRehearsalStatus(performer, rehearsal, isCheckedIn);
         }
+
+  
     }
 
 }

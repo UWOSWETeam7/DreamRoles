@@ -11,8 +11,8 @@ Sprint 4:
     - Implement hamburger menu
     - Create alert that displays rehearsal date and time
     - UI for seeing access codes (Stage manager) + button to generate ✅
-    - Backend for generating a new access code for performer
-    - Get the data and time from the database and display it in the UI for the performer
+    - Backend for generating a new access code for performer ✅
+    - Get the data and time from the database and display it in the UI for the performer ✅
     - User proofing, testing, and editing ✅
 
 Sprint 3:
