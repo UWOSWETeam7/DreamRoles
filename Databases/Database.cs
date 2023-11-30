@@ -297,7 +297,7 @@ class Database : IDatabase
         cmd.ExecuteNonQuery();
     }
 
-    public Boolean InsertIntoRehersals(DateTime rehearsalTime, String songTitle)
+    public Boolean InsertIntoRehearsals(DateTime rehearsalTime, String songTitle)
     {
         try { 
             using var conn = new NpgsqlConnection(_connString);
@@ -883,7 +883,8 @@ class Database : IDatabase
         {
             var time = reader.GetDateTime(1);
             Song song = _songs.FirstOrDefault(song => song.Title == reader.GetString(2));
-            Rehearsal rehearsal = _rehearsals.FirstOrDefault(rehearsal => rehearsal.Time.Equals(time) && rehearsal.Song.Equals(song));
+            Rehearsal rehearsal = new Rehearsal(time, song);
+            //Rehearsal rehearsal = _rehearsals.FirstOrDefault(rehearsal => rehearsal.Time.Equals(time) && rehearsal.Song.Equals(song));
 
            performerRehearsals.Add(rehearsal);
         }
@@ -891,7 +892,6 @@ class Database : IDatabase
         return performerRehearsals;
 
     }
-
 
     public Boolean UpdatePerformerAccessCode(int newAccessCode)
     {
