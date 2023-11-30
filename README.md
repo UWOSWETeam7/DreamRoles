@@ -7,7 +7,7 @@ Sprint 4:
     - Create a popup or element on the screen that notifies the stage manager
     - Update performer list with alert ✅
     - Create alert for missed rehearsal ✅
-    - Alert page functionality 
+    - Alert page functionality (Mostly Complete)
     - Implement hamburger menu
     - Create alert that displays rehearsal date and time ✅
     - UI for seeing access codes (Stage manager) + button to generate ✅
