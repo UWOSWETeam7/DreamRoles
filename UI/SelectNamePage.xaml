@@ -53,20 +53,14 @@
 						Grid.Column="0"
 						Grid.ColumnSpan="3"
 						HorizontalOptions="Start"
-						x:Name="CVSongs" ItemsSource="{Binding FilteredPerformers}" SelectionMode="Single">
+						x:Name="CVPerformers" ItemsSource="{Binding FilteredPerformers}" SelectionMode="Single" SelectionChanged="CVPerformers_SelectionChanged">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
                     <Grid ColumnDefinitions="2*,*,*,*">
                         <HorizontalStackLayout Padding="30, 0" Spacing="10">
                             <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnNameSelected"/>
-                                </Label.GestureRecognizers>
                             </Label>
                             <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnNameSelected"/>
-                                </Label.GestureRecognizers>
                             </Label>
                         </HorizontalStackLayout>
                         <Image Grid.Column="2" Source="checkmark.svg" Scale="0.5" VerticalOptions="Center"/>

@@ -60,6 +60,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Button Text="Add a new Rehearsal"/>
+        <Button Text="Add a new Rehearsal" Clicked="Button_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>

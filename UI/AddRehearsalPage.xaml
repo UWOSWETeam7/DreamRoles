@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Prototypes.Model"
+             x:Class="Prototypes.UI.AddRehearsalPage"
+             Title="AddRehearsalPage">
+    <VerticalStackLayout>
+        <ImageButton Source="previousalt.svg" HorizontalOptions="End" Scale="0.4"/>
+        <Frame>
+            <VerticalStackLayout>
+                <Label Text="Choose a Date and Time" />
+                <DatePicker />
+                <TimePicker />
+            </VerticalStackLayout>
+        </Frame>
+        <Label Text="Select a song to rehearse" FontSize="Large" HorizontalOptions="Center" Padding="10"/>
+        <ScrollView>
+            <CollectionView x:Name="CVSongs" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Song">
+                        <Label Text="{Binding Title}" FontSize="Medium" Padding="5"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <Button Text="Add Rehearsal" Clicked="Button_Clicked" />
+    </VerticalStackLayout>
+</ContentPage>

@@ -10,4 +10,9 @@ public partial class ManagerRehearsalsPage : ContentPage
 		BindingContext = new RehearsalsViewModel();
 		CVRehearsals.ItemsSource = MauiProgram.BusinessLogic.GetAllRehearsals();
     }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+		Navigation.PushAsync(new AddRehearsalPage());
+    }
 }

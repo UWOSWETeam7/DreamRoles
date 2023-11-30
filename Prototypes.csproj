@@ -52,7 +52,6 @@
 	  <None Remove="Resources\Images\alert.png" />
 	  <None Remove="Resources\Images\arrow.png" />
 	  <None Remove="Resources\Images\calendar.svg" />
-	  <None Remove="Resources\Images\checkmark.svg" />
 	  <None Remove="Resources\Images\circleok.svg" />
 	  <None Remove="Resources\Images\dream_role.png" />
 	  <None Remove="Resources\Images\edit.svg" />
@@ -107,6 +106,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="UI\AddPerformerPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\AddRehearsalPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\AddSongPopup.xaml">
