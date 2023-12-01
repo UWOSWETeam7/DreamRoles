@@ -9,8 +9,8 @@
         <Frame>
             <VerticalStackLayout>
                 <Label Text="Choose a Date and Time" />
-                <DatePicker />
-                <TimePicker />
+                <DatePicker x:Name ="DPDate"/>
+                <TimePicker x:Name="TPTime"/>
             </VerticalStackLayout>
         </Frame>
         <Label Text="Select a song to rehearse" FontSize="Large" HorizontalOptions="Center" Padding="10"/>

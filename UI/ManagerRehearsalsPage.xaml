@@ -47,6 +47,7 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Rehearsal">
                     <VerticalStackLayout Padding="30, 0" Spacing="10">
+                        <ImageButton Source="trash.png" Clicked="ImageButton_Clicked" MaximumHeightRequest="30" MaximumWidthRequest="30" HorizontalOptions="End"/>
                         <HorizontalStackLayout>
                             <Label Text="Song: " FontSize="Medium"/>
                             <Label Text="{Binding Song.Title}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>

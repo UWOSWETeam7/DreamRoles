@@ -41,7 +41,14 @@ namespace Prototypes.Business_Logic.Interface
         /// <param name="rehearsalTime">The time at which the rehearsal is taking place</param>
         /// <param name="songTitle">The title of the song to be rehearsed</param>
         /// <returns>String- null if the addition was successful or an error message if not</returns>
-        public String AddRehersal(DateTime rehearsalTime, String songTitle);
+        public (bool success, String message) AddRehersal(DateTime rehearsalTime, String songTitle);
+        /// <summary>
+        /// Deletes a rehearsal
+        /// </summary>
+        /// <param name="rehearsalTime"></param>
+        /// <param name="songTitle"></param>
+        /// <returns></returns>
+        public (bool success, String message) DeleteRehersal(Rehearsal rehearsal);
 
         /// <summary>
         /// This method gets the stage manager's access code by calling the DB method by the same name

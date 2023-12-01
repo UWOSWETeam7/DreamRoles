@@ -297,7 +297,7 @@ class Database : IDatabase
         cmd.ExecuteNonQuery();
     }
 
-    public Boolean InsertIntoRehearsals(DateTime rehearsalTime, String songTitle)
+    public (bool success, String message) InsertIntoRehearsals(DateTime rehearsalTime, String songTitle)
     {
         try { 
             using var conn = new NpgsqlConnection(_connString);
@@ -309,6 +309,9 @@ class Database : IDatabase
             cmd.Parameters.AddWithValue("song_title", songTitle);
             cmd.Parameters.AddWithValue("rehearsal_time", rehearsalTime);
             cmd.ExecuteNonQuery();
+
+            // add new rehearsal into the local collection
+            _rehearsals.Add(new Rehearsal(rehearsalTime, _songs.First(song => song.Title.Equals(songTitle))));
 
             cmd.CommandText = "SELECT user_id " +
                               "FROM setlists " +
@@ -325,12 +328,39 @@ class Database : IDatabase
         catch (Npgsql.PostgresException e)
         {
             Console.WriteLine(e.Message);
-            return false;
+            return (false, e.Message);
         }
-        return true;
+        return (true, "Successfully Added Rehearsal");
     }
 
-   
+    public (bool success, String message) DeleteRehearsal(DateTime rehearsalTime, String songTitle)
+    {
+        try
+        {
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "DELETE FROM rehearsals\r\n" +
+                "WHERE rehearsal_time = @rehearsal_time AND song_title = @song_title;";
+            cmd.Parameters.AddWithValue("song_title", songTitle);
+            cmd.Parameters.AddWithValue("rehearsal_time", rehearsalTime);
+            cmd.ExecuteNonQuery();
+
+            // refresh the local rehearsals list
+            GetAllRehearsals();
+
+        }
+        catch (Npgsql.PostgresException e)
+        {
+            Console.WriteLine(e.Message);
+            return (false, e.Message);
+        }
+        return (true, "Successfully Deleted Rehearsal");
+    }
+
+
+
 
     private void InsertIntoSetlist(int userId, String songTitle)
     {

@@ -70,17 +70,19 @@ namespace Prototypes.Business_Logic
         /// <param name="rehearsalTime">The time at which the rehearsal is taking place</param>
         /// <param name="songTitle">The title of the song to be rehearsed</param>
         /// <returns>String- null if the addition was successful or an error message if not</returns>
-        public String AddRehersal(DateTime rehearsalTime, String songTitle)
+        public (bool success, String message) AddRehersal(DateTime rehearsalTime, String songTitle)
         {
-            bool answer = Database.InsertIntoRehearsals(rehearsalTime, songTitle);
-            if (answer)
-            {
-                return null;
-            }
-            else
-            {
-                return "Could not add rehearsal to database.";
-            }
+            return Database.InsertIntoRehearsals(rehearsalTime, songTitle);
+        }
+        /// <summary>
+        /// Deletes a rehearsal
+        /// </summary>
+        /// <param name="rehearsalTime"></param>
+        /// <param name="songTitle"></param>
+        /// <returns> a tuple of if the delete was successful and a success/error message</returns>
+        public (bool success, String message) DeleteRehersal(Rehearsal rehearsal)
+        {
+            return Database.DeleteRehearsal(rehearsal.Time, rehearsal.Song.Title);
         }
 
         /// <summary>
