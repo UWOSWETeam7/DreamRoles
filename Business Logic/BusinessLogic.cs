@@ -18,6 +18,9 @@ namespace Prototypes.Business_Logic
             Database = new Database();
         }
 
+
+       
+
         /// <summary>
         /// This method gets the stage manager's access code by calling the DB method by the same name
         /// </summary>

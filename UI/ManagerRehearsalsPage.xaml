@@ -39,27 +39,33 @@
                 </Frame>
             </HorizontalStackLayout>
         </Frame>
-        <CollectionView
-						HorizontalOptions="Start"
-						x:Name="CVRehearsals"
-                        SelectionMode="Single"
-                        >
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Rehearsal">
-                    <VerticalStackLayout Padding="30, 0" Spacing="10">
-                        <HorizontalStackLayout>
-                            <Label Text="Song: " FontSize="Medium"/>
-                            <Label Text="{Binding Song.Title}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>
-                        </HorizontalStackLayout>
-                        <HorizontalStackLayout>
-                            <Label Text="Time: " FontSize="Medium"/>
-                            <Label Grid.Column="1" Text="{Binding Time.Date}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>
-                        </HorizontalStackLayout>
-                        <Line X2="500" Stroke="Gray"></Line>
-                    </VerticalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <ScrollView MaximumHeightRequest="500">
+            <CollectionView
+				HorizontalOptions="Start"
+				x:Name="CVRehearsals"
+                SelectionMode="Single"
+                >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Rehearsal">
+                        <VerticalStackLayout Padding="30, 0" Spacing="10">
+                            <HorizontalStackLayout>
+                                <Label Text="Song: " FontSize="Medium"/>
+                                <Label Text="{Binding Song.Title}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Text="Time: " FontSize="Medium"/>
+                                <Label Grid.Column="1" Text="{Binding Time.Date}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout HorizontalOptions="FillAndExpand" Spacing="30">
+                                    <ImageButton Source="people.png" MaximumHeightRequest="30" MaximumWidthRequest="30" HorizontalOptions="Start"/>
+                                    <ImageButton Source="trash.png" Clicked="DeleteButton_Clicked" MaximumHeightRequest="30" MaximumWidthRequest="30" HorizontalOptions="End"/>
+                                </HorizontalStackLayout>
+                                <Line X2="500" Stroke="Gray"></Line>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
         <Button Text="Add a new Rehearsal" Clicked="Button_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>
