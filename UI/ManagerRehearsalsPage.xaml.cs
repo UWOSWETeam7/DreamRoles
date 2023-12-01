@@ -16,7 +16,7 @@ public partial class ManagerRehearsalsPage : ContentPage
 		Navigation.PushAsync(new AddRehearsalPage());
     }
 
-    private void ImageButton_Clicked(object sender, EventArgs e)
+    private async void DeleteButton_Clicked(object sender, EventArgs e)
     {
 
         Rehearsal rehearsal = CVRehearsals.SelectedItem as Rehearsal;
@@ -26,14 +26,20 @@ public partial class ManagerRehearsalsPage : ContentPage
             DisplayAlert(null, "You must select a rehearsal to delete first", "Okay");
             return;
         }
-        var result = MauiProgram.BusinessLogic.DeleteRehersal(rehearsal);
 
-        String alertTitle = "Failed to Delete Rehearsal";
-        if (result.success)
+        var answer = await DisplayAlert("Confirm rehearsal delete", $"Delete Rehearsal for {rehearsal.Song.Title} at {rehearsal.Time}?", "Delete", "Cancel");
+
+        if (answer)
         {
-            alertTitle = "Successfully Deleted Rehearsal";
-        }
+            var result = MauiProgram.BusinessLogic.DeleteRehersal(rehearsal);
 
-        DisplayAlert(alertTitle, result.message, "Okay");
+            String alertTitle = "Failed to Delete Rehearsal";
+            if (result.success)
+            {
+                alertTitle = "Successfully Deleted Rehearsal";
+            }
+
+            DisplayAlert(alertTitle, result.message, "Okay");
+        }
     }
 }

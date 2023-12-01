@@ -229,6 +229,7 @@ class Database : IDatabase
             reader1.Close();
             cmd.CommandText = "SELECT rehearsal_time " +
                               "FROM  rehearsals " +
+                              "FROM  rehearsals " +
                               "WHERE song_title = @oldSongTitle;";
             cmd.Parameters.AddWithValue("oldSongTitle", oldSongName);
 
@@ -315,7 +316,7 @@ class Database : IDatabase
 
             cmd.CommandText = "SELECT user_id " +
                               "FROM setlists " +
-                              "WHERE song_tile = @song_title;";
+                              "WHERE song_title = @song_title;";
             cmd.Parameters.AddWithValue("song_title", songTitle);
             using var reader = cmd.ExecuteReader();
 
@@ -885,7 +886,7 @@ class Database : IDatabase
         using var conn = new NpgsqlConnection(_connString);
         conn.Open();
         using var cmd = new NpgsqlCommand(
-                "SELECT * FROM rehearsals WHERE rehearsal_time < CURRENT_TIMESTAMP;", conn);
+                "SELECT * FROM rehearsals;", conn);
         using var reader = cmd.ExecuteReader();
 
         while (reader.Read())
