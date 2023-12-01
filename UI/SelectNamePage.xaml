@@ -72,13 +72,14 @@
         <Button
             Grid.Row="4"
             Grid.Column="1"
-             x:Name="EnterBtn"
-             Text="Enter"
+            x:Name="EnterBtn"
+            Text="Enter"
             WidthRequest="350"
-		     TextColor="Beige"
-             SemanticProperties.Hint="Navigates to the next page"
-             Clicked="OnNextClicked"
-             HorizontalOptions="Center"
+		    TextColor="#E1D6C9"
+            BackgroundColor="#0E79A5"
+            SemanticProperties.Hint="Navigates to the next page"
+            Clicked="OnNextClicked"
+            HorizontalOptions="Center"
             VerticalOptions="Center"/>
         
         <Label

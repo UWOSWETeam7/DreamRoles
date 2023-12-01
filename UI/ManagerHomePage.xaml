@@ -5,6 +5,7 @@
              x:DataType="model:SearchBarPerformerViewModel"
 			 x:Class="Prototypes.UI.ManagerHomePage"
              Title="Manager Homepage"
+             BackgroundColor="#E1D6C9"
 			 Shell.BackgroundColor="#ac9884">
     <Grid
 	RowSpacing="7"

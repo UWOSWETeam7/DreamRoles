@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Prototypes.UI.ManagerAlertPage"
              Title="Manager Alerts"
-             BackgroundColor="LightGray">
+             BackgroundColor="#E1D6C9">
 
     <StackLayout>
         <Frame BackgroundColor="Tan" CornerRadius="20" Padding="5" Margin="0,0,0,15">

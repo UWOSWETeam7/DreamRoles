@@ -7,7 +7,7 @@
         <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
             <Label  Grid.Row="0" Grid.Column="0"  Text="Performer Access Code: "/>
             <Label x:Name="performerAccessCode" Grid.Row="0" Grid.Column="1" Text="0000000"/>
-            <Button Grid.Row="0" Grid.Column="2" Text="Generate New Access Code" Clicked="GenerateNewAccessCode"/>
+            <Button Grid.Row="0" Grid.Column="2" BackgroundColor="#0E79A5" TextColor="Beige" Text="Generate New Access Code" Clicked="GenerateNewAccessCode"/>
 
             <Label Grid.Row="1" Grid.Column="0"  Text="Choreographer Access Code: "/>
             <Label x:Name="choreoAccessCode" Grid.Row="1" Grid.Column="1" Text="0000000"/>

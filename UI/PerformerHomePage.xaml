@@ -6,7 +6,7 @@
              xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.PerformerHomePage"    
              Title="Performer Homepage"
-             BackgroundColor="LightGray">
+             BackgroundColor="#E1D6C9">
     <Grid
         RowSpacing="7"
         ColumnSpacing="5">
