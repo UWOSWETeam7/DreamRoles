@@ -4,7 +4,7 @@
              xmlns:model_2="clr-namespace:Prototypes.Model" 
              x:DataType="model_2:SearchBarNotCheckedInPerformerViewModel"
              x:Class="Prototypes.UI.ChoreoNotCheckedInPage"
-             Title="ChoreoNotCheckedInPage"
+             Title="Not Checked In Performers"
              BackgroundColor="#E1D6C9">
     <Grid
      RowSpacing="6"

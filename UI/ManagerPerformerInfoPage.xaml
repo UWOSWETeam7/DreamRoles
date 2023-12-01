@@ -5,7 +5,7 @@
              xmlns:model="clr-namespace:Prototypes.Model"
              x:DataType="model:Performer" 
              x:Class="Prototypes.UI.ManagerPerformerInfoPage"
-             Title="ManagerPerformerInfoPage"
+             Title="Performer Information"
              BackgroundColor="#E1D6C9">
     <ScrollView BackgroundColor="#e1d6c9">
         <VerticalStackLayout Spacing="20" VerticalOptions="Start">

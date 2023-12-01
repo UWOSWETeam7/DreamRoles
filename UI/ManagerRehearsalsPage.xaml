@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.ManagerRehearsalsPage"
-             Title="ShowRehearsals">
+             Title="Rehearsals">
     <VerticalStackLayout>
         <Frame>
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">

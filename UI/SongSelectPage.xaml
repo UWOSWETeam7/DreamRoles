@@ -5,6 +5,7 @@
              xmlns:modelBL="clr-namespace:Prototypes.Business_Logic"
              x:DataType="modelBL:BusinessLogic"
              xmlns:model="clr-namespace:Prototypes.Model"
+             Title="Select Song"
              BackgroundColor="LightGray">
     
     <Grid RowDefinitions="2*,8*, 1*">

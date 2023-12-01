@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.PerformerCheckInTimesPage"
-             Title="PerformerCheckInTImesPage">
+             Title="Performer Check-In Times">
     <Grid
 	RowSpacing="7"
 	ColumnSpacing="5">

@@ -4,6 +4,7 @@
 			 xmlns:model="clr-namespace:Prototypes.Model"
              x:DataType="model:SearchBarPerformerViewModel"
 			 x:Class="Prototypes.UI.ManagerHomePage"
+             Title="Manager Homepage"
 			 Shell.BackgroundColor="#ac9884">
     <Grid
 	RowSpacing="7"

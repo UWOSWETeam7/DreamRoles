@@ -4,7 +4,7 @@
              xmlns:model="clr-namespace:Prototypes.Model"
              x:DataType="model:SearchBarPerformerViewModel"
              x:Class="Prototypes.UI.PerformersOfSongPage"
-             Title="Performers Of Song Page"
+             Title="Performers Of Songs"
              BackgroundColor="#E1D6C9">
     <Grid
 	RowSpacing="7"

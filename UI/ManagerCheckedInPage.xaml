@@ -5,7 +5,7 @@
              x:DataType="model:SearchBarCheckedInPerformerViewModel"
              xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.ManagerCheckedInPage"
-             Title="ManagerCheckedInPage"
+             Title="Checked In Performers"
              BackgroundColor="#E1D6C9"
              Shell.BackgroundColor="#866B53"
              >

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.AddRehearsalPage"
-             Title="AddRehearsalPage">
+             Title="Add Rehearsal">
     <VerticalStackLayout>
         <ImageButton Source="previousalt.svg" HorizontalOptions="End" Scale="0.4"/>
         <Frame>

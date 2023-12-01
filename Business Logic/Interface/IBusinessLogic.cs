@@ -42,11 +42,12 @@ namespace Prototypes.Business_Logic.Interface
         /// <param name="songTitle">The title of the song to be rehearsed</param>
         /// <returns>String- null if the addition was successful or an error message if not</returns>
         public (bool success, String message) AddRehersal(DateTime rehearsalTime, String songTitle);
+
         /// <summary>
         /// Deletes a rehearsal
         /// </summary>
-        /// <param name="rehearsalTime"></param>
-        /// <param name="songTitle"></param>
+        /// <param name="rehearsalTime">The time at which the rehearsal was taking place</param>
+        /// <param name="songTitle">The title of the song rehearsed</param>
         /// <returns></returns>
         public (bool success, String message) DeleteRehersal(Rehearsal rehearsal);
 
