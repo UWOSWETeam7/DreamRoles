@@ -10,6 +10,7 @@ public partial class AddRehearsalPage : ContentPage
 
     private void Button_Clicked(object sender, EventArgs e)
     {
+        
         Navigation.PopAsync();
     }
 }
