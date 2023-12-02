@@ -11,12 +11,12 @@ namespace Prototypes.Databases
         private ObservableCollection<Rehearsal> _rehearsals;
 
         public ObservableCollection<Rehearsal> GetAllRehearsals()
-        {
+      {
             _rehearsals.Clear();
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
             using var cmd = new NpgsqlCommand(
-                    "SELECT * FROM rehearsals WHERE rehearsal_time < CURRENT_TIMESTAMP;", conn);
+                    "SELECT * FROM rehearsals;", conn);
             using var reader = cmd.ExecuteReader();
 
             while (reader.Read())
@@ -52,7 +52,7 @@ namespace Prototypes.Databases
             return performerRehearsals;
         }
 
-        public Boolean InsertIntoRehearsals(DateTime rehearsalTime, String songTitle)
+        public (bool success, string message) InsertIntoRehearsals(DateTime rehearsalTime, String songTitle)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace Prototypes.Databases
 
                 cmd.CommandText = "SELECT user_id " +
                                   "FROM setlists " +
-                                  "WHERE song_tile = @song_title;";
+                                  "WHERE song_title = @song_title;";
                 cmd.Parameters.AddWithValue("song_title", songTitle);
                 using var reader = cmd.ExecuteReader();
 
@@ -81,9 +81,11 @@ namespace Prototypes.Databases
             catch (Npgsql.PostgresException e)
             {
                 Console.WriteLine(e.Message);
-                return false;
+                return (false, e.Message);
             }
-            return true;
+
+            GetAllRehearsals();
+            return (true, "successfully added rehearsal");
         }
 
         public void InsertIntoRehersalMembers(int userId, DateTime rehearsalTime, bool checkedIn, string songName)
@@ -110,6 +112,28 @@ namespace Prototypes.Databases
             using var reader = cmd.ExecuteReader();
             DateTime rehearsalTime = reader.GetDateTime(0);
             return rehearsalTime;
-        } 
+        }
+
+        public (bool success, string message) DeleteRehearsal(DateTime time, String songTitle)
+        {
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "DELETE FROM rehearsals\r\n" +
+                "WHERE rehearsal_time = @time AND song_title = @songTitle;";
+            cmd.Parameters.AddWithValue("time", time);
+            cmd.Parameters.AddWithValue("songTitle", songTitle);
+            var result = cmd.ExecuteNonQuery();
+
+            if (result < 0)
+            {
+                return (false, "No rehearsals were deleted");
+            }
+
+            // refresh the current list of rehearsals
+            GetAllRehearsals();
+            return (true, "rehearsal deleted");
+        }
     }
 }
