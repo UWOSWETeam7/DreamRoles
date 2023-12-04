@@ -14,11 +14,11 @@
                         <VerticalStackLayout HorizontalOptions="Center">
                             <HorizontalStackLayout>
                                 <Image Source="calendar.svg" />
-                                <DatePicker/>
+                                <DatePicker x:Name="DPMinDate" Date="{Binding MinDate}"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout>
                                 <Image Source="stopwatch.svg"/>
-                                <TimePicker/>
+                                <TimePicker x:Name="TPMinTime" Time="{Binding MinTime}"/>
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
                     </VerticalStackLayout>
@@ -29,11 +29,11 @@
                         <VerticalStackLayout HorizontalOptions="Center">
                             <HorizontalStackLayout>
                                 <Image Source="calendar.svg" />
-                                <DatePicker/>
+                                <DatePicker x:Name="DPMaxDate" Date="{Binding MaxDate}" MinimumDate="{Binding MinRehearsalDate}"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout>
                                 <Image Source="stopwatch.svg"/>
-                                <TimePicker/>
+                                <TimePicker x:Name="TPMaxTime" Time="{Binding MaxTime}"/>
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
                     </VerticalStackLayout>
@@ -44,6 +44,7 @@
             <CollectionView
 				HorizontalOptions="Start"
 				x:Name="CVRehearsals"
+                ItemsSource="{Binding FilteredRehearsals}"
                 SelectionMode="Single"
                 >
                 <CollectionView.ItemTemplate>

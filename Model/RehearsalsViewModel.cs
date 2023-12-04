@@ -1,23 +1,72 @@
 ﻿using Prototypes.Model.Interfaces;
 using Prototypes.UI;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Prototypes.Model;
 
 public class RehearsalsViewModel : ObservableObject
 {
-    private string _searchText;
-    public string SearchText
+    private DateTime _minDate = DateTime.Now;
+    private TimeSpan _minTime = DateTime.Now.TimeOfDay;
+    private DateTime _minRehearsalTime;
+    private DateTime _maxDate = DateTime.Now.AddYears(1);
+    private TimeSpan _maxTime = DateTime.Now.TimeOfDay;
+    private DateTime _maxRehearsalTime;
+    public DateTime MinRehearsalTime
     {
-        get { return _searchText; }
+        get { return _minRehearsalTime; }
         set
         {
-            SetProperty(ref _searchText, value);
+            SetProperty(ref _minRehearsalTime, value);
             FilterRehearsalsByDate();
         }
     }
-
-
+    public DateTime MinDate
+    {
+        get { return _minDate; }
+        set
+        {
+            SetProperty(ref _minDate, value);
+            MinRehearsalTime = MinDate + MinTime;
+        }
+    }
+    public TimeSpan MinTime
+    {
+        get { return _minTime; }
+        set
+        {
+            SetProperty(ref _minTime, value);
+            MinRehearsalTime = MinDate + MinTime;
+        }
+    }
+    public DateTime MaxRehearsalTime
+    {
+        get { return _maxRehearsalTime; }
+        set
+        {
+            SetProperty(ref _maxRehearsalTime, value);
+            FilterRehearsalsByDate();
+        }
+    }
+    public DateTime MaxDate
+    {
+        get { return _maxDate; }
+        set
+        {
+            SetProperty(ref _maxDate, value);
+            MaxRehearsalTime = MaxDate + MaxTime;
+        }
+    }
+    public TimeSpan MaxTime
+    {
+        get { return _maxTime; }
+        set
+        {
+            SetProperty(ref _maxTime, value);
+            MaxRehearsalTime = MaxDate + MaxTime;
+        }
+    }
     private ObservableCollection<Rehearsal> _rehearsals;
     public ObservableCollection<Rehearsal> Rehearsals
     {
@@ -35,28 +84,22 @@ public class RehearsalsViewModel : ObservableObject
     public RehearsalsViewModel()
     {
         Rehearsals = MauiProgram.BusinessLogic.Rehearsals;
+
+        MinRehearsalTime = DateTime.Now;
+        MaxRehearsalTime = DateTime.MaxValue;
+
         FilteredRehearsals = Rehearsals;
     }
 
     private void FilterRehearsalsByDate()
     {
-        if (string.IsNullOrEmpty(SearchText))
+        FilteredRehearsals = new ObservableCollection<Rehearsal>();
+        var matchingRehearsals = Rehearsals.Where(rehearsal => rehearsal.Time >= MinRehearsalTime && rehearsal.Time <= MaxRehearsalTime).ToList();
+        foreach(Rehearsal rehearsal in matchingRehearsals)
         {
-            FilteredRehearsals = Rehearsals;
+            FilteredRehearsals.Add(rehearsal);
         }
-        else
-        {
-            var searchWords = SearchText.Trim().Split(' ');
-            /*
-            FilteredPerformers = new ObservableCollection<Rehearsal>(
-             Performers.Where(performer =>
-                 searchWords.All(word =>
-                     performer.FirstName.ToLower().Contains(word.ToLower()) ||
-                     performer.LastName.ToLower().Contains(word.ToLower())
-                 )
-             )
-         );
-            */
-        }
+            
+        Console.WriteLine("dummy");
     }
 }

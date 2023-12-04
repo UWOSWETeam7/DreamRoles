@@ -8,7 +8,6 @@ public partial class ManagerRehearsalsPage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = new RehearsalsViewModel();
-		CVRehearsals.ItemsSource = MauiProgram.BusinessLogic.GetAllRehearsals();
     }
 
     private void Button_Clicked(object sender, EventArgs e)
@@ -41,5 +40,15 @@ public partial class ManagerRehearsalsPage : ContentPage
 
             DisplayAlert(alertTitle, result.message, "Okay");
         }
+    }
+
+    private void MinTimeChanged(object sender, EventArgs e)
+    {
+        DateTime newMinTime = DPMinDate.Date + TPMinTime.Time;
+    }
+
+    private void MaxTimeChanged(object sender, EventArgs e)
+    {
+
     }
 }
