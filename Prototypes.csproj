@@ -108,6 +108,9 @@
 	  <MauiXaml Update="UI\AddPerformerPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="UI\AddPerformerToRehearsalPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="UI\AddRehearsalPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

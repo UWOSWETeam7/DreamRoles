@@ -161,7 +161,7 @@ namespace Prototypes.Databases
                 {
                     int userId = reader3.GetInt32(0);
                     DateTime rehearsalTime = reader3.GetDateTime(1);
-                    bool checkedIn = reader3.GetBoolean(3);
+                    String checkedIn = reader3.GetString(4);
 
                     // Insert the new song with the same user_id
                     InsertIntoRehersalMembers(userId, rehearsalTime, checkedIn, songName);

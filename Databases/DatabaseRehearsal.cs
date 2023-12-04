@@ -76,7 +76,7 @@ namespace Prototypes.Databases
                 while (reader.Read())
                 {
                     int userId = reader.GetInt32(0);
-                    InsertIntoRehersalMembers(userId, rehearsalTime, false, songTitle);
+                    InsertIntoRehersalMembers(userId, rehearsalTime, "not checked in", songTitle);
                 }
             }
             catch (Npgsql.PostgresException e)
@@ -89,20 +89,51 @@ namespace Prototypes.Databases
             return (true, "successfully added rehearsal");
         }
 
-        public void InsertIntoRehersalMembers(int userId, DateTime rehearsalTime, bool checkedIn, string songName)
+        public (bool success, String message) InsertIntoRehersalMembers(int userId, DateTime rehearsalTime, String checkedIn, string songName)
         {
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
             using var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "INSERT INTO rehearsal_members(user_id, rehearsal_time, song_title, checked_in) " +
+            cmd.CommandText = "INSERT INTO rehearsal_members(user_id, rehearsal_time, song_title, status) " +
                               "VALUES(@user_id, @rehearsal_time, @song_title, @checked_in);";
             cmd.Parameters.AddWithValue("user_id", userId);
             cmd.Parameters.AddWithValue("rehearsal_time", rehearsalTime);
             cmd.Parameters.AddWithValue("song_title", songName);
             cmd.Parameters.AddWithValue("checked_in", checkedIn);
-            cmd.ExecuteNonQuery();
+            var result = cmd.ExecuteNonQuery();
+
+            if(result < 0)
+            {
+                return (false, "Failed to insert performer into rehearsal");
+            }
+
+            return (true, "Successfully added performer into rehearsal");
         }
+
+        public (bool success, String message) DeleteRehearsalMember(int userId, DateTime rehearsalTime, String songName)
+        {
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "DELETE FROM rehearsal_members\r\n" +
+                "WHERE rehearsal_time = @rehearsalTime AND song_title = @songName AND user_id = @userId;";
+            cmd.Parameters.AddWithValue("rehearsalTime", rehearsalTime);
+            cmd.Parameters.AddWithValue("songName", songName);
+            cmd.Parameters.AddWithValue("userId", userId);
+            var result = cmd.ExecuteNonQuery();
+
+            if (result < 0)
+            {
+                return (false, "Failed to remove performer from rehearsal");
+            }
+            else
+            {
+                return (true, "Successfully removed performer from rehearsal");
+            }
+        }
+
 
         public DateTime GetRehearsalDateTime()
         {

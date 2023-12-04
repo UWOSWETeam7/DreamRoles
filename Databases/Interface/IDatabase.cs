@@ -75,7 +75,8 @@ namespace Prototypes.Databases.Interface
         public Boolean UpdatePerformerAccessCode(int newAccessCode);
         public ObservableCollection<Rehearsal> GetAllRehearsals();
         public ObservableCollection<Rehearsal> GetPerformerRehearsals(Performer performer);
-
+        public (bool success, String message) InsertIntoRehersalMembers(int userId, DateTime rehearsalTime, String checkedIn, string songName);
+        public (bool success, String message) DeleteRehearsalMember(int userId, DateTime rehearsalTime, String songName);
 
 
     }

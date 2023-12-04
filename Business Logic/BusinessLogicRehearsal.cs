@@ -24,6 +24,20 @@ namespace Prototypes.Business_Logic
         {
             return Database.GetPerformerRehearsals(performer);
         }
+        public (bool success, String message) AddPerformerToRehearsal(Performer performer, Rehearsal rehearsal)
+        {
+            return Database.InsertIntoRehersalMembers(performer.Id, rehearsal.Time, "checked in", rehearsal.Song.Title);
+        }
+        /// <summary>
+        /// Removes a performer from the list of performers of a specific rehearsal
+        /// </summary>
+        /// <param name="performer"></param>
+        /// <param name="rehearsal"></param>
+        /// <returns></returns>
+        public (bool success, String message) RemovePerformerFromRehearsal(Performer performer, Rehearsal rehearsal)
+        {
+            return Database.DeleteRehearsalMember(performer.Id, rehearsal.Time, rehearsal.Song.Title);
+        }
 
         /// <summary>
         /// Gets the ObservableCollection of all rehearsals

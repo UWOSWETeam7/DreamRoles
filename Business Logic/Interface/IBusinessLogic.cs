@@ -77,6 +77,8 @@ namespace Prototypes.Business_Logic.Interface
         public ObservableCollection<Performer> GetPerformersOfASong(Song song);
 
         public ObservableCollection<Performer> GetPerformersOfARehearsal(Rehearsal rehearsal);
+        public (bool success, String message) AddPerformerToRehearsal(Performer performer, Rehearsal rehearsal);
+        public (bool success, String message) RemovePerformerFromRehearsal(Performer performer, Rehearsal rehearsal);
 
         /// <summary>
         /// This method updates a performer's name by identifying them with an id, and using the given first and last name

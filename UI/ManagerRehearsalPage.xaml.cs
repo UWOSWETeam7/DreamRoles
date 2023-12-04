@@ -5,28 +5,37 @@ namespace Prototypes.UI;
 
 public partial class ManagerRehearsalPage : ContentPage
 {
-	public ManagerRehearsalPage(Rehearsal rehearsal)
+    Rehearsal _rehearsal;
+    SearchBarPerformerViewModel _searchBarPerformerViewModel;
+
+    public ManagerRehearsalPage(Rehearsal rehearsal)
 	{
         InitializeComponent();
-        BindingContext = new SearchBarPerformerViewModel(rehearsal);
+        _rehearsal = rehearsal;
+        _searchBarPerformerViewModel = new SearchBarPerformerViewModel(rehearsal);
+        BindingContext = _searchBarPerformerViewModel;
     }
 
 
     private void ShowAddPerformerPopup(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new AddPerformerPopup());
+            Navigation.PushAsync(new AddPerformerToRehearsalPage(_rehearsal));
     }
 
-    private async void DeletePerformer(object sender, EventArgs e)
+    private async void RemovePerformer(object sender, EventArgs e)
     {
         var image = (Image)sender;
         var performer = (Performer)image.BindingContext;
 
-        Boolean userResponse = await DisplayAlert("Confirmation", "Are you sure you want to delete this performer?", "Yes", "Cancel");
+        Boolean userResponse = await DisplayAlert("Confirmation", "Are you sure you want to remove this performer from this rehearsal?", "Yes", "Cancel");
 
         if (userResponse)
         {
-            MauiProgram.BusinessLogic.DeletePerformer(performer.Id);
+            var invokeRemove = MauiProgram.BusinessLogic.RemovePerformerFromRehearsal(performer, _rehearsal);
+            if (invokeRemove.success)
+            {
+                _searchBarPerformerViewModel.Performers.Remove(performer);
+            }
         }
     }
 
@@ -45,12 +54,6 @@ public partial class ManagerRehearsalPage : ContentPage
     {
         Navigation.PushAsync(new ManagerSongsPage());
     }
-
-    public async void OnManagerMenu_Clicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new ManagerMenuPage());
-    }
-
     private async void ChangeCheckInStatus(object sender, EventArgs e)
     {
         var label = (Image)sender;

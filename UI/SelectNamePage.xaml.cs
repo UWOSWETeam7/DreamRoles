@@ -29,4 +29,5 @@ public partial class SelectNamePage : ContentPage
     {
         performer = CVPerformers.SelectedItem as Performer;
     }
+
 }
