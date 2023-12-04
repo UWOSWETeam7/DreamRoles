@@ -55,6 +55,32 @@ namespace Prototypes.Databases
             return _performers;
         }
 
+        public ObservableCollection<Performer> SelectAllPerfomersFromRehearsal(DateTime rehearsalTime, String songTitle)
+        {
+            // Connects and opens a connection to the database
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            // Commands to get all the performers in the database
+            using var cmd = new NpgsqlCommand("SELECT * FROM rehearsal_members\r\n" +
+                "WHERE rehearsal_time= @rehearsalTime AND song_title = @songTitle;", conn);
+            cmd.Parameters.AddWithValue("rehearsalTime", rehearsalTime);
+            cmd.Parameters.AddWithValue("songTitle", songTitle);
+
+            using var reader = cmd.ExecuteReader();
+
+            ObservableCollection<Performer> rehearsalPerformers = new ObservableCollection<Performer>();
+            while (reader.Read())
+            {
+                int userId = reader.GetInt32(0);
+
+                rehearsalPerformers.Add(_performers.First(performer => performer.Id == userId));
+            }
+
+            return rehearsalPerformers;
+ 
+        }
+
         /// <summary>
         /// Uses the given id to find a performer object with that id in a ObservableCollection
         /// </summary>

@@ -23,6 +23,15 @@ namespace Prototypes.Business_Logic
         {
             get { return Database.SelectAllPerformers(2023); }
         }
+        /// <summary>
+        /// Gets the ObservableCollection of all performers in a specific rehearsal
+        /// </summary>
+        /// <param name="rehearsal"></param>
+        /// <returns></returns>
+        public ObservableCollection<Performer> GetPerformersOfARehearsal(Rehearsal rehearsal)
+        {
+            return Database.SelectAllPerfomersFromRehearsal(rehearsal.Time, rehearsal.Song.Title);
+        }
 
         /// <summary>
         /// This method gets the list of all the peformers of a certain song

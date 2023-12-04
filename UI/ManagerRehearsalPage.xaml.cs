@@ -8,7 +8,7 @@ public partial class ManagerRehearsalPage : ContentPage
 	public ManagerRehearsalPage(Rehearsal rehearsal)
 	{
         InitializeComponent();
-        BindingContext = new RehearsalsViewModel();
+        BindingContext = new SearchBarPerformerViewModel(rehearsal);
     }
 
 

@@ -28,6 +28,8 @@ namespace Prototypes.Databases.Interface
         /// <returns>a ObservableCollection of performer objects</returns>
         public ObservableCollection<Performer> SelectAllPerformers(int year);
 
+        public ObservableCollection<Performer> SelectAllPerfomersFromRehearsal(DateTime rehearsalTime, String songTitle);
+
         /// <summary>
         /// Uses the given id to find a Aiport object with that id in a ObservableCollection
         /// </summary>

@@ -11,7 +11,7 @@ namespace Prototypes.Databases
         private ObservableCollection<Rehearsal> _rehearsals;
 
         public ObservableCollection<Rehearsal> GetAllRehearsals()
-      {
+        {
             _rehearsals.Clear();
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
@@ -26,13 +26,14 @@ namespace Prototypes.Databases
                 _rehearsals.Add(new Rehearsal(time, song));
             }
 
-            conn.Close();
             return _rehearsals;
         }
+
         public ObservableCollection<Rehearsal> GetPerformerRehearsals(Performer performer)
         {
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
+
             using var cmd = new NpgsqlCommand(
                     "SELECT *\r\nFROM rehearsal_members\r\nWHERE user_id = @userId;", conn);
             cmd.Parameters.AddWithValue("userId", performer.Id);

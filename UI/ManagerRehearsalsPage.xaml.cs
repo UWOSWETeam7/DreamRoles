@@ -42,13 +42,16 @@ public partial class ManagerRehearsalsPage : ContentPage
         }
     }
 
-    private void MinTimeChanged(object sender, EventArgs e)
+    private async void RehearsalPerformers_Clicked(object sender, EventArgs e)
     {
-        DateTime newMinTime = DPMinDate.Date + TPMinTime.Time;
-    }
+        Rehearsal rehearsal = CVRehearsals.SelectedItem as Rehearsal;
 
-    private void MaxTimeChanged(object sender, EventArgs e)
-    {
+        if (rehearsal == null)
+        {
+            DisplayAlert(null, "You must select a rehearsal to delete first", "Okay");
+            return;
+        }
 
+        Navigation.PushAsync(new ManagerRehearsalPage(rehearsal));
     }
 }

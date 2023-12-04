@@ -59,7 +59,7 @@
                                 <Label Grid.Column="1" Text="{Binding Time.Date}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>
                             </HorizontalStackLayout>
                             <HorizontalStackLayout HorizontalOptions="FillAndExpand" Spacing="30">
-                                    <ImageButton Source="people.png" MaximumHeightRequest="30" MaximumWidthRequest="30" HorizontalOptions="Start"/>
+                                    <ImageButton Source="people.png" MaximumHeightRequest="30" MaximumWidthRequest="30" HorizontalOptions="Start" Clicked="RehearsalPerformers_Clicked"/>
                                     <ImageButton Source="trash.png" Clicked="DeleteButton_Clicked" MaximumHeightRequest="30" MaximumWidthRequest="30" HorizontalOptions="End"/>
                                 </HorizontalStackLayout>
                                 <Line X2="500" Stroke="Gray"></Line>

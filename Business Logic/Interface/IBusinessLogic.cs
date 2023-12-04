@@ -76,6 +76,8 @@ namespace Prototypes.Business_Logic.Interface
         /// <returns>Observable Collection of the performers for that song</returns>
         public ObservableCollection<Performer> GetPerformersOfASong(Song song);
 
+        public ObservableCollection<Performer> GetPerformersOfARehearsal(Rehearsal rehearsal);
+
         /// <summary>
         /// This method updates a performer's name by identifying them with an id, and using the given first and last name
         /// </summary>
