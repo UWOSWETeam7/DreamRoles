@@ -3,6 +3,7 @@ using Prototypes.Databases.Interface;
 using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Model.Interfaces;
+using System.Data;
 
 namespace Prototypes.Databases
 {
@@ -73,8 +74,11 @@ namespace Prototypes.Databases
             while (reader.Read())
             {
                 int userId = reader.GetInt32(0);
+                String status = reader.GetString(4);
 
-                rehearsalPerformers.Add(_performers.First(performer => performer.Id == userId));
+                Performer performer = _performers.First(performer => performer.Id == userId);
+                performer.CheckedInStatus = status;
+                rehearsalPerformers.Add(performer);
             }
 
             return rehearsalPerformers;
@@ -93,7 +97,7 @@ namespace Prototypes.Databases
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
 
-            using var cmd = new NpgsqlCommand("SELECT (dreamrolesuser.user_id, first_name, last_name)\r\n" +
+            using var cmd = new NpgsqlCommand("SELECT *\r\n" +
                 "FROM dreamrolesuser\r\n" +
                 "INNER JOIN setlists ON dreamrolesuser.user_id = setlists.user_id\r\n" +
                 "WHERE dreamrolesuser.production_year = @year AND song_title = @songTitle;", conn);
@@ -108,14 +112,13 @@ namespace Prototypes.Databases
                 string firstName = reader.GetString(1);
                 string lastName = reader.GetString(2);
                 string title = reader.GetString(3);
-
+                
                 Performer performer = _performers.FirstOrDefault(performer => performer.Id == id);
                 // Create the Performer object and add it to the ObservableCollection
                 if (performer != null)
                 {
                     performersOfASong.Add(performer);
                 }
-
             }
 
             return performersOfASong;

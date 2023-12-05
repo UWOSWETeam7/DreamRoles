@@ -11,4 +11,10 @@ public partial class PerformersOfSongPage : ContentPage
         BindingContext = new SearchBarPerformersOfSongsViewModel(song);
         _song = song;
     }
+
+    private void AddToSetlist_Clicked(object sender, EventArgs e)
+    {
+        ActivityIndicator activityIndicator = new ActivityIndicator { IsRunning = true, IsEnabled = true };
+        Navigation.PushAsync(new AddSongToSetlistPage(_song));
+    }
 }

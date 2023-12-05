@@ -3,17 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:Prototypes.Model"
              x:DataType="model:SearchBarPerformerViewModel"
-             x:Class="Prototypes.UI.PerformersOfSongPage"
-             Title="Performers Of Songs"
+             x:Class="Prototypes.UI.AddSongToSetlistPage"
+             Title="Select Name"
              BackgroundColor="#E1D6C9">
     <Grid
-	RowSpacing="5"
+	RowSpacing="7"
 	ColumnSpacing="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="50"/>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="550" />
+            <RowDefinition Height="525" />
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
@@ -22,7 +22,6 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-
         <BoxView 
 			 Grid.Row="0" 
 			 Grid.ColumnSpan="3"
@@ -31,13 +30,13 @@
 			 WidthRequest="400"
 			 HeightRequest="50"/>
         <Label 
-		   Grid.Row="0"
-		   Grid.ColumnSpan="3" 
-		   Text="Homepage:"
-		   FontAttributes="Bold"
-		   FontSize="20"
-		   HorizontalOptions="Center"
-		   VerticalOptions="Center"/>
+		       Grid.Row="0"
+		       Grid.ColumnSpan="3" 
+		       Text="Select your name from the list below:"
+		       FontAttributes="Bold"
+		       FontSize="18"
+		       HorizontalOptions="Center"
+		       VerticalOptions="Center"/>
 
         <SearchBar
 					BackgroundColor="White"
@@ -54,28 +53,39 @@
 						Grid.Column="0"
 						Grid.ColumnSpan="3"
 						HorizontalOptions="Start"
-						x:Name="CVSongs" ItemsSource="{Binding FilteredPerformers}" SelectionMode="Single">
+						x:Name="CVPerformers" ItemsSource="{Binding FilteredPerformers}" SelectionMode="Single" SelectionChanged="CVPerformers_SelectionChanged">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
-                    <Grid ColumnDefinitions="*,*,*">
+                    <Grid ColumnDefinitions="2*,*,*,*">
                         <HorizontalStackLayout Padding="30, 0" Spacing="10">
-                            <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium"/>
-
-
-                            <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium"/>
-
-
+                            <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
+                            </Label>
+                            <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
+                            </Label>
                         </HorizontalStackLayout>
-                        <Label Grid.Column="2" Text="Performer" FontSize="Medium" VerticalOptions="Start" Margin="-15,0,0,0"/>
+                        <Image Grid.Column="2" Source="checkmark.svg" Scale="0.5" VerticalOptions="Center"/>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
+        <Button
+            Grid.Row="4"
+            Grid.Column="1"
+            x:Name="EnterBtn"
+            Text="Enter"
+            WidthRequest="350"
+		    TextColor="#E1D6C9"
+            BackgroundColor="#0E79A5"
+            SemanticProperties.Hint="Navigates to the next page"
+            Clicked="OnNextClicked"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"/>
+
         <Label
 		Grid.Row="2"
 		Grid.Column="1"
-		Margin="-65,0,0,0"
+		Margin="-10,0,0,0"
 		Text="Name:"
 		FontSize="15"/>
         <Label
@@ -83,8 +93,7 @@
 		Grid.Column="2"
 		HorizontalOptions="Start"
 		Margin="-55,0,0,0"
-		Text="Role:"
+		Text="Check-In:"
 		FontSize="15"/>
-        <Button Grid.Row="5" Grid.Column="1" Text="Add Song to a Setlist" Clicked="AddToSetlist_Clicked"/>
     </Grid>
 </ContentPage>

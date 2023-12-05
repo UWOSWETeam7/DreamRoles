@@ -159,8 +159,8 @@ namespace Prototypes.Databases
 
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "UPDATE performer\r\n" +
-                    "SET checked_in_status = @status\r\n" +
+                cmd.CommandText = "UPDATE rehearsal_members\r\n" +
+                    "SET status = @status\r\n" +
                     "WHERE user_id = @user_id;";
                 cmd.Parameters.AddWithValue("user_id", performer.Id);
                 cmd.Parameters.AddWithValue("status", status);
