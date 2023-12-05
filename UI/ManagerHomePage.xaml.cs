@@ -6,7 +6,7 @@ namespace Prototypes.UI;
 //@author: Keith Thoong
 public partial class ManagerHomePage : ContentPage
 {
-
+    private SearchBarPerformerViewModel _viewModel;
     private Rehearsal _nearestRehearsal;
     public ManagerHomePage()
     {
@@ -15,7 +15,8 @@ public partial class ManagerHomePage : ContentPage
         // get the rehearsal closest to the current time by ording the list of rehearsals and selecting the first one that is on or further than the current time
         _nearestRehearsal = MauiProgram.BusinessLogic.Rehearsals.OrderBy(rehearsal => rehearsal.Time).First(rehearsal => rehearsal.Time >= DateTime.Now);
         LabelNearestRehearsal.Text = $"Next Rehearsal at {_nearestRehearsal.Time} for {_nearestRehearsal.Song.Title}";
-        BindingContext = new SearchBarPerformerViewModel(_nearestRehearsal);
+        _viewModel = new SearchBarPerformerViewModel(_nearestRehearsal);
+        BindingContext = _viewModel;
     }
 
 
@@ -34,7 +35,10 @@ public partial class ManagerHomePage : ContentPage
         if (userResponse)
         {
             MauiProgram.BusinessLogic.RemovePerformerFromRehearsal(performer, _nearestRehearsal);
+
         }
+
+
     }
 
     private async void OnPerformerSelectionChange(object sender, SelectionChangedEventArgs e)

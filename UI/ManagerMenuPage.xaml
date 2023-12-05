@@ -39,6 +39,13 @@
           Background="White"
           TextColor="Black"
         />
+        <Button
+          Text="Performers"
+          HorizontalOptions="Start"
+          Clicked="OnPerformers_Clicked"
+          Background="White"
+          TextColor="Black"
+        />
 
 
 

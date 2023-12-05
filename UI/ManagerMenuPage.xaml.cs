@@ -28,4 +28,8 @@ public partial class ManagerMenuPage : ContentPage
     {
         await Navigation.PushAsync(new ManagerRehearsalsPage());
     }
+    public async void OnPerformers_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ManagerPerformersPage());
+    }
 }
