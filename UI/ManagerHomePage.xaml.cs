@@ -7,17 +7,21 @@ namespace Prototypes.UI;
 public partial class ManagerHomePage : ContentPage
 {
 
-
+    private Rehearsal _nearestRehearsal;
     public ManagerHomePage()
     {
         InitializeComponent();
-        BindingContext = new SearchBarPerformerViewModel();
+
+        // get the rehearsal closest to the current time by ording the list of rehearsals and selecting the first one that is on or further than the current time
+        _nearestRehearsal = MauiProgram.BusinessLogic.Rehearsals.OrderBy(rehearsal => rehearsal.Time).First(rehearsal => rehearsal.Time >= DateTime.Now);
+        LabelNearestRehearsal.Text = $"Next Rehearsal at {_nearestRehearsal.Time} for {_nearestRehearsal.Song.Title}";
+        BindingContext = new SearchBarPerformerViewModel(_nearestRehearsal);
     }
 
 
     private void ShowAddPerformerPopup(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new AddPerformerPopup());
+        Navigation.PushAsync(new AddPerformerToRehearsalPage(_nearestRehearsal));
     }
 
     private async void DeletePerformer(object sender, EventArgs e)
@@ -25,11 +29,11 @@ public partial class ManagerHomePage : ContentPage
         var image = (Image)sender;
         var performer = (Performer)image.BindingContext;
 
-        Boolean userResponse = await DisplayAlert("Confirmation", "Are you sure you want to delete this performer?", "Yes", "Cancel");
+        Boolean userResponse = await DisplayAlert("Confirmation", "Are you sure you want to remove this performer from this rehearsal?", "Yes", "Cancel");
 
         if (userResponse)
         {
-            MauiProgram.BusinessLogic.DeletePerformer(performer.Id);
+            MauiProgram.BusinessLogic.RemovePerformerFromRehearsal(performer, _nearestRehearsal);
         }
     }
 

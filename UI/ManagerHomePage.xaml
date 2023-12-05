@@ -11,7 +11,7 @@
 	RowSpacing="7"
 	ColumnSpacing="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="75" />
             <RowDefinition Height="50"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="550" />
@@ -30,13 +30,14 @@
 			 Color="#866B53"
 			 CornerRadius="10, 10, 10, 10"
 			 WidthRequest="400"
-			 HeightRequest="50"/>
+			 HeightRequest="75"/>
         <Label 
+           x:Name="LabelNearestRehearsal"
 		   Grid.Row="0"
 		   Grid.ColumnSpan="3" 
-		   Text="Homepage:"
 		   FontAttributes="Bold"
-		   FontSize="20"
+		   FontSize="Body"
+           Padding="7"
 		   HorizontalOptions="Center"
 		   VerticalOptions="Center"/>
 

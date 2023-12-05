@@ -19,7 +19,8 @@ public partial class ManagerRehearsalPage : ContentPage
 
     private void ShowAddPerformerPopup(object sender, EventArgs e)
     {
-            Navigation.PushAsync(new AddPerformerToRehearsalPage(_rehearsal));
+        Navigation.PushAsync(new AddPerformerToRehearsalPage(_rehearsal));
+        _searchBarPerformerViewModel.Performers = MauiProgram.BusinessLogic.GetPerformersOfARehearsal(_rehearsal);
     }
 
     private async void RemovePerformer(object sender, EventArgs e)
