@@ -37,6 +37,8 @@ namespace Prototypes.Databases.Interface
         /// <returns>the performer if it is in the ObservableCollection. Returns null if the performer is not found</returns>
         public Performer SelectPerformer(int userId);
 
+        public ObservableCollection<Rehearsal> SelectPerformerAbsences(int userId);
+
         /// <summary>
         /// Adds a new performer object into the ObservableCollection and the file
         /// </summary>

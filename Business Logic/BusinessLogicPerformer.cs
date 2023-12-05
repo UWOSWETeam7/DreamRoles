@@ -165,5 +165,15 @@ namespace Prototypes.Business_Logic
             //Sends it to Database
             return Database.SelectPerformer(userId);
         }
+
+        /// <summary>
+        /// Gets all missed rehearsals of a performer
+        /// </summary>
+        /// <param name="performer"></param>
+        /// <returns></returns>
+        public ObservableCollection<Rehearsal> GetPerformerMissedRehearsals(Performer performer)
+        {
+            return Database.SelectPerformerAbsences(performer.Id);
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace Prototypes.Databases
     public partial class Database : IDatabase
     {
         private ObservableCollection<Performer> _performers;
-        
+
         /// <summary>
         /// Gets all the performers from the database
         /// </summary>
@@ -82,7 +82,7 @@ namespace Prototypes.Databases
             }
 
             return rehearsalPerformers;
- 
+
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Prototypes.Databases
         /// </summary>
         /// <param name="id">the id of the performer that the user is trying to find</param>
         /// <returns>the performer if it is in the ObservableCollection. Returns null if the performer is not found</returns>
-        
+
         public ObservableCollection<Performer> GetPerformersOfASong(Song song)
         {
             ObservableCollection<Performer> performersOfASong = new ObservableCollection<Performer>();
@@ -112,7 +112,7 @@ namespace Prototypes.Databases
                 string firstName = reader.GetString(1);
                 string lastName = reader.GetString(2);
                 string title = reader.GetString(3);
-                
+
                 Performer performer = _performers.FirstOrDefault(performer => performer.Id == id);
                 // Create the Performer object and add it to the ObservableCollection
                 if (performer != null)
@@ -343,6 +343,32 @@ namespace Prototypes.Databases
             }
             //Not found so return null
             return null;
+        }
+
+        public ObservableCollection<Rehearsal> SelectPerformerAbsences(int userId)
+        {
+            ObservableCollection<Rehearsal> missedRehearsals = new ObservableCollection<Rehearsal>();
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            using var cmd = new NpgsqlCommand("SELECT * FROM rehearsal_members\r\n" +
+                "WHERE user_id = @userId AND status != 'checked in' AND rehearsal_time < CURRENT_TIMESTAMP;");
+
+            cmd.Parameters.AddWithValue("userId", userId);
+
+            using var reader = cmd.ExecuteReader();
+
+            while(reader.Read())
+            {
+                String songTitle = reader.GetString(1);
+                DateTime time = reader.GetDateTime(2);
+
+                Rehearsal missedRehearsal = _rehearsals.First(rehearsal => rehearsal.Song.Title == songTitle && rehearsal.Time == time);
+                missedRehearsals.Add(missedRehearsal);
+            }
+
+            return missedRehearsals;
+
         }
     }
 }

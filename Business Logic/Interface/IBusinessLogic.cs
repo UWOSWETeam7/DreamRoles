@@ -163,6 +163,8 @@ namespace Prototypes.Business_Logic.Interface
         /// <returns>the performer if it is found null if it is not found or invalid param</returns>
         public Performer FindPerformer(int userId);
 
+        public ObservableCollection<Rehearsal> GetPerformerMissedRehearsals(Performer performer);
+
         /// <summary>
         /// Gets all the performers from the Database
         /// </summary>
