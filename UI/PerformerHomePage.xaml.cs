@@ -10,5 +10,6 @@ public partial class PerformerHomePage : ContentPage
         InitializeComponent();
         BindingContext = new SearchBarPerformersSongsViewModel(performer);
         _performer = performer;
+        Title = $"{_performer.FirstName} {_performer.LastName} {"Homepage"}";
     }
 }

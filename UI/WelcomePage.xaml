@@ -33,6 +33,7 @@
             <Entry
                 x:Name="access" 
 				Placeholder="Access Code"
+                PlaceholderColor="DarkSlateGrey"
                 HorizontalTextAlignment="Center"
                 Keyboard="Numeric"
                 WidthRequest="200"/>

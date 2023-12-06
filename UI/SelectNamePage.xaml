@@ -7,8 +7,7 @@
              Title="Select Name"
              BackgroundColor="#E1D6C9">
     <Grid
-	RowSpacing="7"
-	ColumnSpacing="5">
+	RowSpacing="7">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="50"/>
@@ -58,16 +57,13 @@
         </CollectionView>
 
         <Button
-            Grid.Row="4"
-            Grid.Column="1"
+            Grid.Row="3"
             x:Name="EnterBtn"
             Text="Enter"
             WidthRequest="350"
 		    TextColor="#E1D6C9"
             BackgroundColor="#0E79A5"
             SemanticProperties.Hint="Navigates to the next page"
-            Clicked="OnNextClicked"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"/>
+            Clicked="OnNextClicked"/>
     </Grid>
 </ContentPage>

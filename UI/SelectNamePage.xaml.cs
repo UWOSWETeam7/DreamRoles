@@ -21,6 +21,7 @@ public partial class SelectNamePage : ContentPage
         {
             db.CheckInPerformer(performer, "checked in");
             Navigation.PushAsync(new PerformerCheckInTimesPage(performer));
+            Navigation.RemovePage(this);
             //change checked in status of this performer
         }
     }

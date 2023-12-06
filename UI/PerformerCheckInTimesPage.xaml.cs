@@ -12,6 +12,7 @@ public partial class PerformerCheckInTimesPage : ContentPage
         InitializeComponent();
         _performer = performer;
         CVRehearsals.ItemsSource = MauiProgram.BusinessLogic.GetPerformerRehearsals(performer);
+        Title = $"{_performer.FirstName} {_performer.LastName} {"Check-In Times"}";
     }
 
 
