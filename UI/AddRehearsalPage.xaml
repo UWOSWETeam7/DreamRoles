@@ -24,6 +24,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
-        <Button Text="Add Rehearsal" Clicked="Button_Clicked" />
+        <Button Text="Add Rehearsal" BackgroundColor="" Clicked="Button_Clicked" />
     </VerticalStackLayout>
 </ContentPage>

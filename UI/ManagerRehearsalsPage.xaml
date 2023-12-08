@@ -68,6 +68,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
-        <Button Text="Add a new Rehearsal" Clicked="Button_Clicked"/>
+        <Button Text="Add a new Rehearsal" BackgroundColor="#0E79A5" Clicked="Button_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>
