@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Prototypes.UI.ManagerAccesssCodePage"
-             Title="Manager Access Codes">
+             Title="Manager Access Codes"
+             BackgroundColor="#E1D6C9">
     <VerticalStackLayout>
         <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
             <Label  Grid.Row="0" Grid.Column="0"  Text="Performer Access Code: "/>

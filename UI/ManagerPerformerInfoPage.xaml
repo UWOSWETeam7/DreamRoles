@@ -23,7 +23,7 @@
                             <Label Grid.Column="2" Text="{Binding LastName}"  HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
                         </Grid>
 
-                        <Label Text="Performer" HorizontalTextAlignment="Center" FontSize="Medium" Grid.Row="1"/>
+                        <Label Text="Performer" HorizontalTextAlignment="Center" BackgroundColor="#0E79A5" FontSize="Medium" Grid.Row="1"/>
                     </Grid>
                     <Image Source="circleok.png" />
                 </HorizontalStackLayout>

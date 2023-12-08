@@ -18,6 +18,6 @@
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Frame>
-        <Button Text="Check in for this time" Clicked="Button_Clicked" Padding="2"/>
+        <Button Text="Check in for this time" BackgroundColor="#0E79A5" Clicked="Button_Clicked" Padding="2"/>
     </VerticalStackLayout>
 </mct:Popup>
