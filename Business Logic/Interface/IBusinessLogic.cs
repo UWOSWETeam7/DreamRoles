@@ -117,7 +117,7 @@ namespace Prototypes.Business_Logic.Interface
         /// <param name="userId">The id of the performer</param>
         /// <param name="songName">The song name</param>
         /// <returns>String- null if addition was successful or error message if not</returns>
-        public String AddSongForPerformer(int userId, String songName);
+        public String AddSongForPerformer(int userId, String songName, String notes);
 
         /// <summary>
         /// This method edits a performer's contact information, namely their phone number and email
@@ -137,7 +137,7 @@ namespace Prototypes.Business_Logic.Interface
         /// <param name="email">The email of the performer</param>
         /// <param name="phoneNumber">The phone number of the perfoormer</param>
         /// <returns>A String that is null if everything worked if not it will return a error message.</returns>
-        public String AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber);
+        public (string ResultMessage, int PerformerId) AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber);
 
         /// <summary>
         /// Checks if the id is valid then asks the Database to delete the performer with that id

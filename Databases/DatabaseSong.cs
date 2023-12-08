@@ -28,7 +28,7 @@ namespace Prototypes.Databases
                 String songTitle = reader.GetString(0);
 
                 // Create the Performer object and add it to the ObservableCollection
-                Song song = new Song(songTitle);
+                Song song = new Song(songTitle, null);
                 _songs.Add(song);
             }
 
@@ -53,7 +53,7 @@ namespace Prototypes.Databases
                 // Command to insert a new performer into the 'dreamrolesuser' table
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "SELECT song_title " +
+                cmd.CommandText = "SELECT song_title, notes " +
                                    "FROM setlists " +
                                    "JOIN dreamrolesuser ON setlists.user_id = dreamrolesuser.user_id " +
                                    "WHERE dreamrolesuser.user_id = @user_id AND dreamrolesuser.production_year = @year;";
@@ -68,9 +68,9 @@ namespace Prototypes.Databases
                 {
                     // Retrieve the song title from the result set
                     string title = reader.GetString(0);
-
+                    string notes = reader.GetString(0);
                     // Create a new Song object and add it to the collection
-                    ISongDB song = new Song(title);
+                    ISongDB song = new Song(title, notes);
                     songs.Add(song);
                 }
             }
@@ -225,7 +225,7 @@ namespace Prototypes.Databases
             return numDeleted > 0;
         }
 
-        public Boolean InsertSongForPerformer(int userId, String songName)
+        public Boolean InsertSongForPerformer(int userId, String songName, String notes)
         {
             try
             {
@@ -236,10 +236,11 @@ namespace Prototypes.Databases
                 // Command to insert a song into the 'songs' table
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO setlists(user_id, song_title)\r\n" +
-                    "VALUES(@userId, @songName);";
+                cmd.CommandText = "INSERT INTO setlists(user_id, song_title, notes)\r\n" +
+                    "VALUES(@userId, @songName, @notes);";
                 cmd.Parameters.AddWithValue("userId", userId);
                 cmd.Parameters.AddWithValue("songName", songName);
+                cmd.Parameters.AddWithValue("notes", notes);
                 cmd.ExecuteNonQuery();
 
                 //Repopulates performers so now the updated performer is in it

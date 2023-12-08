@@ -4,6 +4,7 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="model:SearchBarSongViewModel"
              xmlns:model="clr-namespace:Prototypes.Model"
+             xmlns:models="clr-namespace:Prototypes.Databases"
              x:Class="Prototypes.UI.PerformerHomePage"    
              BackgroundColor="#E1D6C9">
     <Grid
@@ -27,11 +28,11 @@
                HorizontalOptions="Start"
                x:Name="CVSongs" ItemsSource="{Binding FilteredSongs}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Song">
+                <DataTemplate x:DataType="models:SongDB">
                     <HorizontalStackLayout Padding="40, 5" Spacing="10">
                         <Grid RowDefinitions="*,*">
                             <Label Grid.Row="0" Text="{Binding Title}" FontSize="Medium"/>
-                            <Label Grid.Row="1" Text="The Song information"/>
+                            <Label Grid.Row="1" Text="{Binding Notes}"/>
                         </Grid>
                         
                     </HorizontalStackLayout>

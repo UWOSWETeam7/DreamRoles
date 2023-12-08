@@ -32,14 +32,14 @@ public partial class AddPerformerPopup : ContentPage
         }
         else
         {
-            String answer = MauiProgram.BusinessLogic.AddPerformer(firstName, lastName, null, email, phoneNumber);
-            if (answer == null)
+            var answer = MauiProgram.BusinessLogic.AddPerformer(firstName, lastName, null, email, phoneNumber);
+            if (answer.ResultMessage == null)
             {
                 Navigation.PopAsync();
             }
             else
             {
-                DisplayAlert("Error", answer, "Ok");
+                DisplayAlert("Error", answer.ResultMessage, "Ok");
             }
         }
     }

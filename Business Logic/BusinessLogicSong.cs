@@ -75,9 +75,9 @@ namespace Prototypes.Business_Logic
         /// <param name="userId">The id of the performer</param>
         /// <param name="songName">The song name</param>
         /// <returns>String- null if addition was successful or error message if not</returns>
-        public String AddSongForPerformer(int userId, String songName)
+        public String AddSongForPerformer(int userId, String songName, String notes)
         {
-            bool answer = Database.InsertSongForPerformer(userId, songName);
+            bool answer = Database.InsertSongForPerformer(userId, songName, notes);
             if (answer)
             {
                 return null;

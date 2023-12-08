@@ -19,8 +19,8 @@ public partial class AddSongForPerformerPopUp : ContentPage
         var song = (Song)label.BindingContext;
         int userId = _performer.Id;
         String songName = song.Title;
-        
-        String answer = MauiProgram.BusinessLogic.AddSongForPerformer(userId, songName);
+        //Change to what it needs to be
+        String answer = MauiProgram.BusinessLogic.AddSongForPerformer(userId, songName, null);
         if (answer == null)
         {
             Navigation.PopAsync();
