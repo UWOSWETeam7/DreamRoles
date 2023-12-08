@@ -86,7 +86,7 @@ public class RehearsalsViewModel : ObservableObject
         Rehearsals = MauiProgram.BusinessLogic.Rehearsals;
 
         MinRehearsalTime = DateTime.Now;
-        MaxRehearsalTime = DateTime.MaxValue;
+        MaxRehearsalTime = DateTime.Now.AddYears(1);
 
         FilteredRehearsals = Rehearsals;
     }
