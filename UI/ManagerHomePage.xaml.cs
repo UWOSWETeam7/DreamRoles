@@ -13,7 +13,7 @@ public partial class ManagerHomePage : ContentPage
         InitializeComponent();
 
         // get the rehearsal closest to the current time by ording the list of rehearsals and selecting the first one that is on or further than the current time
-        _nearestRehearsal = MauiProgram.BusinessLogic.Rehearsals.OrderBy(rehearsal => rehearsal.Time).First(rehearsal => rehearsal.Time >= DateTime.Now);
+        _nearestRehearsal = MauiProgram.BusinessLogic.Rehearsals.OrderBy(rehearsal => rehearsal.Time).First(rehearsal => rehearsal.Time >= DateTime.MinValue);
         LabelNearestRehearsal.Text = $"Next Rehearsal at {_nearestRehearsal.Time} for {_nearestRehearsal.Song.Title}";
         _viewModel = new SearchBarPerformerViewModel(_nearestRehearsal);
         BindingContext = _viewModel;

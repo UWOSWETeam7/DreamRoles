@@ -5,7 +5,7 @@
              Title="Manager Access Codes"
              BackgroundColor="#E1D6C9">
     <VerticalStackLayout>
-        <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*">
+        <Grid ColumnDefinitions="*,*,*, *" RowDefinitions="*,*,*">
             <Label  Grid.Row="0" Grid.Column="0"  Text="Performer Access Code: "/>
             <Label x:Name="performerAccessCode" Grid.Row="0" Grid.Column="1" Text="0000000"/>
             <Button Grid.Row="0" Grid.Column="2" BackgroundColor="#0E79A5" TextColor="Beige" Text="Generate New Access Code" Clicked="GenerateNewAccessCode"/>
@@ -15,6 +15,8 @@
             
             <Label Grid.Row="2" Grid.Column="0"  Text="Manager Access Code: "/>
             <Label x:Name="managerAccessCode" Grid.Row="2" Grid.Column="1" Text="0000000"/>
+
+            <Button Grid.Row="3" Text="Select File" Clicked="OnPickFileButtonClicked"/>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>
