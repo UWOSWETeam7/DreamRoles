@@ -9,14 +9,12 @@ namespace Prototypes.Databases;
 
 internal class SongDB : ISongDB
 {
-    public SongDB(string title, string artist, int duration)
+    public SongDB(string title, string notes)
     {
         Title = title;
-        Artist = artist;
-        Duration = duration;
+        Notes = notes;
     }
 
     public string Title { get; set; }
-    public string Artist { get; set; }
-    public int Duration { get; set; }
+    public string Notes { get; set; }
 }

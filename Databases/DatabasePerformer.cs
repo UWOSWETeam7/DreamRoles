@@ -129,9 +129,8 @@ namespace Prototypes.Databases
         /// </summary>
         /// <param name="performer">the performer that the user wants to put into the file</param>
         /// <returns>True if it was inserted into the database, false otherwise</returns>
-        public Boolean InsertPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber, int absences)
+        public (bool Success, int UserId) InsertPerformer(string firstName, string lastName, ObservableCollection<ISongDB> songs, string email, string phoneNumber, int absences)
         {
-
             try
             {
                 // Connect and open a connection to the database
@@ -161,15 +160,17 @@ namespace Prototypes.Databases
                 cmd.Parameters.AddWithValue("checked_in_status", "not checked in");
                 cmd.ExecuteNonQuery();
 
-                //Repopulates the performers
+                // Repopulates the performers
                 SelectAllPerformers(2023);
 
+                // Return a tuple with success status and user ID
+                return (true, (int)id);
             }
             catch (Npgsql.PostgresException e)
             {
-                return false;
+                // Return a tuple indicating failure with a default user ID of 0
+                return (false, 0);
             }
-            return true;
         }
 
         public Boolean UpdatePerformerName(int userId, String firstName, String lastName)

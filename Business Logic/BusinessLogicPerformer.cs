@@ -52,24 +52,24 @@ namespace Prototypes.Business_Logic
         /// <param name="email">The email of the performer</param>
         /// <param name="phoneNumber">The phone number of the perfoormer</param>
         /// <returns>A String that is null if everything worked if not it will return a error message.</returns>
-        public String AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
+        public (string ResultMessage, int PerformerId) AddPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber)
         {
 
             if (firstName.Length <= 255 || lastName.Length <= 255 || email.Length <= 255 || phoneNumber.Length <= 14)
             {
                 //True if it did add it to the datebase false if it didn't
-                bool answer = Database.InsertPerformer(firstName, lastName, songs, email, phoneNumber, 0);
-                if (answer)
+                var answer =  Database.InsertPerformer(firstName, lastName, songs, email, phoneNumber, 0);
+                if (answer.Success)
                 {
-                    return null;
+                    return (null, answer.UserId) ;
                 }
                 else
                 {
-                    return "Could not add performer to database.";
+                    return ("Could not add performer to database.", 0);
                 }
 
             }
-            return "Invalid length of input.";
+            return ("Invalid length of input.", 0);
 
         }
 

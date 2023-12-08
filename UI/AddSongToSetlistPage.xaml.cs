@@ -23,8 +23,8 @@ public partial class AddSongToSetlistPage : ContentPage
             DisplayAlert(null, "You must select a performer whose setlist you will be adding this song to", "Okay");
             return;
         }
-
-        String answer = MauiProgram.BusinessLogic.AddSongForPerformer(_performer.Id, _song.Title);
+        //Change to what it needs to be
+        String answer = MauiProgram.BusinessLogic.AddSongForPerformer(_performer.Id, _song.Title, null);
         if (answer == null)
         {
             DisplayAlert(null, $"Successfully added {_song.Title} to {_performer.FirstName}'s setlist", "Okay");

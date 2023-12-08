@@ -11,7 +11,7 @@ namespace Prototypes.UI
             InitializeComponent();
             ObservableCollection<ISongDB> song = new ObservableCollection<ISongDB>();
             MainPage = new NavigationPage(new WelcomePage());
-            ;
+            
         }
     }
 }

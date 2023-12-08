@@ -70,11 +70,16 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Core" Version="6.0.0" />
+		<PackageReference Include="EPPlus" Version="7.0.3" />
+		<PackageReference Include="ExcelDataReader" Version="3.6.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Npgsql" Version="7.0.6" />
+		<PackageReference Include="OfficeOpenXml.Core.ExcelPackage" Version="1.0.0" />
+		<PackageReference Include="OfficeOpenXml.Extends" Version="1.0.6" />
 		<PackageReference Include="Remotion.Linq" Version="2.2.0" />
+		<PackageReference Include="System.Management.Automation" Version="7.3.9" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -86,6 +91,9 @@
 	  </Compile>
 	  <Compile Update="UI\AddSongForPerformerPopUp.xaml.cs">
 	    <DependentUpon>AddSongForPerformerPopUp.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\InputExcelPage.xaml.cs">
+	    <DependentUpon>InputExcelPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="UI\RehearsalCheckInPopup.xaml.cs">
 	    <DependentUpon>RehearsalCheckInPopup.xaml</DependentUpon>
@@ -172,6 +180,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\ManagerRehearsalsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\InputExcelPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\RehearsalCheckInPopup.xaml">

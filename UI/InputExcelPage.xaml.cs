@@ -1,27 +1,13 @@
 using OfficeOpenXml;
-
+using System.Text;
 namespace Prototypes.UI;
 
-public partial class ManagerAccesssCodePage : ContentPage
+public partial class InputExcelPage : ContentPage
 {
-	public ManagerAccesssCodePage()
+	public InputExcelPage()
 	{
 		InitializeComponent();
-        managerAccessCode.Text = MauiProgram.BusinessLogic.GetManagerAccessCode();
-        choreoAccessCode.Text = MauiProgram.BusinessLogic.GetChoreoAccessCode();
-        performerAccessCode.Text = MauiProgram.BusinessLogic.GetPerformerAccessCode();
-    }
-
-    private void GenerateNewAccessCode(object sender, EventArgs e)
-    {
-        MauiProgram.BusinessLogic.GenerateNewAccessCode();
-        UpdateAccessCode();
-    }
-
-    private void UpdateAccessCode()
-    {
-        performerAccessCode.Text = MauiProgram.BusinessLogic.GetPerformerAccessCode();
-    }
+	}
 
     private async void OnPickFileButtonClicked(object sender, EventArgs e)
     {
@@ -79,7 +65,7 @@ public partial class ManagerAccesssCodePage : ContentPage
                             phoneNumber = "";
                         }
                         var answer = MauiProgram.BusinessLogic.AddPerformer(firstName, lastName, null, email, phoneNumber);
-
+                        
                         if (answer.ResultMessage == null)
                         {
                             // Iterate through song columns (assuming there are 9 pairs of song and notes)
@@ -89,7 +75,7 @@ public partial class ManagerAccesssCodePage : ContentPage
                                 string notes = worksheet.Cells[row, col + 1].GetValue<string>();
                                 int performerId = answer.PerformerId;
                                 // Process song and notes data as needed
-                                if (notes == null)
+                                if(notes == null)
                                 {
                                     notes = "";
                                 }
@@ -97,16 +83,16 @@ public partial class ManagerAccesssCodePage : ContentPage
                                 {
                                     MauiProgram.BusinessLogic.AddSongForPerformer(answer.PerformerId, song, notes);
                                 }
+                                await DisplayAlert("Data", $"{firstName} {lastName}: Song {col / 2} - {song}, Notes: {notes}", "OK");
+                                
                             }
-
                         }
                         else
                         {
                             await DisplayAlert("Error", answer + " for " + firstName + " " + lastName + ".", "Ok");
                         }
-
+                       
                     }
-                    await DisplayAlert("Success", "It worked", "Yay");
                 }
             }
         }

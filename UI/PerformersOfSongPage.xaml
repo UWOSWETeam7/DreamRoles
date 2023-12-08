@@ -85,6 +85,6 @@
 		Margin="-55,0,0,0"
 		Text="Role:"
 		FontSize="15"/>
-        <Button Grid.Row="5" Grid.Column="1" Text="Add Song to a Setlist" Clicked="AddToSetlist_Clicked"/>
+        <Button Grid.Row="5" Grid.Column="1" BackgroundColor="#0E79A5" Text="Add Song to a Setlist" Clicked="AddToSetlist_Clicked"/>
     </Grid>
 </ContentPage>

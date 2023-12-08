@@ -9,4 +9,5 @@ namespace Prototypes.Model.Interfaces;
 public interface ISongDB
 {
     string Title { get; set; }
+    string Notes {  get; set; }
 }
