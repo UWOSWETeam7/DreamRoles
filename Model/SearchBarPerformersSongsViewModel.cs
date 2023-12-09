@@ -18,15 +18,15 @@ public class SearchBarPerformersSongsViewModel : ObservableObject
     }
 
 
-    private ObservableCollection<ISongDB> _songs;
-    public ObservableCollection<ISongDB> Songs
+    private ObservableCollection<Song> _songs;
+    public ObservableCollection<Song> Songs
     {
         get { return _songs; }
         set { SetProperty(ref _songs, value); }
     }
 
-    private ObservableCollection<ISongDB> _filteredSongs;
-    public ObservableCollection<ISongDB> FilteredSongs
+    private ObservableCollection<Song> _filteredSongs;
+    public ObservableCollection<Song> FilteredSongs
     {
         get { return _filteredSongs; }
         set { SetProperty(ref _filteredSongs, value); }
@@ -34,7 +34,7 @@ public class SearchBarPerformersSongsViewModel : ObservableObject
 
     public SearchBarPerformersSongsViewModel(Performer performer)
     {
-        Songs = performer.Songs;
+        Songs = MauiProgram.BusinessLogic.GetPerfomrerSetlist(performer.Id);
         FilteredSongs = Songs;
     }
 
@@ -46,7 +46,7 @@ public class SearchBarPerformersSongsViewModel : ObservableObject
         }
         else
         {
-            FilteredSongs = new ObservableCollection<ISongDB>(
+            FilteredSongs = new ObservableCollection<Song>(
                Songs.Where(Song => Song.Title.ToLower().Contains(SearchText.ToLower())));
         }
     }

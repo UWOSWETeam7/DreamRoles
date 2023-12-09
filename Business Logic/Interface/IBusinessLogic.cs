@@ -7,6 +7,8 @@ namespace Prototypes.Business_Logic.Interface
 {
     public interface IBusinessLogic
     {
+        public ObservableCollection<Song> GetPerfomrerSetlist(int performerId);
+
         /// <summary>
         /// Gets the ObservableCollection of all performers
         /// </summary>

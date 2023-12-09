@@ -9,6 +9,29 @@ namespace Prototypes.Databases
 {
     public partial class Database : IDatabase
     {
+        public ObservableCollection<Song> GetPerformerSetList(int performerId)
+        {
+            ObservableCollection<Song> performerSetlist = new ObservableCollection<Song>();
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            // Commands to get all the performers in the database
+            using var cmd = new NpgsqlCommand("SELECT song_title, notes " +
+                                              "FROM setlists " +
+                                              "WHERE user_id = @userId;", conn);
+            cmd.Parameters.AddWithValue("userId", performerId);
+            using var reader = cmd.ExecuteReader();
+
+            while(reader.Read())
+            {
+                String title = reader.GetString(0);
+                String note = reader.GetString(1);
+                Song song = new Song(title, note);
+                performerSetlist.Add(song);
+            }
+            return performerSetlist;
+        }
+        
         private ObservableCollection<Performer> _performers;
 
         /// <summary>

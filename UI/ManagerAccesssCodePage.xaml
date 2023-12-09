@@ -16,7 +16,7 @@
             <Label Grid.Row="2" Grid.Column="0"  Text="Manager Access Code: "/>
             <Label x:Name="managerAccessCode" Grid.Row="2" Grid.Column="1" Text="0000000"/>
 
-            <Button Grid.Row="3" Text="Select File" Clicked="OnPickFileButtonClicked"/>
+            <Button Grid.Row="3" Text="Select File to Input Performers and Their Songs" Clicked="OnPickFileButtonClicked" Margin="250,50,0,0" WidthRequest="350"/>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>
