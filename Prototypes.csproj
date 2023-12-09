@@ -92,9 +92,6 @@
 	  <Compile Update="UI\AddSongForPerformerPopUp.xaml.cs">
 	    <DependentUpon>AddSongForPerformerPopUp.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="UI\InputExcelPage.xaml.cs">
-	    <DependentUpon>InputExcelPage.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="UI\RehearsalCheckInPopup.xaml.cs">
 	    <DependentUpon>RehearsalCheckInPopup.xaml</DependentUpon>
 	  </Compile>
@@ -180,9 +177,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\ManagerRehearsalsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="UI\InputExcelPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\RehearsalCheckInPopup.xaml">
