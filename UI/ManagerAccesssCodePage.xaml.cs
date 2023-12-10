@@ -78,13 +78,17 @@ public partial class ManagerAccesssCodePage : ContentPage
                         {
                             phoneNumber = "";
                         }
+                        if(firstName == null)
+                        {
+                            break;
+                        }
                         var answer = MauiProgram.BusinessLogic.AddPerformer(firstName, lastName, null, email, phoneNumber);
 
                         if (answer.ResultMessage == null)
                         {
                             // Iterate through song columns (assuming there are 9 pairs of song and notes)
                             for (int col = 5; col <= 21; col += 2)
-                            {
+                          {
                                 string song = worksheet.Cells[row, col].GetValue<string>();
                                 string notes = worksheet.Cells[row, col + 1].GetValue<string>();
                                 int performerId = answer.PerformerId;

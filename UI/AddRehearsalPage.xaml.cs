@@ -7,6 +7,7 @@ public partial class AddRehearsalPage : ContentPage
     {
         InitializeComponent();
         CVSongs.ItemsSource = MauiProgram.BusinessLogic.Songs;
+        BindingContext = MauiProgram.BusinessLogic.Songs;
     }
 
     private void Button_Clicked(object sender, EventArgs e)

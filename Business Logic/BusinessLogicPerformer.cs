@@ -7,6 +7,10 @@ namespace Prototypes.Business_Logic
 {
     public partial class BusinessLogic : IBusinessLogic
     {
+        public ObservableCollection<Song> GetPerfomrerSetlist(int performerId)
+        {
+            return Database.GetPerformerSetList(performerId);
+        }
         /// <summary>
         /// Gets all the performers from the Database
         /// </summary>

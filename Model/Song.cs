@@ -10,8 +10,10 @@ namespace Prototypes.Model
         public event PropertyChangedEventHandler PropertyChanged;
         public Song(String title, String notes)
         {
-            Title = title;
-            Notes = notes;
+            _title = title;
+            _notes = notes;
+            OnPropertyChanged(nameof(Title));
+            OnPropertyChanged(nameof(Notes));
         }
 
         public String Title
@@ -23,7 +25,7 @@ namespace Prototypes.Model
         public String Notes
         {
             get { return _notes; }
-            set { _notes = value; OnPropertyChanged(nameof(Title)); }
+            set { _notes = value; OnPropertyChanged(nameof(Notes)); }
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
