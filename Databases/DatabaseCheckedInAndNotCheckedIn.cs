@@ -150,6 +150,12 @@ namespace Prototypes.Databases
                 return (false, ex.Message);
             }
         }
+        /// <summary>
+        /// Updates the checked in status of a performer
+        /// </summary>
+        /// <param name="performer">The name of the performer to update</param>
+        /// <param name="status">The new check in status of the performer</param>
+        /// <returns>a tuple with a bool value for if the update succeeded and a success/failure message</returns>
         public (bool success, string message) UpdatePerformerStatus(Performer performer, String status)
         {
             try
@@ -159,6 +165,7 @@ namespace Prototypes.Databases
 
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
+
                 cmd.CommandText = "UPDATE rehearsal_members\r\n" +
                     "SET status = @status\r\n" +
                     "WHERE user_id = @user_id;";
@@ -166,6 +173,7 @@ namespace Prototypes.Databases
                 cmd.Parameters.AddWithValue("status", status);
                 var success = cmd.ExecuteNonQuery();
 
+                // if there were rows affected from the query
                 if (success > -1)
                 {
                     performer.CheckedInStatus = status;
@@ -176,6 +184,7 @@ namespace Prototypes.Databases
             }
             catch (Exception ex)
             {
+                // return false and send the exception message back if exception caught
                 return (false, ex.Message);
             }
         }

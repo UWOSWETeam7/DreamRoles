@@ -330,7 +330,11 @@ namespace Prototypes.Databases
             }
             return true;
         }
-
+        /// <summary>
+        /// Gets a performer by userId
+        /// </summary>
+        /// <param name="userId">The user Id to search by</param>
+        /// <returns>A Performer object with matching Id or null if not found</returns>
         public Performer SelectPerformer(int userId)
         {
             //Loop through all the aiports in the ObservableCollection
@@ -345,20 +349,24 @@ namespace Prototypes.Databases
             //Not found so return null
             return null;
         }
-
+        /// <summary>
+        /// Gets all rehearsals that do not have a checked in status for a performer
+        /// </summary>
+        /// <param name="userId">The Id of the performer to search for</param>
+        /// <returns>a collection of rehearsals that do not have a checked in status for a specified performer</returns>
         public ObservableCollection<Rehearsal> SelectPerformerAbsences(int userId)
         {
             ObservableCollection<Rehearsal> missedRehearsals = new ObservableCollection<Rehearsal>();
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
-
+            // Get all rehearsals prior to the current time that do not have a status of checked in for a performer
             using var cmd = new NpgsqlCommand("SELECT * FROM rehearsal_members\r\n" +
                 "WHERE user_id = @userId AND status != 'checked in' AND rehearsal_time < CURRENT_TIMESTAMP;");
 
             cmd.Parameters.AddWithValue("userId", userId);
 
             using var reader = cmd.ExecuteReader();
-
+            // for all query results, searches the collection of all rehearsals that have a matching song title and time
             while(reader.Read())
             {
                 String songTitle = reader.GetString(1);

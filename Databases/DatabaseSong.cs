@@ -9,7 +9,10 @@ namespace Prototypes.Databases
     public partial class Database : IDatabase
     {
         private ObservableCollection<Song> _songs;
-
+        /// <summary>
+        /// Gets all songs from the database
+        /// </summary>
+        /// <returns>a collection of all the songs</returns>
         public ObservableCollection<Song> SelectAllSongs()
         {
             // Create a new ObservableCollection to store songs
@@ -82,7 +85,11 @@ namespace Prototypes.Databases
             // Return the collection of songs
             return songs;
         }
-
+        /// <summary>
+        /// Adds a song to the database
+        /// </summary>
+        /// <param name="title">The title of the song</param>
+        /// <returns>a Boolean of success or failure</returns>
         public Boolean InsertSong(String title)
         {
             try
@@ -110,7 +117,12 @@ namespace Prototypes.Databases
             }
             return true;
         }
-
+        /// <summary>
+        /// Updates a song
+        /// </summary>
+        /// <param name="oldSongName">The current song name</param>
+        /// <param name="songName">The new song name</param>
+        /// <returns></returns>
         public Boolean UpdateSong(String oldSongName, String songName)
         {
             try
@@ -178,7 +190,11 @@ namespace Prototypes.Databases
 
             return true;
         }
-
+        /// <summary>
+        /// Adds a song that a specified performer will be performing
+        /// </summary>
+        /// <param name="userId">The Id of the user</param>
+        /// <param name="songTitle">The title of the song</param>
         private void InsertIntoSetlist(int userId, String songTitle)
         {
             using var conn = new NpgsqlConnection(_connString);
@@ -203,7 +219,11 @@ namespace Prototypes.Databases
             cmd.Parameters.AddWithValue("rehearsal_time", rehearsalTime);
             cmd.ExecuteNonQuery();
         }
-
+        /// <summary>
+        /// Removes a song from the database
+        /// </summary>
+        /// <param name="songTitle">The title of the song to remove</param>
+        /// <returns></returns>
         public Boolean DeleteSong(String songTitle)
         {
             //Connects and opens a connection to the database
@@ -224,7 +244,13 @@ namespace Prototypes.Databases
             }
             return numDeleted > 0;
         }
-
+        /// <summary>
+        /// Adds a song for a performer with notes
+        /// </summary>
+        /// <param name="userId">the id of the user</param>
+        /// <param name="songName">the name of the song</param>
+        /// <param name="notes">stage manager notes for the performer</param>
+        /// <returns>a Boolean of success or failure</returns>
         public Boolean InsertSongForPerformer(int userId, String songName, String notes)
         {
             try
