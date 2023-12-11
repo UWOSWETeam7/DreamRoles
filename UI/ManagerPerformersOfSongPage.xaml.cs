@@ -10,6 +10,7 @@ public partial class ManagerPerformersOfSongPage : ContentPage
         InitializeComponent();
         BindingContext = new SearchBarPerformersOfSongsViewModel(song);
         _song = song;
+        Title = $"{"Performers Of"} {_song.Title} ";
     }
 
     private void AddToSetlist_Clicked(object sender, EventArgs e)
