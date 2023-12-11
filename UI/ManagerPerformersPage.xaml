@@ -11,10 +11,9 @@
 	RowSpacing="7"
 	ColumnSpacing="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="75" />
             <RowDefinition Height="50"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="550" />
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="600" />
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
 
@@ -25,8 +24,9 @@
         </Grid.ColumnDefinitions>
         <SearchBar
 					BackgroundColor="White"
-					Grid.Row="1"
-					Grid.Column="1"
+					Grid.Row="0"
+					Grid.Column="0"
+                    Grid.ColumnSpan="3"
 					HorizontalOptions="Center"
 					Placeholder="Enter Name Here"
 					HorizontalTextAlignment="Center"
@@ -34,7 +34,7 @@
                     Text="{Binding SearchText}"/>
 
         <CollectionView
-						Grid.Row="3"
+						Grid.Row="2"
 						Grid.Column="0"
 						Grid.ColumnSpan="3"
 						HorizontalOptions="Start"
@@ -44,16 +44,17 @@
                         SelectionChanged="OnPerformerSelectionChange">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
-                    <Grid ColumnDefinitions="2*,*,*,*">
-                        <HorizontalStackLayout Padding="30, 0" Spacing="10">
+                    <Grid ColumnDefinitions="2*,*,*">
+                        <HorizontalStackLayout Padding="30, 0" Spacing="5">
                             <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
                             </Label>
                             <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
                             </Label>
                         </HorizontalStackLayout>
-                        <Image Grid.Column="3" Source="trash.png"
-						 VerticalOptions="Center"
-						 HorizontalOptions="End"
+                        <Image Grid.Column="2" Source="trash.png"
+						 VerticalOptions="Start"
+						 HorizontalOptions="Start"
+                         Margin="0,0,0,0"
 						 Scale="0.4">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="DeletePerformer"/>
@@ -64,19 +65,12 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Label
-		Grid.Row="2"
-		Grid.Column="1"
-		Margin="-10,0,0,0"
+		Grid.Row="1"
+		Grid.Column="0"
+		Margin="30,0,0,0"
 		Text="Name:"
 		FontSize="15"/>
-        <Label
-		Grid.Row="2"
-		Grid.Column="2"
-		HorizontalOptions="Start"
-		Margin="-55,0,0,0"
-		Text="Check-In:"
-		FontSize="15"/>
 
-        <Button CornerRadius="0" Grid.Row="4" Grid.ColumnSpan="4" Text="Add Performer" Clicked="ShowAddPerformerPopup" BackgroundColor="#0E79A5" Padding="0" Margin="0, 0,0,0"/>
+        <Button CornerRadius="0" Grid.Row="3" Grid.ColumnSpan="4" Text="Add Performer" Clicked="ShowAddPerformerPopup" BackgroundColor="#0E79A5" Padding="0" Margin="0, 0,0,0"/>
     </Grid>
 </ContentPage>
