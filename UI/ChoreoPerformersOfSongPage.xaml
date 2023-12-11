@@ -4,8 +4,15 @@
              xmlns:model="clr-namespace:Prototypes.Model"
              x:DataType="model:SearchBarPerformerViewModel"
              x:Class="Prototypes.UI.ChoreoPerformersOfSongPage"
-             Title="Performers Of Song"
-             BackgroundColor="#E1D6C9">
+                          BackgroundColor="#E1D6C9">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label x:Name="title" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige" LineBreakMode="WordWrap"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
     <Grid
 	RowSpacing="5"
 	ColumnSpacing="5"

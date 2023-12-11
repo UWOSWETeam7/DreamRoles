@@ -22,4 +22,10 @@ public partial class ChoreoRehearsalsPage : ContentPage
 
         await Navigation.PushAsync(new ChoreoRehearsalPage(rehearsal));
     }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
+    }
 }

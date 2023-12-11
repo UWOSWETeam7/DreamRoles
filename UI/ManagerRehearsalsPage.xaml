@@ -5,6 +5,14 @@
              x:Class="Prototypes.UI.ManagerRehearsalsPage"
              Title="Rehearsals"
              BackgroundColor="#E1D6C9">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Rehearsals" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    
     <VerticalStackLayout>
         <Frame BackgroundColor="#E1D6C9">
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">

@@ -18,4 +18,10 @@ public partial class ChoreoNotCheckedInPage : ContentPage
             throw;
         }
     }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
+    }
 }

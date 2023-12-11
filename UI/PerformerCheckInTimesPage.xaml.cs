@@ -12,7 +12,7 @@ public partial class PerformerCheckInTimesPage : ContentPage
         InitializeComponent();
         _performer = performer;
         CVRehearsals.ItemsSource = MauiProgram.BusinessLogic.GetPerformerRehearsals(performer);
-        Title = $"{_performer.FirstName} {_performer.LastName} {"Check-In Times"}";
+        title.Text = _performer.FirstName + " " + performer.LastName + "'s Check-In Times";
     }
 
 
@@ -33,10 +33,16 @@ public partial class PerformerCheckInTimesPage : ContentPage
         {
             MauiProgram.BusinessLogic.UpdatePerformerRehearsalStatus(performer, rehearsal, true);
             await Navigation.PushAsync(new PerformerHomePage(_performer));
+            Navigation.RemovePage(this);
         }
         else
         {
             CVRehearsals.SelectedItem = null;
         }
+    }
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
     }
 }

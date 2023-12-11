@@ -22,4 +22,10 @@ public partial class ChoreoCheckedInPage : ContentPage
             MauiProgram.BusinessLogic.DeletePerformer(performer.Id);
         }
     }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
+    }
 }

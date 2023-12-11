@@ -7,6 +7,14 @@
              x:Class="Prototypes.UI.ManagerPerformerInfoPage"
              Title="Performer Information"
              BackgroundColor="#E1D6C9">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label x:Name="title" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    
     <ScrollView BackgroundColor="#e1d6c9">
         <VerticalStackLayout Spacing="20" VerticalOptions="Start">
             <Border BackgroundColor="#ac9884">

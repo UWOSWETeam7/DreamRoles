@@ -9,7 +9,6 @@ public partial class WelcomePage : ContentPage
     public WelcomePage()
     {
         InitializeComponent();
-      //  Access.Text = accessCode.ToString();
     }
 
     private async void OnEnter_Clicked(object sender, EventArgs e)
@@ -20,28 +19,32 @@ public partial class WelcomePage : ContentPage
         //if the performer access code is entered, go to select name page and show names in dropdown- SelectNamePage.xaml
         //if stage manager access code is entered, go to stage manager home page- ManagerHomePage.xaml
         //if choreographer access code is entered, go to choreographer home page- ChoreoHomePage.xaml
-
-        var enteredCode = int.Parse(access.Text);
-        if (enteredCode == performerAccessCode )
+        try
         {
-            await Navigation.PushAsync(new SelectNamePage());
-            Navigation.RemovePage(this);
-        } else if (enteredCode == stageManagerAccessCode )
-        {
-            await Navigation.PushAsync(new ManagerHomePage());
-            Navigation.RemovePage(this);
+            var enteredCode = int.Parse(access.Text);
+            if (enteredCode == performerAccessCode)
+            {
+                await Navigation.PushAsync(new SelectNamePage());
+                Navigation.RemovePage(this);
+            }
+            else if (enteredCode == stageManagerAccessCode)
+            {
+                await Navigation.PushAsync(new ManagerHomePage());
+                Navigation.RemovePage(this);
+            }
+            else if (enteredCode == choreographerAccessCode)
+            {
+                await Navigation.PushAsync(new ChoreoHomePage());
+                Navigation.RemovePage(this);
+            }
+            else
+            {
+                await DisplayAlert("Invalid Access Code", "This is a invalid access code. Please try a different code.", "Ok");
+            }
         }
-        else if (enteredCode == choreographerAccessCode )
+        catch(Exception ev)
         {
-            await Navigation.PushAsync(new ChoreoHomePage());
-            Navigation.RemovePage(this);
+            await DisplayAlert("Warning", "Please enter a access code", "Ok");
         }
-        else 
-        {
-            await DisplayAlert("Invalid Access Code", "This is a invalid access code. Please try a different code.", "Ok");
-        }
-        //Access.Text = accessCode.ToString();
-    }
-
-  
+    }  
 }

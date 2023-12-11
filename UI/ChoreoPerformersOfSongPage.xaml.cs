@@ -10,6 +10,12 @@ public partial class ChoreoPerformersOfSongPage : ContentPage
         InitializeComponent();
         BindingContext = new SearchBarPerformersOfSongsViewModel(song);
         _song = song;
-        Title = $"{"Performers Of"} {_song.Title} ";
+        title.Text = $"{"Performers Of"} {_song.Title} ";
+    }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
     }
 }

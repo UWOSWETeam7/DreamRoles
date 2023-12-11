@@ -47,4 +47,10 @@ public partial class ManagerAlertPage : ContentPage
     {
         Navigation.PushAsync(new ManagerPerformerInfoPage(_performer));
     }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
+    }
 }

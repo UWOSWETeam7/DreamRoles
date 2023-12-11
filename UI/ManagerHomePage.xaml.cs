@@ -76,9 +76,10 @@ public partial class ManagerHomePage : ContentPage
 
 
     }
-
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
     {
-
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
     }
+
 }
