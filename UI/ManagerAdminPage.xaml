@@ -5,19 +5,19 @@
              Title="Manager Admin"
              BackgroundColor="#E1D6C9">
     <VerticalStackLayout>
-        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*,*,*">
-            <Label  Grid.Row="0" Grid.Column="0"  Text="Performer Access Code: "/>
-            <Label x:Name="performerAccessCode" Grid.Row="0" Grid.Column="1" Text="0000000"/>
-            <Button Grid.Row="0" Grid.Column="2" BackgroundColor="#0E79A5" TextColor="Beige" Text="Generate New Access Code" Clicked="GenerateNewAccessCode"/>
+        <Grid ColumnDefinitions="2*,*" RowDefinitions="*,*,*,*,*,*" RowSpacing="15">
+            <Label  Grid.Row="0" Grid.Column="0"  Text="Performer Access Code:" Margin="5,0,0,0" FontSize="Medium"/>
+            <Label x:Name="performerAccessCode" Grid.Row="0" Grid.Column="1" Text="0000000" Margin="-45,0,0,0" FontSize="Medium"/>
+            <Button Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2" BackgroundColor="#0E79A5" Text="Generate New Access Code For Performer" Clicked="GenerateNewAccessCode" Margin="5,0,5,0" />
 
-            <Label Grid.Row="1" Grid.Column="0"  Text="Choreographer Access Code: "/>
-            <Label x:Name="choreoAccessCode" Grid.Row="1" Grid.Column="1" Text="0000000"/>
-            
-            <Label Grid.Row="2" Grid.Column="0"  Text="Manager Access Code: "/>
-            <Label x:Name="managerAccessCode" Grid.Row="2" Grid.Column="1" Text="0000000"/>
+            <Label Grid.Row="2" Grid.Column="0"  Text="Choreographer Access Code:" Margin="5,0,0,0" FontSize="Medium"/>
+            <Label x:Name="choreoAccessCode" Grid.Row="2" Grid.Column="1" Text="0000000" FontSize="Medium" Margin="-5,0,0,0"/>
 
-            <Button Grid.Row="3" Text="Select File to Input Performers and Their Songs" Clicked="OnPickFileButtonClicked" Margin="250,50,0,0" WidthRequest="350"/>
-            <Button Grid.Row="4" Text="Delete All Information in Tables" Clicked="DeleteAllInfoClicked" Margin="250,50,0,0" WidthRequest="350"/>
+            <Label Grid.Row="3" Grid.Column="0"  Text="Manager Access Code:" Margin="5,0,0,0" FontSize="Medium"/>
+            <Label x:Name="managerAccessCode" Grid.Row="3" Grid.Column="1" Text="0000000" Margin="-60,0,0,0" FontSize="Medium"/>
+
+            <Button Grid.Row="4" Grid.ColumnSpan="2" BackgroundColor="#0E79A5" Text="Select File to Input Performers/Songs" Clicked="OnPickFileButtonClicked" />
+            <Button Grid.Row="5" Grid.ColumnSpan="2" BackgroundColor="Red" Text="Delete All Information in Database" Clicked="DeleteAllInfoClicked"/>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

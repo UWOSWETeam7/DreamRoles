@@ -22,13 +22,7 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <BoxView 
-			 Grid.Row="0" 
-			 Grid.ColumnSpan="3"
-			 Color="#866B53"
-			 CornerRadius="10, 10, 10, 10"
-			 WidthRequest="400"
-			 HeightRequest="50"/>
+        
         <Label 
 		       Grid.Row="0"
 		       Grid.ColumnSpan="3" 

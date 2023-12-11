@@ -23,22 +23,7 @@ public partial class ManagerRehearsalPage : ContentPage
         _searchBarPerformerViewModel.Performers = MauiProgram.BusinessLogic.GetPerformersOfARehearsal(_rehearsal);
     }
 
-    private async void RemovePerformer(object sender, EventArgs e)
-    {
-        var image = (Image)sender;
-        var performer = (Performer)image.BindingContext;
-
-        Boolean userResponse = await DisplayAlert("Confirmation", "Are you sure you want to remove this performer from this rehearsal?", "Yes", "Cancel");
-
-        if (userResponse)
-        {
-            var invokeRemove = MauiProgram.BusinessLogic.RemovePerformerFromRehearsal(performer, _rehearsal);
-            if (invokeRemove.success)
-            {
-                _searchBarPerformerViewModel.Performers.Remove(performer);
-            }
-        }
-    }
+   
 
     private async void OnPerformerSelectionChange(object sender, SelectionChangedEventArgs e)
     {
@@ -54,20 +39,5 @@ public partial class ManagerRehearsalPage : ContentPage
     private void ShowSongListPage(object sender, EventArgs e)
     {
         Navigation.PushAsync(new ManagerSongsPage());
-    }
-    private async void ChangeCheckInStatus(object sender, EventArgs e)
-    {
-        var label = (Image)sender;
-        var performer = (Performer)label.BindingContext;
-        string status = await DisplayActionSheet("Change performer check-in status to:", null, null, "checked in", "excused", "not checked in");
-
-        MauiProgram.BusinessLogic.UpdatePerformerStatus(performer, status);
-
-
-    }
-
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {
-
     }
 }

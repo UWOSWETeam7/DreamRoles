@@ -8,12 +8,9 @@
              BackgroundColor="#E1D6C9">
     <Grid
      RowSpacing="6"
-     ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="620" />
-        </Grid.RowDefinitions>
+     ColumnSpacing="5"
+        RowDefinitions="35*,20*,600*">
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="200"/>

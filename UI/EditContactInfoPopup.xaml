@@ -2,14 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Prototypes.UI.EditContactInfoPopup"
-             Title="Edit Contact Information">
+             Title="Edit Contact Information"
+             BackgroundColor="#E1D6C9">
     <VerticalStackLayout>
-        <Grid RowDefinitions="*,*" ColumnDefinitions="*,2.5*">
-            <Label Grid.Row="0" Grid.Column="0" Text="Phone Number:"/>
-            <Entry x:Name="phoneNumberEntry" Grid.Row="0" Grid.Column="1" Placeholder="Enter the Phone Number"/>
-            <Label Grid.Row="1" Grid.Column="0" Text="Email:"/>
-            <Entry x:Name="emailEntry" Grid.Row="1" Grid.Column="1" Placeholder="Enter the Email" Margin="-50,0,0,0"/>
+        <Grid RowDefinitions="*,*" ColumnDefinitions="*,2.5*" RowSpacing="0">
+            <Label Grid.Row="0" Grid.Column="0" Text="Phone Number:"  Margin="5,15,0,0" />
+            <Entry x:Name="phoneNumberEntry" Grid.Row="0" Grid.Column="1" Placeholder="Enter Phone Number" Margin="0,0,5,0" PlaceholderColor="DarkSlateGrey"/>
+            <Label Grid.Row="1" Grid.Column="0" Text="Email:" Margin="5,15,0,0"/>
+            <Entry x:Name="emailEntry" Grid.Row="1" Grid.Column="1" Placeholder="Enter Email" Margin="-65,0,5,0" PlaceholderColor="DarkSlateGrey"/>
         </Grid>
-        <Button Text="Edit" Clicked="EditContactInfo"/>
+        <Button Text="Edit" Clicked="EditContactInfo" BackgroundColor="#0E79A5" Margin="0,10,0,0"/>
     </VerticalStackLayout>
 </ContentPage>

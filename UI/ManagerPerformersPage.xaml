@@ -9,13 +9,9 @@
 			 Shell.BackgroundColor="#ac9884">
     <Grid
 	RowSpacing="7"
-	ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="600" />
-            <RowDefinition Height="25"/>
-        </Grid.RowDefinitions>
+	ColumnSpacing="5"
+        RowDefinitions="40*,20*,550*,40*">
+
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -32,7 +28,14 @@
 					HorizontalTextAlignment="Center"
 					VerticalTextAlignment="Center"
                     Text="{Binding SearchText}"/>
-
+        
+        <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="35,0,0,0"
+            Text="Name:"
+            FontSize="15"/> 
+        
         <CollectionView
 						Grid.Row="2"
 						Grid.Column="0"
@@ -41,7 +44,8 @@
 						x:Name="CVPerformers"
                         ItemsSource="{Binding FilteredPerformers}" 
                         SelectionMode="Single"
-                        SelectionChanged="OnPerformerSelectionChange">
+                        SelectionChanged="OnPerformerSelectionChange"
+                        Margin="5,0,0,0">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
                     <Grid ColumnDefinitions="2*,*,*">
@@ -64,13 +68,8 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Label
-		Grid.Row="1"
-		Grid.Column="0"
-		Margin="30,0,0,0"
-		Text="Name:"
-		FontSize="15"/>
+        
 
-        <Button CornerRadius="0" Grid.Row="3" Grid.ColumnSpan="4" Text="Add Performer" Clicked="ShowAddPerformerPopup" BackgroundColor="#0E79A5" Padding="0" Margin="0, 0,0,0"/>
+        <Button Grid.Row="3" Grid.ColumnSpan="4" Text="Add Performer" Clicked="ShowAddPerformerPopup" BackgroundColor="#0E79A5" Padding="0" Margin="0, 0,0,0"/>
     </Grid>
 </ContentPage>

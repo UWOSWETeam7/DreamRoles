@@ -4,14 +4,12 @@
              x:DataType="model:SearchBarSongViewModel"
              xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.AddSongForPerformerPopUp"
-             Title="Add Song For A Performer">
+             Title="Add Song For A Performer"
+             BackgroundColor="#E1D6C9">
     <Grid
-    RowSpacing="7"
-    ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="550" />
-        </Grid.RowDefinitions>
+    RowSpacing="10"
+    ColumnSpacing="5"
+        RowDefinitions="5*,77*">
 
         <SearchBar
             BackgroundColor="White"
@@ -26,11 +24,13 @@
         <CollectionView
            Grid.Row="1"
            HorizontalOptions="Start"
-           x:Name="CVSongs" ItemsSource="{Binding FilteredSongs}" SelectionMode="Single">
+           x:Name="CVSongs" ItemsSource="{Binding FilteredSongs}" 
+            SelectionMode="Single"
+            >
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Song">
-                    <Grid HeightRequest="50" Background="#866B53" Margin="0,0" Padding="30,15">
-                        <Label Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap">
+                    <Grid HeightRequest="55" Margin="0,0" Padding="40,15" >
+                        <Label Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap" FontSize="Medium">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="AddSong"/>
                             </Label.GestureRecognizers>

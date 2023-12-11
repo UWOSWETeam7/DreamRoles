@@ -4,19 +4,14 @@
 			 xmlns:model="clr-namespace:Prototypes.Model"
              x:DataType="model:SearchBarPerformerViewModel"
 			 x:Class="Prototypes.UI.ManagerRehearsalPage"
-             Title="Manager Homepage"
+             Title="Rehearsal"
              BackgroundColor="#E1D6C9"
 			 Shell.BackgroundColor="#ac9884">
     <Grid
 	RowSpacing="7"
-	ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="550" />
-            <RowDefinition Height="25"/>
-        </Grid.RowDefinitions>
+	ColumnSpacing="5"
+        RowDefinitions="45*,20*,600*,40*">
+        
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -24,26 +19,12 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <BoxView 
-			 Grid.Row="0" 
-			 Grid.ColumnSpan="3"
-			 Color="#866B53"
-			 CornerRadius="10, 10, 10, 10"
-			 WidthRequest="400"
-			 HeightRequest="50"/>
-        <Label 
-		   Grid.Row="0"
-		   Grid.ColumnSpan="3" 
-		   Text="Homepage:"
-		   FontAttributes="Bold"
-		   FontSize="20"
-		   HorizontalOptions="Center"
-		   VerticalOptions="Center"/>
-
+      
         <SearchBar
 					BackgroundColor="White"
-					Grid.Row="1"
-					Grid.Column="1"
+					Grid.Row="0"
+					Grid.Column="0"
+                    Grid.ColumnSpan="3"
 					HorizontalOptions="Center"
 					Placeholder="Enter Name Here"
 					HorizontalTextAlignment="Center"
@@ -51,7 +32,7 @@
                     Text="{Binding SearchText}"/>
 
         <CollectionView
-						Grid.Row="3"
+						Grid.Row="2"
 						Grid.Column="0"
 						Grid.ColumnSpan="3"
 						HorizontalOptions="Start"
@@ -62,43 +43,23 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
                     <Grid ColumnDefinitions="2*,*,*,*">
-                        <HorizontalStackLayout Padding="30, 0" Spacing="10">
+                        <HorizontalStackLayout Padding="35, 5" Spacing="10">
                             <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
                             </Label>
                             <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
                             </Label>
                         </HorizontalStackLayout>
-                        <Image Grid.Column="2" Source="{Binding CheckedInImage}" Scale="0.5" VerticalOptions="Center" >
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="ChangeCheckInStatus"/>
-                            </Image.GestureRecognizers>
-                        </Image>
-                        <Image Grid.Column="3" Source="trash.png"
-						 VerticalOptions="Center"
-						 HorizontalOptions="End"
-						 Scale="0.4">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="RemovePerformer"/>
-                            </Image.GestureRecognizers>
-                        </Image>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Label
-		Grid.Row="2"
+		Grid.Row="1"
 		Grid.Column="1"
-		Margin="-10,0,0,0"
+		Margin="-60,0,0,0"
 		Text="Name:"
 		FontSize="15"/>
-        <Label
-		Grid.Row="2"
-		Grid.Column="2"
-		HorizontalOptions="Start"
-		Margin="-55,0,0,0"
-		Text="Check-In:"
-		FontSize="15"/>
 
-        <Button CornerRadius="0" Grid.Row="4" Grid.ColumnSpan="4" Text="Add Performer to Rehearsal" BackgroundColor="#0E79A5" Clicked="ShowAddPerformerPopup" Padding="0" Margin="0, 0,0,0"/>
+        <Button CornerRadius="0" Grid.Row="3" Grid.ColumnSpan="4" Text="Add Performer to Rehearsal" BackgroundColor="#0E79A5" Clicked="ShowAddPerformerPopup" Padding="0" Margin="0, 0,0,0"/>
     </Grid>
 </ContentPage>

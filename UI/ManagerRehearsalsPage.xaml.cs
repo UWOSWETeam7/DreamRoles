@@ -22,7 +22,7 @@ public partial class ManagerRehearsalsPage : ContentPage
 
         if (rehearsal == null)
         {
-            DisplayAlert(null, "You must select a rehearsal to delete first", "Okay");
+            await DisplayAlert(null, "You must select a rehearsal to delete first", "Okay");
             return;
         }
 
@@ -38,7 +38,7 @@ public partial class ManagerRehearsalsPage : ContentPage
                 alertTitle = "Successfully Deleted Rehearsal";
             }
 
-            DisplayAlert(alertTitle, result.message, "Okay");
+            await DisplayAlert(alertTitle, result.message, "Okay");
         }
     }
 
@@ -48,10 +48,10 @@ public partial class ManagerRehearsalsPage : ContentPage
 
         if (rehearsal == null)
         {
-            DisplayAlert(null, "You must select a rehearsal to delete first", "Okay");
+            await DisplayAlert(null, "You must select a rehearsal to see the performers first", "Okay");
             return;
         }
 
-        Navigation.PushAsync(new ManagerRehearsalPage(rehearsal));
+        await Navigation.PushAsync(new ManagerRehearsalPage(rehearsal));
     }
 }

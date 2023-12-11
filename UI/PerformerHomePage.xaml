@@ -7,11 +7,9 @@
              x:Class="Prototypes.UI.PerformerHomePage"    
              BackgroundColor="#E1D6C9">
     <Grid
-        RowSpacing="7">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="550" />
-        </Grid.RowDefinitions>
+        RowSpacing="7"
+        RowDefinitions="5*,70*">
+
 
         <SearchBar
                 BackgroundColor="White"
@@ -28,10 +26,10 @@
                x:Name="CVSongs" ItemsSource="{Binding FilteredSongs}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Song">
-                    <HorizontalStackLayout Padding="40, 5" Spacing="10">
+                    <HorizontalStackLayout Padding="40,10" Spacing="10">
                         <Grid RowDefinitions="*,*">
-                            <Label Grid.Row="0" Text="{Binding Title}" FontSize="Medium"/>
-                            <Label Grid.Row="1" Text="{Binding Notes}"/>
+                            <Label x:Name="title" Grid.Row="0" Text="{Binding Title}" FontSize="Medium" LineBreakMode="WordWrap"/>
+                            <Label x:Name="notes" Grid.Row="1" Text="{Binding Notes}" LineBreakMode="WordWrap" />
                         </Grid>
                         
                     </HorizontalStackLayout>

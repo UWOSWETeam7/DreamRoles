@@ -6,7 +6,7 @@
              Title="Rehearsals"
              BackgroundColor="#E1D6C9">
     <VerticalStackLayout>
-        <Frame>
+        <Frame BackgroundColor="#E1D6C9">
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
                 <Frame HorizontalOptions="Center">
                     <VerticalStackLayout>

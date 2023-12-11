@@ -128,11 +128,11 @@ public partial class ManagerAdminPage : ContentPage
 
     private async void DeleteAllInfoClicked(object sender, EventArgs e)
     {
-        Boolean userResponse = await DisplayAlert("WARNING", "This will remove all the data in the database. Are you sure you want to do this?", "Yes", "Cancel");
+        Boolean userResponse = await DisplayAlert("WARNING", "This will remove all the data in the database. Do you want to do this?", "Yes", "Cancel");
 
         if (userResponse)
         {
-             userResponse = await DisplayAlert("Comfirmation", "Are you sure?", "Yes", "Cancel");
+             userResponse = await DisplayAlert("Comfirmation", "Proceeding will delete everything from the database. Are you sure you want to proceed", "Yes", "Cancel");
             if (userResponse)
             {
                 MauiProgram.BusinessLogic.DeleteAllTables();

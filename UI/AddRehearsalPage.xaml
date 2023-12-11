@@ -6,7 +6,7 @@
              Title="Add Rehearsal"
              BackgroundColor="#E1D6C9">
 
-        <Grid RowDefinitions="2*,*,7*,*">
+        <Grid RowDefinitions="170*,60*,600*,40*">
          
         <Frame Grid.Row="0">
             <VerticalStackLayout>
@@ -25,7 +25,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-        <Button Grid.Row="4" Text="Add Rehearsal" Clicked="Button_Clicked" />
+        <Button Grid.Row="4" Text="Add Rehearsal" Clicked="Button_Clicked" BackgroundColor="#0E79A5"/>
         </Grid>
 
     
