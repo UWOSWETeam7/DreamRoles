@@ -26,9 +26,9 @@
             TextColor="Black"
         />
         <Button
-          Text="Access Codes"
+          Text="Manager Admin"
           HorizontalOptions="Start"
-          Clicked="OnAccessCodes_Clicked"
+          Clicked="ManagerAdminPage_Clicked"
           Background="White"
           TextColor="Black"
         />

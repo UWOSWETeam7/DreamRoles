@@ -2,9 +2,9 @@ using OfficeOpenXml;
 
 namespace Prototypes.UI;
 
-public partial class ManagerAccesssCodePage : ContentPage
+public partial class ManagerAdminPage : ContentPage
 {
-	public ManagerAccesssCodePage()
+	public ManagerAdminPage()
 	{
 		InitializeComponent();
         managerAccessCode.Text = MauiProgram.BusinessLogic.GetManagerAccessCode();

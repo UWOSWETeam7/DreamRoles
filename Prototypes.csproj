@@ -83,6 +83,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="UI\ManagerAdminPage.xaml.cs">
+	    <DependentUpon>ManagerAdminPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="UI\ManagerCheckedInPage.xaml.cs">
 	    <DependentUpon>ManagerCheckedInPage.xaml</DependentUpon>
 	  </Compile>

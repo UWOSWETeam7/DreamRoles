@@ -20,9 +20,9 @@ public partial class ManagerMenuPage : ContentPage
 		await Navigation.PushAsync(new ManagerCheckedInPage()); 
     }
 
-    public async void OnAccessCodes_Clicked(object sender, EventArgs e)
+    public async void ManagerAdminPage_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ManagerAccesssCodePage());
+        await Navigation.PushAsync(new ManagerAdminPage());
     }
     public async void OnRehearsals_Clicked(object sender, EventArgs e)
     {
