@@ -7,6 +7,8 @@ namespace Prototypes.Business_Logic.Interface
 {
     public interface IBusinessLogic
     {
+        public Boolean DeleteAllTables();
+
         public ObservableCollection<Song> GetPerfomrerSetlist(int performerId);
 
         /// <summary>

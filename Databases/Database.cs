@@ -8,10 +8,6 @@ namespace Prototypes.Databases;
 
 public partial class Database : IDatabase
 {
-    //A ObservableCollections
-    
-    
-   
 
     //The string to connect to the database
     private String _connString;
@@ -169,6 +165,29 @@ public partial class Database : IDatabase
         }
 
         return choreoAccessCode;
+    }
+
+    public Boolean DeleteAllTables()
+    {
+        try
+        {
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            //command to update the production table with the new access code
+            var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "DELETE FROM dreamrolesuser;";
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "DELETE FROM songs;";
+            cmd.ExecuteNonQuery();
+        }
+        catch (Exception e) 
+        {
+            return false;
+        }
+        return true;
     }
 }
 

@@ -25,98 +25,118 @@ public partial class ManagerAccesssCodePage : ContentPage
 
     private async void OnPickFileButtonClicked(object sender, EventArgs e)
     {
-        try
-        {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-        {
-            { DevicePlatform.iOS, new[] { "org.openxmlformats.spreadsheetml.sheet" } }, // UTType values for xlsx
-            { DevicePlatform.Android, new[] { "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" } }, // MIME type for xlsx
-            { DevicePlatform.WinUI, new[] { ".xlsx" } }, // file extension for xlsx
-            { DevicePlatform.Tizen, new[] { "*/*" } },
-            { DevicePlatform.macOS, new[] { "xlsx" } }, // UTType values for xlsx
-        });
+        Boolean userResponse = await DisplayAlert("Confirmation", "Make sure you added all the songs first before trying this.", "I've added all the songs", "Cancel");
 
-            var result = await FilePicker.PickAsync(new PickOptions
+        if (userResponse)
+        {
+
+            try
             {
-                PickerTitle = "Please select an Excel file",
-                FileTypes = customFileType,
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+            {
+                { DevicePlatform.iOS, new[] { "org.openxmlformats.spreadsheetml.sheet" } }, // UTType values for xlsx
+                { DevicePlatform.Android, new[] { "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" } }, // MIME type for xlsx
+                { DevicePlatform.WinUI, new[] { ".xlsx" } }, // file extension for xlsx
+                { DevicePlatform.Tizen, new[] { "*/*" } },
+                { DevicePlatform.macOS, new[] { "xlsx" } }, // UTType values for xlsx
             });
 
-            if (result == null)
-            {
-                await DisplayAlert("Error", "File picking canceled or no file selected", "OK");
-                return;
-            }
-
-            if (result != null)
-            {
-                // Get the selected file stream
-                var stream = await result.OpenReadAsync();
-
-                // Read Excel file using EPPlus
-                using (var package = new ExcelPackage(stream))
+                var result = await FilePicker.PickAsync(new PickOptions
                 {
-                    // Access the workbook and worksheet
-                    var workbook = package.Workbook;
-                    var worksheet = workbook.Worksheets[0];
+                    PickerTitle = "Please select an Excel file",
+                    FileTypes = customFileType,
+                });
 
-                    for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
+                if (result == null)
+                {
+                    await DisplayAlert("Error", "File picking canceled or no file selected", "OK");
+                    return;
+                }
+
+                if (result != null)
+                {
+                    // Get the selected file stream
+                    var stream = await result.OpenReadAsync();
+
+                    // Read Excel file using EPPlus
+                    using (var package = new ExcelPackage(stream))
                     {
-                        // Access data in each column
-                        string firstName = worksheet.Cells[row, 1].GetValue<string>();
-                        string lastName = worksheet.Cells[row, 2].GetValue<string>();
-                        string phoneNumber = worksheet.Cells[row, 3].GetValue<string>();
-                        string email = worksheet.Cells[row, 4].GetValue<string>();
+                        // Access the workbook and worksheet
+                        var workbook = package.Workbook;
+                        var worksheet = workbook.Worksheets[0];
 
-                        if (email == null)
+                        for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
                         {
-                            email = "";
+                            // Access data in each column
+                            string firstName = worksheet.Cells[row, 1].GetValue<string>();
+                            string lastName = worksheet.Cells[row, 2].GetValue<string>();
+                            string phoneNumber = worksheet.Cells[row, 3].GetValue<string>();
+                            string email = worksheet.Cells[row, 4].GetValue<string>();
 
-                        }
-                        if (phoneNumber == null)
-                        {
-                            phoneNumber = "";
-                        }
-                        if(firstName == null)
-                        {
-                            break;
-                        }
-                        var answer = MauiProgram.BusinessLogic.AddPerformer(firstName, lastName, null, email, phoneNumber);
+                            if (email == null)
+                            {
+                                email = "";
 
-                        if (answer.ResultMessage == null)
-                        {
-                            // Iterate through song columns (assuming there are 9 pairs of song and notes)
-                            for (int col = 5; col <= 21; col += 2)
-                          {
-                                string song = worksheet.Cells[row, col].GetValue<string>();
-                                string notes = worksheet.Cells[row, col + 1].GetValue<string>();
-                                int performerId = answer.PerformerId;
-                                // Process song and notes data as needed
-                                if (notes == null)
+                            }
+                            if (phoneNumber == null)
+                            {
+                                phoneNumber = "";
+                            }
+                            if (firstName == null)
+                            {
+                                break;
+                            }
+                            var answer = MauiProgram.BusinessLogic.AddPerformer(firstName, lastName, null, email, phoneNumber);
+
+                            if (answer.ResultMessage == null)
+                            {
+                                // Iterate through song columns (assuming there are 9 pairs of song and notes)
+                                for (int col = 5; col <= 21; col += 2)
                                 {
-                                    notes = "";
+                                    string song = worksheet.Cells[row, col].GetValue<string>();
+                                    string notes = worksheet.Cells[row, col + 1].GetValue<string>();
+                                    int performerId = answer.PerformerId;
+                                    // Process song and notes data as needed
+                                    if (notes == null)
+                                    {
+                                        notes = "";
+                                    }
+                                    if (song != null)
+                                    {
+                                        MauiProgram.BusinessLogic.AddSongForPerformer(answer.PerformerId, song, notes);
+                                    }
                                 }
-                                if (song != null)
-                                {
-                                    MauiProgram.BusinessLogic.AddSongForPerformer(answer.PerformerId, song, notes);
-                                }
+
+                            }
+                            else
+                            {
+                                await DisplayAlert("Error", answer + " for " + firstName + " " + lastName + ".", "Ok");
                             }
 
                         }
-                        else
-                        {
-                            await DisplayAlert("Error", answer + " for " + firstName + " " + lastName + ".", "Ok");
-                        }
-
+                        await DisplayAlert("Success", "It worked", "Yay");
                     }
-                    await DisplayAlert("Success", "It worked", "Yay");
                 }
             }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+            }
         }
-        catch (Exception ex)
+    }
+
+    private async void DeleteAllInfoClicked(object sender, EventArgs e)
+    {
+        Boolean userResponse = await DisplayAlert("WARNING", "This will remove all the data in the database. Are you sure you want to do this?", "Yes", "Cancel");
+
+        if (userResponse)
         {
-            await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+             userResponse = await DisplayAlert("Comfirmation", "Are you sure?", "Yes", "Cancel");
+            if (userResponse)
+            {
+                MauiProgram.BusinessLogic.DeleteAllTables();
+            }
         }
     }
 }

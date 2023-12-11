@@ -56,6 +56,11 @@ namespace Prototypes.Business_Logic
             Random rand = new Random();
             int newCode = rand.Next(10000000);
             Database.UpdatePerformerAccessCode(newCode);
-        }  
+        }
+
+        public Boolean DeleteAllTables()
+        {
+            return Database.DeleteAllTables();
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace Prototypes.Databases.Interface
 {
     public interface IDatabase
     {
+        public Boolean DeleteAllTables();
         public ObservableCollection<Song> GetPerformerSetList(int performerId);
         public (bool success, String message) InsertIntoRehearsals(DateTime rehearsalTime, String songTitle);
         public (bool success, String message) DeleteRehearsal(DateTime rehearsalTime, String songTitle);
