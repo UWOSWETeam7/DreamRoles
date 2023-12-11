@@ -105,8 +105,8 @@
 	  <Compile Update="UI\PerformerHomePage.xaml.cs">
 	    <DependentUpon>PerformerHomePage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="UI\PerformersOfSongPage.xaml.cs">
-	    <DependentUpon>PerformersOfSongPage.xaml</DependentUpon>
+	  <Compile Update="UI\ManagerPerformersOfSongPage.xaml.cs">
+	    <DependentUpon>ManagerPerformersOfSongPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="UI\ManagerSongsPage.xaml.cs">
 	    <DependentUpon>ManagerSongsPage.xaml</DependentUpon>
@@ -133,6 +133,15 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\ChoreoMenuPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ChoreoPerformersOfSongPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ChoreoRehearsalPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ChoreoRehearsalsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\ManagerCheckedInPage.xaml">
@@ -192,7 +201,7 @@
 	  <MauiXaml Update="UI\PerformerHomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="UI\PerformersOfSongPage.xaml">
+	  <MauiXaml Update="UI\ManagerPerformersOfSongPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\SelectNamePage.xaml">

@@ -1,56 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:model_2="clr-namespace:Prototypes.Model" 
-             x:DataType="model_2:SearchBarNotCheckedInPerformerViewModel"
              x:Class="Prototypes.UI.ChoreoNotCheckedInPage"
+             xmlns:model_2="clr-namespace:Prototypes.Model" 
+             x:DataType="model_2:SearchBarNotCheckedInPerformerViewModel" 
              Title="Not Checked In Performers"
              BackgroundColor="#E1D6C9">
     <Grid
      RowSpacing="6"
-     ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="600" />
-        </Grid.RowDefinitions>
+     ColumnSpacing="5"
+        RowDefinitions="35*,20*,600*">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="200"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <BoxView 
-         Grid.Row="0" 
-         Grid.ColumnSpan="3"
-         Color="#866B53"
-         CornerRadius="10, 10, 10, 10"
-         WidthRequest="400"
-         HeightRequest="50"/>
-
-        <Label 
-         Grid.Row="0"
-         Grid.ColumnSpan="3" 
-         Text="Not Checked In:"
-         FontAttributes="Bold"
-         FontSize="20"
-         HorizontalOptions="Center"
-         VerticalOptions="Center"/>
-
-        <Image 
-        Grid.Row="0"
-        Grid.Column="3"
-        HorizontalOptions="Start"
-        VerticalOptions="Center"
-        WidthRequest="50"
-        HeightRequest="50"
-        Source="xmark.svg"/>
-
         <SearchBar
          BackgroundColor="White"
-         Grid.Row="1"
-         Grid.Column="1"
+         Grid.Row="0"
+         Grid.Column="0"
+         Grid.ColumnSpan="3"
          HorizontalOptions="Center"
          Placeholder="Enter Name Here"
          HorizontalTextAlignment="Center"
@@ -58,30 +29,30 @@
          Text="{Binding SearchText}"
         ></SearchBar>
 
-        <Button 
-             Grid.Row="1"
-             Grid.Column="2"
-             BackgroundColor="Transparent"
-             ImageSource="menu.svg"/>
         <Label
-            Grid.Row="2"
-            Grid.Column="1"
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="40,5,0,0"
             Text="Name:"
             FontSize="15"/>
-        
+
         <CollectionView
             x:Name="CV" 
             ItemsSource="{Binding FilteredNotCheckedInPerformers}"
             SelectionMode="Single"
-            Grid.Row="3"
+            Grid.Row="2"
             Grid.ColumnSpan="3"
             HorizontalOptions="Center">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model_2:Performer">
-                    <VerticalStackLayout Background="#866B53" Padding="10" Margin="1">
-                        <Grid RowDefinitions="*" ColumnDefinitions="6*,6*, 3*">
-                            <Label Grid.Column="0" Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                            <Label Grid.Column="1" Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                    <VerticalStackLayout  Padding="10" Margin="1">
+                        <Grid RowDefinitions="*" ColumnDefinitions="2*,*,3*">
+                            <HorizontalStackLayout Padding="30, 0" Spacing="5">
+                                <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
+                                </Label>
+                                <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
+                                </Label>
+                            </HorizontalStackLayout>
                         </Grid>
                     </VerticalStackLayout>
                 </DataTemplate>

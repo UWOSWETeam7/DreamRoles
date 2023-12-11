@@ -2,28 +2,40 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Prototypes.UI.ChoreoMenuPage"
-             Title="Choreographer Menu">
+             Title="Choreographer Menu"
+             BackgroundColor="#E1D6C9">
     <VerticalStackLayout>
         <Button
-             Text="Songs"
-             HorizontalOptions="Start"
-             Clicked="OnSongs_Clicked"
-             Background="White"
-             TextColor="Black"
+          Text="Rehearsals"
+          HorizontalOptions="Start"
+          Clicked="OnRehearsals_Clicked"
+          Background="#E1D6C9"
+          TextColor="Black"
+            FontSize="Medium"
         />
         <Button
-             Text="Not Checked In"
-             HorizontalOptions="Start"
-             Clicked="OnNotCheckedIn_Clicked"
-             Background="White"
-             TextColor="Black"
+            Text="Not Checked In"
+            HorizontalOptions="Start"
+            Clicked="OnNotCheckedIn_Clicked"
+            Background="#E1D6C9"
+            TextColor="Black"
+            FontSize="Medium"
         />
         <Button
-             Text="Checked In"
-             HorizontalOptions="Start"
-             Clicked="OnCheckedIn_Clicked"
-             Background="White"
-             TextColor="Black"
+            Text="Checked In"
+            HorizontalOptions="Start"
+            Clicked="OnCheckedIn_Clicked"
+            Background="#E1D6C9"
+            TextColor="Black"
+            FontSize="Medium"
+        />
+        <Button
+            Text="Songs"
+            HorizontalOptions="Start"
+            Clicked="OnSongs_Clicked"
+            Background="#E1D6C9"
+            TextColor="Black"
+            FontSize="Medium"
         />
     </VerticalStackLayout>
 </ContentPage>

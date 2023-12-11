@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Prototypes.Model"
+             x:Class="Prototypes.UI.ChoreoRehearsalsPage"
+             Title="Rehearsals"
+             BackgroundColor="#E1D6C9">
+    <VerticalStackLayout>
+        <Frame BackgroundColor="#E1D6C9">
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Frame HorizontalOptions="Center">
+                    <VerticalStackLayout>
+                        <Label Text="From" HorizontalOptions="Center"/>
+                        <VerticalStackLayout HorizontalOptions="Center">
+                            <HorizontalStackLayout>
+                                <Image Source="calendar.svg" />
+                                <DatePicker x:Name="DPMinDate" Date="{Binding MinDate}"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Image Source="stopwatch.svg"/>
+                                <TimePicker x:Name="TPMinTime" Time="{Binding MinTime}"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame HorizontalOptions="Center">
+                    <VerticalStackLayout>
+                        <Label Text="To" HorizontalOptions="Center"/>
+                        <VerticalStackLayout HorizontalOptions="Center">
+                            <HorizontalStackLayout>
+                                <Image Source="calendar.svg" />
+                                <DatePicker x:Name="DPMaxDate" Date="{Binding MaxDate}" MinimumDate="{Binding MinRehearsalDate}"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Image Source="stopwatch.svg"/>
+                                <TimePicker x:Name="TPMaxTime" Time="{Binding MaxTime}"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+            </HorizontalStackLayout>
+        </Frame>
+        <ScrollView MaximumHeightRequest="500">
+            <CollectionView
+				HorizontalOptions="Start"
+				x:Name="CVRehearsals"
+                ItemsSource="{Binding FilteredRehearsals}"
+                SelectionMode="Single"
+                >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Rehearsal">
+                        <VerticalStackLayout Padding="30, 0" Spacing="10">
+                            <HorizontalStackLayout>
+                                <Label Text="Song: " FontSize="Medium"/>
+                                <Label Text="{Binding Song.Title}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Text="Time: " FontSize="Medium"/>
+                                <Label Grid.Column="1" Text="{Binding Time.Date}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout HorizontalOptions="FillAndExpand" Spacing="30">
+                                <ImageButton Source="people.png" MaximumHeightRequest="30" MaximumWidthRequest="30" HorizontalOptions="Start" Clicked="RehearsalPerformers_Clicked"/>
+                            </HorizontalStackLayout>
+                            <Line X2="500" Stroke="Gray"></Line>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </VerticalStackLayout>
+</ContentPage>

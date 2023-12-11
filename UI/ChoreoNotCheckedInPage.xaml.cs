@@ -11,6 +11,7 @@ public partial class ChoreoNotCheckedInPage : ContentPage
         try
         {
             BindingContext = new SearchBarNotCheckedInPerformerViewModel();
+
         }
         catch (TargetInvocationException tie)
         {

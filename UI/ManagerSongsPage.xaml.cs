@@ -38,7 +38,7 @@ public partial class ManagerSongsPage : ContentPage
     {
         var button = (Button)sender;
         var song = (Song)button.BindingContext;
-        Navigation.PushAsync(new PerformersOfSongPage(song));
+        Navigation.PushAsync(new ManagerPerformersOfSongPage(song));
     }
     
 }

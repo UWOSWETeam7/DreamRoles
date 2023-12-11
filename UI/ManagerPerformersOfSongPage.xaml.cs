@@ -2,10 +2,10 @@ using Prototypes.Model;
 
 namespace Prototypes.UI;
 //@author: Kaia Thern
-public partial class PerformersOfSongPage : ContentPage
+public partial class ManagerPerformersOfSongPage : ContentPage
 {
     private Song _song;
-    public PerformersOfSongPage(Song song)
+    public ManagerPerformersOfSongPage(Song song)
     {
         InitializeComponent();
         BindingContext = new SearchBarPerformersOfSongsViewModel(song);

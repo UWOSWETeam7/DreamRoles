@@ -3,14 +3,15 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:model="clr-namespace:Prototypes.Model"
              x:DataType="model:SearchBarPerformerViewModel"
-			 x:Class="Prototypes.UI.ChoreoHomePage"
-             Title="Choreographer Homepage"
+			 x:Class="Prototypes.UI.ChoreoRehearsalPage"
+             Title="Rehearsal"
              BackgroundColor="#E1D6C9"
 			 Shell.BackgroundColor="#ac9884">
     <Grid
 	RowSpacing="7"
 	ColumnSpacing="5"
-     RowDefinitions="60*,40*,20*,550*">
+        RowDefinitions="45*,20*,600*,40*">
+
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -18,29 +19,12 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <BoxView 
-			 Grid.Row="0" 
-			 Grid.ColumnSpan="3"
-			 Color="#866B53"
-			 CornerRadius="10, 10, 10, 10"
-			 WidthRequest="400"
-			 HeightRequest="75"/>
-        <Label 
-           x:Name="LabelNearestRehearsal"
-		   Grid.Row="0"
-		   Grid.ColumnSpan="3" 
-		   FontAttributes="Bold"
-		   FontSize="Body"
-           Padding="7"
-		   HorizontalOptions="Center"
-		   VerticalOptions="Center"/>
 
         <SearchBar
 					BackgroundColor="White"
-					Grid.Row="1"
+					Grid.Row="0"
 					Grid.Column="0"
-					Grid.ColumnSpan="2"
-					Margin="30,0,0,0"
+                    Grid.ColumnSpan="3"
 					HorizontalOptions="Center"
 					Placeholder="Enter Name Here"
 					HorizontalTextAlignment="Center"
@@ -48,7 +32,7 @@
                     Text="{Binding SearchText}"/>
 
         <CollectionView
-						Grid.Row="3"
+						Grid.Row="2"
 						Grid.Column="0"
 						Grid.ColumnSpan="3"
 						HorizontalOptions="Start"
@@ -58,41 +42,21 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
                     <Grid ColumnDefinitions="2*,*,*,*">
-                        <HorizontalStackLayout Padding="30, 0" Spacing="10">
+                        <HorizontalStackLayout Padding="35, 5" Spacing="10">
                             <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
                             </Label>
                             <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
                             </Label>
                         </HorizontalStackLayout>
-                        <Image Grid.Column="2" Source="{Binding CheckedInImage}" Scale="0.5" VerticalOptions="Center" >
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="ChangeCheckInStatus"/>
-                            </Image.GestureRecognizers>
-                        </Image>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-        <Button Grid.Row="1"
-			Grid.Column="2"
-			BackgroundColor="Transparent"
-			ImageSource="menu.svg"
-			Scale="0.7"
-			Clicked="OnChoreoMenu_Clicked"
-		/>
         <Label
-		Grid.Row="2"
+		Grid.Row="1"
 		Grid.Column="1"
-		Margin="-65,0,0,0"
+		Margin="-60,0,0,0"
 		Text="Name:"
-		FontSize="15"/>
-        <Label
-		Grid.Row="2"
-		Grid.Column="2"
-		HorizontalOptions="Start"
-		Margin="-55,0,0,0"
-		Text="Check-In:"
 		FontSize="15"/>
     </Grid>
 </ContentPage>

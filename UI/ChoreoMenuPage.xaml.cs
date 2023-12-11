@@ -18,4 +18,9 @@ public partial class ChoreoMenuPage : ContentPage
     {
         await Navigation.PushAsync(new ChoreoCheckedInPage());
     }
+    public async void OnRehearsals_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ChoreoRehearsalsPage());
+    }
+
 }

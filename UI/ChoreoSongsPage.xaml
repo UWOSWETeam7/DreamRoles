@@ -3,132 +3,69 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="model:SearchBarSongViewModel"
-             xmlns:model="clr-namespace:Prototypes.Model"
+             xmlns:model="clr-namespace:Prototypes.Model"       
              x:Class="Prototypes.UI.ChoreoSongsPage"
              Title="Songs"
              BackgroundColor="#E1D6C9">
+
     <Grid
         RowSpacing="7"
-        ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="550" />
-            <RowDefinition Height="25"/>
-        </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-        <BoxView 
-                 Grid.Row="0" 
-                 Grid.ColumnSpan="3"
-                 Color="#866B53"
-                 CornerRadius="10, 10, 10, 10"
-                 WidthRequest="400"
-                 HeightRequest="50"/>
-        <Label 
-               Grid.Row="0"
-               Grid.ColumnSpan="3" 
-               Text="Songs:"
-               FontAttributes="Bold"
-               FontSize="20"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"/>
+        ColumnSpacing="5"
+        ColumnDefinitions="2*,3*,*"
+        RowDefinitions="40*,20*,600*">
 
         <SearchBar
                 BackgroundColor="White"
-                Grid.Row="1"
-                Grid.Column="1"
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
                 HorizontalOptions="Center"
                 Placeholder="Enter Song Here"
                 HorizontalTextAlignment="Center"
                 VerticalTextAlignment="Center"
                 Text="{Binding SearchText}"
         ></SearchBar>
-        <Button Grid.Row="1"
-                Grid.Column="2"
-                BackgroundColor="Transparent"
-                ImageSource="menu.svg"
-        />
+
+
         <Label
-            Grid.Row="2"
-            Grid.Column="1"
-            Margin="25,0,0,0"
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="35,0,0,0"
             Text="Song Title:"
             FontSize="15"/>
         <Label
-            Grid.Row="2"
-            Grid.Column="2"
+            Grid.Row="1"
+            Grid.Column="1"
             HorizontalOptions="Start"
-            Margin="0,0,0,0"
+            Margin="100,0,0,0"
             Text="Performers:"
             FontSize="15"/>
         <CollectionView
-               Grid.Row="3"
+               Grid.Row="2"
                Grid.Column="0"
                Grid.ColumnSpan="3"
+            Margin="5,0,0,0"
                HorizontalOptions="Start"
                x:Name="CVSongs" ItemsSource="{Binding FilteredSongs}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Song">
-                    <mct:Expander x:Name="MyExpander1" BackgroundColor="Tan" WidthRequest="400">
-                        <mct:Expander.Header>
-                            <Grid ColumnDefinitions="*,150,*" Grid.ColumnSpan="4" HeightRequest="50" Background="#866B53" Margin="0,0" Padding="30,15">
 
-                                <Label Grid.Column ="1" Text="{Binding Title}" HorizontalOptions="Start" LineBreakMode="WordWrap"/>
-                                <Button 
-                                    Grid.Row="3" 
-                                    Grid.Column="2" 
-                                    BackgroundColor="White"
-                                    WidthRequest="40"
-                                    HeightRequest="40"
-                                    ImageSource="people.png"
-                                    HorizontalOptions="End"
-                                    VerticalOptions="Center"
-                                    CornerRadius="90"
-                                    Clicked="ShowPerformersOfSongPage"/>
-                                <Image 
-                                    Grid.Column ="0" 
-                                    Source="arrow.png" 
-                                    HeightRequest="20" 
-                                    WidthRequest="20" 
-                                    HorizontalOptions="Start">
-                                    <Image.Triggers>
-                                        <DataTrigger 
-                                            TargetType="Image"
-                                            Binding="{Binding Source={x:Reference MyExpander1}, Path=IsExpanded}"
-                                            Value="True">
-                                            <Setter Property="Rotation" Value="180" />
-                                        </DataTrigger>
-                                    </Image.Triggers>
-                                </Image>
-                            </Grid>
-                        </mct:Expander.Header>
-                        <mct:Expander.Content>
-                            <Frame BorderColor="black" BackgroundColor="Tan" Margin="3,0,3,0">
-                                <Grid WidthRequest="250" HeightRequest="100" Margin="0,-20,0,-20">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20"/>
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Row="0" Grid.Column="0" Text="Time: "/>
-                                    <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" Text="9:00am - 11:00am" Margin="-25,0,0,0"/>
-                                    <Label Grid.Row="1" Grid.Column="0" Text="Location: "/>
-                                    <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" Text="Art &amp; Communication South - 112" LineBreakMode="WordWrap"/>
+                    <Grid ColumnDefinitions="4*,*,*,*" Grid.ColumnSpan="4" HeightRequest="50"  Margin="0,0" Padding="30,15">
 
-                                </Grid>
-                            </Frame>
-                        </mct:Expander.Content>
-                    </mct:Expander>
+                        <Label Grid.Column ="0" Text="{Binding Title}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
+                        
+                        <Button 
+                            Grid.Row="3" 
+                            Grid.Column="1" 
+                            BackgroundColor="White"
+                            WidthRequest="40"
+                            HeightRequest="40"
+                            ImageSource="people.png"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            CornerRadius="90"
+                            Clicked="ShowPerformersOfSongPage"/>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
