@@ -384,23 +384,27 @@ namespace Prototypes.Databases
             conn.Open();
             // Get all rehearsals prior to the current time that do not have a status of checked in for a performer
             using var cmd = new NpgsqlCommand("SELECT * FROM rehearsal_members\r\n" +
-                "WHERE user_id = @userId AND status != 'checked in' AND rehearsal_time < CURRENT_TIMESTAMP;");
+                "WHERE user_id = @userId AND status != 'checked in' AND rehearsal_time < CURRENT_TIMESTAMP;", conn);
 
             cmd.Parameters.AddWithValue("userId", userId);
-
-            using var reader = cmd.ExecuteReader();
-            // for all query results, searches the collection of all rehearsals that have a matching song title and time
-            while(reader.Read())
+            try
             {
-                String songTitle = reader.GetString(1);
-                DateTime time = reader.GetDateTime(2);
+                using var reader = cmd.ExecuteReader();
+                // for all query results, searches the collection of all rehearsals that have a matching song title and time
+                while (reader.Read())
+                {
+                    DateTime time = reader.GetDateTime(1);
+                    String songTitle = reader.GetString(2);
 
-                Rehearsal missedRehearsal = _rehearsals.First(rehearsal => rehearsal.Song.Title == songTitle && rehearsal.Time == time);
-                missedRehearsals.Add(missedRehearsal);
+                    Rehearsal missedRehearsal = _rehearsals.First(rehearsal => rehearsal.Song.Title == songTitle && rehearsal.Time == time);
+                    missedRehearsals.Add(missedRehearsal);
+                }
+
+                return missedRehearsals;
+            } catch (Exception ex)
+            {
+                throw ex; 
             }
-
-            return missedRehearsals;
-
         }
     }
 }

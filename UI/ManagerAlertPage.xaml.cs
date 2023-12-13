@@ -18,27 +18,35 @@ public partial class ManagerAlertPage : ContentPage
         //Might be able to pull performer's title later
         lblTitle.Text = "Performer";
         lblAbsences.Text = currentPerformer.Absences.ToString();
-        ObservableCollection<Rehearsal> rehearsals = MauiProgram.BusinessLogic.GetPerformerRehearsals(currentPerformer);
-        int i = 0;
-        Boolean found = false;
-        while (i < rehearsals.Count - 1 && found == false)
+        try
         {
+            ObservableCollection<Rehearsal> rehearsals = MauiProgram.BusinessLogic.GetPerformerMissedRehearsals(currentPerformer);
+            int i = 0;
+            Boolean found = false;
+            while (i < rehearsals.Count - 1 && found == false)
+            {
 
-            if (rehearsals[i].Song.Title == rehearsals[i + 1].Song.Title)
-            {
-                found = true;
-            } else
-            {
-                i++; 
+                if (rehearsals[i].Song.Title == rehearsals[i + 1].Song.Title)
+                {
+                    found = true;
+                }
+                else
+                {
+                    i++;
+                }
+
             }
-           
-        }
-        if (found == true) {
-            lblSongMissed.Text = rehearsals[i].Song.Title;
-            lblDate1.Text = rehearsals[i].Time.ToString("MM/dd/yyyy");
-            lblDate2.Text = rehearsals[i + 1].Time.ToString("MM/dd/yyyy");
-            lblTime1.Text = rehearsals[i].Time.ToString("t");
-            lblTime2.Text = rehearsals[i + 1].Time.ToString("t");
+            if (found == true)
+            {
+                lblSongMissed.Text = rehearsals[i].Song.Title;
+                lblDate1.Text = rehearsals[i].Time.ToString("MM/dd/yyyy");
+                lblDate2.Text = rehearsals[i + 1].Time.ToString("MM/dd/yyyy");
+                lblTime1.Text = rehearsals[i].Time.ToString("t");
+                lblTime2.Text = rehearsals[i + 1].Time.ToString("t");
+            }
+        } catch (Exception ex)
+        {
+            DisplayAlert("Error:", ex.Message, "OK");
         }
 
     }
