@@ -5,7 +5,7 @@
              x:DataType="model:SearchBarPerformerViewModel"
 			 x:Class="Prototypes.UI.ManagerHomePage"
              BackgroundColor="#E1D6C9"
-			 Shell.BackgroundColor="#ac9884">
+			 Shell.BackgroundColor="#0E79A5">
 
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
@@ -62,7 +62,7 @@
 						HorizontalOptions="Start"
 						x:Name="CVPerformers"
                         ItemsSource="{Binding FilteredPerformers}" 
-                        SelectionMode="Single"
+                        SelectionMode="Multiple"
                         SelectionChanged="OnPerformerSelectionChange">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">

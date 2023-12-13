@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.PerformerCheckInTimesPage"
-             BackgroundColor="#E1D6C9">
+             BackgroundColor="#E1D6C9"
+             Shell.BackgroundColor="#0E79A5">
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
             <Label x:Name="title" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>

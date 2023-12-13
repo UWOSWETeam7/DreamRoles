@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Prototypes.UI.ManagerMenuPage"
              Title="Manager Menu"
-             BackgroundColor="#E1D6C9">
+             BackgroundColor="#E1D6C9"
+             Shell.BackgroundColor="#0E79A5">
 
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
