@@ -68,6 +68,11 @@ public partial class ManagerAdminPage : ContentPage
 
                         for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
                         {
+                            bool onLastPerformer = false;
+                            if (row == worksheet.Dimension.End.Row)
+                            {
+                                onLastPerformer = true;
+                            }
                             // Access data in each column
                             string firstName = worksheet.Cells[row, 1].GetValue<string>();
                             string lastName = worksheet.Cells[row, 2].GetValue<string>();
@@ -87,7 +92,7 @@ public partial class ManagerAdminPage : ContentPage
                             {
                                 break;
                             }
-                            var answer = MauiProgram.BusinessLogic.AddPerformer(firstName, lastName, null, email, phoneNumber);
+                            var answer = MauiProgram.BusinessLogic.AddPerformer(firstName, lastName, null, email, phoneNumber, onLastPerformer);
 
                             if (answer.ResultMessage == null)
                             {
@@ -104,7 +109,7 @@ public partial class ManagerAdminPage : ContentPage
                                     }
                                     if (song != null)
                                     {
-                                        MauiProgram.BusinessLogic.AddSongForPerformer(answer.PerformerId, song, notes);
+                                        MauiProgram.BusinessLogic.AddSongForPerformer(answer.PerformerId, song, notes, onLastPerformer);
                                     }
                                 }
 

@@ -16,7 +16,12 @@ public partial class ManagerHomePage : ContentPage
         _nearestRehearsal = MauiProgram.BusinessLogic.Rehearsals.OrderBy(rehearsal => rehearsal.Time).FirstOrDefault(rehearsal => rehearsal.Time >= DateTime.Now);
         if(_nearestRehearsal == null)
         {
-            _nearestRehearsal = MauiProgram.BusinessLogic.Rehearsals.First();
+            _nearestRehearsal = new Rehearsal(DateTime.Now, new Song("no rehearsals", "no rehearsals"));
+
+            if (MauiProgram.BusinessLogic.Rehearsals.FirstOrDefault() != null)
+            {
+                _nearestRehearsal = MauiProgram.BusinessLogic.Rehearsals.First();
+            }
         }
         LabelNearestRehearsal.Text = $"Next Rehearsal at {_nearestRehearsal.Time} for {_nearestRehearsal.Song.Title}";
         _viewModel = new SearchBarPerformerViewModel(_nearestRehearsal);

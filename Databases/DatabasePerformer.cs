@@ -152,7 +152,7 @@ namespace Prototypes.Databases
         /// </summary>
         /// <param name="performer">the performer that the user wants to put into the file</param>
         /// <returns>True if it was inserted into the database, false otherwise</returns>
-        public (bool Success, int UserId) InsertPerformer(string firstName, string lastName, ObservableCollection<ISongDB> songs, string email, string phoneNumber, int absences)
+        public (bool Success, int UserId) InsertPerformer(string firstName, string lastName, ObservableCollection<ISongDB> songs, string email, string phoneNumber, int absences, bool allPerformersAdded = true)
         {
             try
             {
@@ -181,11 +181,16 @@ namespace Prototypes.Databases
                 cmd.Parameters.AddWithValue("email", email);
                 cmd.Parameters.AddWithValue("absences", 0);
                 cmd.Parameters.AddWithValue("checked_in_status", "not checked in");
+
+                cmd.Prepare(); // prepares the on the server side, making multiple executions faster
                 cmd.ExecuteNonQuery();
 
-                // Repopulates the performers
-                SelectAllPerformers(2023);
+                if(allPerformersAdded)
+                {
+                    // Repopulates the performers
+                    SelectAllPerformers(2023);
 
+                }
                 // Return a tuple with success status and user ID
                 return (true, (int)id);
             }
