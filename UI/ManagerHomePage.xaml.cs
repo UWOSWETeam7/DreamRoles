@@ -54,10 +54,12 @@ public partial class ManagerHomePage : ContentPage
     {
         if (e.CurrentSelection.Count > 0)
         {
-            Performer performer = (Performer)e.CurrentSelection[0];
-            await Navigation.PushAsync(new ManagerPerformerInfoPage(performer));
-            CVPerformers.SelectedItem = null;
-
+            for (int i = 0; i <  e.CurrentSelection.Count; i++)
+            {
+                Performer performer = (Performer)e.CurrentSelection[i];
+                await Navigation.PushAsync(new ManagerPerformerInfoPage(performer));
+                CVPerformers.SelectedItem = null;
+            }
         }
     }
 

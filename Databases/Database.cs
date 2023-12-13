@@ -32,7 +32,10 @@ public partial class Database : IDatabase
     }
 
 
-
+    /// <summary>
+    /// This will create a connection string to connect to the database
+    /// </summary>
+    /// <returns>A  String that will connect to the database</returns>
     static String GetConnectionString()
     {
         var connStringBuilder = new NpgsqlConnectionStringBuilder();
@@ -48,7 +51,12 @@ public partial class Database : IDatabase
 
         return connStringBuilder.ConnectionString;
     }   
-
+    
+    /// <summary>
+    /// This will change the Performer's access code in the database to a random 7 digit code.
+    /// </summary>
+    /// <param name="newAccessCode">It is the newly randomized 7 digit code</param>
+    /// <returns>A Boolean true if it could be added to the database and false it could not be.</returns>
     public Boolean UpdatePerformerAccessCode(int newAccessCode)
     {
         try
@@ -57,7 +65,7 @@ public partial class Database : IDatabase
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
 
-            //command to update the production table with the new access code
+            //Command to update the production table with the new access code
             var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = "UPDATE production " +
@@ -75,14 +83,20 @@ public partial class Database : IDatabase
 
     }
 
+    /// <summary>
+    /// Get the Performer's access code from the database
+    /// </summary>
+    /// <returns>A String that is 7 characters long that contains the access code. Will return null if it could not get the Performer's access code</returns>
     public String GetPerformerAccessCode()
     {
         String performerAccessCode = null;
         try
         {
+            //Connect and open a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
-
+    
+            //Command to grab the performer_access_code from the production table
             var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = "SELECT performer_access_code " +
@@ -93,57 +107,68 @@ public partial class Database : IDatabase
             using var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                // Assuming performer_access_code is a string; adjust if it's a different data type
+                //Getting the access code from the reader.
                  performerAccessCode = reader["performer_access_code"].ToString();
             }
         }
         catch (Npgsql.PostgresException pe)
-        {
-            // Handle the exception, log it, or perform other error handling as needed
-            return performerAccessCode;
+        {  
+            return null;
         }
 
         return performerAccessCode;
     }
 
+    /// <summary>
+    /// Gets the Stage Manger access code from the database
+    /// </summary>
+    /// <returns>A String that is 7 characters long that contains the access code. Will return null if it could not get the Stage Manager's access code</returns>
     public String GetManagerAccessCode()
     {
         String managerAccessCode = null;
         try
         {
+            //Connect and open a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
 
+            //Command to grab the stagemanager_accesss_code from the production table
             var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = "SELECT stagemanager_access_code " +
                               "FROM public.production " +
                               "WHERE production_year=2023;";
 
-            // Execute the query and read the result
+            //Execute the query and read the result
             using var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                // Assuming performer_access_code is a string; adjust if it's a different data type
+                //Get the Stage Manger's access code from the reader
                 managerAccessCode = reader["stagemanager_access_code"].ToString();
             }
         }
         catch (Npgsql.PostgresException pe)
         {
-            // Handle the exception, log it, or perform other error handling as needed
-            return managerAccessCode;
+            return null;
         }
 
         return managerAccessCode;
     }
+
+    /// <summary>
+    /// Gets the Choreographer's access code from the database
+    /// </summary>
+    /// <returns>A String that is 7 character's long with the access code. Will return null if it can't get the Choreographer's access code</returns>
     public String GetChoreoAccessCode()
     {
         String choreoAccessCode = null;
         try
         {
+            //Connects and opens a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
 
+            //Command to grab the choreographer_access_code from the production table 
             var cmd = new NpgsqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = "SELECT choreographer_access_code " +
@@ -154,36 +179,43 @@ public partial class Database : IDatabase
             using var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                // Assuming performer_access_code is a string; adjust if it's a different data type
+                //Get the access code from the reader
                 choreoAccessCode = reader["choreographer_access_code"].ToString();
             }
         }
         catch (Npgsql.PostgresException pe)
         {
-            // Handle the exception, log it, or perform other error handling as needed
             return choreoAccessCode;
         }
 
         return choreoAccessCode;
     }
 
+    /// <summary>
+    /// This will delete all the information in the database except the information in the production table.
+    /// </summary>
+    /// <returns>True if it deleted all the information except in the production table. False if it failed</returns>
     public Boolean DeleteAllTables()
     {
         try
         {
+            //Open a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
 
-            //command to update the production table with the new access code
+            //Create a command variable
             var cmd = new NpgsqlCommand();
+
+            //Command to delete everything from the dreamroleusers table, this will also delete everything from the performer table and the rehearsal_memebers
             cmd.Connection = conn;
             cmd.CommandText = "DELETE FROM dreamrolesuser;";
             cmd.ExecuteNonQuery();
 
+            //Command to delete everything from the songs table , this will also delete everything from the setlists table and the rehearsals table
             cmd.CommandText = "DELETE FROM songs;";
             cmd.ExecuteNonQuery();
         }
-        catch (Exception e) 
+        catch ((Npgsql.PostgresException e) 
         {
             return false;
         }

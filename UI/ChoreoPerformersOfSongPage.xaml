@@ -4,7 +4,8 @@
              xmlns:model="clr-namespace:Prototypes.Model"
              x:DataType="model:SearchBarPerformerViewModel"
              x:Class="Prototypes.UI.ChoreoPerformersOfSongPage"
-                          BackgroundColor="#E1D6C9">
+             BackgroundColor="#E1D6C9"
+             Shell.BackgroundColor="#0E79A5">
 
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">

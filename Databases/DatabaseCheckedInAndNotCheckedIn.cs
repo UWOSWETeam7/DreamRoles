@@ -7,73 +7,115 @@ namespace Prototypes.Databases
 {
     public partial class Database : IDatabase
     {
+        //Contains all the checked in performers
         private ObservableCollection<Performer> _checkedInPerformers;
-        private ObservableCollection<Performer> _notCheckedInPerformers;
+        //Contains all the not checked in performers
+        private ObservableCollection<Performer> _notCheckedInPerformers;\
+
+        /// <summary>
+        /// This will get all the checked in performers from the database
+        /// </summary>
+        /// <returns>a ObservableCollection with all the checked in performers. Will return a empty ObservableCollection if it can't get the checked in performers.</returns>
         public ObservableCollection<Performer> GetCheckedInPerformers()
         {
-
+            //Prevents duplicates
             _checkedInPerformers.Clear();
-            // Connects and opens a connection to the database
-            using var conn = new NpgsqlConnection(_connString);
-            conn.Open();
-
-            // Commands to get all the checked in performers in the database
-            using var cmd = new NpgsqlCommand(
-                 "SELECT * FROM performer \r\nWHERE checked_in_status = 'checked in' OR checked_in_status = 'excused';", conn);
-            using var reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+           
+            try
             {
-                int userId = reader.GetInt32(0);
+                // Connects and opens a connection to the database
+                using var conn = new NpgsqlConnection(_connString);
+                conn.Open();
 
-                Performer performerToCheckIn = _performers.First(performer => performer.Id == userId);
-                _checkedInPerformers.Add(performerToCheckIn);
+                // Commands to get all the checked in performers in the database
+                using var cmd = new NpgsqlCommand(
+                     "SELECT * FROM performer \r\nWHERE checked_in_status = 'checked in' OR checked_in_status = 'excused';", conn);
+                using var reader = cmd.ExecuteReader();
+
+                //While there is still a performer in the reader
+                while (reader.Read())
+                {
+                    //Get the user id
+                    int userId = reader.GetInt32(0);
+
+                    //Find the performer from the ObservableCollection _performers
+                    Performer performerToCheckIn = _performers.First(performer => performer.Id == userId);
+
+                    if (performerToCheckIn != null)
+                    {
+                        //Add that performer to the ObservableCollection
+                        _checkedInPerformers.Add(performerToCheckIn);
+                    }
+                   
+                }
             }
-
+            catch(Npgsql.PostgresException e)
+            {
+                //Should be empty
+                return _checkedInPerformers
+            }
 
             return _checkedInPerformers;
         }
 
         /// <summary>
-        /// The string needed to connect to the database
+        /// This will get all the not checked in performers from the database
         /// </summary>
-        /// <returns>A String that has the infomration to connect to the database</returns>
-        /// 
+        /// <returns>a ObservableCollection with all the not checked in performers. Will return a empty ObservableCollection if it can't get the not checked in performers.</returns>
         public ObservableCollection<Performer> GetNotCheckedInPerformers()
         {
+            //Makes sure that there will be no duplicates
             _notCheckedInPerformers.Clear();
-            // Connects and opens a connection to the database
-            using var conn = new NpgsqlConnection(_connString);
-            conn.Open();
-
-            // Commands to get all the checked in performers in the database
-            using var cmd = new NpgsqlCommand(
-                 "SELECT * FROM performer \r\nWHERE checked_in_status = 'not checked in';", conn);
-            using var reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                int userId = reader.GetInt32(0);
+                // Connects and opens a connection to the database
+                using var conn = new NpgsqlConnection(_connString);
+                conn.Open();
 
-                Performer? performerToCheckIn = _performers.FirstOrDefault(performer => performer.Id == userId);
-                if (performerToCheckIn != null)
+                // Commands to get all the checked in performers in the database
+                using var cmd = new NpgsqlCommand(
+                     "SELECT * FROM performer \r\nWHERE checked_in_status = 'not checked in';", conn);
+                using var reader = cmd.ExecuteReader();
+
+                //While there are still performers to read in
+                while (reader.Read())
                 {
-                    _notCheckedInPerformers.Add(performerToCheckIn);
+                    //Get the user id from that performer
+                    int userId = reader.GetInt32(0);
+
+                    //Get the performer from the ObservableCollection _performers
+                    Performer? performerNotChecedIn = _performers.FirstOrDefault(performer => performer.Id == userId);
+
+                    if (performerToCheckIn != null)
+                    {
+                        //Adds it to the ObservableCollection
+                        _notCheckedInPerformers.Add(performerNotChecedIn);
+                    }
                 }
             }
-
+            catch (Npgsql.PostgresException e)
+            {
+                //Should be empty
+                reutrn _notCheckedInPerformers;
+            }
 
             return _notCheckedInPerformers;
         }
 
+        /// <summary>
+        /// Changes a performers status in the database
+        /// </summary>
+        /// <param name="performer"> the Performer that is getting checked in</param>
+        /// <param name="status">the Performer's status</param>
+        /// <returns>A true and a string of "success" if it worked. False and a string of "Now rows were affected" or a error message if failed</returns>
         public (bool success, string message) CheckInPerformer(Performer performer, String status)
         {
             try
             {
-
+                //Changing the performer's status in the program
                 performer.CheckedInStatus = status;
 
-                // Adds performer to local chekced in collection
+                // Adds performer to local checked in collection
                 _checkedInPerformers.Add(performer);
 
 
@@ -82,7 +124,7 @@ namespace Prototypes.Databases
                 conn.Open();
 
                 DateTime checkedInTime = DateTime.Now;
-                // Command to insert a performer into the 'ched_in_performers' table
+                // Command to insert a performer into the 'checked_in_performers' table
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "INSERT INTO checked_in_performers (user_id, time_checked_in, status) " +
@@ -108,13 +150,22 @@ namespace Prototypes.Databases
 
         }
 
+        /// <summary>
+        /// This updates the performer's status in the rehearsal_members table
+        /// </summary>
+        /// <param name="performer">The performer who's status is getting update</param>
+        /// <param name="rehearsal">The rehearsl that the performer is checking into</param>
+        /// <param name="isCheckedIn">Boolean if the performer is checking in or not</param>
+        /// <returns>A true and a string of "success" if succeful. False and a string of "No rows were affected" or a error message if failed</returns>
         public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, bool isCheckedIn)
         {
             try
             {
+                //Opens a connection to the database
                 using var conn = new NpgsqlConnection(_connString);
                 conn.Open();
 
+                //Command to update the rehearsal_members table by seeting the checked_in to a specific user id, time, and song title
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "UPDATE rehearsal_members\r\n" +
@@ -129,13 +180,15 @@ namespace Prototypes.Databases
                 var success = cmd.ExecuteNonQuery();
 
                 if (success > -1)
-                {
+                { 
                     if (isCheckedIn)
                     {
+                        //Were checked in
                         performer.CheckedInStatus = "checked in";
                     }
                     else
                     {
+                        //Were not checked in
                         performer.CheckedInStatus = "not checked in";
                     }
 
@@ -150,6 +203,8 @@ namespace Prototypes.Databases
                 return (false, ex.Message);
             }
         }
+
+
         /// <summary>
         /// Updates the checked in status of a performer
         /// </summary>
@@ -166,6 +221,7 @@ namespace Prototypes.Databases
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
 
+                //Command to update the rehearsal_members table by setting the status for a specific user id.
                 cmd.CommandText = "UPDATE rehearsal_members\r\n" +
                     "SET status = @status\r\n" +
                     "WHERE user_id = @user_id;";
