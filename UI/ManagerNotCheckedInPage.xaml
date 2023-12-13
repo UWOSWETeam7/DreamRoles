@@ -4,7 +4,8 @@
              x:Class="Prototypes.UI.ManagerNotCheckedInPage"
              xmlns:model_2="clr-namespace:Prototypes.Model" 
              x:DataType="model_2:SearchBarNotCheckedInPerformerViewModel" 
-             BackgroundColor="#E1D6C9">
+             BackgroundColor="#E1D6C9"
+             Shell.BackgroundColor="#0E79A5">
 
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">

@@ -4,7 +4,7 @@
              x:Class="Prototypes.UI.ChoreoNotCheckedInPage"
              xmlns:model_2="clr-namespace:Prototypes.Model" 
              x:DataType="model_2:SearchBarNotCheckedInPerformerViewModel" 
-             
+             Shell.BackgroundColor="#0E79A5"
              BackgroundColor="#E1D6C9">
 
     <NavigationPage.TitleView>

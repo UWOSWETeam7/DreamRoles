@@ -6,8 +6,7 @@
              xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.ChoreoCheckedInPage"
              BackgroundColor="#E1D6C9"
-             Shell.BackgroundColor="#866B53"
-             >
+             Shell.BackgroundColor="#866B53">
 
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
