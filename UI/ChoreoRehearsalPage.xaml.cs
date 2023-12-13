@@ -13,4 +13,10 @@ public partial class ChoreoRehearsalPage : ContentPage
         _searchBarPerformerViewModel = new SearchBarPerformerViewModel(rehearsal);
         BindingContext = _searchBarPerformerViewModel;
     }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
+    }
 }

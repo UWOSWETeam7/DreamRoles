@@ -3,11 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:DataType="model:SearchBarSongViewModel"
-             xmlns:model="clr-namespace:Prototypes.Model"
-            
+             xmlns:model="clr-namespace:Prototypes.Model" 
              x:Class="Prototypes.UI.ManagerSongsPage"
-             Title="Songs"
-             BackgroundColor="#E1D6C9">
+             BackgroundColor="#E1D6C9"
+             Shell.BackgroundColor="#0E79A5">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Songs" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
 
     <Grid
         RowSpacing="7"
@@ -45,13 +52,13 @@
                Grid.Row="2"
                Grid.Column="0"
                Grid.ColumnSpan="3"
-            Margin="5,0,0,0"
+                Margin="35,0,0,0"
                HorizontalOptions="Start"
                x:Name="CVSongs" ItemsSource="{Binding FilteredSongs}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Song">
 
-                    <Grid ColumnDefinitions="4*,*,*,*" Grid.ColumnSpan="4" HeightRequest="50"  Margin="0,0" Padding="30,15">
+                    <Grid ColumnDefinitions="4*,*,*,*" Grid.ColumnSpan="4" HeightRequest="50" >
 
                         <Label Grid.Column ="0" Text="{Binding Title}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap">
                             <Label.GestureRecognizers>
@@ -59,7 +66,7 @@
                             </Label.GestureRecognizers>
                         </Label>
                         <Button 
-                                    Grid.Row="3" 
+                                    
                                     Grid.Column="1" 
                                     BackgroundColor="White"
                                     WidthRequest="40"
@@ -70,8 +77,8 @@
                                     CornerRadius="90"
                                     Clicked="ShowPerformersOfSongPage"/>
                         <Image
-                                    Grid.Row="2"
-                                    Grid.Column="4"
+                                   
+                                    Grid.Column="3"
                                     VerticalOptions="Center"
                                     HorizontalOptions="End"
                                     WidthRequest="50"

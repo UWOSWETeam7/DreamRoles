@@ -5,9 +5,16 @@
              x:DataType="model:SearchBarSongViewModel"
              xmlns:model="clr-namespace:Prototypes.Model"       
              x:Class="Prototypes.UI.ChoreoSongsPage"
-             Title="Songs"
-             BackgroundColor="#E1D6C9">
+             BackgroundColor="#E1D6C9"
+             Shell.BackgroundColor="#0E79A5">
 
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Songs" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    
     <Grid
         RowSpacing="7"
         ColumnSpacing="5"
@@ -44,18 +51,18 @@
                Grid.Row="2"
                Grid.Column="0"
                Grid.ColumnSpan="3"
-            Margin="5,0,0,0"
+            Margin="35,0,0,0"
                HorizontalOptions="Start"
                x:Name="CVSongs" ItemsSource="{Binding FilteredSongs}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Song">
 
-                    <Grid ColumnDefinitions="4*,*,*,*" Grid.ColumnSpan="4" HeightRequest="50"  Margin="0,0" Padding="30,15">
+                    <Grid ColumnDefinitions="4*,*,*,*" Grid.ColumnSpan="4" HeightRequest="50">
 
                         <Label Grid.Column ="0" Text="{Binding Title}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
                         
                         <Button 
-                            Grid.Row="3" 
+                            
                             Grid.Column="1" 
                             BackgroundColor="White"
                             WidthRequest="40"

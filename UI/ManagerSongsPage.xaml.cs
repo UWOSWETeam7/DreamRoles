@@ -40,5 +40,10 @@ public partial class ManagerSongsPage : ContentPage
         var song = (Song)button.BindingContext;
         Navigation.PushAsync(new ManagerPerformersOfSongPage(song));
     }
-    
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
+    }
 }

@@ -7,6 +7,13 @@
              Title="Choreographer Homepage"
              BackgroundColor="#E1D6C9"
 			 Shell.BackgroundColor="#ac9884">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Choreographer Homepage" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
     <Grid
 	RowSpacing="7"
 	ColumnSpacing="5"

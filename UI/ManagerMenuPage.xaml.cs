@@ -32,4 +32,10 @@ public partial class ManagerMenuPage : ContentPage
     {
         await Navigation.PushAsync(new ManagerPerformersPage());
     }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
+    }
 }

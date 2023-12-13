@@ -3,17 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:Prototypes.Model"
              x:Class="Prototypes.UI.PerformerCheckInTimesPage"
-             BackgroundColor="#E1D6C9">
+             BackgroundColor="#E1D6C9"
+             Shell.BackgroundColor="#0E79A5">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label x:Name="title" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
     <Grid
 	RowSpacing="7"
-	ColumnSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="525" />
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
+	ColumnSpacing="5"
+        RowDefinitions="50*,600*">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -37,7 +38,7 @@
 		       VerticalOptions="Center"/>
 
         <CollectionView
-						Grid.Row="3"
+						Grid.Row="1"
 						Grid.Column="0"
 						Grid.ColumnSpan="3"
 						HorizontalOptions="Start"

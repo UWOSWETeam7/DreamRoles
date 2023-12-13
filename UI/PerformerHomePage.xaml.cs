@@ -10,6 +10,12 @@ public partial class PerformerHomePage : ContentPage
         InitializeComponent();
         BindingContext = new SearchBarPerformersSongsViewModel(performer);
         _performer = performer;
-        Title = $"{_performer.FirstName} {_performer.LastName} {"Homepage"}";
+        title.Text = _performer.FirstName + " " + performer.LastName + "'s Homepage";
+    }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
     }
 }

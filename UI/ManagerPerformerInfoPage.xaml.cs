@@ -11,7 +11,7 @@ public partial class ManagerPerformerInfoPage : ContentPage
         _performer = performer;
         BindingContext = MauiProgram.BusinessLogic.FindPerformer(_performer.Id);
         InitializeComponent();
-
+        title.Text = _performer.FirstName + " " + _performer.LastName + "'s Info";
         _refreshView.Refreshing += ShowEditPerformerNamePopup;
     }
     private void ShowEditContactInfoPopup(object sender, EventArgs e)
@@ -36,5 +36,11 @@ public partial class ManagerPerformerInfoPage : ContentPage
         var label = (Image)sender;
         var song = label.BindingContext;
         Navigation.PushAsync(new EditSongPopup((Song)song));
+    }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
     }
 }

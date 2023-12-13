@@ -251,7 +251,7 @@ namespace Prototypes.Databases
         /// <param name="songName">the name of the song</param>
         /// <param name="notes">stage manager notes for the performer</param>
         /// <returns>a Boolean of success or failure</returns>
-        public Boolean InsertSongForPerformer(int userId, String songName, String notes)
+        public Boolean InsertSongForPerformer(int userId, String songName, String notes, bool allPerformersAdded = true)
         {
             try
             {
@@ -267,10 +267,14 @@ namespace Prototypes.Databases
                 cmd.Parameters.AddWithValue("userId", userId);
                 cmd.Parameters.AddWithValue("songName", songName);
                 cmd.Parameters.AddWithValue("notes", notes);
+                cmd.Prepare(); // prepares the on the server side, making multiple executions faster
                 cmd.ExecuteNonQuery();
 
-                //Repopulates performers so now the updated performer is in it
-                SelectAllPerformers(2023);
+                if(allPerformersAdded)
+                {
+                    //Repopulates performers so now the updated performer is in it
+                    SelectAllPerformers(2023);
+                }
             }
             catch (Npgsql.PostgresException pe)
             {

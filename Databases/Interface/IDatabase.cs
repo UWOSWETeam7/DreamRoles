@@ -19,7 +19,7 @@ namespace Prototypes.Databases.Interface
         public Boolean InsertSong(String title);
         public ObservableCollection<Song> SelectAllSongs();
         public Boolean DeleteSong(String songTitle);
-        public Boolean InsertSongForPerformer(int userId, String songName, String notes);
+        public Boolean InsertSongForPerformer(int userId, String songName, String notes, bool allPerformersAdded = true);
         public Boolean UpdatePerformerContact(int userId, String phoneNumber, String email);
         public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, bool isCheckedIn);
         public ObservableCollection<Performer> GetCheckedInPerformers();
@@ -46,7 +46,7 @@ namespace Prototypes.Databases.Interface
         /// </summary>
         /// <param name="performer">the performer that the user wants to put into the file</param>
         /// <returns>True if it was inserted into the ObservableCollection and the file, false otherwise</returns>
-        public (bool Success, int UserId) InsertPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber, int absences);
+        public (bool Success, int UserId) InsertPerformer(String firstName, String lastName, ObservableCollection<ISongDB> songs, String email, String phoneNumber, int absences, bool allPerformersAdded = true);
 
         /// <summary>
         /// Deletes the performer in the file with the given id

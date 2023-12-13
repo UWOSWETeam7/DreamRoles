@@ -10,12 +10,19 @@ public partial class ManagerPerformersOfSongPage : ContentPage
         InitializeComponent();
         BindingContext = new SearchBarPerformersOfSongsViewModel(song);
         _song = song;
-        Title = $"{"Performers Of"} {_song.Title} ";
+        title.Text = "Performers Of" + " " + _song.Title ;
+        
     }
 
     private void AddToSetlist_Clicked(object sender, EventArgs e)
     {
         ActivityIndicator activityIndicator = new ActivityIndicator { IsRunning = true, IsEnabled = true };
         Navigation.PushAsync(new AddSongToSetlistPage(_song));
+    }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
     }
 }

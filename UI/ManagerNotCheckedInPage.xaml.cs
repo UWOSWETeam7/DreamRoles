@@ -29,4 +29,10 @@ public partial class ManagerNotCheckedInPage : ContentPage
         var performer = (Performer)button.BindingContext;
         Navigation.PushAsync(new ManagerAlertPage(performer));
     }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
+    }
 }

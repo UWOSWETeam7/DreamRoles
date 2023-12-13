@@ -50,4 +50,9 @@ public partial class ManagerPerformersPage : ContentPage
         Navigation.PushAsync(new ManagerSongsPage());
     }
 
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
+    }
 }

@@ -34,6 +34,12 @@ public partial class ChoreoHomePage : ContentPage
 
     private async void OnChoreoMenu_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new ChoreoMenuPage());
+        await Navigation.PushAsync(new ChoreoMenuPage());
+    }
+
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
     }
 }

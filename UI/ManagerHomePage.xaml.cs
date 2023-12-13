@@ -16,7 +16,12 @@ public partial class ManagerHomePage : ContentPage
         _nearestRehearsal = MauiProgram.BusinessLogic.Rehearsals.OrderBy(rehearsal => rehearsal.Time).FirstOrDefault(rehearsal => rehearsal.Time >= DateTime.Now);
         if(_nearestRehearsal == null)
         {
-            _nearestRehearsal = MauiProgram.BusinessLogic.Rehearsals.First();
+            _nearestRehearsal = new Rehearsal(DateTime.Now, new Song("no rehearsals", "no rehearsals"));
+
+            if (MauiProgram.BusinessLogic.Rehearsals.FirstOrDefault() != null)
+            {
+                _nearestRehearsal = MauiProgram.BusinessLogic.Rehearsals.First();
+            }
         }
         LabelNearestRehearsal.Text = $"Next Rehearsal at {_nearestRehearsal.Time} for {_nearestRehearsal.Song.Title}";
         _viewModel = new SearchBarPerformerViewModel(_nearestRehearsal);
@@ -49,10 +54,12 @@ public partial class ManagerHomePage : ContentPage
     {
         if (e.CurrentSelection.Count > 0)
         {
-            Performer performer = (Performer)e.CurrentSelection[0];
-            await Navigation.PushAsync(new ManagerPerformerInfoPage(performer));
-            CVPerformers.SelectedItem = null;
-
+            for (int i = 0; i <  e.CurrentSelection.Count; i++)
+            {
+                Performer performer = (Performer)e.CurrentSelection[i];
+                await Navigation.PushAsync(new ManagerPerformerInfoPage(performer));
+                CVPerformers.SelectedItem = null;
+            }
         }
     }
 
@@ -76,9 +83,10 @@ public partial class ManagerHomePage : ContentPage
 
 
     }
-
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
     {
-
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
     }
+
 }

@@ -30,5 +30,9 @@ public partial class SelectNamePage : ContentPage
     {
         performer = CVPerformers.SelectedItem as Performer;
     }
-
+    private async void SignOutButton_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new WelcomePage());
+        Navigation.RemovePage(this);
+    }
 }
