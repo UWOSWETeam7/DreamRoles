@@ -3,31 +3,50 @@ using Prototypes.Databases.Interface;
 using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Model.Interfaces;
-using System.Data;
+
 
 namespace Prototypes.Databases
 {
     public partial class Database : IDatabase
     {
+        /// <summary>
+        /// Gets the setlist of a performer from the database
+        /// </summary>
+        /// <param name="performerId">the id of the performer we want the setlist of</param>
+        /// <returns>A ObservableCollection of songs. Will be empty if it failed or no data is found</returns>
         public ObservableCollection<Song> GetPerformerSetList(int performerId)
         {
+            //Creates a new ObservableCollection of songs
             ObservableCollection<Song> performerSetlist = new ObservableCollection<Song>();
-            using var conn = new NpgsqlConnection(_connString);
-            conn.Open();
-
-            // Commands to get all the performers in the database
-            using var cmd = new NpgsqlCommand("SELECT song_title, notes " +
-                                              "FROM setlists " +
-                                              "WHERE user_id = @userId;", conn);
-            cmd.Parameters.AddWithValue("userId", performerId);
-            using var reader = cmd.ExecuteReader();
-
-            while(reader.Read())
+            try
             {
-                String title = reader.GetString(0);
-                String note = reader.GetString(1);
+                //Opens a connection to the database
+                using var conn = new NpgsqlConnection(_connString);
+                conn.Open();
+
+                // Commands to get all songs that are linked to a specific user id
+                using var cmd = new NpgsqlCommand("SELECT song_title, notes " +
+                                                  "FROM setlists " +
+                                                  "WHERE user_id = @userId;", conn);
+                cmd.Parameters.AddWithValue("userId", performerId);
+                using var reader = cmd.ExecuteReader();
+
+                //While there are more songs to read in
+                while (reader.Read())
+                {
+                    //Getting the information from the table
+                    String title = reader.GetString(0);
+                    String note = reader.GetString(1);
+    
+                //Creating a new song and adding it the ObservableCollection
                 Song song = new Song(title, note);
-                performerSetlist.Add(song);
+                    performerSetlist.Add(song);
+                }
+            }
+            catch (Npgsql.PostgresException e)
+            {
+                //Would be empty
+                return performerSetlist;
             }
             return performerSetlist;
         }
@@ -44,114 +63,163 @@ namespace Prototypes.Databases
 
             _performers.Clear();
             // Connects and opens a connection to the database
-            using var conn = new NpgsqlConnection(_connString);
-            conn.Open();
-
-            // Commands to get all the performers in the database
-            using var cmd = new NpgsqlCommand(
-                 $"SELECT *\r\nFROM performer\r\nINNER JOIN dreamrolesuser\r\nUSING (user_id) WHERE dreamrolesuser.production_year = {year};", conn);
-            using var reader = cmd.ExecuteReader();
-
-            // Create a Performer object for each row returned from query
-            while (reader.Read())
+            try
             {
-                int userId = reader.GetInt16(0);
-                String email = reader.IsDBNull(1) ? "" : reader.GetString(1);
-                int absences = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
-                String checkedInStatus = reader.GetString(3);
-                String phoneNumber = reader.IsDBNull(4) ? "" : reader.GetString(4) + "";
-                String firstName = reader.GetString(5);
-                String lastName = reader.GetString(6);
-                ObservableCollection<ISongDB> setList = new();
+                using var conn = new NpgsqlConnection(_connString);
+                conn.Open();
 
-                // Create the Performer object and add it to the ObservableCollection
-                Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber, absences, checkedInStatus);
-                _performers.Add(performerToAdd);
+                // Commands to get all the performers in the database
+                using var cmd = new NpgsqlCommand($"SELECT *\r\n" +
+                                                  $"FROM performer\r\n" +
+                                                  $"INNER JOIN dreamrolesuser\r\n" +
+                                                  $"USING (user_id) " +
+                                                  $"WHERE dreamrolesuser.production_year = {year};", conn);
+                using var reader = cmd.ExecuteReader();
+
+                // Create a Performer object for each row returned from query
+                while (reader.Read())
+                {
+                    int userId = reader.GetInt16(0);
+                    String email = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                    int absences = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
+                    String checkedInStatus = reader.GetString(3);
+                    String phoneNumber = reader.IsDBNull(4) ? "" : reader.GetString(4) + "";
+                    String firstName = reader.GetString(5);
+                    String lastName = reader.GetString(6);
+                    ObservableCollection<ISongDB> setList = new();
+
+                    // Create the Performer object and add it to the ObservableCollection
+                    Performer performerToAdd = new Performer(userId, firstName, lastName, setList, email, phoneNumber, absences, checkedInStatus);
+                    _performers.Add(performerToAdd);
+                }
+
+                //Get all the songs for each performer
+                foreach (var performer in _performers)
+                {
+                    performer.Songs = SelectPerformerSongs(performer.Id);
+                }
             }
-
-            foreach (var performer in _performers)
+            catch(Npgsql.PostgresException e)
             {
-                performer.Songs = SelectPerformerSongs(performer.Id);
+                //Would be empty
+                return _performers;
             }
 
             GetCheckedInPerformers();
+            GetNotCheckedInPerformers();
 
             return _performers;
         }
 
+        /// <summary>
+        /// Will get all the performers for a specific rehearsal which is defined by a time and song
+        /// </summary>
+        /// <param name="rehearsalTime">The data and time of the rehearsal</param>
+        /// <param name="songTitle">What song is being rehearsed</param>
+        /// <returns>A ObservableCollection of perforers</returns>
         public ObservableCollection<Performer> SelectAllPerfomersFromRehearsal(DateTime rehearsalTime, String songTitle)
         {
-            // Connects and opens a connection to the database
-            using var conn = new NpgsqlConnection(_connString);
-            conn.Open();
-
-            // Commands to get all the performers in the database
-            using var cmd = new NpgsqlCommand("SELECT * FROM rehearsal_members\r\n" +
-                "WHERE rehearsal_time= @rehearsalTime AND song_title = @songTitle;", conn);
-            cmd.Parameters.AddWithValue("rehearsalTime", rehearsalTime);
-            cmd.Parameters.AddWithValue("songTitle", songTitle);
-
-            using var reader = cmd.ExecuteReader();
-
+            //Creates a new ObservableCollection of Performer object
             ObservableCollection<Performer> rehearsalPerformers = new ObservableCollection<Performer>();
-            while (reader.Read())
+
+            try
             {
-                int userId = reader.GetInt32(0);
-                String status = reader.GetString(4);
+                // Connects and opens a connection to the database
+                using var conn = new NpgsqlConnection(_connString);
+                conn.Open();
 
-                Performer performer = _performers.First(performer => performer.Id == userId);
-                performer.CheckedInStatus = status;
-                rehearsalPerformers.Add(performer);
+                // Commands to get all the performers in the database
+                using var cmd = new NpgsqlCommand("SELECT * FROM rehearsal_members\r\n" +
+                    "WHERE rehearsal_time= @rehearsalTime AND song_title = @songTitle;", conn);
+                cmd.Parameters.AddWithValue("rehearsalTime", rehearsalTime);
+                cmd.Parameters.AddWithValue("songTitle", songTitle);
+
+                using var reader = cmd.ExecuteReader();
+
+                //While there are still more performers to read in
+                while (reader.Read())
+                {
+                    int userId = reader.GetInt32(0);
+                    String status = reader.GetString(4);
+
+                    //Find the performer
+                    Performer performer = _performers.First(performer => performer.Id == userId);
+                    //Change the status of the checked in status
+                    performer.CheckedInStatus = status;
+                    //Add Performer to ObservableCollection
+                    rehearsalPerformers.Add(performer);
+                }
             }
-
+            catch (Npgsql.PostgresException e)
+            {
+                //Should be empty
+                return rehearsalPerformers;
+            }
             return rehearsalPerformers;
-
         }
 
         /// <summary>
-        /// Uses the given id to find a performer object with that id in a ObservableCollection
+        /// Get all the performers that have this specific song in their setlist
         /// </summary>
-        /// <param name="id">the id of the performer that the user is trying to find</param>
-        /// <returns>the performer if it is in the ObservableCollection. Returns null if the performer is not found</returns>
-
+        /// <param name="song">The song whe want all the performers for</param>
+        /// <returns>A ObservableCollection of performer objects</returns>
         public ObservableCollection<Performer> GetPerformersOfASong(Song song)
         {
+            //A new ObservableCollection of performers
             ObservableCollection<Performer> performersOfASong = new ObservableCollection<Performer>();
-            using var conn = new NpgsqlConnection(_connString);
-            conn.Open();
 
-            using var cmd = new NpgsqlCommand("SELECT *\r\n" +
-                "FROM dreamrolesuser\r\n" +
-                "INNER JOIN setlists ON dreamrolesuser.user_id = setlists.user_id\r\n" +
-                "WHERE dreamrolesuser.production_year = @year AND song_title = @songTitle;", conn);
-            cmd.Parameters.AddWithValue("songTitle", song.Title);
-            cmd.Parameters.AddWithValue("year", 2023);
-
-            using var reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                int id = reader.GetInt32(0);
-                string firstName = reader.GetString(1);
-                string lastName = reader.GetString(2);
-                string title = reader.GetString(3);
+                //Opens a connection to the database
+                using var conn = new NpgsqlConnection(_connString);
+                conn.Open();
 
-                Performer performer = _performers.FirstOrDefault(performer => performer.Id == id);
-                // Create the Performer object and add it to the ObservableCollection
-                if (performer != null)
+                //Command to get everything from the dreamroleuser table finds all users where their id is also in the setlist with the specified song
+                using var cmd = new NpgsqlCommand("SELECT *\r\n" +
+                    "FROM dreamrolesuser\r\n" +
+                    "INNER JOIN setlists ON dreamrolesuser.user_id = setlists.user_id\r\n" +
+                    "WHERE dreamrolesuser.production_year = @year AND song_title = @songTitle;", conn);
+                cmd.Parameters.AddWithValue("songTitle", song.Title);
+                cmd.Parameters.AddWithValue("year", 2023);
+
+                using var reader = cmd.ExecuteReader();
+
+                //While there is still more users to read in
+                while (reader.Read())
                 {
-                    performersOfASong.Add(performer);
+                    int id = reader.GetInt32(0);
+                    string firstName = reader.GetString(1);
+                    string lastName = reader.GetString(2);
+                    string title = reader.GetString(3);
+                    
+                    //find the performer based on thier id
+                    Performer performer = _performers.FirstOrDefault(performer => performer.Id == id);
+                    
+                    if (performer != null)
+                    {
+                        // Create the Performer object and add it to the ObservableCollection
+                        performersOfASong.Add(performer);
+                    }
                 }
+            }
+            catch (Npgsql.PostgresException e)
+            {
+                return performersOfASong;
             }
 
             return performersOfASong;
         }
 
         /// <summary>
-        /// Adds a new performer object into the database
+        /// Will insert a new performer into the database
         /// </summary>
-        /// <param name="performer">the performer that the user wants to put into the file</param>
-        /// <returns>True if it was inserted into the database, false otherwise</returns>
+        /// <param name="firstName">The first name of the performer</param>
+        /// <param name="lastName">The last name of the performer</param>
+        /// <param name="songs">The songs the performer is in</param>
+        /// <param name="email">The email of the performer</param>
+        /// <param name="phoneNumber">The phone number of the performer</param>
+        /// <param name="absences">The number of rehearsal the performer has missed</param>
+        /// <returns>True and the user id if a performer was added. False and a 0 if failed</returns>
         public (bool Success, int UserId) InsertPerformer(string firstName, string lastName, ObservableCollection<ISongDB> songs, string email, string phoneNumber, int absences)
         {
             try
@@ -196,6 +264,13 @@ namespace Prototypes.Databases
             }
         }
 
+        /// <summary>
+        /// Updates the performer's first and last name in the database
+        /// </summary>
+        /// <param name="userId">The performer's id</param>
+        /// <param name="firstName"> the first name of the performer</param>
+        /// <param name="lastName">The last name of the performer</param>
+        /// <returns>True if it updated. False if it failed to update</returns>
         public Boolean UpdatePerformerName(int userId, String firstName, String lastName)
         {
             try
@@ -204,7 +279,7 @@ namespace Prototypes.Databases
                 using var conn = new NpgsqlConnection(_connString);
                 conn.Open();
 
-                // Command to insert a new performer into the 'dreamrolesuser' table
+                // Command to update the first and last name of the performer in the 'dreamrolesuser' table
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "UPDATE dreamrolesuser " +
@@ -227,6 +302,13 @@ namespace Prototypes.Databases
             return true;
         }
 
+        /// <summary>
+        /// Update the performer's contact information in the databade
+        /// </summary>
+        /// <param name="userId">The performer's id</param>
+        /// <param name="phoneNumber">The phonenumber of the performer</param>
+        /// <param name="email">The email of the performer</param>
+        /// <returns>Returns true if it could be updated. False if it failed to update</returns>
         public Boolean UpdatePerformerContact(int userId, String phoneNumber, String email)
         {
             try
@@ -235,7 +317,7 @@ namespace Prototypes.Databases
                 using var conn = new NpgsqlConnection(_connString);
                 conn.Open();
 
-                //Commands to grab the performer with the given id and then update them
+                //Commands to grab the performer with the given id and then update their contact information
                 var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "UPDATE performer " +
@@ -278,40 +360,34 @@ namespace Prototypes.Databases
             //Was found
             if (performerToDel != null)
             {
-                using var conn = new NpgsqlConnection(_connString);
-                conn.Open();
-
-                using var cmd = new NpgsqlCommand();
-                cmd.Connection = conn;
-                cmd.CommandText = "DELETE FROM setlists " +
-                                  "WHERE user_id = @user_id";
-                cmd.Parameters.AddWithValue("user_id", userId);
-                int numDeleted3 = cmd.ExecuteNonQuery();
-
-                //Then, delete from the "performers" table
-                cmd.CommandText = "DELETE FROM performer " +
-                                  "WHERE user_id = @user_id";
-                cmd.Parameters.AddWithValue("user_id", userId);
-                int numDeleted2 = cmd.ExecuteNonQuery();
-
-                //First, delete from the "dreamroleuser" table
-                cmd.CommandText = "DELETE FROM dreamrolesuser " +
-                                  "WHERE user_id = @user_id";
-                cmd.Parameters.AddWithValue("user_id", userId);
-                int numDeleted1 = cmd.ExecuteNonQuery();
-
-
-
-                //Check if any rows were deleted from both tables
-                if (numDeleted1 > 0 && numDeleted2 > 0)
+                try
                 {
-                    //SelectAllPerformers() retrieves the updated list of performers
-                    SelectAllPerformers(2023);
+                    using var conn = new NpgsqlConnection(_connString);
+                    conn.Open();
+
+                    //Command to delete performer with this id from the dreamrolesuser which will remove it from all the other tables where this performer is mentioned
+                    using var cmd = new NpgsqlCommand();
+                    cmd.CommandText = "DELETE FROM dreamrolesuser " +
+                                      "WHERE user_id = @user_id";
+                    cmd.Parameters.AddWithValue("user_id", userId);
+                    int numDeleted = cmd.ExecuteNonQuery();
+
+
+
+                    //Check if any rows were deleted from both tables
+                    if (numDeleted > 0)
+                    {
+                        //SelectAllPerformers() retrieves the updated list of performers
+                        SelectAllPerformers(2023);
+                    }
+
+                    return (numDeleted > 0);
                 }
-
-                return (numDeleted1 > 0 && numDeleted2 > 0);
+                catch (Npgsql.PostgresException e)
+                {
+                    return false;
+                }
             }
-
             return false;
         }
 
