@@ -62,7 +62,7 @@
 						HorizontalOptions="Start"
 						x:Name="CVPerformers"
                         ItemsSource="{Binding FilteredPerformers}" 
-                        SelectionMode="Single"
+                        SelectionMode="Multiple"
                         SelectionChanged="OnPerformerSelectionChange">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
