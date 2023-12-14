@@ -10,7 +10,7 @@ namespace Prototypes.Databases
         //Contains all the checked in performers
         private ObservableCollection<Performer> _checkedInPerformers;
         //Contains all the not checked in performers
-        private ObservableCollection<Performer> _notCheckedInPerformers;\
+        private ObservableCollection<Performer> _notCheckedInPerformers;
 
         /// <summary>
         /// This will get all the checked in performers from the database
@@ -52,7 +52,7 @@ namespace Prototypes.Databases
             catch(Npgsql.PostgresException e)
             {
                 //Should be empty
-                return _checkedInPerformers
+                return _checkedInPerformers;
             }
 
             return _checkedInPerformers;
@@ -84,19 +84,19 @@ namespace Prototypes.Databases
                     int userId = reader.GetInt32(0);
 
                     //Get the performer from the ObservableCollection _performers
-                    Performer? performerNotChecedIn = _performers.FirstOrDefault(performer => performer.Id == userId);
+                    Performer? performerNotCheckedIn = _performers.FirstOrDefault(performer => performer.Id == userId);
 
-                    if (performerToCheckIn != null)
+                    if (performerNotCheckedIn != null)
                     {
                         //Adds it to the ObservableCollection
-                        _notCheckedInPerformers.Add(performerNotChecedIn);
+                        _notCheckedInPerformers.Add(performerNotCheckedIn);
                     }
                 }
             }
             catch (Npgsql.PostgresException e)
             {
                 //Should be empty
-                reutrn _notCheckedInPerformers;
+                return _notCheckedInPerformers;
             }
 
             return _notCheckedInPerformers;
