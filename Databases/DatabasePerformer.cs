@@ -36,7 +36,7 @@ namespace Prototypes.Databases
                 {
                     //Getting the information from the table
                     String title = reader.GetString(0);
-                    String note = reader.GetString(1);
+                    String note = reader.GetString(1); // assign as empty string if null
     
                 //Creating a new song and adding it the ObservableCollection
                 Song song = new Song(title, note);

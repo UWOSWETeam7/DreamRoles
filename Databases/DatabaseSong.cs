@@ -207,6 +207,34 @@ namespace Prototypes.Databases
             cmd.Parameters.AddWithValue("user_id", userId);
             cmd.ExecuteNonQuery();
         }
+        /// <summary>
+        /// Deletes a song from a performer's setlist and removes performer from all rehearsals with that song
+        /// </summary>
+        /// <param name="userId">The user's ID</param>
+        /// <param name="songTitle">The title of the song to remove</param>
+        /// <returns>Boolean of if any rows were changed</returns>
+        public Boolean DeleteSongFromSetlist(int userId, String songTitle)
+        {
+            //Connects and opens a connection to the database
+            var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+
+            //Commands to delete the performer from the database
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "DELETE FROM setlists\r\n" +
+                "WHERE user_id = @userId AND song_title = @songTitle;\r\n" +
+                "DELETE FROM rehearsal_members\r\n" +
+                "WHERE user_id = @userId AND song_title = @songTitle;";
+            cmd.Parameters.AddWithValue("userId", userId);
+            cmd.Parameters.AddWithValue("songTitle", songTitle);
+
+            var result = cmd.ExecuteNonQuery();
+
+            return result > 0;
+
+            
+        }
         private void InsertIntoRehersalPri(DateTime rehearsalTime, String songTitle)
         {
             using var conn = new NpgsqlConnection(_connString);
@@ -259,18 +287,18 @@ namespace Prototypes.Databases
                 using var conn = new NpgsqlConnection(_connString);
                 conn.Open();
 
+                if (notes == null)
+                {
+                    notes = string.Empty;
+                }
                 // Command to insert a song into the 'songs' table
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
-                String queryString = notes != null ? "INSERT INTO setlists(user_id, song_title, notes)\r\n VALUES(@userId, @songName, @notes);" :
-                    "INSERT INTO setlists(user_id, song_title)\r\n VALUES(@userID, @songName);"; // if no song notes, just add id and song name
-                cmd.CommandText = queryString;
+                cmd.CommandText = $"INSERT INTO setlists(user_id, song_title, notes)\r\n" +
+                    "VALUES(@userId, @songName, @notes);";
                 cmd.Parameters.AddWithValue("userId", userId);
                 cmd.Parameters.AddWithValue("songName", songName);
-                if (notes != null)
-                {
-                    cmd.Parameters.AddWithValue("notes", notes);
-                }
+                cmd.Parameters.AddWithValue("notes", notes);
                 cmd.Prepare(); // prepares the on the server side, making multiple executions faster
                 cmd.ExecuteNonQuery();
 

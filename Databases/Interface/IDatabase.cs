@@ -20,6 +20,7 @@ namespace Prototypes.Databases.Interface
         public ObservableCollection<Song> SelectAllSongs();
         public Boolean DeleteSong(String songTitle);
         public Boolean InsertSongForPerformer(int userId, String songName, String notes, bool allPerformersAdded = true);
+        public Boolean DeleteSongFromSetlist(int userId, String songTitle);
         public Boolean UpdatePerformerContact(int userId, String phoneNumber, String email);
         public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, String status);
         public ObservableCollection<Performer> GetCheckedInPerformers(Rehearsal rehearsal);
