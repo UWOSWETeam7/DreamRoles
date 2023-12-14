@@ -57,7 +57,7 @@
             </Grid>
             <Button Grid.Row="1" Text="Contact Information" Clicked="ShowManagerPerformerInfoPage" WidthRequest="300" HorizontalOptions="Center" Margin="0,0,0,15" BackgroundColor="Tan" TextColor="Black"/>
 
-            <Button Grid.Row="2" Text="Pull From Song" WidthRequest="300" HorizontalOptions="Center" BackgroundColor="Tan" TextColor="Black"/>
+            <Button Grid.Row="2" Text="Pull From Song" Clicked="PullFromSong_Clicked" WidthRequest="300" HorizontalOptions="Center" BackgroundColor="Tan" TextColor="Black"/>
         </Grid>
     </StackLayout>
 </ContentPage>
