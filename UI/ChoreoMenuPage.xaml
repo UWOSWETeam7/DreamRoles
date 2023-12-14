@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Prototypes.UI.ChoreoMenuPage"
+             Shell.BackgroundColor="#0E79A5"
+             BackgroundColor="#E1D6C9">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Choreographer Menu" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    
+    <VerticalStackLayout>
+        <Button
+          Text="Rehearsals"
+          HorizontalOptions="Start"
+          Clicked="OnRehearsals_Clicked"
+          Background="#E1D6C9"
+          TextColor="Black"
+            FontSize="Medium"
+        />
+        <Button
+            Text="Not Checked In"
+            HorizontalOptions="Start"
+            Clicked="OnNotCheckedIn_Clicked"
+            Background="#E1D6C9"
+            TextColor="Black"
+            FontSize="Medium"
+        />
+        <Button
+            Text="Checked In"
+            HorizontalOptions="Start"
+            Clicked="OnCheckedIn_Clicked"
+            Background="#E1D6C9"
+            TextColor="Black"
+            FontSize="Medium"
+        />
+        <Button
+            Text="Songs"
+            HorizontalOptions="Start"
+            Clicked="OnSongs_Clicked"
+            Background="#E1D6C9"
+            TextColor="Black"
+            FontSize="Medium"
+        />
+    </VerticalStackLayout>
+</ContentPage>

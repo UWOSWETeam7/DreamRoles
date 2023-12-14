@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:modelBL="clr-namespace:Prototypes.Business_Logic"
+             x:DataType="model:SearchBarCheckedInPerformerViewModel"
+             xmlns:model="clr-namespace:Prototypes.Model"
+             x:Class="Prototypes.UI.ChoreoCheckedInPage"
+             BackgroundColor="#E1D6C9"
+             Shell.BackgroundColor="#866B53">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Checked In Performers" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <Grid
+     RowSpacing="6"
+     ColumnSpacing="5"
+        RowDefinitions="35*,20*,600*">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <SearchBar
+         BackgroundColor="White"
+         Grid.Row="0"
+         Grid.Column="0"
+         Grid.ColumnSpan="3"
+         HorizontalOptions="Center"
+         Placeholder="Enter Name Here"
+         HorizontalTextAlignment="Center"
+         VerticalTextAlignment="Center"
+         Text="{Binding SearchText}"
+        ></SearchBar>
+
+        <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="40,5,0,0"
+            Text="Name:"
+            FontSize="15"/>
+
+        <CollectionView
+            x:Name="CV" 
+            ItemsSource="{Binding FilteredCheckedInPerformers}"
+            SelectionMode="Single"
+            Grid.Row="2"
+            Grid.ColumnSpan="3"
+            HorizontalOptions="Center">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Performer">
+                    <VerticalStackLayout  Padding="10" Margin="1">
+                        <Grid RowDefinitions="*" ColumnDefinitions="2*,*">
+                            <HorizontalStackLayout Padding="30, 0" Spacing="5">
+                                <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
+                                </Label>
+                                <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
+                                </Label>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

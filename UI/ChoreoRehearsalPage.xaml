@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:model="clr-namespace:Prototypes.Model"
+             x:DataType="model:SearchBarPerformerViewModel"
+			 x:Class="Prototypes.UI.ChoreoRehearsalPage"
+             BackgroundColor="#E1D6C9"
+			 Shell.BackgroundColor="#ac9884">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Rehearsal" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <Grid
+	RowSpacing="7"
+	ColumnSpacing="5"
+        RowDefinitions="45*,20*,600*,40*">
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+
+        <SearchBar
+					BackgroundColor="White"
+					Grid.Row="0"
+					Grid.Column="0"
+                    Grid.ColumnSpan="3"
+					HorizontalOptions="Center"
+					Placeholder="Enter Name Here"
+					HorizontalTextAlignment="Center"
+					VerticalTextAlignment="Center"
+                    Text="{Binding SearchText}"/>
+
+        <CollectionView
+						Grid.Row="2"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						HorizontalOptions="Start"
+						x:Name="CVPerformers"
+                        ItemsSource="{Binding FilteredPerformers}" 
+                        SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Performer">
+                    <Grid ColumnDefinitions="2*,*,*,*">
+                        <HorizontalStackLayout Padding="35, 5" Spacing="10">
+                            <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
+                            </Label>
+                            <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
+                            </Label>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Label
+		Grid.Row="1"
+		Grid.Column="1"
+		Margin="-60,0,0,0"
+		Text="Name:"
+		FontSize="15"/>
+    </Grid>
+</ContentPage>

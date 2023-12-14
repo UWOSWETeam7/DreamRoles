@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Prototypes.Model"
+             x:Class="Prototypes.UI.PerformerCheckInTimesPage"
+             BackgroundColor="#E1D6C9"
+             Shell.BackgroundColor="#0E79A5">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label x:Name="title" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <Grid
+	RowSpacing="7"
+	ColumnSpacing="5"
+        RowDefinitions="50*,600*">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <BoxView 
+			 Grid.Row="0" 
+			 Grid.ColumnSpan="3"
+			 Color="#866B53"
+			 CornerRadius="10, 10, 10, 10"
+			 WidthRequest="400"
+			 HeightRequest="50"/>
+        <Label 
+		       Grid.Row="0"
+		       Grid.ColumnSpan="3" 
+		       Text="Select the rehearsal you're checking in for:"
+		       FontAttributes="Bold"
+		       FontSize="18"
+		       HorizontalOptions="Center"
+		       VerticalOptions="Center"/>
+
+        <CollectionView
+						Grid.Row="1"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						HorizontalOptions="Start"
+						x:Name="CVRehearsals"
+                        SelectionMode="Single"
+                        SelectionChanged="OnRehearsalSelectionChange">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Rehearsal">
+                    <VerticalStackLayout Padding="30, 0" Spacing="10">
+                        <HorizontalStackLayout>
+                            <Label Text="Song: " FontSize="Medium"/>
+                            <Label Text="{Binding Song.Title}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="Time: " FontSize="Medium"/>
+                            <Label Grid.Column="1" Text="{Binding Time.Date}" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Medium"/>
+                        </HorizontalStackLayout>
+                        <Line X2="500" Stroke="Gray"></Line>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

@@ -28,6 +28,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<Platforms>AnyCPU;ARM32</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -52,7 +53,6 @@
 	  <None Remove="Resources\Images\alert.png" />
 	  <None Remove="Resources\Images\arrow.png" />
 	  <None Remove="Resources\Images\calendar.svg" />
-	  <None Remove="Resources\Images\checkmark.svg" />
 	  <None Remove="Resources\Images\circleok.svg" />
 	  <None Remove="Resources\Images\dream_role.png" />
 	  <None Remove="Resources\Images\edit.svg" />
@@ -71,23 +71,80 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Core" Version="6.0.0" />
+		<PackageReference Include="EPPlus" Version="7.0.3" />
+		<PackageReference Include="ExcelDataReader" Version="3.6.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Npgsql" Version="7.0.6" />
+		<PackageReference Include="OfficeOpenXml.Core.ExcelPackage" Version="1.0.0" />
+		<PackageReference Include="OfficeOpenXml.Extends" Version="1.0.6" />
+		<PackageReference Include="Remotion.Linq" Version="2.2.0" />
+		<PackageReference Include="System.Management.Automation" Version="7.3.9" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="UI\ManagerAdminPage.xaml.cs">
+	    <DependentUpon>ManagerAdminPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\ManagerCheckedInPage.xaml.cs">
+	    <DependentUpon>ManagerCheckedInPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="UI\ManagerAlertPage.xaml.cs">
 	    <DependentUpon>ManagerAlertPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\AddSongForPerformerPopUp.xaml.cs">
+	    <DependentUpon>AddSongForPerformerPopUp.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\RehearsalCheckInPopup.xaml.cs">
+	    <DependentUpon>RehearsalCheckInPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\PerformerCheckInTimesPage.xaml.cs">
+	    <DependentUpon>PerformerCheckInTimesPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="UI\PerformerHomePage.xaml.cs">
 	    <DependentUpon>PerformerHomePage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="UI\PerformersOfSongPage.xaml.cs">
-	    <DependentUpon>PerformersOfSongPage.xaml</DependentUpon>
+	  <Compile Update="UI\ManagerPerformersOfSongPage.xaml.cs">
+	    <DependentUpon>ManagerPerformersOfSongPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\ManagerSongsPage.xaml.cs">
+	    <DependentUpon>ManagerSongsPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="UI\CheckedInPage.xaml">
+	  <MauiXaml Update="UI\AddPerformerPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\AddPerformerToRehearsalPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\AddRehearsalPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\AddSongPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\AddSongToSetlistPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ChoreoCheckedInPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ChoreoMenuPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ChoreoPerformersOfSongPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ChoreoRehearsalPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ChoreoRehearsalsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ManagerCheckedInPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\ChoreoHomePage.xaml">
@@ -96,7 +153,22 @@
 	  <MauiXaml Update="UI\ChoreoNotCheckedInPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="UI\ChoreoSongsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\EditContactInfoPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\EditPerformerNamePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\EditSongPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="UI\ManagerHomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ManagerMenuPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\ManagerNotCheckedInPage.xaml">
@@ -108,10 +180,28 @@
 	  <MauiXaml Update="UI\ManagerPerformerInfoPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="UI\AddSongForPerformerPopUp.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ManagerPerformersPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ManagerRehearsalPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\ManagerRehearsalsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\RehearsalCheckInPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\PerformerCheckInTimesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="UI\PerformerHomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="UI\PerformersOfSongPage.xaml">
+	  <MauiXaml Update="UI\ManagerPerformersOfSongPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\SelectNamePage.xaml">
@@ -120,12 +210,14 @@
 	  <MauiXaml Update="UI\SongSelectPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="UI\SongsPage.xaml">
+	  <MauiXaml Update="UI\ManagerSongsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\WelcomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionPrototypesHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

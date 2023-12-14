@@ -1,57 +1,71 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Prototypes.SelectNamePage">
+             xmlns:model="clr-namespace:Prototypes.Model"
+             x:DataType="model:SearchBarPerformerViewModel"
+             x:Class="Prototypes.UI.SelectNamePage"
+             BackgroundColor="#E1D6C9"
+             Shell.BackgroundColor="#0E79A5">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Select Name" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <Grid
+	RowSpacing="7"
+        RowDefinitions="50*,50*,525*,50*">
+        
 
-            <Image
-                Source="dream_role.png"
-                SemanticProperties.Description="Dream roles logo"
-                HeightRequest="100"
-                HorizontalOptions="Center" />
+        <BoxView 
+			 Grid.Row="0" 
+			 Color="#866B53"
+			 CornerRadius="10, 10, 10, 10"
+			 WidthRequest="400"
+			 HeightRequest="50"/>
+             <Label 
+		       Grid.Row="0" 
+		       Text="Select your name from the list below:"
+		       FontAttributes="Bold"
+		       FontSize="18"
+		       HorizontalOptions="Center"
+		       VerticalOptions="Center"/>
 
-            <Label
-                Text="hello!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="60"
-                HorizontalOptions="Center" />
+        <SearchBar
+					BackgroundColor="White"
+					Grid.Row="1"
+					HorizontalOptions="Center"
+					Placeholder="Enter Name Here"
+					HorizontalTextAlignment="Center"
+					VerticalTextAlignment="Center"
+                    Text="{Binding SearchText}"/>
 
-            <Label
-                Text="Please select your name from the drop-down below"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description=""
-                FontSize="18"
-                HorizontalOptions="CenterAndExpand"  
-                HorizontalTextAlignment = "Center"/>
+        <CollectionView
+						Grid.Row="2"
+						HorizontalOptions="Start"
+						x:Name="CVPerformers" ItemsSource="{Binding FilteredPerformers}" SelectionMode="Single" SelectionChanged="CVPerformers_SelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Performer">
+                    <Grid ColumnDefinitions="*,*">
+                        <HorizontalStackLayout Padding="40, 5" Spacing="10">
+                            <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
+                            </Label>
+                            <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
+                            </Label>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-            <Picker x:Name="chooseName" Title="Select Name">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Adam Anderson</x:String>
-                        <x:String>Brianna Bauer</x:String>
-                        <x:String>Candance Crosby</x:String>
-                        <x:String>Drew Davis</x:String>
-                        <x:String>Ella Evans</x:String>
-                        <x:String>Faith Franco</x:String>
-                        <x:String>Geoffrey Gibbons</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
-
-            <Button
-                x:Name="NextBtn"
-                BackgroundColor="Beige"
-                Text="NEXT"
-				TextColor="black"
-                SemanticProperties.Hint="Navigates to next page"
-                HorizontalOptions="Center" />
-
-        </VerticalStackLayout>
-    </ScrollView>
-
+        <Button
+            Grid.Row="3"
+            x:Name="EnterBtn"
+            Text="Enter"
+		    TextColor="#E1D6C9"
+            BackgroundColor="#0E79A5"
+            SemanticProperties.Hint="Navigates to the next page"
+            Clicked="OnNextClicked"/>
+    </Grid>
 </ContentPage>

@@ -1,71 +1,119 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Prototypes.ManagerHomePage"
-             Shell.BackgroundColor="#ac9884"
-             Shell.NavBarIsVisible="False">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:model="clr-namespace:Prototypes.Model"
+             x:DataType="model:SearchBarPerformerViewModel"
+			 x:Class="Prototypes.UI.ManagerHomePage"
+             BackgroundColor="#E1D6C9"
+			 Shell.BackgroundColor="#0E79A5">
 
-    <ScrollView BackgroundColor="#e1d6c9">
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="0,0"
-            VerticalOptions="Start">
-            <Border BackgroundColor="#ac9884" MinimumHeightRequest="50">
-                <Label Text="Stage Manager"  HorizontalTextAlignment="Center" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
-            </Border>
-            <HorizontalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="15" Margin="0, 10">
-                <SearchBar Placeholder="Enter Name Here" BackgroundColor="White"/>
-                <Image Source="menuicon.svg">
-                    <FlyoutBase.ContextFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem Text="Go to docs repo"/>
-                            <MenuFlyoutItem Text="Go to engineering repo"/>
-                        </MenuFlyout>
-                    </FlyoutBase.ContextFlyout>
-                </Image>
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Spacing="100" HorizontalOptions="Center">
-                <Label Text="Name:" FontSize="Medium"/>
-                <Label Text="Check-In:" FontSize="Medium"/>
-            </HorizontalStackLayout>
-            <Border Padding="20" BackgroundColor="#e1d6c9">
-                <Grid RowDefinitions="50,50,50,50,50,50,50,50,50,50,50" ColumnDefinitions="2*, *" BackgroundColor="#c8b8a8" Padding="5">
-                    <Border Grid.Row="0" Grid.Column="0" BackgroundColor="#c8b8a8" Stroke="Black">
-                        <Label Text="Ava Wilson" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </Border>
-                    <Border Grid.Row="0" Grid.Column="1" BackgroundColor="#c8b8a8" Stroke="Black">
-                        <Image Source="checkmark.svg" Scale="0.6"/>
-                    </Border>
-                    <Border Grid.Row="1" Grid.Column="0" BackgroundColor="#c8b8a8" Stroke="Black">
-                        <Label Text="Benjamin Martinez" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </Border>
-                    <Border Grid.Row="1" Grid.Column="1" BackgroundColor="#c8b8a8" Stroke="Black">
-                        <Image Source="xmark.svg" Scale="0.6"/>
-                    </Border>
-                    <Border Grid.Row="2" Grid.Column="0" BackgroundColor="#c8b8a8" Stroke="Black">
-                        <Label Text="Chris Cringle" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </Border>
-                    <Border Grid.Row="2" Grid.Column="1" BackgroundColor="#c8b8a8" Stroke="Black">
-                        <Image Source="checkmark.svg" Scale="0.6"/>
-                    </Border>
-                    <Border Grid.Row="3" Grid.Column="0" BackgroundColor="#c8b8a8" Stroke="Black">
-                        <Label Text="Dave Davidson" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </Border>
-                    <Border Grid.Row="3" Grid.Column="1" BackgroundColor="#c8b8a8" Stroke="Black">
-                        <Image Source="checkmark.svg" Scale="0.6"/>
-                    </Border>
-                    <Border Grid.Row="4" Grid.Column="0" BackgroundColor="#c8b8a8" Stroke="Black">
-                        <Label Text="Emily Johnson" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </Border>
-                    <Border Grid.Row="4" Grid.Column="1" BackgroundColor="#c8b8a8" Stroke="Black">
-                        <Image Source="xmark.svg" Scale="0.6"/>
-                    </Border>
-                </Grid>
-            </Border>
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Manager Homepage" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
 
-        </VerticalStackLayout>
-    </ScrollView>
 
+    <Grid
+	RowSpacing="7"
+	ColumnSpacing="5"
+     RowDefinitions="75*,50*,20*,550*,40*">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <BoxView 
+			 Grid.Row="0" 
+			 Grid.ColumnSpan="3"
+			 Color="#866B53"
+			 CornerRadius="10, 10, 10, 10"
+			 WidthRequest="400"
+			 HeightRequest="75"/>
+        <Label 
+           x:Name="LabelNearestRehearsal"
+		   Grid.Row="0"
+		   Grid.ColumnSpan="3" 
+		   FontAttributes="Bold"
+		   FontSize="Body"
+           Padding="7"
+		   HorizontalOptions="Center"
+		   VerticalOptions="Center"/>
+
+        <SearchBar
+					BackgroundColor="White"
+					Grid.Row="1"
+					Grid.Column="0"
+					Grid.ColumnSpan="2"
+					Margin="30,0,0,0"
+					HorizontalOptions="Center"
+					Placeholder="Enter Name Here"
+					HorizontalTextAlignment="Center"
+					VerticalTextAlignment="Center"
+                    Text="{Binding SearchText}"/>
+
+        <CollectionView
+						Grid.Row="3"
+						Grid.Column="0"
+						Grid.ColumnSpan="3"
+						HorizontalOptions="Start"
+						x:Name="CVPerformers"
+                        ItemsSource="{Binding FilteredPerformers}" 
+                        SelectionMode="Multiple"
+                        SelectionChanged="OnPerformerSelectionChange">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Performer">
+                    <Grid ColumnDefinitions="2*,*,*,*">
+                        <HorizontalStackLayout Padding="30, 0" Spacing="10">
+                            <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium">
+                            </Label>
+                            <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
+                            </Label>
+                        </HorizontalStackLayout>
+                        <Image Grid.Column="2" Source="{Binding CheckedInImage}" Scale="0.5" VerticalOptions="Center" >
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ChangeCheckInStatus"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Image Grid.Column="3" Source="trash.png"
+						 VerticalOptions="Center"
+						 HorizontalOptions="End"
+						 Scale="0.4">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="DeletePerformer"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="1"
+			Grid.Column="2"
+			BackgroundColor="Transparent"
+			ImageSource="menu.svg"
+			Scale="0.7"
+			Clicked="OnManagerMenu_Clicked"
+		/>
+        <Label
+		Grid.Row="2"
+		Grid.Column="1"
+		Margin="-65,0,0,0"
+		Text="Name:"
+		FontSize="15"/>
+        <Label
+		Grid.Row="2"
+		Grid.Column="2"
+		HorizontalOptions="Start"
+		Margin="-55,0,0,0"
+		Text="Check-In:"
+		FontSize="15"/>
+
+        <Button  Grid.Row="4" Grid.ColumnSpan="3" Text="Add Performer" BackgroundColor="#0E79A5" Clicked="ShowAddPerformerPopup" Padding="0" Margin="0, 0,0,0"/>
+    </Grid>
 </ContentPage>
 
-    
+	

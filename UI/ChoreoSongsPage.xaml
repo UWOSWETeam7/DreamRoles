@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="model:SearchBarSongViewModel"
+             xmlns:model="clr-namespace:Prototypes.Model"       
+             x:Class="Prototypes.UI.ChoreoSongsPage"
+             BackgroundColor="#E1D6C9"
+             Shell.BackgroundColor="#0E79A5">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Songs" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" TextColor="Beige"/>
+            <Button Text="Sign Out" Clicked="SignOutButton_Clicked" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    
+    <Grid
+        RowSpacing="7"
+        ColumnSpacing="5"
+        ColumnDefinitions="2*,3*,*"
+        RowDefinitions="40*,20*,600*">
+
+        <SearchBar
+                BackgroundColor="White"
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                HorizontalOptions="Center"
+                Placeholder="Enter Song Here"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                Text="{Binding SearchText}"
+        ></SearchBar>
+
+
+        <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="35,0,0,0"
+            Text="Song Title:"
+            FontSize="15"/>
+        <Label
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalOptions="Start"
+            Margin="100,0,0,0"
+            Text="Performers:"
+            FontSize="15"/>
+        <CollectionView
+               Grid.Row="2"
+               Grid.Column="0"
+               Grid.ColumnSpan="3"
+            Margin="35,0,0,0"
+               HorizontalOptions="Start"
+               x:Name="CVSongs" ItemsSource="{Binding FilteredSongs}" SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Song">
+
+                    <Grid ColumnDefinitions="4*,*,*,*" Grid.ColumnSpan="4" HeightRequest="50">
+
+                        <Label Grid.Column ="0" Text="{Binding Title}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
+                        
+                        <Button 
+                            
+                            Grid.Column="1" 
+                            BackgroundColor="White"
+                            WidthRequest="40"
+                            HeightRequest="40"
+                            ImageSource="people.png"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            CornerRadius="90"
+                            Clicked="ShowPerformersOfSongPage"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
