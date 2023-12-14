@@ -3,6 +3,8 @@ using Prototypes.Databases.Interface;
 using System.Collections.ObjectModel;
 using Npgsql;
 using Prototypes.Model.Interfaces;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
+using System.Security.Policy;
 
 
 namespace Prototypes.Databases
@@ -50,6 +52,34 @@ namespace Prototypes.Databases
             }
             return performerSetlist;
         }
+
+        /**public (bool success, String message) DeleteSongFromSetlist(int performerId, string songName)
+        {
+            //Opens a connection to the database
+            using var conn = new NpgsqlConnection(_connString);
+            conn.Open();
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = conn;
+
+            cmd.CommandText = "DELETE FROM setlists\r\n" +
+              "WHERE user_id = @performerId AND song_title = @songName;";
+            cmd.Parameters.AddWithValue("perfromerId", performerId);
+            cmd.Parameters.AddWithValue("songName", songName);
+          
+            var result = cmd.ExecuteNonQuery();
+
+            if (result < 0)
+            {
+                return (false, "Failed to remove song from performer's setlist");
+            }
+            else
+            {
+                return (true, "Successfully removed song from performer's setlist");
+            }
+
+
+
+        }*/
         
         private ObservableCollection<Performer> _performers;
 

@@ -179,5 +179,10 @@ namespace Prototypes.Business_Logic
         {
             return Database.SelectPerformerAbsences(performer.Id);
         }
+
+        /**public (bool success, String message) RemoveSongFromSetlist(Performer performer, string songName)
+        {
+            return Database.DeleteSongFromSetlist(performer.Id, songName);
+        }*/
     }
 }

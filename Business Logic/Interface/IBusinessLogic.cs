@@ -210,7 +210,10 @@ namespace Prototypes.Business_Logic.Interface
         /// <returns>a tuple of boolean true or false if the status was updated and a message</returns>
         public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, String status);
 
+        //public (bool success, String message) RemoveSongFromSetlist(Performer performer, string songName);
+      
 
-        
-}
+
+
+    }
 }

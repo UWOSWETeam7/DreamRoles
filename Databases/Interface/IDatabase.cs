@@ -81,7 +81,7 @@ namespace Prototypes.Databases.Interface
         public ObservableCollection<Rehearsal> GetPerformerRehearsals(Performer performer);
         public (bool success, String message) InsertIntoRehersalMembers(int userId, DateTime rehearsalTime, String checkedIn, string songName);
         public (bool success, String message) DeleteRehearsalMember(int userId, DateTime rehearsalTime, String songName);
-
+       // public (bool success, String message) DeleteSongFromSetlist(int performerId, string songName);
 
     }
 }

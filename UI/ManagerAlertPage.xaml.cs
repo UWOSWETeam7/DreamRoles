@@ -68,7 +68,7 @@ public partial class ManagerAlertPage : ContentPage
         bool answer = await DisplayAlert("Pull Song:", "Would you like to remove " + lblSongMissed.Text + " from the setlist of " + lblPerformerName.Text + "?", "Yes", "No");
         if (answer == true)
         {
-
+            //(bool success, string message) = MauiProgram.BusinessLogic.RemoveSongFromSetlist(_performer, lblPerformerName );
         }
 
     }
