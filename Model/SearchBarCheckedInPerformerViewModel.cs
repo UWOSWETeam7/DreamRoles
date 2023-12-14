@@ -32,9 +32,9 @@ namespace Prototypes.Model;
         set { SetProperty(ref _filteredCheckedInPerformers, value); }
     }
 
-    public SearchBarCheckedInPerformerViewModel()
+    public SearchBarCheckedInPerformerViewModel(Rehearsal rehearsal)
     {
-        CheckedInPerformers = MauiProgram.BusinessLogic.GetCheckedInPerformers;
+        CheckedInPerformers = MauiProgram.BusinessLogic.GetCheckedInPerformers(rehearsal);
         FilteredCheckedInPerformers = CheckedInPerformers;
     }
 

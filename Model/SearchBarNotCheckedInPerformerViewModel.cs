@@ -32,12 +32,11 @@ namespace Prototypes.Model;
         set { SetProperty(ref _filteredNotCheckedInPerformers, value); }
     }
 
-    public SearchBarNotCheckedInPerformerViewModel()
+    public SearchBarNotCheckedInPerformerViewModel(Rehearsal rehearsal)
     {
-        NotCheckedInPerformers = MauiProgram.BusinessLogic.GetNotCheckedInPerformers;
+        NotCheckedInPerformers = MauiProgram.BusinessLogic.GetNotCheckedInPerformers(rehearsal);
         FilteredNotCheckedInPerformers = NotCheckedInPerformers;
     }
-
     private void FilterNames()
     {
         if (string.IsNullOrEmpty(SearchText))

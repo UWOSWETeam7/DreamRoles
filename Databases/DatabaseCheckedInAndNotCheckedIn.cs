@@ -10,13 +10,13 @@ namespace Prototypes.Databases
         //Contains all the checked in performers
         private ObservableCollection<Performer> _checkedInPerformers;
         //Contains all the not checked in performers
-        private ObservableCollection<Performer> _notCheckedInPerformers;\
+        private ObservableCollection<Performer> _notCheckedInPerformers;
 
         /// <summary>
         /// This will get all the checked in performers from the database
         /// </summary>
         /// <returns>a ObservableCollection with all the checked in performers. Will return a empty ObservableCollection if it can't get the checked in performers.</returns>
-        public ObservableCollection<Performer> GetCheckedInPerformers()
+        public ObservableCollection<Performer> GetCheckedInPerformers(Rehearsal rehearsal)
         {
             //Prevents duplicates
             _checkedInPerformers.Clear();
@@ -29,7 +29,10 @@ namespace Prototypes.Databases
 
                 // Commands to get all the checked in performers in the database
                 using var cmd = new NpgsqlCommand(
-                     "SELECT * FROM performer \r\nWHERE checked_in_status = 'checked in' OR checked_in_status = 'excused';", conn);
+                     "SELECT * FROM rehearsal_members\r\n" +
+                     "WHERE rehearsal_time = @time AND song_title = @songTitle AND status = 'checked in'\r\n;", conn);
+                cmd.Parameters.AddWithValue("time", rehearsal.Time);
+                cmd.Parameters.AddWithValue("songTitle", rehearsal.Song.Title);
                 using var reader = cmd.ExecuteReader();
 
                 //While there is still a performer in the reader
@@ -52,7 +55,7 @@ namespace Prototypes.Databases
             catch(Npgsql.PostgresException e)
             {
                 //Should be empty
-                return _checkedInPerformers
+                return _checkedInPerformers;
             }
 
             return _checkedInPerformers;
@@ -62,7 +65,7 @@ namespace Prototypes.Databases
         /// This will get all the not checked in performers from the database
         /// </summary>
         /// <returns>a ObservableCollection with all the not checked in performers. Will return a empty ObservableCollection if it can't get the not checked in performers.</returns>
-        public ObservableCollection<Performer> GetNotCheckedInPerformers()
+        public ObservableCollection<Performer> GetNotCheckedInPerformers(Rehearsal rehearsal)
         {
             //Makes sure that there will be no duplicates
             _notCheckedInPerformers.Clear();
@@ -74,7 +77,10 @@ namespace Prototypes.Databases
 
                 // Commands to get all the checked in performers in the database
                 using var cmd = new NpgsqlCommand(
-                     "SELECT * FROM performer \r\nWHERE checked_in_status = 'not checked in';", conn);
+                     "SELECT * FROM rehearsal_members\r\n" +
+                     "WHERE rehearsal_time = @time AND song_title = @songTitle AND status != 'checked in'\r\n;", conn);
+                cmd.Parameters.AddWithValue("time", rehearsal.Time);
+                cmd.Parameters.AddWithValue("songTitle", rehearsal.Song.Title);
                 using var reader = cmd.ExecuteReader();
 
                 //While there are still performers to read in
@@ -84,19 +90,19 @@ namespace Prototypes.Databases
                     int userId = reader.GetInt32(0);
 
                     //Get the performer from the ObservableCollection _performers
-                    Performer? performerNotChecedIn = _performers.FirstOrDefault(performer => performer.Id == userId);
+                    Performer? performerNotCheckedIn = _performers.FirstOrDefault(performer => performer.Id == userId);
 
-                    if (performerToCheckIn != null)
+                    if (performerNotCheckedIn != null)
                     {
                         //Adds it to the ObservableCollection
-                        _notCheckedInPerformers.Add(performerNotChecedIn);
+                        _notCheckedInPerformers.Add(performerNotCheckedIn);
                     }
                 }
             }
             catch (Npgsql.PostgresException e)
             {
                 //Should be empty
-                reutrn _notCheckedInPerformers;
+                return _notCheckedInPerformers;
             }
 
             return _notCheckedInPerformers;

@@ -25,12 +25,12 @@ namespace Prototypes.Business_Logic.Interface
         /// Gets the ObservableCollection performers
         /// </summary>
 
-        public ObservableCollection<Performer> GetCheckedInPerformers { get; }
+        public ObservableCollection<Performer> GetCheckedInPerformers(Rehearsal rehearsal);
 
         /// <summary>
         /// Gets the ObservableCollection of all not checked in performers
         /// </summary>
-        public ObservableCollection<Performer> GetNotCheckedInPerformers { get; }
+        public ObservableCollection<Performer> GetNotCheckedInPerformers(Rehearsal rehearsal);
 
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Prototypes.Business_Logic.Interface
         /// <param name="userId">The id of the performer</param>
         /// <param name="songName">The song name</param>
         /// <returns>String- null if addition was successful or error message if not</returns>
-        public String AddSongForPerformer(int userId, String songName, String notes, bool onLastPerformer = true);
+        public String AddSongForPerformer(int userId, String songName, String notes, bool allPerformersAdded = true);
 
         /// <summary>
         /// This method edits a performer's contact information, namely their phone number and email

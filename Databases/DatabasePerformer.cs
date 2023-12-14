@@ -105,9 +105,6 @@ namespace Prototypes.Databases
                 return _performers;
             }
 
-            GetCheckedInPerformers();
-            GetNotCheckedInPerformers();
-
             return _performers;
         }
 
@@ -220,7 +217,7 @@ namespace Prototypes.Databases
         /// <param name="phoneNumber">The phone number of the performer</param>
         /// <param name="absences">The number of rehearsal the performer has missed</param>
         /// <returns>True and the user id if a performer was added. False and a 0 if failed</returns>
-        public (bool Success, int UserId) InsertPerformer(string firstName, string lastName, ObservableCollection<ISongDB> songs, string email, string phoneNumber, int absences)
+        public (bool Success, int UserId) InsertPerformer(string firstName, string lastName, ObservableCollection<ISongDB> songs, string email, string phoneNumber, int absences, bool allPerformersAdded = true)
         {
             try
             {

@@ -4,10 +4,10 @@ namespace Prototypes.UI;
 
 public partial class ChoreoCheckedInPage : ContentPage
 {
-	public ChoreoCheckedInPage()
+	public ChoreoCheckedInPage(Rehearsal rehearsal)
 	{
         InitializeComponent();
-        BindingContext = new SearchBarCheckedInPerformerViewModel();
+        BindingContext = new SearchBarCheckedInPerformerViewModel(rehearsal);
     }
 
     private async void DeletePerformer(object sender, EventArgs e)

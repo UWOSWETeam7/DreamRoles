@@ -5,12 +5,12 @@ namespace Prototypes.UI;
 //author: Kaia Thern
 public partial class ChoreoNotCheckedInPage : ContentPage
 {
-    public ChoreoNotCheckedInPage()
+    public ChoreoNotCheckedInPage(Rehearsal rehearsal)
     {
         InitializeComponent();
         try
         {
-            BindingContext = new SearchBarNotCheckedInPerformerViewModel();
+            BindingContext = new SearchBarNotCheckedInPerformerViewModel(rehearsal);
 
         }
         catch (TargetInvocationException tie)

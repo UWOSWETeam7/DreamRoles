@@ -26,8 +26,6 @@ public partial class Database : IDatabase
         _connString = GetConnectionString();
         SelectAllPerformers(2023);
         SelectAllSongs();
-        GetCheckedInPerformers();
-        GetNotCheckedInPerformers();
         GetAllRehearsals();
     }
 
@@ -215,7 +213,7 @@ public partial class Database : IDatabase
             cmd.CommandText = "DELETE FROM songs;";
             cmd.ExecuteNonQuery();
         }
-        catch ((Npgsql.PostgresException e) 
+        catch (Npgsql.PostgresException e) 
         {
             return false;
         }
