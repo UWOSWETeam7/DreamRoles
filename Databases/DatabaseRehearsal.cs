@@ -15,12 +15,18 @@ namespace Prototypes.Databases
         /// <returns>a collection of all rehearsals</returns>
         public ObservableCollection<Rehearsal> GetAllRehearsals()
         {
+            //Make sure it doesn't have duplicates
             _rehearsals.Clear();
+
+            //Opens a connection to the database
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
+
+            //Select everything from the rehearsals table
             using var cmd = new NpgsqlCommand(
                     "SELECT * FROM rehearsals;", conn);
             using var reader = cmd.ExecuteReader();
+
             // constructs a rehearsal with a time and song for each row returned
             while (reader.Read())
             {
@@ -31,6 +37,7 @@ namespace Prototypes.Databases
 
             return _rehearsals; 
         }
+
         /// <summary>
         /// Get all rehearsals that the specified performer is a part of
         /// </summary>
@@ -41,8 +48,9 @@ namespace Prototypes.Databases
             using var conn = new NpgsqlConnection(_connString);
             conn.Open();
 
-            using var cmd = new NpgsqlCommand(
-                    "SELECT *\r\nFROM rehearsal_members\r\nWHERE user_id = @userId;", conn);
+            using var cmd = new NpgsqlCommand("SELECT *\r\n" +
+                                              "FROM rehearsal_members\r\n" +
+                                              "WHERE user_id = @userId;", conn);
             cmd.Parameters.AddWithValue("userId", performer.Id);
             using var reader = cmd.ExecuteReader();
 
@@ -134,6 +142,7 @@ namespace Prototypes.Databases
             // return true and success message
             return (true, "Successfully added performer into rehearsal");
         }
+
         /// <summary>
         /// Removes a rehearsal for a performer
         /// </summary>
@@ -178,6 +187,7 @@ namespace Prototypes.Databases
             DateTime rehearsalTime = reader.GetDateTime(0);
             return rehearsalTime;
         }
+
         /// <summary>
         /// Removes a rehearsal
         /// </summary>

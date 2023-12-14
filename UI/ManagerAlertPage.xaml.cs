@@ -85,10 +85,10 @@ public partial class ManagerAlertPage : ContentPage
            bool success = MauiProgram.BusinessLogic.RemoveSongFromSetlist(_performer, _song);
            if (success == true)
            {
-                DisplayAlert("Remove Song From Setlist", "Successfully removed " + lblSongMissed.Text + " from the setlist of " + lblPerformerName.Text, "OK");
+                await DisplayAlert("Remove Song From Setlist", "Successfully removed " + lblSongMissed.Text + " from the setlist of " + lblPerformerName.Text, "OK");
            } else
            {
-                DisplayAlert("Remove Song From Setlist", "Failed to remove " + lblSongMissed.Text + " from the setlist of " + lblPerformerName.Text, "OK");
+                await DisplayAlert("Remove Song From Setlist", "Failed to remove " + lblSongMissed.Text + " from the setlist of " + lblPerformerName.Text, "OK");
             } 
         }
 

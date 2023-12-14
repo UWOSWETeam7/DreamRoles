@@ -13,6 +13,7 @@ public partial class ChoreoSongsPage : ContentPage
 
     private void ShowPerformersOfSongPage(object sender, EventArgs e)
     {
+        //Get the song that was clicked on
         var button = (Button)sender;
         var song = (Song)button.BindingContext;
         Navigation.PushAsync(new ChoreoPerformersOfSongPage(song));

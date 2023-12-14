@@ -10,6 +10,7 @@ public partial class ChoreoPerformersOfSongPage : ContentPage
         InitializeComponent();
         BindingContext = new SearchBarPerformersOfSongsViewModel(song);
         _song = song;
+        //Changes the title to the specific song choosen
         title.Text = $"{"Performers Of"} {_song.Title} ";
     }
 

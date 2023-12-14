@@ -17,8 +17,12 @@ public partial class EditPerformerNamePopup : ContentPage
 
 
         int userId = _performer.Id;
+
+        //Get the entries that the user inputed
         String firstName = firstNameEntry.Text;
         String lastName = lastNameEntry.Text;
+
+        //Makes sure the user enters a first and last name
         if (firstName == null)
         {
             DisplayAlert("Error", "Please enter a fist name.", "Ok");
@@ -29,7 +33,9 @@ public partial class EditPerformerNamePopup : ContentPage
         }
         else
         {
+            //Ask the BusinessLogic to edit the performers name
             String answer = MauiProgram.BusinessLogic.EditPerformerName(userId, firstName, lastName);
+
             if (answer == null)
             {
                 Navigation.PopAsync();

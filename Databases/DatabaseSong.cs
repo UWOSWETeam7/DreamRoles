@@ -9,6 +9,7 @@ namespace Prototypes.Databases
     public partial class Database : IDatabase
     {
         private ObservableCollection<Song> _songs;
+
         /// <summary>
         /// Gets all songs from the database
         /// </summary>
@@ -85,6 +86,7 @@ namespace Prototypes.Databases
             // Return the collection of songs
             return songs;
         }
+
         /// <summary>
         /// Adds a song to the database
         /// </summary>
@@ -117,6 +119,7 @@ namespace Prototypes.Databases
             }
             return true;
         }
+
         /// <summary>
         /// Updates a song
         /// </summary>
@@ -190,6 +193,7 @@ namespace Prototypes.Databases
 
             return true;
         }
+
         /// <summary>
         /// Adds a song that a specified performer will be performing
         /// </summary>
@@ -207,6 +211,7 @@ namespace Prototypes.Databases
             cmd.Parameters.AddWithValue("user_id", userId);
             cmd.ExecuteNonQuery();
         }
+
         /// <summary>
         /// Deletes a song from a performer's setlist and removes performer from all rehearsals with that song
         /// </summary>
@@ -247,6 +252,7 @@ namespace Prototypes.Databases
             cmd.Parameters.AddWithValue("rehearsal_time", rehearsalTime);
             cmd.ExecuteNonQuery();
         }
+
         /// <summary>
         /// Removes a song from the database
         /// </summary>
@@ -272,6 +278,7 @@ namespace Prototypes.Databases
             }
             return numDeleted > 0;
         }
+
         /// <summary>
         /// Adds a song for a performer with notes
         /// </summary>
@@ -313,8 +320,6 @@ namespace Prototypes.Databases
                 return false;
             }
             return true;
-        }
-
-       
+        }  
     }
 }

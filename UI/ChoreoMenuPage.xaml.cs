@@ -25,7 +25,6 @@ public partial class ChoreoMenuPage : ContentPage
     {
         await Navigation.PushAsync(new ChoreoRehearsalsPage());
     }
-
     private async void SignOutButton_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new WelcomePage());
