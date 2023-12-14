@@ -262,11 +262,15 @@ namespace Prototypes.Databases
                 // Command to insert a song into the 'songs' table
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO setlists(user_id, song_title, notes)\r\n" +
-                    "VALUES(@userId, @songName, @notes);";
+                String queryString = notes != null ? "INSERT INTO setlists(user_id, song_title, notes)\r\n VALUES(@userId, @songName, @notes);" :
+                    "INSERT INTO setlists(user_id, song_title)\r\n VALUES(@userID, @songName);"; // if no song notes, just add id and song name
+                cmd.CommandText = queryString;
                 cmd.Parameters.AddWithValue("userId", userId);
                 cmd.Parameters.AddWithValue("songName", songName);
-                cmd.Parameters.AddWithValue("notes", notes);
+                if (notes != null)
+                {
+                    cmd.Parameters.AddWithValue("notes", notes);
+                }
                 cmd.Prepare(); // prepares the on the server side, making multiple executions faster
                 cmd.ExecuteNonQuery();
 

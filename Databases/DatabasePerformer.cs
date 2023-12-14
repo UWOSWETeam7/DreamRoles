@@ -137,7 +137,7 @@ namespace Prototypes.Databases
                 while (reader.Read())
                 {
                     int userId = reader.GetInt32(0);
-                    String status = reader.GetString(4);
+                    String status = reader.GetString(3);
 
                     //Find the performer
                     Performer performer = _performers.First(performer => performer.Id == userId);

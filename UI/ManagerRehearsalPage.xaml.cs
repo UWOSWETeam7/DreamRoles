@@ -36,6 +36,17 @@ public partial class ManagerRehearsalPage : ContentPage
         }
     }
 
+    private async void ChangeCheckInStatus(object sender, EventArgs e)
+    {
+        var label = (Image)sender;
+        var performer = (Performer)label.BindingContext;
+        string status = await DisplayActionSheet("Change performer check-in status to:", null, null, "checked in", "excused", "not checked in");
+
+        MauiProgram.BusinessLogic.UpdatePerformerStatus(performer, status);
+
+
+    }
+
     private void ShowSongListPage(object sender, EventArgs e)
     {
         Navigation.PushAsync(new ManagerSongsPage());

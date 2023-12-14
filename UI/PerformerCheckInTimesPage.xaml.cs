@@ -31,7 +31,7 @@ public partial class PerformerCheckInTimesPage : ContentPage
         bool result = (bool)await this.ShowPopupAsync(new RehearsalCheckInPopup(performer, rehearsal));
         if (result == true)
         {
-            MauiProgram.BusinessLogic.UpdatePerformerRehearsalStatus(performer, rehearsal, true);
+            MauiProgram.BusinessLogic.UpdatePerformerRehearsalStatus(performer, rehearsal, "checked in");
             await Navigation.PushAsync(new PerformerHomePage(_performer));
             Navigation.RemovePage(this);
         }

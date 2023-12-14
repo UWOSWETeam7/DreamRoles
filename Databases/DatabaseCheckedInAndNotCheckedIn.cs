@@ -163,7 +163,7 @@ namespace Prototypes.Databases
         /// <param name="rehearsal">The rehearsl that the performer is checking into</param>
         /// <param name="isCheckedIn">Boolean if the performer is checking in or not</param>
         /// <returns>A true and a string of "success" if succeful. False and a string of "No rows were affected" or a error message if failed</returns>
-        public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, bool isCheckedIn)
+        public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, String status)
         {
             try
             {
@@ -175,10 +175,10 @@ namespace Prototypes.Databases
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "UPDATE rehearsal_members\r\n" +
-                    "SET checked_in = @isCheckedIn\r\n" +
+                    "SET status = @status\r\n" +
                     "WHERE user_id = @userId AND rehearsal_time = @time AND song_title = @title;";
 
-                cmd.Parameters.AddWithValue("isCheckedIn", isCheckedIn);
+                cmd.Parameters.AddWithValue("status", status);
                 cmd.Parameters.AddWithValue("userId", performer.Id);
                 cmd.Parameters.AddWithValue("time", rehearsal.Time);
                 cmd.Parameters.AddWithValue("title", rehearsal.Song.Title);
@@ -187,14 +187,18 @@ namespace Prototypes.Databases
 
                 if (success > -1)
                 { 
-                    if (isCheckedIn)
+                    if (status == "checked in")
                     {
                         //Were checked in
                         performer.CheckedInStatus = "checked in";
                     }
-                    else
+                    else if (status == "excused")
                     {
                         //Were not checked in
+                        performer.CheckedInStatus = "excused";
+                    }
+                    else
+                    {
                         performer.CheckedInStatus = "not checked in";
                     }
 

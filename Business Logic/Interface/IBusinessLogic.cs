@@ -208,7 +208,7 @@ namespace Prototypes.Business_Logic.Interface
         /// <param name="rehearsal">The rehearsal</param>
         /// <param name="isCheckedIn">true or false if they are checked in or not for that rehearsal</param>
         /// <returns>a tuple of boolean true or false if the status was updated and a message</returns>
-        public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, bool isCheckedIn);
+        public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, String status);
 
 
         
