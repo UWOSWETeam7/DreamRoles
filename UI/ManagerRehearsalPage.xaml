@@ -36,6 +36,18 @@
 					HorizontalTextAlignment="Center"
 					VerticalTextAlignment="Center"
                     Text="{Binding SearchText}"/>
+        <Label
+		Grid.Row="1"
+		Grid.Column="1"
+		Margin="-60,0,0,0"
+		Text="Name:"
+		FontSize="15"/>
+        <Label
+		Grid.Row="1"
+		Grid.Column="2"
+		Margin="-60,0,0,0"
+		Text="Checked in status"
+		FontSize="15"/>
 
         <CollectionView
 						Grid.Row="2"
@@ -55,16 +67,11 @@
                             <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium">
                             </Label>
                         </HorizontalStackLayout>
+                        <ImageButton Source="{Binding CheckedInImage}" Grid.Column="2"  Scale="0.6"/>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Label
-		Grid.Row="1"
-		Grid.Column="1"
-		Margin="-60,0,0,0"
-		Text="Name:"
-		FontSize="15"/>
 
         <Button CornerRadius="0" Grid.Row="3" Grid.ColumnSpan="4" Text="Add Performer to Rehearsal" BackgroundColor="#0E79A5" Clicked="ShowAddPerformerPopup" Padding="0" Margin="0, 0,0,0"/>
     </Grid>

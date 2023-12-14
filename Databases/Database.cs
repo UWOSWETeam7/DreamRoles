@@ -26,8 +26,6 @@ public partial class Database : IDatabase
         _connString = GetConnectionString();
         SelectAllPerformers(2023);
         SelectAllSongs();
-        GetCheckedInPerformers();
-        GetNotCheckedInPerformers();
         GetAllRehearsals();
     }
 

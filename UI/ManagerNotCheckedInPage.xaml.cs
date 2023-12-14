@@ -5,12 +5,12 @@ namespace Prototypes.UI;
 //@author: Keerthana Ambati
 public partial class ManagerNotCheckedInPage : ContentPage
 {
-    public ManagerNotCheckedInPage()
+    public ManagerNotCheckedInPage(Rehearsal rehearsal)
     {
         InitializeComponent();
         try
         {
-            BindingContext = new SearchBarNotCheckedInPerformerViewModel();
+            BindingContext = new SearchBarNotCheckedInPerformerViewModel(rehearsal);
            
         }
         catch (TargetInvocationException tie)

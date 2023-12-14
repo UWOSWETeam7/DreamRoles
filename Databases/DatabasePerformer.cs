@@ -105,9 +105,6 @@ namespace Prototypes.Databases
                 return _performers;
             }
 
-            GetCheckedInPerformers();
-            GetNotCheckedInPerformers();
-
             return _performers;
         }
 

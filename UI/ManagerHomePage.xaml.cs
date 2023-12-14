@@ -70,7 +70,7 @@ public partial class ManagerHomePage : ContentPage
 
     public async void OnManagerMenu_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new ManagerMenuPage()); 
+        await Navigation.PushAsync(new ManagerMenuPage(_nearestRehearsal)); 
     }
 
     private async void ChangeCheckInStatus(object sender, EventArgs e)

@@ -9,17 +9,17 @@ namespace Prototypes.Business_Logic
         /// <summary>
         /// Gets the ObservableCollection performers
         /// </summary>
-        public ObservableCollection<Performer> GetCheckedInPerformers
+        public ObservableCollection<Performer> GetCheckedInPerformers(Rehearsal rehearsal)
         {
-            get { return Database.GetCheckedInPerformers(); }
+             return Database.GetCheckedInPerformers(rehearsal);
         }
 
         /// <summary>
         /// Gets the ObservableCollection of all not checked in performers
         /// </summary>
-        public ObservableCollection<Performer> GetNotCheckedInPerformers
+        public ObservableCollection<Performer> GetNotCheckedInPerformers(Rehearsal rehearsal)
         {
-            get { return Database.GetNotCheckedInPerformers(); }
+            return Database.GetNotCheckedInPerformers(rehearsal);
         }
 
         /// <summary>

@@ -1,9 +1,12 @@
+using Prototypes.Model;
 namespace Prototypes.UI;
 
 public partial class ManagerMenuPage : ContentPage
 {
-	public ManagerMenuPage()
+    private Rehearsal _rehearsal;
+	public ManagerMenuPage(Rehearsal rehearsal)
 	{
+        _rehearsal = rehearsal;
 		InitializeComponent();
 	}
 
@@ -13,11 +16,11 @@ public partial class ManagerMenuPage : ContentPage
 	}
     public async void OnNotCheckedIn_Clicked(object sender, EventArgs e)
     {
-		await Navigation.PushAsync(new ManagerNotCheckedInPage());
+		await Navigation.PushAsync(new ManagerNotCheckedInPage(_rehearsal));
     }
     public async void OnCheckedIn_Clicked(object sender, EventArgs e)
     {
-		await Navigation.PushAsync(new ManagerCheckedInPage()); 
+		await Navigation.PushAsync(new ManagerCheckedInPage(_rehearsal)); 
     }
 
     public async void ManagerAdminPage_Clicked(object sender, EventArgs e)

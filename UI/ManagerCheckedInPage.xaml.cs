@@ -3,10 +3,10 @@ namespace Prototypes.UI;
 //@author: Keerthana Ambati
 public partial class ManagerCheckedInPage : ContentPage
 {
-    public ManagerCheckedInPage()
+    public ManagerCheckedInPage(Rehearsal rehearsal)
     {
         InitializeComponent();
-        BindingContext = new SearchBarCheckedInPerformerViewModel();
+        BindingContext = new SearchBarCheckedInPerformerViewModel(rehearsal);
     }
 
     private async void DeletePerformer(object sender, EventArgs e)

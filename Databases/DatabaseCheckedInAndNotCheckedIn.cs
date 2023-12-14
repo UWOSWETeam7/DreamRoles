@@ -16,7 +16,7 @@ namespace Prototypes.Databases
         /// This will get all the checked in performers from the database
         /// </summary>
         /// <returns>a ObservableCollection with all the checked in performers. Will return a empty ObservableCollection if it can't get the checked in performers.</returns>
-        public ObservableCollection<Performer> GetCheckedInPerformers()
+        public ObservableCollection<Performer> GetCheckedInPerformers(Rehearsal rehearsal)
         {
             //Prevents duplicates
             _checkedInPerformers.Clear();
@@ -29,7 +29,10 @@ namespace Prototypes.Databases
 
                 // Commands to get all the checked in performers in the database
                 using var cmd = new NpgsqlCommand(
-                     "SELECT * FROM performer \r\nWHERE checked_in_status = 'checked in' OR checked_in_status = 'excused';", conn);
+                     "SELECT * FROM rehearsal_members\r\n" +
+                     "WHERE rehearsal_time = @time AND song_title = @songTitle AND status = 'checked in'\r\n;", conn);
+                cmd.Parameters.AddWithValue("time", rehearsal.Time);
+                cmd.Parameters.AddWithValue("songTitle", rehearsal.Song.Title);
                 using var reader = cmd.ExecuteReader();
 
                 //While there is still a performer in the reader
@@ -62,7 +65,7 @@ namespace Prototypes.Databases
         /// This will get all the not checked in performers from the database
         /// </summary>
         /// <returns>a ObservableCollection with all the not checked in performers. Will return a empty ObservableCollection if it can't get the not checked in performers.</returns>
-        public ObservableCollection<Performer> GetNotCheckedInPerformers()
+        public ObservableCollection<Performer> GetNotCheckedInPerformers(Rehearsal rehearsal)
         {
             //Makes sure that there will be no duplicates
             _notCheckedInPerformers.Clear();
@@ -74,7 +77,10 @@ namespace Prototypes.Databases
 
                 // Commands to get all the checked in performers in the database
                 using var cmd = new NpgsqlCommand(
-                     "SELECT * FROM performer \r\nWHERE checked_in_status = 'not checked in';", conn);
+                     "SELECT * FROM rehearsal_members\r\n" +
+                     "WHERE rehearsal_time = @time AND song_title = @songTitle AND status != 'checked in'\r\n;", conn);
+                cmd.Parameters.AddWithValue("time", rehearsal.Time);
+                cmd.Parameters.AddWithValue("songTitle", rehearsal.Song.Title);
                 using var reader = cmd.ExecuteReader();
 
                 //While there are still performers to read in
