@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Views;
 using Prototypes.Model;
 using System.Collections.ObjectModel;
 
@@ -60,5 +61,15 @@ public partial class ManagerAlertPage : ContentPage
     {
         await Navigation.PushAsync(new WelcomePage());
         Navigation.RemovePage(this);
+    }
+
+    private async void PullFromSong_Clicked(object sender, EventArgs e)
+    {
+        bool answer = await DisplayAlert("Pull Song:", "Would you like to remove " + lblSongMissed.Text + " from the setlist of " + lblPerformerName.Text + "?", "Yes", "No");
+        if (answer == true)
+        {
+
+        }
+
     }
 }
