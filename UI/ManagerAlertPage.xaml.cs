@@ -7,6 +7,7 @@ namespace Prototypes.UI;
 public partial class ManagerAlertPage : ContentPage
 {
     private Performer _performer;
+    private Song _song;
     /// <summary>
     /// ManagerAlertPage 
     /// </summary>
@@ -39,6 +40,7 @@ public partial class ManagerAlertPage : ContentPage
             }
             if (found == true)
             {
+                _song = rehearsals[i].Song;
                 lblSongMissed.Text = rehearsals[i].Song.Title;
                 lblDate1.Text = rehearsals[i].Time.ToString("MM/dd/yyyy");
                 lblDate2.Text = rehearsals[i + 1].Time.ToString("MM/dd/yyyy");
@@ -51,25 +53,45 @@ public partial class ManagerAlertPage : ContentPage
         }
 
     }
-
+    /// <summary>
+    /// Navigates to performer's contact information located in ManagerPerformerInfoPage
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ShowManagerPerformerInfoPage(object sender, EventArgs e)
     {
         Navigation.PushAsync(new ManagerPerformerInfoPage(_performer));
     }
-
+    /// <summary>
+    /// Signs out the stagemanager and goes back to welcome page to sign in a dream role user
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private async void SignOutButton_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new WelcomePage());
         Navigation.RemovePage(this);
     }
-
+    /// <summary>
+    /// Asks stagemanager whether they want to pull a song from the performer's setlist when checking in. If yes the song is pulled. If no the song stays in the setlist.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private async void PullFromSong_Clicked(object sender, EventArgs e)
     {
         bool answer = await DisplayAlert("Pull Song:", "Would you like to remove " + lblSongMissed.Text + " from the setlist of " + lblPerformerName.Text + "?", "Yes", "No");
         if (answer == true)
         {
-            //(bool success, string message) = MauiProgram.BusinessLogic.RemoveSongFromSetlist(_performer, lblPerformerName );
+           bool success = MauiProgram.BusinessLogic.RemoveSongFromSetlist(_performer, _song);
+           if (success == true)
+           {
+                DisplayAlert("Remove Song From Setlist", "Successfully removed " + lblSongMissed.Text + " from the setlist of " + lblPerformerName.Text, "OK");
+           } else
+           {
+                DisplayAlert("Remove Song From Setlist", "Failed to remove " + lblSongMissed.Text + " from the setlist of " + lblPerformerName.Text, "OK");
+            } 
         }
 
+      
     }
 }

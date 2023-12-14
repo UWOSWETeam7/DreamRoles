@@ -20,6 +20,7 @@ namespace Prototypes.Databases.Interface
         public ObservableCollection<Song> SelectAllSongs();
         public Boolean DeleteSong(String songTitle);
         public Boolean InsertSongForPerformer(int userId, String songName, String notes, bool allPerformersAdded = true);
+        public Boolean DeleteSongFromSetlist(int userId, String songTitle);
         public Boolean UpdatePerformerContact(int userId, String phoneNumber, String email);
         public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, String status);
         public ObservableCollection<Performer> GetCheckedInPerformers(Rehearsal rehearsal);
@@ -81,7 +82,6 @@ namespace Prototypes.Databases.Interface
         public ObservableCollection<Rehearsal> GetPerformerRehearsals(Performer performer);
         public (bool success, String message) InsertIntoRehersalMembers(int userId, DateTime rehearsalTime, String checkedIn, string songName);
         public (bool success, String message) DeleteRehearsalMember(int userId, DateTime rehearsalTime, String songName);
-       // public (bool success, String message) DeleteSongFromSetlist(int performerId, string songName);
 
     }
 }

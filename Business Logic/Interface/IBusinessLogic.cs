@@ -209,11 +209,20 @@ namespace Prototypes.Business_Logic.Interface
         /// <param name="isCheckedIn">true or false if they are checked in or not for that rehearsal</param>
         /// <returns>a tuple of boolean true or false if the status was updated and a message</returns>
         public (bool success, string message) UpdatePerformerRehearsalStatus(Performer performer, Rehearsal rehearsal, String status);
+        /// <summary>
+        /// Removes a song from a performer's setlist
+        /// </summary>
+        /// <param name="performer">the performer</param>
+        /// <param name="song">The song to remove</param>
+        /// <returns></returns>
+        public Boolean RemoveSongFromSetlist(Performer performer, Song song);
+
+
 
         //public (bool success, String message) RemoveSongFromSetlist(Performer performer, string songName);
       
 
 
 
-    }
+}
 }

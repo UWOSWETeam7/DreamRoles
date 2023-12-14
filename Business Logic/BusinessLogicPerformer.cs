@@ -180,9 +180,9 @@ namespace Prototypes.Business_Logic
             return Database.SelectPerformerAbsences(performer.Id);
         }
 
-        /**public (bool success, String message) RemoveSongFromSetlist(Performer performer, string songName)
+        public Boolean RemoveSongFromSetlist(Performer performer, Song song)
         {
-            return Database.DeleteSongFromSetlist(performer.Id, songName);
-        }*/
+            return Database.DeleteSongFromSetlist(performer.Id, song.Title);
+        }
     }
 }

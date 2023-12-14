@@ -38,7 +38,7 @@ namespace Prototypes.Databases
                 {
                     //Getting the information from the table
                     String title = reader.GetString(0);
-                    String note = reader.GetString(1);
+                    String note = reader.GetString(1); // assign as empty string if null
     
                 //Creating a new song and adding it the ObservableCollection
                 Song song = new Song(title, note);
@@ -53,33 +53,6 @@ namespace Prototypes.Databases
             return performerSetlist;
         }
 
-        /**public (bool success, String message) DeleteSongFromSetlist(int performerId, string songName)
-        {
-            //Opens a connection to the database
-            using var conn = new NpgsqlConnection(_connString);
-            conn.Open();
-            using var cmd = new NpgsqlCommand();
-            cmd.Connection = conn;
-
-            cmd.CommandText = "DELETE FROM setlists\r\n" +
-              "WHERE user_id = @performerId AND song_title = @songName;";
-            cmd.Parameters.AddWithValue("perfromerId", performerId);
-            cmd.Parameters.AddWithValue("songName", songName);
-          
-            var result = cmd.ExecuteNonQuery();
-
-            if (result < 0)
-            {
-                return (false, "Failed to remove song from performer's setlist");
-            }
-            else
-            {
-                return (true, "Successfully removed song from performer's setlist");
-            }
-
-
-
-        }*/
         
         private ObservableCollection<Performer> _performers;
 

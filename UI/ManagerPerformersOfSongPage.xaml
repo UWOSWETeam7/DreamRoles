@@ -42,19 +42,19 @@
 						Grid.Column="0"
 						Grid.ColumnSpan="3"
 						HorizontalOptions="Start"
-						x:Name="CVSongs" ItemsSource="{Binding FilteredPerformers}" SelectionMode="Single"
+						x:Name="CVPerformers" ItemsSource="{Binding FilteredPerformers}" SelectionMode="Single"
                         Margin="5,0,0,0">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Performer">
-
-                    <HorizontalStackLayout Padding="30, 0" Spacing="10">
+                    <Grid ColumnDefinitions="*, *, *">
                         <Label Text="{Binding FirstName}" VerticalOptions="Center" FontSize="Medium"/>
-
-
                         <Label Grid.Column="1" Text="{Binding LastName}" VerticalOptions="Center" FontSize="Medium"/>
-
-
-                    </HorizontalStackLayout>
+                        <Image Source="trash.png" Grid.Column="2" Scale="0.4">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="RemoveFromSetlist_Clicked"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
