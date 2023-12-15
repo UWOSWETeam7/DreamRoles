@@ -70,12 +70,12 @@
                             <Button Grid.Column="2" BackgroundColor="Transparent" ImageSource="alert.png" Clicked="ShowAlert_Clicked">
                                 <Button.Triggers>
                                     <DataTrigger TargetType="Button" Binding="{Binding Absences}" Value="0">
-                                        <Setter Property="ImageSource" Value="null">
-                                        </Setter>
+                                        <Setter Property="IsEnabled" Value="False" />
+                                        <Setter Property="ImageSource" Value="null" />
                                     </DataTrigger>
                                     <DataTrigger TargetType="Button" Binding="{Binding Absences}" Value="1">
-                                        <Setter Property="ImageSource" Value="null">
-                                        </Setter>
+                                        <Setter Property="IsEnabled" Value="False" />
+                                        <Setter Property="ImageSource" Value="null" />
                                     </DataTrigger>
                                 </Button.Triggers>
                             </Button>

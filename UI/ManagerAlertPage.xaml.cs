@@ -70,7 +70,17 @@ public partial class ManagerAlertPage : ContentPage
     private async void SignOutButton_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new WelcomePage());
-        Navigation.RemovePage(this);
+
+        // Remove all pages from the navigation stack except the WelcomePage
+        var existingPages = Navigation.NavigationStack.ToList();
+
+        if (existingPages.Any())
+        {
+            foreach (var page in existingPages.Take(existingPages.Count - 1))
+            {
+                Navigation.RemovePage(page);
+            }
+        }
     }
     /// <summary>
     /// Asks stagemanager whether they want to pull a song from the performer's setlist when checking in. If yes the song is pulled. If no the song stays in the setlist.

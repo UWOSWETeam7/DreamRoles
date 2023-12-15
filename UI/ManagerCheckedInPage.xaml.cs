@@ -25,6 +25,16 @@ public partial class ManagerCheckedInPage : ContentPage
     private async void SignOutButton_Clicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new WelcomePage());
-        Navigation.RemovePage(this);
+
+        // Remove all pages from the navigation stack except the WelcomePage
+        var existingPages = Navigation.NavigationStack.ToList();
+
+        if (existingPages.Any())
+        {
+            foreach (var page in existingPages.Take(existingPages.Count - 1))
+            {
+                Navigation.RemovePage(page);
+            }
+        }
     }
 }
